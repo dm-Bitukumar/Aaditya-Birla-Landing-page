@@ -1,0 +1,126 @@
+.personal-loan-container {
+    width: 100%;
+    max-width: 390px;
+    padding: 15px 20px;
+    margin: auto;
+    background: #fff;
+}
+
+.personal-loan-form {
+
+}
+
+.logo-img {
+    height: 30px;
+}
+
+.header-img {
+    height: 210px;
+}
+
+.img {
+    margin: auto;
+    display: block;
+}
+
+/* styles.css */
+
+a {
+    text-decoration: none;
+    font-size: 13px;
+}
+
+p {
+    margin: 0px !important;
+}
+
+h3, .h3 {
+    font-size: 1.5rem;
+}
+
+.tnc {
+    font-size: 10px;
+    text-align: justify;
+    line-height: 12px;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 390px;
+    padding: 15px 20px;
+    margin: auto;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 0px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+label {
+    font-size: 12px;
+}
+
+.bullet {
+    visibility: hidden !important;
+}
+
+.inner-field-otp-section {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.otp-center {
+    text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.invalid-feedback {
+    text-align: left;
+}
+
+.btn-get-otp {
+    background-image: linear-gradient(3deg, #008bae 0%, #00c0ff 100%);
+    font-size: 14px;
+    letter-spacing: 4px;
+    padding: 1rem;
+}
+
+.form-signin {
+    border: none;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
