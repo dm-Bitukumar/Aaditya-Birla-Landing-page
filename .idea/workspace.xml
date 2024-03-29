@@ -5,16 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6ca4703-6456-4ffa-a68f-dd1e3b49249f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Form/OtpInputForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Form/FormDob.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Form/FormSelect.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Form/Stepper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/css/stepper.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/constants/formData.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/components/CustomCheckboxGroup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/components/PersonalDetailsForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/components/WorkDetailsForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/css/personal-details.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/apply.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/apply.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Buttons/FormButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Buttons/FormButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form/FormInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/FormInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form/OtpInputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/OtpInputForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PersonalDetails/PersonalDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/PersonalDetails.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,8 +62,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/code-death/Desktop/Office/ant/Dm_Tech/main-website/src/pages/OtpPage",
+    "git-widget-placeholder": "develop",
+    "last_opened_file_path": "/Users/code-death/Desktop/Office/ant/Dm_Tech/main-website/src/pages/PersonalDetails/components",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
@@ -49,11 +74,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/PersonalDetails/components" />
       <recent name="$PROJECT_DIR$/src/pages/OtpPage" />
       <recent name="$PROJECT_DIR$/public/assets" />
       <recent name="$PROJECT_DIR$/public/assets/icons" />
       <recent name="$PROJECT_DIR$/public/assets/img" />
-      <recent name="$PROJECT_DIR$/src/constants" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

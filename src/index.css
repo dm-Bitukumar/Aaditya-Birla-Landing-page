@@ -23,3 +23,139 @@ html, * {
 .bullet {
   visibility: hidden !important;
 }
+
+a
+{
+  text-decoration:none;
+  font-size:13px;
+}
+p
+{
+  margin:0px !important;
+}
+h3,.h3 {
+  font-size: 1.5rem;
+}
+.tnc
+{
+  font-size: 10px;
+  text-align: justify;
+  line-height: 12px;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 390px;
+  padding: 15px 20px;
+  margin: auto;
+  background:#fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 0px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.common-checkbox-element {
+  margin-bottom: 10px;
+}
+.common-checkbox-element-new {
+  margin-bottom: 144px;
+}
+.custom-radio-btn {
+  position: relative;
+  cursor: pointer;
+}
+label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.custom-radio-btn input {
+  display: none;
+}
+input[type=checkbox], input[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+button, input {
+  overflow: visible;
+}
+button, input, optgroup, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.custom-radio-btn span {
+  position: relative;
+  display: inline-block;
+  margin: 0px 3px;
+  padding: 6px 10px;
+  padding-bottom: 8px;
+  font-size: 12px;
+  background: #fff;
+  border-radius: 5px;
+  color: #919191;
+  border: 1px solid #ced4da;
+  font-weight: 300;
+}
+.custom-radio-btn input:checked~span {
+  background-color: #10a0e9;
+  color: #fff;
+}
+
+#signUpForm .form-footer
+{
+  gap: 20px;
+}
+label{
+  font-size:12px;
+}
+.stepIndicator
+{
+  font-size:12px;
+}
+
+.continue-button {
+  width: 50%;
+  border-radius: 5px;
+  background-image: linear-gradient(3deg, #008bae 0%, #00c0ff 100%);
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 400;
+  text-align: center;
+  border: 0;
+  padding: 1rem;
+  font-family: "Montserrat", sans-serif;
+  margin: 2rem auto auto auto;
+}
+
+.back-button {
+  width: 50%;
+  border-radius: 5px;
+  background-image: linear-gradient(3deg, darkgrey 0%, lightgray 100%);
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 400;
+  text-align: center;
+  border: 0;
+  padding: 1rem;
+  font-family: "Montserrat", sans-serif;
+  margin: 2rem auto auto auto;
+}

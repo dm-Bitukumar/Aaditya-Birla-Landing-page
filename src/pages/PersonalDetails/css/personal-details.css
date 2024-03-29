@@ -1,0 +1,211 @@
+.form-signin-container {
+    padding-top: 80px;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #e9e9e9;
+}
+
+.form-signin-apply {
+    width: 100%;
+    max-width: 390px;
+    padding: 15px 20px;
+    margin: auto;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+}
+
+.invalid-feedback
+{
+    text-align:left;
+    color:red;
+}
+
+.dropdown-menu
+{
+    width:289px!important;
+    transform: none !important;
+}
+.filter-option-inner
+{
+    width:200px
+}
+.input-group .bootstrap-select.form-control .dropdown-toggle
+{
+    background-color:#fff !important;
+    color: #000;
+    border: 1px solid #ced4da;
+    margin-top: -26px !important;
+    height: 58px !important;
+}
+.filter-option-inner-inner
+{
+    padding-top: 8px;
+}
+.select2-selection__rendered {
+    width: 280px !important;
+    height: 51px !important;
+    overflow-y: scroll !important;
+}
+li.select2-results__option {
+    text-align: left;
+}
+.select2-container--default .select2-selection--multiple
+{
+    border: 1px solid #ced4da;
+    border-left: 0;
+}
+#loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+    z-index: 1000;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.test1
+{
+    display: none;
+}
+select {
+    -webkit-appearance: listbox !important;
+    color: #212529 !important;
+}
+.bs-placeholder
+{
+    border-left:none !important;
+    font-size:12px !important;
+    padding-top:9px !important;
+}
+.selectpicker {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#signUpForm .form-header .stepIndicator {
+    position: relative;
+    flex: 1;
+    /* padding-bottom: 30px; */
+    text-align: center;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 2px;
+    color: #343434;
+    font-weight: 300;
+    font-family: "Montserrat", sans-serif;
+    padding-top: 1rem;
+}
+
+#signUpForm .form-header .stepIndicator.active {
+    font-weight: 600;
+}
+
+#signUpForm .form-header .stepIndicator.finish {
+    font-weight: 600;
+    color: #008bae;
+}
+
+#signUpForm .form-header .stepIndicator::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    transform: translateX(-50%);
+    z-index: 9;
+    /* width: 20px;
+    height: 20px; */
+    /* background-color: #d5efed; */
+    /* border-radius: 50%; */
+    width: 11px;
+    height: 11px;
+    border-radius: 6px;
+    background-color: #ececec;
+    border: 2px solid #343434;
+
+}
+
+#signUpForm .form-header .stepIndicator.active::before {
+    /* background-color: #a7ede8;
+    border: 3px solid #d5f9f6; */
+    background-image: linear-gradient(3deg, #008bae 0%, #00c0ff 100%);
+    border: 0;
+}
+
+#signUpForm .form-header .stepIndicator.finish::before {
+    background-image: linear-gradient(3deg, #008bae 0%, #00c0ff 100%);
+    border: 0;
+}
+
+#signUpForm .form-header .stepIndicator::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    width: 100%;
+    /* height: 3px;
+    background-color: #f3f3f3; */
+
+    height: 2px;
+    background-color: #5c50fd;
+    border: 1px solid #343434;
+}
+
+
+
+#signUpForm .form-header .stepIndicator:last-child:after {
+    display: none;
+}
+
+#signUpForm .step {
+    display: none;
+}
+
+.all-border {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    height: 50px
+}
+
+.gender-radio-btn {
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    color: #919191;
+    font-weight: 300;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.male-radio {
+    border-right: 1px solid black;
+}
+
+.male-female {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.active-gender-box {
+    background-color: rgb(206, 212, 218);
+    border-color: rgb(64, 211, 237);
+    box-shadow: rgb(64, 211, 237) 0px 0px 0px 1px;
+}
+
+.gender-image {
+    height: 25px;
+}

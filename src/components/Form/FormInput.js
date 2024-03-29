@@ -13,7 +13,7 @@ const FormInput = ({isValid, value, onChange, label, errorMessage, icon, ...prop
                     value={value}
                     onChange={onChange}
                 />
-                <label htmlFor="pancard">{label ? label : 'Label here'}</label>
+                <label htmlFor={label}>{label ? label : 'Label here'}</label>
                 {!isValid && (
                     <div className="invalid-feedback" id="invalid-pan-no">
                         {errorMessage}

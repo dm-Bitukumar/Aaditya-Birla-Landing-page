@@ -68,8 +68,6 @@ const OtpInputForm = ({otpValue, setOtpValue, phone_number, handleResendOtp, han
                 <p style={{fontSize: "12px"}}>Don't receive the OTP? Click here to <a className={'text-blue-700'} href="#" onClick={handleResendOtp}>Regenerate OTP</a></p>
             </div>
             <FormButton
-                className="w-100 btn btn-lg btn-primary btn-get-otp"
-                type="submit"
                 onClick={handleSubmit}
                 id="myBtn"
             >
