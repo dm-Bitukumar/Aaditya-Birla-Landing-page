@@ -1,8 +1,11 @@
 import {useState} from "react";
 import _ from "lodash";
 import CheckboxTnC from "./CheckboxTnC";
+import FormButton from "../../../components/Buttons/FormButton";
+import FormInput from "../../../components/Form/FormInput";
 
 const Form = ({formData, setFormData, ...props}) => {
+    const [isTncChecked, setIsTncChecked] = useState(true);
     const [mobile, setMobile] = useState('');
     const [isValid, setIsValid] = useState(true);
     const [pancard, setPancard] = useState('');
@@ -13,7 +16,7 @@ const Form = ({formData, setFormData, ...props}) => {
         debugger
         let isValid = true;
 
-        if(_.isEmpty(pancard)) {
+        if (_.isEmpty(pancard)) {
             isValid = false;
             setIsPancardValid(false);
         } else {
@@ -22,7 +25,7 @@ const Form = ({formData, setFormData, ...props}) => {
             setIsPancardValid(isValidPancard);
         }
 
-        if(_.isEmpty(mobile)) {
+        if (_.isEmpty(mobile)) {
             isValid = false;
             setIsMobileValid(false);
         } else {
@@ -35,13 +38,13 @@ const Form = ({formData, setFormData, ...props}) => {
     }
 
     const handlePancardChange = (event) => {
-        const { value } = event.target;
+        const {value} = event.target;
         setIsPancardValid(true);
         setPancard(value);
     };
 
     const handleMobileChange = (event) => {
-        const { value } = event.target;
+        const {value} = event.target;
         setIsMobileValid(true);
         setMobile(value);
     };
@@ -51,6 +54,10 @@ const Form = ({formData, setFormData, ...props}) => {
         let validation = handleValidation();
         // Handle form submission
     };
+
+    const handleChange = () => {
+        setIsTncChecked(prev => !prev);
+    }
 
     return (
         <div className={'personal-loan-form'}>
@@ -70,74 +77,59 @@ const Form = ({formData, setFormData, ...props}) => {
             <input type="hidden" name="click_id" value=""/>
             <input type="hidden" name="aff_id" value=""/>
             <input type="hidden" name="src" value=""/>
-            <div className="input-group mb-3">
-          <span className="input-group-text" style={{ height: "58px" }}>
-            <img
-                src="/assets/icons/pancard.png"
-                height="25"
-                style={{ maxHeight: "25px" }}
-                alt="PAN Card Icon"
+            <FormInput
+                icon={<img
+                    src="/assets/icons/pancard.png"
+                    height="25"
+                    style={{maxHeight: "25px"}}
+                    alt="PAN Card Icon"
+                />}
+                type="text"
+                name="pancard"
+                isValid={isPancardValid}
+                id="pancard"
+                aria-describedby="name"
+                placeholder="PAN Card"
+                minLength="10"
+                maxLength="10"
+                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
+                title="Please enter a valid PAN number. E.g. AAAAA9999A"
+                value={pancard}
+                onChange={handlePancardChange}
+                required
+                style={{textTransform: "uppercase"}}
+                label={'Pancard'}
+                errorMessage={'Please enter a valid PAN number'}
             />
-          </span>
-                <div className="form-floating flex-grow-1">
-                    <input
-                        type="text"
-                        name="pancard"
-                        className={`form-control ${
-                            isPancardValid ? "" : "is-invalid"
-                        }`}
-                        id="pancard"
-                        aria-describedby="name"
-                        placeholder="PAN Card"
-                        minLength="10"
-                        maxLength="10"
-                        pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                        title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                        value={pancard}
-                        onChange={handlePancardChange}
-                        required
-                        style={{ textTransform: "uppercase" }}
-                    />
-                    <label htmlFor="pancard">Pancard</label>
-                    {!isPancardValid && (
-                        <div className="invalid-feedback" id="invalid-pan-no">
-                            Please enter a valid PAN number
-                        </div>
-                    )}
-                </div>
-            </div>
-            <div className="input-group mb-3">
-            <span className="input-group-text" style={{ height: '58px' }}>
-                <img src="/assets/icons/phone-call.png" height="25" alt="Phone Icon" />
-            </span>
-                <div className="form-floating flex-grow-1">
-                    <input
-                        type="number"
-                        name="mobile"
-                        className={`form-control ${isMobileValid ? '' : 'is-invalid'}`}
-                        id="mobile"
-                        aria-describedby="name"
-                        placeholder="Mobile"
-                        minLength="10"
-                        maxLength="10"
-                        pattern="[0-9]{10}"
-                        value={mobile}
-                        onChange={handleMobileChange}
-                        required
-                    />
-                    <label htmlFor="code1">Mobile Number</label>
-                    {!isMobileValid && <div className="invalid-feedback" id="invalid-mobile">Please enter a valid Mobile Number</div>}
-                </div>
-            </div>
-            <CheckboxTnC />
-            <button
+            <FormInput
+                icon={<img src="/assets/icons/phone-call.png" height="25" alt="Phone Icon"/>}
+                type="number"
+                name="mobile"
+                isValid={isMobileValid}
+                id="mobile"
+                aria-describedby="name"
+                placeholder="Mobile"
+                minLength="10"
+                maxLength="10"
+                pattern="[0-9]{10}"
+                value={mobile}
+                onChange={handleMobileChange}
+                required
+                label={'Mobile Number'}
+                errorMessage={'Please enter a valid Mobile Number'}
+            />
+            <CheckboxTnC
+                checked={isTncChecked}
+                handleChange={handleChange}
+            />
+            <FormButton
                 className="w-100 btn btn-lg btn-primary btn-get-otp"
                 type="submit"
                 onClick={handleSubmit}
                 id="myBtn"
             >
                 GET OTP
-            </button>
+            </FormButton>
         </div>
     )
 }

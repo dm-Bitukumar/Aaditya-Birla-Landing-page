@@ -5,88 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6ca4703-6456-4ffa-a68f-dd1e3b49249f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/apply.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/bootstrap-select.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.min-old.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/font-awesome.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/formstyle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/jquery.multiselect.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/offers-new.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/offers.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/Icon C Name.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/Icon C Type.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/category.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/cname.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/ctype.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/dob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/email.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/female.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/gst.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/income.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/male.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/pancard.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/phone-call-old.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/phone-call.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/pincode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/profession.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/startup.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/tick.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/tob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/toc.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/turnover.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/CASHe-Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/Dm LOGO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/DropDown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/Male.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/Tick Mark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/check-box.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/favicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/header.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/thumbs-up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/Chart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/bootstrap-select.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/bootstrap.bundle.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/bootstrap.bundle.min.new.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/jquery.multiselect.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/popper.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/all.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/all.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/brands.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/brands.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/fontawesome.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/fontawesome.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/regular.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/regular.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/solid.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/solid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/svg-with-js.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/svg-with-js.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/v4-shims.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendor/fontawesome-free/css/v4-shims.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Loaders/FullPageLoader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Static/HeadBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/authEnums.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Homepage/Homepage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/PersonalDetails.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/PersonalLoan.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/CheckboxTnC.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/css/personal-loan.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/WorkDetails/WorkDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Buttons/FormButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Form/FormInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PersonalLoan/components/CheckboxTnC.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/CheckboxTnC.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +67,7 @@
       <workItem from="1707208679116" duration="816000" />
       <workItem from="1707209499146" duration="3182000" />
       <workItem from="1711515192494" duration="4932000" />
-      <workItem from="1711610557779" duration="12607000" />
+      <workItem from="1711610557779" duration="13602000" />
     </task>
     <servers />
   </component>

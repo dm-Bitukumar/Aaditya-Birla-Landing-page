@@ -12,7 +12,7 @@ const CheckboxTnC = ({checked, handleChange}) => {
             <label className="tnc">
                 <input
                     onChange={handleChange ? handleChange: handleCheckChanged}
-                    checked={checked ? checked : isChecked}
+                    checked={checked}
                     className="form-check-input"
                     type="checkbox"
                     name="is_consent"
