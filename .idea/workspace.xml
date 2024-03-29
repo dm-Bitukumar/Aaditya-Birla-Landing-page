@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6ca4703-6456-4ffa-a68f-dd1e3b49249f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Buttons/FormButton.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Form/FormInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Form/OtpInputForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/PersonalLoan/components/CheckboxTnC.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/CheckboxTnC.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +39,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/code-death/Desktop/Office/ant/Dm_Tech/main-website/public/assets",
+    "last_opened_file_path": "/Users/code-death/Desktop/Office/ant/Dm_Tech/main-website/src/pages/OtpPage",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
@@ -49,11 +49,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/OtpPage" />
       <recent name="$PROJECT_DIR$/public/assets" />
       <recent name="$PROJECT_DIR$/public/assets/icons" />
       <recent name="$PROJECT_DIR$/public/assets/img" />
       <recent name="$PROJECT_DIR$/src/constants" />
-      <recent name="$PROJECT_DIR$/src/pages" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -67,7 +67,7 @@
       <workItem from="1707208679116" duration="816000" />
       <workItem from="1707209499146" duration="3182000" />
       <workItem from="1711515192494" duration="4932000" />
-      <workItem from="1711610557779" duration="13602000" />
+      <workItem from="1711610557779" duration="17267000" />
     </task>
     <servers />
   </component>
