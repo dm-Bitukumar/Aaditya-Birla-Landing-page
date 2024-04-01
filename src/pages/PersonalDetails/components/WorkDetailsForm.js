@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
-import FormInput from "../../../components/Form/FormInput";
-import FormSelect from "../../../components/Form/FormSelect";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
-import dayjs from "dayjs";
-import {company_type_options, company_age_options, typeOfBusinessOptions, gstOptions, turnoverOptions, categoryOptions} from "../../../constants/formData";
 import SalariedForm from "./SalariedForm";
 import SelfEmployedForm from "./SelfEmployedForm";
 
@@ -30,52 +26,73 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
 
     const handleDataChange = (key, value) => {
         setErrors('');
-        setData(prevData => ({ ...prevData, [key]: value }));
+        setData(prevData => ({...prevData, [key]: value}));
     };
 
     const handleValidate = () => {
         let isValid = true;
         setErrors('');
-        const emailRegex = new RegExp(/[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/);
 
-        const { gender, name, dob, email, pincode, profession } = data;
+        if (profession === 'Salaried') {
+            const {company_name, company_type, monthly_income, salary_mode} = data;
 
-        if (_.isEmpty(gender)) {
-            isValid = false;
-            setErrors('gender');
-            setErrorMessage('Please select your gender');
-        } else if (_.isEmpty(name)) {
-            isValid = false;
-            setErrors('name');
-            setErrorMessage('Please enter your name');
-        } else if (_.isEmpty(dob)) {
-            isValid = false;
-            setErrors('dob');
-            setErrorMessage('Please enter your DOB');
-        } else if (!dayjs(dob).isValid()) {
-            isValid = false;
-            setErrors('dob');
-            setErrorMessage('Please enter valid DOB');
-        } else if (_.isEmpty(email)) {
-            isValid = false;
-            setErrors('email');
-            setErrorMessage('Please enter your email');
-        } else if (!emailRegex.test(email)) {
-            isValid = false;
-            setErrors('email');
-            setErrorMessage('Please enter valid email');
-        } else if (_.isEmpty(pincode)) {
-            isValid = false;
-            setErrors('pincode');
-            setErrorMessage('Please enter your pincode');
-        } else if (pincode.length !== 6) {
-            isValid = false;
-            setErrors('pincode');
-            setErrorMessage('Please enter valid Indian pincode');
-        } else if (_.isEmpty(profession)) {
-            isValid = false;
-            setErrors('profession');
-            setErrorMessage('Please select your profession');
+            if (_.isEmpty(company_name)) {
+                isValid = false;
+                setErrors('company_name');
+                setErrorMessage('Please enter Company Name');
+            } else if (_.isEmpty(company_type)) {
+                isValid = false;
+                setErrors('company_type');
+                setErrorMessage('Please enter Company Type');
+            } else if (_.isEmpty(monthly_income)) {
+                isValid = false;
+                setErrors('monthly_income');
+                setErrorMessage('Please enter your Monthly Income');
+            } else if (_.isEmpty(salary_mode)) {
+                isValid = false;
+                setErrors('salary_mode');
+                setErrorMessage('Please select a Salary Mode');
+            }
+        } else {
+            const {
+                company_name,
+                company_age,
+                TypeOfBusiness,
+                company_type2,
+                turnover,
+                gst,
+                category,
+            } = data;
+
+            if (_.isEmpty(company_name)) {
+                isValid = false;
+                setErrors('company_name');
+                setErrorMessage('Please enter Company Name');
+            } else if (_.isEmpty(company_age)) {
+                isValid = false;
+                setErrors('company_age');
+                setErrorMessage('Please select Company Age');
+            } else if (_.isEmpty(TypeOfBusiness)) {
+                isValid = false;
+                setErrors('TypeOfBusiness');
+                setErrorMessage('Please select Business Type');
+            } else if (_.isEmpty(company_type2)) {
+                isValid = false;
+                setErrors('company_type2');
+                setErrorMessage('Please select Company Type');
+            } else if (_.isEmpty(turnover)) {
+                isValid = false;
+                setErrors('turnover');
+                setErrorMessage('Please enter Average Monthly Sales');
+            } else if (_.isEmpty(gst)) {
+                isValid = false;
+                setErrors('gst');
+                setErrorMessage('Please select GST availability');
+            } else if (_.isEmpty(category)) {
+                isValid = false;
+                setErrors('category');
+                setErrorMessage('Please select a Category');
+            }
         }
 
         return isValid;
@@ -121,7 +138,7 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
             <HeadBar/>
             <Stepper steps={['Personal Details', 'Work Details', 'Offer Page']} currentStep={1}/>
             {renderForm()}
-            <div className={'d-flex gap-3'}>
+            <div className={'d-flex gap-3'} style={{marginTop: profession === 'Salaried' ? "260px" : "36px"}}>
                 <FormButton
                     type={'secondary'}
                     onClick={handleBack}

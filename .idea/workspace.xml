@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6ca4703-6456-4ffa-a68f-dd1e3b49249f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Form/FormSearchSelect.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/components/SalariedForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/components/SelfEmployedForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Form/CustomSquareCheckBoxGroup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/formData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/formData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PersonalDetails/components/SalariedForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/components/SalariedForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/PersonalDetails/components/WorkDetailsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/components/WorkDetailsForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PersonalDetails/css/personal-details.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/css/personal-details.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +80,7 @@
       <workItem from="1711515192494" duration="4932000" />
       <workItem from="1711610557779" duration="17267000" />
       <workItem from="1711869386900" duration="2000" />
-      <workItem from="1711965897923" duration="4154000" />
+      <workItem from="1711965897923" duration="7127000" />
     </task>
     <servers />
   </component>

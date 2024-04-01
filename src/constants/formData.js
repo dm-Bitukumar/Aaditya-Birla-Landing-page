@@ -8,6 +8,12 @@ export const company_type_options = [
     { label: 'One Person Company', value: 'One Person Company' },
 ];
 
+export const salary_mode_options = [
+    {label: 'Cash', value: 'Cash'},
+    {label: 'Cheque', value: 'Cheque'},
+    {label: 'Online/NEFT', value: 'Online/NEFT'},
+]
+
 export const company_age_options = [
     { label: 'Less Than 1 Year', value: 'Less than 1 Year' },
     { label: '1-3 Year', value: '1-3 Year' },

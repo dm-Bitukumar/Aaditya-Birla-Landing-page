@@ -7,6 +7,7 @@
 
 .form-signin-apply {
     width: 100%;
+    min-height: 94vh;
     max-width: 390px;
     padding: 15px 20px;
     margin: auto;

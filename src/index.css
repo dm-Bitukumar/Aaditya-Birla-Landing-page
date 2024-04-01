@@ -178,3 +178,29 @@ label{
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
   background-color: white;
 }
+
+.custom-square-checkbox-group {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.custom-square-checkbox-option {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px;
+  font-size: 12px;
+  background: #fff;
+  border-radius: 5px;
+  color: #919191;
+  border: 1px solid #ced4da;
+  font-weight: 300;
+}
+
+.custom-square-checkbox-option-active {
+  background-color: #10a0e9;
+  color: #fff;
+}
