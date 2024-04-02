@@ -159,7 +159,7 @@ const PersonalDetailsForm = ({updateStep, updateData, nextStep}) => {
                 label={'Profession'}
             />
             <FormButton
-                style={{marginTop: '150px'}}
+                style={{marginTop: '300px'}}
                 onClick={handleSubmit}
             >
                 Continue

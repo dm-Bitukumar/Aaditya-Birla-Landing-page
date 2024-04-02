@@ -18,6 +18,8 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
         company_type2: '',
         turnover: '',
         gst: '',
+        gst_no: '',
+        regd_proof: [],
         category: '',
     });
 
@@ -32,6 +34,7 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
     const handleValidate = () => {
         let isValid = true;
         setErrors('');
+        const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/
 
         if (profession === 'Salaried') {
             const {company_name, company_type, monthly_income, salary_mode} = data;
@@ -62,6 +65,8 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
                 turnover,
                 gst,
                 category,
+                gst_no,
+                regd_proof
             } = data;
 
             if (_.isEmpty(company_name)) {
@@ -88,10 +93,30 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
                 isValid = false;
                 setErrors('gst');
                 setErrorMessage('Please select GST availability');
-            } else if (_.isEmpty(category)) {
-                isValid = false;
-                setErrors('category');
-                setErrorMessage('Please select a Category');
+            } else if (gst === 'Yes') {
+                if (_.isEmpty(gst_no)) {
+                    isValid = false;
+                    setErrors('gst_no');
+                    setErrorMessage('Please enter GST Number');
+                } else if (!gstRegex.test(gst_no)) {
+                    isValid = false;
+                    setErrors('gst_no');
+                    setErrorMessage('Please enter valid GST Number');
+                } else if (_.isEmpty(category)) {
+                    isValid = false;
+                    setErrors('category');
+                    setErrorMessage('Please select a Category');
+                }
+            } else if (gst === 'No') {
+                if (_.isEmpty(regd_proof)) {
+                    isValid = false;
+                    setErrors('regd_proof');
+                    setErrorMessage('Please select a Registration Proof');
+                } else if (_.isEmpty(category)) {
+                    isValid = false;
+                    setErrors('category');
+                    setErrorMessage('Please select a Category');
+                }
             }
         }
 
@@ -138,7 +163,7 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
             <HeadBar/>
             <Stepper steps={['Personal Details', 'Work Details', 'Offer Page']} currentStep={1}/>
             {renderForm()}
-            <div className={'d-flex gap-3'} style={{marginTop: profession === 'Salaried' ? "260px" : "36px"}}>
+            <div className={'d-flex gap-3'} style={{position: 'absolute'}}>
                 <FormButton
                     type={'secondary'}
                     onClick={handleBack}

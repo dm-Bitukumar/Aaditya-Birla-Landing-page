@@ -1,11 +1,11 @@
 export const company_type_options = [
-    { label: 'Private Limited', value: 'Private Limited' },
-    { label: 'Public Limited', value: 'Public Limited' },
-    { label: 'Limited liability partnership (LLP)', value: 'Limited liability partnership (LLP)' },
-    { label: 'Partnership', value: 'Partnership' },
-    { label: 'Proprietorship', value: 'Proprietorship' },
-    { label: 'Government', value: 'Government' },
-    { label: 'One Person Company', value: 'One Person Company' },
+    {label: 'Private Limited', value: 'Private Limited'},
+    {label: 'Public Limited', value: 'Public Limited'},
+    {label: 'Limited liability partnership (LLP)', value: 'Limited liability partnership (LLP)'},
+    {label: 'Partnership', value: 'Partnership'},
+    {label: 'Proprietorship', value: 'Proprietorship'},
+    {label: 'Government', value: 'Government'},
+    {label: 'One Person Company', value: 'One Person Company'},
 ];
 
 export const salary_mode_options = [
@@ -15,30 +15,90 @@ export const salary_mode_options = [
 ]
 
 export const company_age_options = [
-    { label: 'Less Than 1 Year', value: 'Less than 1 Year' },
-    { label: '1-3 Year', value: '1-3 Year' },
-    { label: 'Above 3 Years', value: 'Above 3 Years' }
+    {label: 'Less Than 1 Year', value: 'Less than 1 Year'},
+    {label: '1-3 Year', value: '1-3 Year'},
+    {label: 'Above 3 Years', value: 'Above 3 Years'}
 ];
 
 export const typeOfBusinessOptions = [
-    { label: 'Manufacturing', value: 'Manufacturing' },
-    { label: 'Trading', value: 'Trading' },
-    { label: 'Service', value: 'Service' },
-    { label: 'Retailer', value: 'Retailer' }
+    {label: 'Manufacturing', value: 'Manufacturing'},
+    {label: 'Trading', value: 'Trading'},
+    {label: 'Service', value: 'Service'},
+    {label: 'Retailer', value: 'Retailer'}
 ];
 
 export const turnoverOptions = [
-    { label: '0-25K', value: '0-25K' },
-    { label: '25K-1 Lac', value: '25K-1 Lac' },
-    { label: '1-5 Lacs', value: '1-5 Lacs' },
-    { label: '5-25 Lacs', value: '5-25 Lacs' },
-    { label: '25 Lacs+', value: '25 Lacs+' }
+    {label: '0-25K', value: '0-25K'},
+    {label: '25K-1 Lac', value: '25K-1 Lac'},
+    {label: '1-5 Lacs', value: '1-5 Lacs'},
+    {label: '5-25 Lacs', value: '5-25 Lacs'},
+    {label: '25 Lacs+', value: '25 Lacs+'}
 ];
 
 export const gstOptions = [
-    { label: 'Yes', value: 'Yes' },
-    { label: 'No', value: 'No' },
+    {label: 'Yes', value: 'Yes'},
+    {label: 'No', value: 'No'},
 ]
+
+export const pvtLtdProof = [
+    {label: "Certificate of Incorporation", value: "Certificate of Incorporation"},
+    {
+        label: "Certificate of commencement of business (only for limited Companies incorporated under Companies Act 1956)",
+        value: "Certificate of commencement of business (only for limited Companies incorporated under Companies Act 1956)"
+    },
+    {label: "Updated Memorandum & Articles of Association", value: "Updated Memorandum & Articles of Association"},
+    {label: "PAN Card", value: "PAN Card"}
+]
+
+export const publicLtdProof = [
+    { label: "Certificate of Incorporation", value: "Certificate of Incorporation" },
+    { label: "Certificate of commencement of business (only for limited Companies incorporated under Companies Act 1956)", value: "Certificate of commencement of business (only for limited Companies incorporated under Companies Act 1956)" },
+    { label: "Updated Memorandum & Articles of Association", value: "Updated Memorandum & Articles of Association" },
+    { label: "PAN Card", value: "PAN Card" }
+]
+
+export const partnershipProof = [
+    { label: "Registration Certificate (If the deed is registered)", value: "Registration Certificate (If the deed is registered)" },
+    { label: "Partnership Declaration signed by all the partners (all pages should be on the letterhead and should be signed by all the partners)", value: "Partnership Declaration signed by all the partners (all pages should be on the letterhead and should be signed by all the partners)" },
+    { label: "PAN Card (Mandatory)", value: "PAN Card (Mandatory)" },
+    { label: "List of Partners along with capital/profit percentage (to be signed by all partners)", value: "List of Partners along with capital/profit percentage (to be signed by all partners)" },
+    { label: "Certificate issued by registrar of firms, mentioning the name of the firm (If Applicable)", value: "Certificate issued by registrar of firms, mentioning the name of the firm (If Applicable)" }
+]
+
+export const llpProof = [
+    { label: "LLP Agreement – Written Agreement between the partners or between the LLP and its partners", value: "LLP Agreement – Written Agreement between the partners or between the LLP and its partners" },
+    { label: "Certificate of Incorporation issued by the Registrar of Cos", value: "Certificate of Incorporation issued by the Registrar of Cos" },
+    { label: "LLP Resolution", value: "LLP Resolution" }
+]
+
+export const proprietorshipProof = [
+    { label: "Registration certificate", value: "Registration certificate" },
+    { label: "Shops & Establishment License issued by Municipal Authorities", value: "Shops & Establishment License issued by Municipal Authorities" },
+    { label: "Municipal Registration", value: "Municipal Registration" },
+    { label: "Monthly Sales Tax Returns filed with the Sales Tax Department (not more than 3 months old)", value: "Monthly Sales Tax Returns filed with the Sales Tax Department (not more than 3 months old)" },
+    { label: "Certificate/registration document issued by Sales Tax/Service Tax/ProfessionalTax authorities", value: "Certificate/registration document issued by Sales Tax/Service Tax/ProfessionalTax authorities" },
+    { label: "License/certificate of practice issued in the name of the proprietary concern by any professional body incorporated under a statute", value: "License/certificate of practice issued in the name of the proprietary concern by any professional body incorporated under a statute" },
+    { label: "Complete Income Tax Return (not just the acknowledgement)", value: "Complete Income Tax Return (not just the acknowledgement)" }
+]
+
+export const govtProof = [
+    { label: "Proprietorship", value: "Proprietorship" }
+]
+
+export const opcProof = [
+    { label: "Private Limited", value: "Private Limited" },
+    { label: "Public Limited", value: "Public Limited" }
+]
+
+export const companyTypeOptionsMap = {
+    'Private Limited': pvtLtdProof,
+    'Public Limited': publicLtdProof,
+    'Limited liability partnership (LLP)': partnershipProof,
+    'Partnership': llpProof,
+    'Proprietorship': proprietorshipProof,
+    'Government': govtProof,
+    'One Person Company': opcProof,
+}
 
 export const categoryOptions = [
     {

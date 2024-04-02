@@ -1,5 +1,3 @@
-import {useState} from "react";
-
 const FormButton = ({className, type, ...props}) => {
 
     const handleCalculateStyles = () => {
@@ -17,6 +15,7 @@ const FormButton = ({className, type, ...props}) => {
 
     return (
         <button
+            style={{minWidth: '164px'}}
             className={`w-100 btn btn-lg ${handleCalculateStyles(type)}`}
             type="submit"
             {...props}

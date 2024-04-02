@@ -140,7 +140,7 @@ label{
   border: 0;
   padding: 1rem;
   font-family: "Montserrat", sans-serif;
-  margin: 2rem auto auto auto;
+  margin: 2rem auto 0 auto;
 }
 
 .back-button {
@@ -160,6 +160,9 @@ label{
 }
 
 .custom-dropdown {
+  min-height: 58px;
+  max-width: 290px;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -177,6 +180,12 @@ label{
   border-radius: .25rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
   background-color: white;
+}
+
+.custom-dropdown:hover {
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
 }
 
 .custom-square-checkbox-group {
@@ -203,4 +212,8 @@ label{
 .custom-square-checkbox-option-active {
   background-color: #10a0e9;
   color: #fff;
+}
+
+.form-control {
+  border-radius: 0 0.25rem 0.25rem 0;
 }

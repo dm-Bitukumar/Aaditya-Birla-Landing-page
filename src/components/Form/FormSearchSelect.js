@@ -33,8 +33,8 @@ const FormSearchSelect = ({
       </span>
             <div className="form-floating flex-grow-1">
                 <Dropdown>
-                    <Dropdown.Toggle className={'form-control custom-dropdown'} variant="light" style={{ borderRadius: '0' }}>
-                        {label}
+                    <Dropdown.Toggle className={'form-control custom-dropdown'} variant="light" style={{ borderColor: !isValid ? 'red' : '' }}>
+                        {value ? value : label}
                     </Dropdown.Toggle>
                     <Dropdown.Menu style={{ maxHeight: '180px', overflowY: 'scroll', position: 'absolute' }}>
                         <div className="form-floating">
@@ -57,7 +57,7 @@ const FormSearchSelect = ({
                     </Dropdown.Menu>
                 </Dropdown>
                 {!isValid && (
-                    <div className="invalid-feedback" id="invalid-select">
+                    <div style={{display: "block"}} className="invalid-feedback" id="invalid-select">
                         {errorMessage}
                     </div>
                 )}

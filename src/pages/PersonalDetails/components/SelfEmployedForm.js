@@ -3,13 +3,21 @@ import FormSelect from "../../../components/Form/FormSelect";
 import {
     categoryOptions,
     company_age_options,
-    company_type_options, gstOptions,
+    company_type_options, companyTypeOptionsMap, gstOptions,
     turnoverOptions,
     typeOfBusinessOptions
 } from "../../../constants/formData";
 import FormSearchSelect from "../../../components/Form/FormSearchSelect";
+import FormMultiSelect from "../../../components/Form/FormMultiSelect";
 
 const SelfEmployedForm = ({data, errors, errorMessage, handleDataChange}) => {
+
+    const getProofOptions = () => {
+        switch (data.company_type2) {
+
+        }
+    }
+
     return (
         <>
             <FormInput
@@ -83,6 +91,35 @@ const SelfEmployedForm = ({data, errors, errorMessage, handleDataChange}) => {
                 icon={<img src="/assets/icons/gst.png" style={{height: '25px'}}/>}
                 label={'Do you have GST Certificate?'}
             />
+            {
+                data.gst && (
+                    data.gst === 'Yes' ?
+                        <FormInput
+                            maxLength={15}
+                            placeholder="GST Number"
+                            required
+                            id="gst_no"
+                            value={data.gst_no}
+                            onChange={(e) => handleDataChange('gst_no', e.target.value)}
+                            errorMessage={errorMessage}
+                            isValid={errors !== 'gst_no'}
+                            icon={<img src="/assets/icons/gst.png" style={{height: '25px'}}/>}
+                            label={'Gst Number'}
+                        /> :
+                        <FormMultiSelect
+                            options={data.company_type2 ? companyTypeOptionsMap[data.company_type2] : []}
+                            placeholder="regd_proof"
+                            required
+                            id="regd_proof"
+                            value={data.regd_proof}
+                            onChange={(value) => handleDataChange('regd_proof', value)}
+                            errorMessage={errorMessage}
+                            isValid={errors !== 'regd_proof'}
+                            icon={<img src="/assets/icons/toc.png" style={{height: '25px'}}/>}
+                            label={'Select your Business Registration Proof'}
+                        />
+                )
+            }
             <FormSearchSelect
                 options={categoryOptions}
                 placeholder="category"
