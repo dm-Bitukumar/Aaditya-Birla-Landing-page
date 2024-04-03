@@ -29,7 +29,7 @@ const CustomCarousel = ({ data }) => {
         <OwlCarousel loop={true} items={calculateCarouselItems()} autoplay={true} autoplaySpeed={2000} className='owl-theme'>
             {
                 data && data.length !== 0 && data.map((item, index) => (
-                    <div className="slide-item card quick item">
+                    <div key={index} className="slide-item card quick item">
                         <div className="caption">
                             <><span className="normal">{item.text1 ? item.text1 : " "}</span><br /></>
                             <span className="normal2">{item.text2 ? item.text2 : " "}</span>

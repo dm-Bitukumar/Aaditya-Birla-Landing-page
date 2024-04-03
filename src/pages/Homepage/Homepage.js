@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import CustomCarousel from "./components/Carousel";
 import EmiCalculator from "./components/EmiCalculator";
 import DocumentsEligibility from "./components/DocumentEligibility";
+import Reviews from "./components/Reviews";
+import PrivacyConcerns from "./components/PrivacyConcerns";
+import FaqsSection from "./components/FaqSection";
+import MainFooter from "./components/MainFooter";
 
 const carouselData = [
     {
@@ -62,6 +66,28 @@ const itemsData = [
     }
 ];
 
+const quotes = [
+    {
+        text: "The application process was straightforward, and I appreciated the honesty in disclosing all associated fees. The low interest rates made my monthly payments manageable, and I'm happy with the overall value."
+    },
+    {
+        text: "I recently took out a personal loan. The entire process was seamless, from the easy online application to the quick approval. The interest rates were competitive, and the customer service was outstanding. I am highly satisfied with my experience."
+    },
+    {
+        text: "Clarity is crucial when it comes to loans. No hidden fees or surprises after approval. The online platform was user-friendly, and the support team was patient in addressing my questions."
+    },
+    {
+        text: "The application process was straightforward, and I appreciated the honesty in disclosing all associated fees. The low interest rates made my monthly payments manageable, and I'm happy with the overall value."
+    },
+    {
+        text: "I recently took out a personal loan. The entire process was seamless, from the easy online application to the quick approval. The interest rates were competitive, and the customer service was outstanding. I am highly satisfied with my experience."
+    },
+    {
+        text: "Clarity is crucial when it comes to loans. No hidden fees or surprises after approval. The online platform was user-friendly, and the support team was patient in addressing my questions."
+    }
+];
+
+
 const Homepage = () => {
     return (
         <div>
@@ -114,6 +140,20 @@ const Homepage = () => {
             </section>
             <EmiCalculator />
             <DocumentsEligibility />
+            <Reviews data={quotes} />
+            <section className="advertise">
+                <div className="container m-auto">
+                    <div className="heading">
+                        Explore our latest news and updates from trusted sources.
+                    </div>
+                    <div className="get_started_btn get_started_btn2 text-center mt-4">
+                        <p className="coming_soon mb-0">Coming Soon</p>
+                    </div>
+                </div>
+            </section>
+            <PrivacyConcerns />
+            <FaqsSection />
+            <MainFooter />
         </div>
     );
 };

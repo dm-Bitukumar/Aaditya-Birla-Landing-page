@@ -290,6 +290,7 @@
     section.footer .mobile-footer .card .col-4 img,
     section.footer .web-footer .right-side .card .col-4 img {
         width: 40%;
+        margin: auto;
     }
 
     section.footer .web-footer .logo img {
@@ -412,7 +413,16 @@
     }
 
     section.lock .locks img {
-        margin-bottom: 0.5rem;
+        margin: 1rem auto;
+    }
+
+    section.types #myTabContent .myTabContent_parts .myTabContent_part {
+        margin: 0.5rem auto;
+    }
+
+    .types {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
     }
 
     section.lock .locks .lock-quote {
@@ -519,6 +529,10 @@
 }
 
 @media (max-width:575px) {
+    section.footer .mobile-footer .features ul, .address{
+        padding: 2rem 0;
+    }
+
 
     section.lock .side-mobile2,
     section.lock .side-mobile,
@@ -538,7 +552,6 @@
         padding: 3.5rem 0;
 
     }
-
     section.banner .wb-moto {
         margin-bottom: 1rem;
     }

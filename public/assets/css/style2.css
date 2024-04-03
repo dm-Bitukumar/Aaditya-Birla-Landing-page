@@ -252,7 +252,7 @@ section.emi .calculate .left_part .form input[type=text]:focus-within {
 
 section.emi .calculate .right_part .card {
     border-radius: 30px;
-    filter: drop-shadow(0 0 47.5px rgba(163, 193, 255, 0.26));
+    filter: drop-shadow(0 0 47.5px rgba(163, 193, 255, 0.26)) !important;
     background-color: #ffffff;
     padding: 2rem;
     width: 75%;
@@ -415,6 +415,17 @@ section.types #myTabContent {
 section.types #myTabContent .myTabContent_parts {
     align-items: center;
     justify-content: center;
+    animation: fadeIn 600ms ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 section.types #myTabContent .myTabContent_parts .myTabContent_part {
@@ -501,11 +512,12 @@ section.reviews .quotes .card .quote {
     font-size: 20px;
     line-height: 24px;
     color: #001226;
-    font-weight: 700;
+    font-weight: 400;
     font-family: 'megalona', Times, serif;
     text-align: center;
     /* font-style: italic; */
     margin-bottom: 1rem;
+    min-height: 150px;
 }
 
 section.reviews .quotes .card .quote_man span {
@@ -825,7 +837,19 @@ section.footer .web-footer .address a {
 
 section.footer .mobile-footer .social_icons,
 section.footer .web-footer .social_icons {
+    display: flex; !important;
+    align-items: center;
     padding-top: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+    .social_icons {
+        justify-content: center;
+    }
+
+    .mobile-footer .logo a img{
+        margin: auto;
+    }
 }
 
 section.footer .mobile-footer .social_icons {
