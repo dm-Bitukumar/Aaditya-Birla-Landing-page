@@ -1,0 +1,1394 @@
+@media (min-width: 992px) {}
+
+@media (max-width: 1399px) {
+    section.types #myTabContent .criteria {
+        width: 70%;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 15.5rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 14rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form {
+        width: 80%;
+    }
+
+    section.banner .wb-moto .card {
+        width: 80%;
+    }
+
+    section.banner .banner-img img {
+        width: 32%;
+    }
+
+    section.lock .side-mobile,
+    section.emi .side-mobile {
+        margin-left: -10rem;
+        margin-bottom: -10rem;
+        margin-top: -10rem;
+    }
+
+    section.lock .side-mobile2 {
+        /* bottom: 4rem;
+        right: -9rem; */
+    }
+}
+
+@media (max-width: 1299px) {
+
+    section.lock .side-mobile,
+    section.emi .side-mobile {
+        margin-left: -8rem;
+        margin-bottom: -9rem;
+        margin-top: -9rem;
+    }
+}
+
+@media (min-width: 1199px) and (max-width: 1399px) {}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+@media (max-width: 1199px) {
+
+    section.emi .calculate .left_part .form,
+    section.emi .calculate .right_part .card {
+        width: 90%;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 14rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 12.5rem 0.3rem 0.5rem;
+    }
+
+    section.types .both-parts {
+        margin: 0 3rem;
+    }
+
+    section.advertise .advertisement-img img {
+        padding: 0 1rem;
+    }
+
+    section.banner .wb-moto .card {
+        width: 90%;
+    }
+
+    section.banner .wb-moto .card p {
+        font-size: 13px;
+        line-height: 15px;
+    }
+
+    section.banner .banner-img img {
+        width: 40%;
+    }
+
+    section.reviews .quotes .card .quote_man span {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
+
+@media (max-width: 1025px) {
+    section.reviews .quotes .card {
+        padding: 1.5rem;
+        margin: 4rem 1rem;
+    }
+
+    section.reviews .quotes .card .quote {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    section.lock .side-mobile,
+    section.emi .side-mobile {
+        margin-left: -6rem;
+        margin-bottom: -12rem;
+        margin-top: -10rem;
+    }
+
+    section.lock .locks {
+        width: 75%;
+        margin: auto;
+    }
+
+    section.faqs .accordion-button {
+        font-size: 15px;
+        line-height: 25px;
+    }
+
+    section.faqs .accordion .accordion-item .accordion-body {
+        font-size: 15px;
+        line-height: 22px;
+    }
+}
+
+@media (min-width: 991px) {}
+
+@media (min-width: 992px) and (max-width: 1024px) {}
+
+@media (min-width: 992px) and (max-width: 1024px) {}
+
+@media (max-width: 992px) {
+
+    section.lock .side-mobile,
+    section.emi .side-mobile {
+        margin-left: -12rem;
+        margin-bottom: -12rem;
+        margin-top: -12rem;
+    }
+
+    section.footer .mobile-footer .card .col-4 img,
+    section.footer .web-footer .right-side .card .col-4 img {
+        width: 25%;
+    }
+
+    section.footer .web-footer {
+        width: 100%;
+    }
+
+    section.faqs .accordion-button,
+    section.faqs .accordion .accordion-item .accordion-body {
+        font-size: 13px;
+        line-height: 20px;
+    }
+
+    section.emi .calculate .left_part .form {
+        padding: 0.5rem;
+        width: 100%;
+    }
+
+    section.emi .calculate .right_part .card {
+        padding: 1.5rem 1rem;
+        width: 100%;
+    }
+
+    section.emi .calculate .right_part .card .up_part p:first-child,
+    section.emi .calculate .left_part .form label {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    section.types .both-parts {
+        margin: 0 0rem;
+    }
+
+    section.types .nav-tabs .nav-link,
+    section.types .type_heading {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    section.types #myTabContent .criteria {
+        width: 85%;
+    }
+
+    section.types #myTabContent .criteria p,
+    section.types #myTabContent .documents p {
+        font-size: 13px;
+    }
+
+    section.types #myTabContent .documents img {
+        width: 10%;
+        height: 10%;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 12.5rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 10.5rem 0.3rem 0.5rem;
+    }
+
+    section.banner .wb-moto .card {
+        width: 100%;
+    }
+
+    section.banner .wb-moto .card img {
+        width: 35%;
+    }
+
+    section.banner .wb-moto .card p {
+        font-size: 11px;
+        line-height: 15px;
+    }
+
+    section.banner .banner-img img {
+        width: 50%;
+    }
+
+    section.banner .wb-moto {
+        margin-bottom: 3rem;
+    }
+}
+
+@media (max-width: 991px) {}
+
+@media (max-width: 854px) {
+    section.lock .lock-img img {
+        width: 25%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {}
+
+@media (min-width: 769px) and (max-width: 991px) {}
+
+@media (min-width: 767px) and (max-width: 991px) {}
+
+@media (min-width:769px) {}
+
+@media (min-width:768px) {
+    section.types .type_heading2 {
+        display: none;
+    }
+
+    section.lock .lock-img img {
+        margin-top: 4rem;
+    }
+}
+
+@media (max-width:768px) {
+
+    /* section.types .type_heading1 {
+                    display: none;
+          } */
+    section.faqs .accordion-button::before {
+        width: 20px;
+        height: 20px;
+    }
+
+    section.faqs .accordion-button:not(.collapsed)::before {
+        height: 8px;
+    }
+
+    /* section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 23.5rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 21.5rem 0.3rem 0.5rem;
+    } */
+}
+
+@media (max-width:767px) {
+
+    section.lock .side-mobile,
+    section.emi .side-mobile {
+        margin-left: -8rem;
+        margin-bottom: -20rem;
+        margin-top: -15rem;
+    }
+
+    section.footer .mobile-footer .card .col-4 img,
+    section.footer .web-footer .right-side .card .col-4 img {
+        width: 40%;
+    }
+
+    section.footer .web-footer .logo img {
+        width: 50%;
+    }
+
+    section.footer .web-footer p,
+    section.footer .web-footer h3 {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    section.footer .web-footer .social_icons a {
+        padding: 0 5px;
+    }
+
+    section.footer .web-footer p a,
+    section.footer .web-footer .right-side .features ul li a,
+    section.footer .web-footer .address {
+        font-size: 11px;
+        line-height: 20px;
+    }
+
+    section.footer .web-footer .social_icons a img {
+        width: 20px;
+    }
+
+    section.footer .web-footer .social_icons a:first-child img {
+        width: 10px;
+    }
+
+    section.emi .calculate .left_part .form label {
+        /* text-align: center; */
+        color: #6d7393;
+        font-weight: bolder;
+        /* padding-left: 0; */
+    }
+
+    section.emi .calculate {
+        margin-top: 2rem;
+    }
+
+    section.emi .calculate .left_part .form {
+        padding: 2rem;
+        width: 80%;
+    }
+
+    section.emi .calculate .right_part .card {
+        padding: 2rem;
+        flex-direction: row;
+        width: 80%;
+    }
+
+    section.emi .calculate .right_part .card .down_part {
+        margin: 2rem auto auto auto;
+    }
+
+    section.facilities,
+    section.footer,
+    section.faqs,
+    section.lock,
+    section.advertise,
+    section.reviews,
+    section.types,
+    section.emi,
+    section.video {
+        padding: 4rem 0;
+    }
+
+    section.lock,
+    section.emi {
+        padding-bottom: 2rem;
+    }
+
+    section.video .coming_soon,
+    section.advertise .coming_soon,
+    section.faqs .heading,
+    section.lock .heading {
+        font-size: 30px;
+        line-height: 60px;
+        margin-bottom: 3rem;
+    }
+
+    section.emi .heading .main_heading {
+        font-size: 50px;
+        line-height: 60px;
+    }
+
+    section.emi .heading .sub_heading {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    section.advertise .heading,
+    section.reviews .heading,
+    section.types .heading {
+        font-size: 22px;
+        letter-spacing: 1px;
+    }
+
+    section.reviews .quotes .card {
+        padding: 1rem;
+        margin: 2rem 1rem;
+    }
+
+    section.reviews .quotes .card .quote {
+        font-size: 17px;
+        line-height: 20px;
+        padding: 0rem;
+        margin: 1.5rem 0.5rem;
+    }
+
+    section.reviews .quotes .card .quote_man span {
+        font-size: 13px;
+        line-height: 17px;
+    }
+
+    section.lock .locks .col-md-3 {
+        text-align: center;
+    }
+
+    section.lock .locks img {
+        margin-bottom: 0.5rem;
+    }
+
+    section.lock .locks .lock-quote {
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        width: 70%;
+        margin: auto;
+    }
+
+    section.emi .calculate .left_part .form {
+        float: unset;
+        margin: auto;
+    }
+
+    section.types #myTabContent {
+        padding-bottom: 2rem;
+    }
+
+    section.types .type_heading1 {
+        display: none;
+    }
+
+    section.types #myTabContent .criteria,
+    section.types #myTabContent .documents {
+        width: 60%;
+    }
+
+    section.types #myTabContent .documents img {
+        width: 8%;
+        height: 8%;
+    }
+
+    section.emi .calculate .left_part .form input::placeholder {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    section.emi .calculate .left_part .form input[type=range]::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* section.emi .calculate .left_part .form .symbol-input.rupees-input {
+        padding: 0 0.5rem 0.3rem 7rem;
+    } */
+
+    /* section.emi .calculate .left_part .form input[type=text].interest-rate-input,
+    section.emi .calculate .left_part .form input[type=text].term-input {
+        padding: 0 0rem 0.3rem 8rem;
+    } */
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 14.2rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 12.5rem 0.3rem 0.5rem;
+    }
+
+    section.banner .banner-img img {
+        width: 50%;
+
+    }
+
+    section.banner .wb-moto {
+        margin-bottom: 1.5rem;
+    }
+
+    section.banner .wb-moto .card .col-4 {
+
+        padding-bottom: 1rem;
+    }
+
+    section.banner .banner-logo img {
+        width: 25%;
+        margin: 2rem 0;
+    }
+
+    section.banner .wb-moto .card {
+        padding-bottom: 0;
+    }
+
+    section.facilities .caption {
+        font-size: 17px;
+        line-height: 20px;
+    }
+
+    section.banner .wb-moto .card .col-4 {
+        border-right: 0;
+    }
+
+
+}
+
+@media (max-width:650px) {}
+
+@media (min-width: 576px) and (max-width: 767px) {}
+
+@media (min-width:576px) {
+    section.footer .mobile-footer {
+        display: none;
+    }
+}
+
+@media (max-width:575px) {
+
+    section.lock .side-mobile2,
+    section.lock .side-mobile,
+    section.emi .side-mobile {
+        display: none;
+    }
+
+    section.facilities,
+    section.footer,
+    section.faqs,
+    section.lock,
+    section.advertise,
+    section.reviews,
+    section.types,
+    section.emi,
+    section.video {
+        padding: 3.5rem 0;
+
+    }
+
+    section.banner .wb-moto {
+        margin-bottom: 1rem;
+    }
+
+    section.footer .web-footer {
+        display: none;
+    }
+
+    section.video .coming_soon,
+    section.advertise .coming_soon,
+    section.faqs .heading,
+    section.lock .heading {
+        font-size: 25px;
+        line-height: 50px;
+        margin-bottom: 2rem;
+    }
+
+    section.emi .heading .main_heading {
+        font-size: 45px;
+        line-height: 50px;
+    }
+
+    section.emi .heading .sub_heading {
+        font-size: 15px;
+        line-height: 30px;
+    }
+
+    section.advertise .heading,
+    section.reviews .heading,
+    section.types .heading {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    section.faqs .accordion-item {
+        padding: 0 2rem;
+    }
+
+    section.emi .calculate .right_part .up_part .principle_amount {
+        margin-top: 2rem;
+    }
+
+    section.emi .calculate .right_part .card .down_part {
+        margin: auto;
+    }
+
+    section.emi .calculate .right_part .card {
+        padding: 2rem 1rem;
+        width: 90%;
+    }
+
+    section.types .both-parts {
+        margin: 0 2rem;
+    }
+
+    section.types #myTabContent .criteria,
+    section.types #myTabContent .documents {
+        width: 70%;
+    }
+
+    section.footer .mobile-footer .features {
+        margin: 1rem auto 0 auto;
+        width: 90%;
+    }
+
+    section.footer .mobile-footer .card {
+        padding: 1.5rem 0;
+        margin: 0 2rem;
+    }
+
+    section.facilities .quicks .quick {
+        margin: 0 5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input,
+    section.emi .calculate .left_part .form input::placeholder,
+    section.emi .calculate .left_part .form input[type=text] {
+        font-size: 20px;
+        letter-spacing: 0px;
+        line-height: 25px;
+    }
+
+    section.types .nav-tabs .nav-link {
+        border-top-right-radius: 30px;
+        border-top-left-radius: 30px;
+    }
+
+    section.types #myTabContent {
+        border-radius: 30px;
+        border-top-left-radius: initial;
+        border-top-right-radius: inherit;
+        /* padding-bottom: 1rem; */
+    }
+
+    section.lock .locks .lock-quote {
+        width: 80%;
+    }
+
+    section.banner .wb-moto .card {
+        width: 80%;
+        padding: 1rem 0 0 0;
+    }
+
+    section.banner .wb-moto .card .col-4 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    section.banner .banner-logo img {
+        margin: 1rem 0 2rem 1rem;
+    }
+
+    section.banner .banner-img img {
+        width: 50%;
+    }
+
+    section.footer .mobile-footer .card .col-4 img,
+    section.footer .web-footer .right-side .card .col-4 img {
+        width: 25%;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 13rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 11rem 0.3rem 0.5rem;
+    }
+}
+
+@media (max-width: 526px) {
+
+    /* section.emi .calculate .left_part .form input[type=text].interest-rate-input,
+    section.emi .calculate .left_part .form input[type=text].term-input {
+        padding: 0 0rem 0.3rem 8rem;
+    } */
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 13rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 11rem 0.3rem 0.5rem;
+    }
+
+    section.types .nav-tabs .nav-link {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 489px) {
+    section.reviews .quotes .card .quote {
+        padding: 0;
+    }
+
+    section.reviews .quotes .card .quote_man span {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    section.footer .copyright {
+        margin-top: 2rem;
+    }
+
+    section.emi .calculate .right_part .card .down_part p:last-child span {
+        font-size: 35px;
+    }
+
+    section.emi .calculate .left_part .form {
+        width: 90%;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input,
+    section.emi .calculate .left_part .form input::placeholder,
+    section.emi .calculate .left_part .form input[type=text] {
+        font-size: 20px;
+        letter-spacing: 0px;
+        line-height: 25px;
+    }
+
+    /* section.emi .calculate .left_part .form .symbol-input.rate-input,
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0px 8rem 0.3rem 0.5rem;
+    } */
+    section.types #myTabContent .criteria,
+    section.types #myTabContent .documents {
+        width: 80%;
+    }
+
+    section.types .nav-tabs .nav-link,
+    section.types .type_heading {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    section.types #myTabContent .criteria p {
+        padding: 5px 5px 5px 1rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 12rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 10rem 0.3rem 0.5rem;
+    }
+
+    section.banner .banner-logo img {
+        margin: 1rem 0 4rem 1rem;
+    }
+
+    section.banner .banner-img img {
+        width: 60%;
+    }
+}
+
+@media (min-width:426px) {}
+
+@media (max-width:426px) {
+
+    section.advertise .heading,
+    section.reviews .heading,
+    section.types .heading {
+        font-size: 15px;
+        line-height: 25px;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    section.video .coming_soon,
+    section.advertise .coming_soon,
+    section.faqs .heading,
+    section.lock .heading {
+        font-size: 20px;
+        line-height: 40px;
+        margin-bottom: 2rem;
+    }
+
+    section.emi .heading .main_heading {
+        font-size: 35px;
+        line-height: 40px;
+    }
+
+    section.emi .heading .sub_heading {
+        font-size: 12px;
+        line-height: 30px;
+    }
+
+    section.advertise .get_started_btn a,
+    section.faqs .get_started_btn,
+    section.types .get_started_btn a,
+    section.video .get_started_btn,
+    section.facilities .get_started_btn {
+        margin-top: 1.5rem;
+    }
+
+    section.banner .get_started_btn a,
+    section.advertise .get_started_btn a,
+    section.faqs .get_started_btn a,
+    section.types .get_started_btn a,
+    section.emi .get_started_btn a,
+    section.video .get_started_btn a,
+    section.facilities .get_started_btn a {
+        border-radius: 15px;
+        font-size: 12px;
+        line-height: 15px;
+        padding: 0.5rem 1rem;
+    }
+
+    section.facilities,
+    section.footer,
+    section.faqs,
+    section.lock,
+    section.advertise,
+    section.reviews,
+    section.types,
+    section.emi,
+    section.video {
+        padding: 3rem 0;
+        /* height: 100vh; */
+    }
+
+    section.banner .wb-moto {
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+    }
+
+    section.reviews .quotes .card .quote {
+        font-size: 15px;
+        line-height: 17px;
+        padding: 0rem;
+        margin: 0.5rem 0rem;
+    }
+
+    section.lock .locks .lock-quote {
+        font-size: 12px;
+        line-height: 16px;
+        width: 85%;
+    }
+
+    section.lock .locks .col-md-6 {
+        margin-bottom: 1rem;
+    }
+
+    section.lock .locks {
+        width: 90%;
+    }
+
+    section.faqs .accordion-button,
+    section.faqs .accordion .accordion-item .accordion-body {
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    section.faqs .accordion .accordion-item .accordion-body {
+        padding-top: 0;
+    }
+
+    section.footer .mobile-footer p,
+    section.footer .mobile-footer h3 {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    section.footer .mobile-footer h3 {
+        margin-top: 1rem;
+    }
+
+    section.footer .mobile-footer .card {
+        padding: 1.5rem 0;
+        margin: 0 2rem;
+    }
+
+    section.footer .mobile-footer .card .col-4 img {
+        width: 30%;
+    }
+
+    section.footer .mobile-footer .card .col-4 p {
+        font-size: 11px;
+        line-height: 10px;
+    }
+
+    section.footer .mobile-footer .features {
+        margin: 1rem auto 0 auto;
+        width: 90%;
+    }
+
+    section.footer .mobile-footer .features ul li {
+        line-height: 1;
+    }
+
+    section.footer .copyright,
+    section.footer .mobile-footer p a,
+    section.footer .mobile-footer .address,
+    section.footer .mobile-footer .features ul li a {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    section.footer .mobile-footer .social_icons a img {
+        width: 20px;
+    }
+
+    section.footer .mobile-footer .social_icons a:first-child img {
+        width: 10px;
+    }
+
+    section.emi .calculate .left_part .form {
+        width: 100%;
+    }
+
+    section.emi .calculate {
+        margin-top: 0rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input,
+    section.emi .calculate .left_part .form input::placeholder,
+    section.emi .calculate .left_part .form input[type=text] {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    section.emi .calculate .right_part .card .down_part p:last-child span {
+        font-size: 30px;
+    }
+
+    section.emi .calculate .right_part .card {
+        padding: 1rem;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    section.emi .calculate .right_part .card .up_part {
+        margin: auto;
+    }
+
+    section.emi .calculate .right_part .card .down_part p:first-child,
+    section.emi .calculate .right_part .card .up_part p:first-child,
+    section.emi .calculate .left_part .form label {
+        font-size: 15px;
+        line-height: 20px;
+        margin-bottom: 0.2rem;
+    }
+
+    section.emi .calculate .right_part .up_part .principle_amount {
+        margin-top: 1rem;
+    }
+
+    section.types .nav-tabs .nav-link,
+    section.types .type_heading {
+        font-size: 12px;
+    }
+
+    section.types .nav-tabs .nav-link {
+        padding: 1rem 1rem;
+    }
+
+    section.types #myTabContent .criteria p,
+    section.types #myTabContent .documents p {
+        font-size: 11px;
+        line-height: 14px;
+    }
+
+    section.types #myTabContent .criteria p {
+        padding: 5px 5px 5px 20px;
+    }
+
+    section.types .nav-tabs .nav-link {
+        border-top-right-radius: 30px;
+        border-top-left-radius: 30px;
+    }
+
+    section.types #myTabContent {
+        border-radius: 30px;
+        padding-bottom: 1rem;
+        border-top-left-radius: initial;
+        border-top-right-radius: inherit;
+    }
+
+    section.types .type_heading {
+        margin: 1.5rem auto 1rem auto;
+    }
+
+    section.facilities .quicks .quick {
+        margin: 0 2.5rem;
+    }
+
+    section.advertise .advertisement-img .col-4 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    section.advertise .advertisement-img img {
+        width: 120px;
+        margin: 1.5rem 0;
+    }
+
+    section.banner .wb-moto .card {
+        width: 90%;
+    }
+
+    section.faqs .accordion-button::before {
+        width: 10px;
+        height: 12px;
+    }
+
+    section.faqs .accordion-button:not(.collapsed)::before {
+        height: 4px;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input,
+    section.emi .calculate .left_part .form input::placeholder,
+    section.emi .calculate .left_part .form input[type=text],
+    section.emi .calculate .left_part .form .symbol-input.rate-input,
+    section.emi .calculate .left_part .form .symbol-input.period-input,
+    section.emi .calculate .left_part .form .symbol-input.rupees-input,
+    section.emi .calculate .left_part .form input[type=text].interest-rate-input,
+    section.emi .calculate .left_part .form input[type=text].term-input {
+        padding-top: 0.3rem;
+    }
+
+    section.emi .calculate .left_part .form input[type=range] {
+        margin: 1rem 0 1rem 0;
+        border: 2px solid #48c2ea;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 14rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 13rem 0.3rem 0.5rem;
+    }
+
+    section.reviews .quotes .card {
+        padding: 2rem;
+        margin: 2rem;
+    }
+
+    section.facilities .caption_img img {
+        height: 300px;
+    }
+}
+
+@media (max-width:400px) {
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 11rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 10rem 0.3rem 0.5rem;
+    }
+}
+
+@media (max-width:376px) {
+
+    section.emi .calculate .right_part .card .down_part p:first-child,
+    section.emi .calculate .right_part .card .up_part p:first-child,
+    section.emi .calculate .left_part .form label {
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        line-height: 20px;
+    }
+
+    section.emi .calculate .left_part .form label {
+        padding-left: 2rem;
+    }
+
+    section.emi .calculate .right_part .card .up_part p:last-child span {
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 900;
+    }
+
+    section.reviews .quotes .card {
+        padding: 2rem;
+        margin: 1.5rem 1rem;
+    }
+
+    section.types .both-parts {
+        margin: 0 1rem;
+    }
+
+    section.types #myTabContent .criteria,
+    section.types #myTabContent .documents {
+        width: 80%;
+    }
+
+    section.facilities .quicks .quick {
+        margin: 0 2rem;
+    }
+
+    section.advertise .advertisement-img img {
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    section.emi .calculate .left_part .form input[type=text].interest-rate-input,
+    section.emi .calculate .left_part .form input[type=text].term-input,
+    section.emi .calculate .left_part .form .symbol-input.rupees-input {
+        padding: 0.3rem 0.3rem 0.3rem 1.5rem;
+    }
+
+    section.types #myTabContent .criteria,
+    section.types #myTabContent .documents {
+        width: 80%;
+    }
+
+    section.types .nav-tabs .nav-link,
+    section.types .type_heading,
+    section.types #myTabContent .criteria p,
+    section.types #myTabContent .documents p {
+        font-size: 11px;
+    }
+
+    section.types #myTabContent .documents p {
+        margin-bottom: 0.8rem;
+    }
+
+    /* section.emi .calculate .left_part .form .symbol-input.rupees-input {
+        padding: 0 0.3rem 0.3rem 6rem;
+    } */
+
+    /* section.emi .calculate .left_part .form input[type=text].interest-rate-input,
+    section.emi .calculate .left_part .form input[type=text].term-input {
+        padding: 0 0rem 0.3rem 6rem;
+    } */
+    section.banner .wb-moto {
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+    }
+
+    section.banner .wb-moto .card p {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    section.banner .banner-logo img {
+        width: 30%;
+    }
+
+    section.facilities .caption {
+        font-size: 15px;
+        line-height: 17px;
+        margin: 0.5rem 0;
+    }
+
+    section.types #myTabContent .criteria p {
+        padding: 5px 5px 5px 15px;
+    }
+
+    section.types #myTabContent .criteria p img {
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 320px) {
+    section.lock .lock-img img {
+        width: 30%;
+    }
+
+    section.advertise .heading,
+    section.reviews .heading,
+    section.types .heading {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    section.video .coming_soon,
+    section.advertise .coming_soon,
+    section.faqs .heading,
+    section.lock .heading {
+        font-size: 16px;
+        line-height: 20px;
+        margin: 1rem 0.5rem;
+    }
+
+    section.emi .heading .main_heading {
+        font-size: 25px;
+        line-height: 30px;
+    }
+
+    section.emi .heading .sub_heading {
+        font-size: 10px;
+        line-height: 12px;
+    }
+
+    section.facilities,
+    section.footer,
+    section.faqs,
+    section.lock,
+    section.advertise,
+    section.reviews,
+    section.types,
+    section.emi,
+    section.video {
+        padding: 2rem 0;
+    }
+
+    section.banner .wb-moto {
+        margin-bottom: 2rem;
+        /* margin-top: 0; */
+    }
+
+    section.banner .get_started_btn a,
+    section.advertise .get_started_btn a,
+    section.faqs .get_started_btn a,
+    section.types .get_started_btn a,
+    section.emi .get_started_btn a,
+    section.video .get_started_btn a,
+    section.facilities .get_started_btn a {
+        font-size: 10px;
+        line-height: 12px;
+        padding: 0.5rem 1rem;
+    }
+
+    section.reviews .quotes .card {
+        padding: 1rem;
+        margin: 1.5rem 2rem;
+    }
+
+    section.reviews .quotes .card .quote {
+        font-size: 13px;
+        line-height: 15px;
+        padding: 0rem;
+        margin: 0.5rem 0rem;
+    }
+
+    section.reviews .quotes .card .quote_man span {
+        font-size: 10px;
+        line-height: 12px;
+    }
+
+    section.faqs .accordion-button,
+    section.faqs .accordion .accordion-item .accordion-body {
+        font-size: 11px;
+        line-height: 15px;
+    }
+
+    section.faqs .accordion-item {
+        padding: 0 1rem;
+    }
+
+    section.footer .mobile-footer p,
+    section.footer .mobile-footer h3 {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    section.footer .mobile-footer .card {
+        padding: 1.5rem 0;
+        margin: 0 1rem;
+    }
+
+    section.footer .mobile-footer .features ul li {
+        line-height: 1;
+    }
+
+    section.footer .copyright,
+    section.footer .mobile-footer p a,
+    section.footer .mobile-footer .address,
+    section.footer .mobile-footer .features ul li a {
+        font-size: 10px;
+        line-height: 15px;
+    }
+
+    section.footer .copyright {
+        margin-top: 1rem;
+    }
+
+    section.footer .mobile-footer .social_icons a {
+        padding: 0 7px;
+    }
+
+    section.footer .mobile-footer .social_icons a img {
+        width: 18px;
+    }
+
+    section.footer .mobile-footer .social_icons a:first-child img {
+        width: 8px;
+    }
+
+    section.emi .calculate .left_part .form {
+        padding: 1rem;
+    }
+
+    section.facilities .quicks .quick {
+        margin: 0 1rem;
+    }
+
+    section.emi .calculate .left_part .form input::placeholder {
+        font-size: 14px;
+    }
+
+    section.emi .calculate .left_part .form input[type=text].interest-rate-input,
+    section.emi .calculate .left_part .form input[type=text].term-input,
+    section.emi .calculate .left_part .form .symbol-input.rupees-input {
+        padding: 0.3rem 0.3rem 0.3rem 1.5rem;
+    }
+
+    section.types .nav-tabs .nav-link,
+    section.types .type_heading,
+    section.types #myTabContent .criteria p,
+    section.types #myTabContent .documents p {
+        font-size: 10px;
+    }
+
+    section.types #myTabContent .documents p {
+        margin-bottom: 0.6rem;
+    }
+
+    section.footer .mobile-footer .logo img {
+        width: 100px;
+    }
+
+    section.banner .wb-moto .card {
+        padding-bottom: 1rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 10.5rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 9.5rem 0.3rem 0.5rem;
+    }
+
+    section.facilities .caption_img img {
+        height: 220px;
+    }
+}
+
+@media (max-width:300px) {
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 9.5rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 8.5rem 0.3rem 0.5rem;
+    }
+}
+
+@media (max-width:290px) {
+
+    /* section.emi .calculate .left_part .form .symbol-input.rupees-input {
+        padding: 0 0.3rem 0.3rem 4rem;
+    } */
+    section.types .nav-tabs .nav-link {
+        padding: 1rem 5px;
+    }
+
+    section.footer .mobile-footer .card {
+        padding: 1rem 0;
+        margin: 0 1rem;
+    }
+
+    section.lock .locks .lock-quote {
+        width: 90%;
+    }
+
+    section.banner .wb-moto .card p {
+        font-size: 8.5px;
+        line-height: 11px;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.rate-input {
+        padding: 0.3rem 8.5rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .left_part .form .symbol-input.period-input {
+        padding: 0.3rem 7.5rem 0.3rem 0.5rem;
+    }
+
+    section.emi .calculate .right_part .card .down_part p:first-child,
+    section.emi .calculate .right_part .card .up_part p:first-child {
+        font-size: 10px;
+        letter-spacing: 0.3px;
+        line-height: 10px;
+    }
+
+    section.emi .calculate .right_part .card .down_part p:last-child span {
+        font-size: 25px;
+    }
+
+    section.emi .calculate .right_part .card .up_part p:last-child {
+        font-size: 14px;
+    }
+
+    section.emi .calculate .right_part .card .up_part p:last-child span {
+        font-size: 16px;
+    }
+}

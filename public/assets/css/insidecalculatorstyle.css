@@ -1,0 +1,491 @@
+/* @import url("https://db.onlinewebfonts.com/c/f7afe66fe9d022d7dc7fd57e4adc078f?family=GT+Walsheim+Pro+Bold"); */
+
+@font-face {
+          font-family: "GT Walsheim Pro Bold";
+          src: url("../GT-Walsheim-Pro-Bold-Regular.ttf");
+}
+
+.calc .main {
+          margin-top: -100px;
+          /* position: inherit; */
+}
+
+.calcbanner .heading {
+          position: absolute;
+          margin-top: -25rem;
+          z-index: 123;
+          margin-left: 14rem;
+}
+
+.calcbanner .heading .heading1,
+.calcbanner .heading .heading2 {
+          font-size: 65px;
+          line-height: 75px;
+          color: #ffffff;
+          font-weight: 600;
+          font-family: "GT Walsheim Pro Bold" !important;
+          /* filter: drop-shadow(2px 6px 5px rgba(0, 0, 0, 0.6)); */
+
+}
+
+/* .calcbanner .heading .heading1:nth-child(2) {
+          font-size: 45px;
+          line-height: 30px;
+} */
+
+.calcbanner .heading .heading2 {
+          font-size: 45px;
+          line-height: 40px;
+          margin-bottom: 0;
+}
+
+.calc .main p {
+          margin-bottom: 3rem;
+          font-family: Poppins, sans-serif;
+}
+
+.calc .main h3 {
+          margin-top: 2rem;
+          font-family: Poppins, sans-serif;
+}
+
+
+.calc .calcimage img {
+          margin-bottom: 3rem;
+          width: 100%;
+}
+
+
+.calculator .card {
+          opacity: 0.851;
+          width: 100%;
+          height: 100%;
+          border-radius: 30px;
+          filter: drop-shadow(0px 6px 27px rgba(177, 199, 255, 0.33));
+          background-color: #ffffff;
+          border: 1px solid #d1d1d1;
+          padding: 4rem;
+}
+
+.calculator button {
+          font-size: 14px;
+          color: #96a3be;
+          font-weight: 500;
+          box-shadow: none;
+          font-family: Poppins, sans-serif;
+}
+
+.calc .main .rightside .accordion .accordion-item .accordion-body p {
+          margin-bottom: 0;
+}
+
+.calculator .accordion-button:not(.collapsed) {
+          background-color: rgba(255, 255, 255, 0.9019607843137255);
+          opacity: 1.902;
+          color: #96a3be;
+          box-shadow: none;
+}
+
+.calculator .accordion-button:after {
+          /* margin-left: 0; */
+          background-image: none;
+}
+
+.calculator .accordion-button::before {
+          flex-shrink: 0;
+          width: 1.25rem;
+          height: 1.25rem;
+          /* margin-left: auto; */
+          margin-right: 1rem;
+          content: "";
+          background-image: url("../img/tick1.png");
+          background-repeat: no-repeat;
+          background-size: 1.25rem;
+          transition: transform .2s ease-in-out;
+}
+
+.calculator .accordion-button:not(.collapsed)::before {
+          background-image: url("../img/tick2.png");
+          /* transform: rotate(-180deg); */
+}
+
+.calculator .accordion-body {
+          font-size: 14px;
+          color: #697181;
+          font-weight: 500;
+          margin-left: 2.5rem;
+          padding-top: 0;
+          padding-bottom: 0;
+          font-family: Poppins, sans-serif;
+}
+
+.calculator .accordion-item {
+          border: none;
+          background-color: transparent;
+}
+
+.calculator .accordion-header {
+          margin-top: 10px;
+
+}
+
+.insidecalc .loadbtn {
+          /* width: 126px;
+height: 45px; */
+          padding: 1rem 3rem;
+          border-radius: 22px;
+          background-image: linear-gradient(101deg, #f42446 0%, #ff562f 100%);
+          font-size: 14px;
+          color: #ffffff;
+          font-weight: 600;
+          text-align: center;
+          font-family: Poppins, sans-serif;
+}
+
+.insidecalc .button-cover:before {
+          /* counter-increment: button-counter; */
+          /* content: counter(button-counter); */
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          color: #d7e3e3;
+          font-size: 12px;
+          line-height: 1;
+          padding: 5px;
+          font-family: Poppins, sans-serif;
+}
+
+.insidecalc .main .block {
+          display: none;
+}
+
+.insidecalc .loadbtn {
+          margin-bottom: 0;
+}
+
+.insidecalc .main .calculator .leftside .formamt .left p,
+.insidecalc .main .calculator .leftside .ag-calculator-block label,
+.insidecalc .main .calculator .leftside .calc-input label {
+          margin-bottom: 0;
+          font-size: 15px;
+          font-family: "Poppins", sans-serif;
+          font-weight: 600;
+          color: #585656;
+}
+
+.insidecalc .main .calculator .leftside .ag-calculator-block .rangevalue label,
+.insidecalc .main .calculator .leftside .calc-input label {
+          /* width: 55%; */
+          margin: auto;
+}
+
+.insidecalc .main .calculator .leftside .ag-calculator-block .rangevalue input {
+          width: 45%;
+          margin: auto;
+}
+
+/* .insidecalc .main .calculator .leftside .formamt .right input */
+.insidecalc .main .calculator .leftside .formamt .right span,
+.insidecalc .main .calculator .leftside .js-calculator_text-input,
+.insidecalc .main .calculator .leftside .calc-input .range-input {
+          font-family: "Poppins", sans-serif;
+          background-color: #efefef;
+          border: 3px solid #dbdbdb;
+          border-radius: 0;
+          font-size: 25px;
+          /* width: auto; */
+          text-align: right;
+          color: #fe5530;
+          font-weight: 600;
+          padding-right: 10px;
+}
+
+
+.insidecalc .main .calculator .leftside .symbol-input {
+          font-family: "Poppins", sans-serif;
+          background-color: #efefef;
+          border: 3px solid #dbdbdb;
+          font-size: 25px;
+          color: #fe5530;
+          font-weight: 600;
+}
+
+.insidecalc .main .calculator .leftside .rupees-input {
+          border-right: none;
+          padding-left: 10px;
+}
+
+.insidecalc .main .calculator .leftside .rate-input {
+          border-left: none;
+          padding-right: 10px;
+          padding-left: 10px;
+}
+
+.insidecalc .main .calculator .leftside .period-input {
+          border-left: none;
+          padding-right: 10px;
+}
+
+.insidecalc .main .calculator .leftside .calc-input .readonly {
+          color: #96A47E;
+}
+
+.insidecalc .main .calculator .leftside .formamt .left,
+.insidecalc .main .calculator .leftside .result .left,
+.insidecalc .main .calculator .leftside .result .right {
+          margin: auto;
+}
+
+.insidecalc .main .calculator .leftside .amount p,
+.insidecalc .main .calculator .ag-calculator-block .ag-calculator_results-box .ag-calculator_results-title,
+.insidecalc .main .calculator .leftside .result .left p,
+.insidecalc .main .calculator .leftside .calc-input .main-result .title {
+          font-family: "Poppins", sans-serif;
+          font-size: 15px;
+          line-height: 28px;
+          font-weight: 600;
+          color: #585656;
+          margin-bottom: 5px;
+}
+
+.insidecalc .main .calculator .leftside .formamt .range .range-slider__range {
+          width: -webkit-fill-available;
+          margin: 1rem 0px;
+}
+
+.insidecalc .main .calculator .leftside .amount h3,
+.insidecalc .main .calculator .ag-calculator-block .ag-calculator_results-box .ag-calculator_results-sum,
+.insidecalc .main .calculator .leftside .main-result p {
+          margin-top: 0;
+          margin-bottom: 2rem;
+          font-family: "Poppins", sans-serif;
+          font-size: 25px;
+          line-height: 28px;
+          color: #fe5530;
+          font-weight: 600;
+}
+
+.insidecalc .main .calculator .leftside .result .right p {
+          font-family: "Poppins", sans-serif;
+          font-size: 20px;
+          line-height: 28px;
+          font-weight: 600;
+          color: #fe5530;
+          margin-bottom: 5px;
+          text-align: right;
+}
+
+.insidecalc .main .calculator .leftside .calc-input input[type=range] {
+          width: 100%;
+          height: 1px;
+          border-radius: 5px;
+          -webkit-appearance: none;
+          background-color: #ffffff;
+          border: 3px solid #e8eef2;
+          outline: none;
+          margin: 1rem 0;
+}
+
+.insidecalc .main .calculator .leftside .calc-input input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          cursor: pointer;
+          width: 26px;
+          height: 26px;
+          border-radius: 13px;
+          background-color: #fe5530;
+          border: 3px solid #ffffff;
+}
+
+.insidecalc .main .calculator .leftside .calc-input input[type=range]::-webkit-slider-thumb .readonly {
+          background-color: black;
+}
+
+.insidecalc .main .calculator .leftside .calc-input input:focus {
+          outline: none;
+}
+/*
+.retireradio input[type="radio"] {
+          display: none;
+}
+
+.retireradio label {
+          font-family: poppins, sans-serif;
+          background-color: #efefef;
+          border: 3px solid #dbdbdb;
+          border-radius: 0;
+          font-size: 40px;
+          width: auto;
+          text-align: center;
+          color: coral;
+          font-weight: 600;
+          padding: 1rem;
+          margin: 0 0.5rem;
+}
+
+.retireradio input[type="radio"]:checked+label {
+          color: white;
+          background-color: coral;
+          /* background-color: #efefef;
+          /* border: 3px solid #dbdbdb; 
+          border-color: coral;
+}
+
+.income-tax .accordion-item {
+          border-bottom: solid 2px #ebedf0;
+
+}
+
+.income-tax .basic,
+.income-tax .income,
+.income-tax .deduct,
+.income-tax .tax {
+          border-radius: 8px;
+          border: solid 1px #c2c7d1;
+          background-color: #fff;
+          margin-top: 0;
+          margin-bottom: 1rem;
+          padding: 0.5rem 1rem;
+          height: fit-content;
+}
+
+.income-tax .basic label,
+.income-tax .income label,
+.income-tax .deduct label,
+.income-tax .tax label {
+          font-size: 12.8px;
+          font-weight: 600;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.72;
+          -webkit-letter-spacing: normal;
+          -moz-letter-spacing: normal;
+          -ms-letter-spacing: normal;
+          letter-spacing: normal;
+          color: #6d7585;
+}
+
+.income-tax .basic select,
+.income-tax .income input,
+.income-tax .deduct input,
+.income-tax .tax input {
+          display: block;
+          width: 100%;
+          font-size: 16px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.38;
+          -webkit-letter-spacing: normal;
+          -moz-letter-spacing: normal;
+          -ms-letter-spacing: normal;
+          letter-spacing: normal;
+          color: coral;
+          border: none;
+}
+
+.income-tax .accordion-button:not(.collapsed)::before,
+.income-tax .accordion-button::before {
+          background-image: none;
+}
+
+.income-tax .accordion-button {
+          padding-left: 0;
+}
+
+.income-tax .accordion-button::before {
+          margin-left: 0;
+          margin-right: 0;
+          width: auto;
+}
+
+.income-tax .accordion-button::after {
+          flex-shrink: 0;
+          width: 1.25rem;
+          height: 1.25rem;
+          margin-left: auto;
+          margin-right: 0;
+          content: "";
+          background-image: url(../img/plus.png);
+          background-repeat: no-repeat;
+          background-size: 1.25rem;
+          transition: transform .2s ease-in-out;
+}
+
+.income-tax .accordion-button:not(.collapsed)::after {
+          background-image: url(../img/minus.png);
+          transform: rotate(-180deg);
+}
+
+.income-tax .accordion-body {
+          margin-left: 0;
+          padding: 0;
+}
+
+.calcbanner .heading {
+          position: absolute;
+          top: 5rem;
+          left: 6rem;
+}
+
+.calcbanner .heading1,
+.calcbanner .heading2,
+.calcbanner .heading3 {
+          font-size: 62px;
+          line-height: 53px;
+          text-transform: uppercase;
+          color: #ffffff;
+          font-weight: 700;
+          font-family: "Montserrat";
+          filter: drop-shadow(2.163px 6.657px 5px rgba(0, 0, 0, 0.5));
+}
+
+.calcbanner .heading2 {
+          color: yellow;
+}
+
+.calcbanner .heading3 {
+          font-size: 20px;
+          line-height: 20px;
+}
+
+/*
+.insidecalc .main .calculator .leftside .calc-input input[name="amount-input"] {
+          padding-left: 0;
+          border-left: none;
+ text-align: left; 
+}
+
+.insidecalc .main .calculator .leftside .calc-input input:focus{
+          outline: none;
+}
+
+.insidecalc .main .calculator .leftside .calc-input input[name="doller"] {
+          font-family: poppins, sans-serif;
+          background-color: gainsboro;
+          border: 3px solid #96a3be;
+          border-radius: 0;
+          font-size: 40px;
+          text-align: center;
+          color: coral;
+          font-weight: 600;
+          border-right: none;
+          padding-right: 0;
+}
+.insidecalc .main .calculator .leftside .calc-input input[name="percent"] {
+          font-family: poppins, sans-serif;
+          background-color: gainsboro;
+          border: 3px solid #96a3be;
+          border-radius: 0;
+          font-size: 40px;
+          text-align: center;
+          color: coral;
+          font-weight: 600;
+          border-left: none;
+          padding: 0;
+}
+.insidecalc .main .calculator .leftside .calc-input input[name="interest-rate-input"] {
+          padding-right: 0;
+          border-right: none;
+          /* text-align: right; 
+}*/
