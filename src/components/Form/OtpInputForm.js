@@ -3,7 +3,7 @@ import OTPInput from "react-otp-input";
 import _ from "lodash";
 import {useState} from "react";
 
-const OtpInputForm = ({otpValue, setOtpValue, phone_number, handleResendOtp, handleSubmitOtp}) => {
+const OtpInputForm = ({otpValue, setOtpValue, phone_number, handleResendOtp, handleSubmitOtp, style, buttonStyle}) => {
     const [isOtpValid, setIsOtpValid] = useState(true);
 
     const handleSubmit = () => {
@@ -20,7 +20,7 @@ const OtpInputForm = ({otpValue, setOtpValue, phone_number, handleResendOtp, han
     }
 
     return (
-        <div>
+        <div style={style}>
             <h1 className="h3 mb-2 fw-normal" align="left" style={{fontSize: "18px !important", fontWeight: "lighter"}}>Mobile Verification</h1>
             <p className="mb-2 fw-normal" style={{textAlign: "left", fontSize: "12px"}}>
                 A One Time Password (OTP) has been sent to your
@@ -68,6 +68,7 @@ const OtpInputForm = ({otpValue, setOtpValue, phone_number, handleResendOtp, han
                 <p style={{fontSize: "12px"}}>Don't receive the OTP? Click here to <a className={'text-blue-700'} href="#" onClick={handleResendOtp}>Regenerate OTP</a></p>
             </div>
             <FormButton
+                style={buttonStyle}
                 onClick={handleSubmit}
                 id="myBtn"
             >

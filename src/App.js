@@ -9,6 +9,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import {Route} from "react-router";
 import PersonalLoan from "./pages/PersonalLoan/PersonalLoan";
 import PersonalDetails from "./pages/PersonalDetails/PersonalDetails";
+import PreApprovedLoan from "./pages/pao/PreApprovedLoan";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<Homepage />} />
                 <Route path={'/personal-loan'} element={<PersonalLoan />} />
+                <Route path={'/pao'} element={<PreApprovedLoan />} />
             </Routes>
         )
     }
@@ -29,6 +31,7 @@ function App() {
                     <Route path={'/'} element={<Homepage />} />
                     <Route path={'/personal-loan'} element={<PersonalLoan />} />
                     <Route path={'/apply'} element={<PersonalDetails />} />
+                    <Route path={'/pao'} element={<PreApprovedLoan />} />
                 </Routes>
             )
         }
