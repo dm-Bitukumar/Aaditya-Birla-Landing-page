@@ -163,7 +163,7 @@ const WorkDetailsForm = ({profession, nextStep, previousStep}) => {
             <HeadBar/>
             <Stepper steps={['Personal Details', 'Work Details', 'Offer Page']} currentStep={1}/>
             {renderForm()}
-            <div className={'d-flex gap-3'} style={{position: 'absolute'}}>
+            <div className={'d-flex gap-3'} style={profession === 'Salaried' ? {position:  'absolute', bottom: "10px"} : {}}>
                 <FormButton
                     type={'secondary'}
                     onClick={handleBack}

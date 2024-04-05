@@ -517,7 +517,7 @@ section.reviews .quotes .card .quote {
     text-align: center;
     /* font-style: italic; */
     margin-bottom: 1rem;
-    min-height: 150px;
+    min-height: 180px;
 }
 
 section.reviews .quotes .card .quote_man span {

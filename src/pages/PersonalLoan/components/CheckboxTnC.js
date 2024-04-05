@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from "react-router-dom";
 
 const CheckboxTnC = ({checked, handleChange}) => {
     const [isChecked, setIsChecked] = useState(true);
@@ -17,20 +18,20 @@ const CheckboxTnC = ({checked, handleChange}) => {
                     type="checkbox"
                     name="is_consent"
                     value="Yes"
-                    style={{ fontSize: "14px", marginRight: "4px" }}
+                    style={{ fontSize: "10px", marginRight: "4px" }}
                 />
                 I have read and agreed to the{" "}
-                <a href="https://digitmoney.in/terms" style={{ color: "#000", fontSize: "10px" }}>
+                <Link to="/terms" style={{ color: "#000", fontSize: "10px" }}>
                     <b>Terms of Use</b>
-                </a>{" "}
+                </Link>{" "}
                 and hereby give my consent to DigitMoney and its{" "}
-                <a href="https://digitmoney.in/lenders" style={{ color: "#000", fontSize: "10px" }}>
+                <Link to="/lenders" style={{ color: "#000", fontSize: "10px" }}>
                     <b>Lending Partners</b>
-                </a>{" "}
+                </Link>{" "}
                 receive my credit information from credit bureaus. By submitting my details | override my NDNO registration & give consent to DigitMoney and its{" "}
-                <a href="https://digitmoney.in/lenders" style={{ color: "#000", fontSize: "10px" }}>
+                <Link to="/lenders" style={{ color: "#000", fontSize: "10px" }}>
                     <b>Lending Partners</b>
-                </a>{" "}
+                </Link>{" "}
                 / representatives to contact me through Call, SMS, Email, WhatsApp, or any other mode. You also authorize us to send you new promotional offers of financial & non-financial products or services from time to time.
             </label>
         </div>

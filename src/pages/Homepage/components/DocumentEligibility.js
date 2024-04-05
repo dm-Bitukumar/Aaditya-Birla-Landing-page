@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from "react-router-dom";
 
 const DocumentsEligibility = () => {
     const [activeType, setActiveType] = useState('salaried');
@@ -164,7 +165,7 @@ const DocumentsEligibility = () => {
                     </div>
                 </div>
                 <div className="get_started_btn get_started_btn4 text-center">
-                    <a href="https://digitmoney.in/personal-loan">Get Started</a>
+                    <Link to="/personal-loan">Get Started</Link>
                 </div>
             </div>
         </section>
