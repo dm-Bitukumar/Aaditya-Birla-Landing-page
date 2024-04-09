@@ -1,6 +1,6 @@
 import {useState} from "react";
 import _ from "lodash";
-import CheckboxTnC from "./CheckboxTnC";
+import CheckboxTnC from "../../../components/Buttons/CheckboxTnC";
 import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
@@ -72,30 +72,28 @@ const Form = ({formData, setFormData, ...props}) => {
 
     const handleSubmitOtp = () => {
         // todo submit logic
-        navigate('/apply')
+        navigate('/business-loan/apply')
     }
 
     return (
         <div className={'personal-loan-form'}>
             <img className="mb-1 mt-3 img logo-img" src="/assets/img/logo.png" alt=""/>
-            <img className="mb-3 mt-3 img header-img" src="/assets/img/header.png" alt=""/>
-            <h1 className="h3 mb-3 fw-normal text-center" style={{fontSize: "20px"}}>Get Instant Personal
-                Loan<br/><strong>Upto 25 Lacs</strong></h1>
-            <p className="mb-3 text-center" style={{fontSize: "14px"}}>• Instant Approvals • Complete Digital Process
-                •<span className="bullet">•</span>Lower Interest Rates</p>
             {
                 isOtpGenerated ? (
-                    <OtpInputForm
-                        otpValue={otp}
-                        setOtpValue={setOtp}
-                        handleResendOtp={handleResendOtp}
-                        phone_number={mobile}
-                        handleSubmitOtp={handleSubmitOtp}
-                    />
+                    <div style={{marginTop: "180px"}}>
+                        <OtpInputForm
+                            buttonStyle={{marginTop: '200px', marginBottom: '50px'}}
+                            otpValue={otp}
+                            setOtpValue={setOtp}
+                            handleResendOtp={handleResendOtp}
+                            phone_number={mobile}
+                            handleSubmitOtp={handleSubmitOtp}
+                        />
+                    </div>
                 ) : (
                     <>
-                        <h1 className="h3 mb-2 fw-normal" align="left" style={{fontSize: "18px", fontWeight: "bold"}}>Let's
-                            connect</h1>
+                        <img className="mb-3 my-5 img header-img" src="/assets/img/dm-bs.png" alt=""/>
+                        <h1 className="h3 mt-5 fw-normal text-center" style={{fontSize: "20px", letterSpacing: "2pxs"}}>Lets Check Your<br /><strong>Eligibility Quicklyr</strong></h1>
                         <input type="hidden" name="utm_campaign" value=""/>
                         <input type="hidden" name="utm_source" value=""/>
                         <input type="hidden" name="utm_medium" value=""/>
@@ -104,30 +102,7 @@ const Form = ({formData, setFormData, ...props}) => {
                         <input type="hidden" name="aff_id" value=""/>
                         <input type="hidden" name="src" value=""/>
                         <FormInput
-                            icon={<img
-                                src="/assets/icons/pancard.png"
-                                height="25"
-                                style={{maxHeight: "25px"}}
-                                alt="PAN Card Icon"
-                            />}
-                            type="text"
-                            name="pancard"
-                            isValid={isPancardValid}
-                            id="pancard"
-                            aria-describedby="name"
-                            placeholder="PAN Card"
-                            minLength="10"
-                            maxLength="10"
-                            pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                            title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                            value={pancard}
-                            onChange={handlePancardChange}
-                            required
-                            style={{textTransform: "uppercase"}}
-                            label={'Pancard'}
-                            errorMessage={'Please enter a valid PAN number'}
-                        />
-                        <FormInput
+                            className={'my-5'}
                             icon={<img src="/assets/icons/phone-call.png" height="25" alt="Phone Icon"/>}
                             type="number"
                             name="mobile"
@@ -149,7 +124,7 @@ const Form = ({formData, setFormData, ...props}) => {
                             handleChange={handleChange}
                         />
                         <FormButton
-                            style={{marginTop: "30px"}}
+                            style={{marginTop: '10px'}}
                             className="w-100 btn btn-lg btn-primary btn-get-otp"
                             type="submit"
                             onClick={handleSubmit}

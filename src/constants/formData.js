@@ -8,6 +8,13 @@ export const company_type_options = [
     {label: 'One Person Company', value: 'One Person Company'},
 ];
 
+export const business_type_options = [
+    { label: "Manufacturing", value: "Manufacturing" },
+    { label: "Trading", value: "Trading" },
+    { label: "Service", value: "Service" },
+    { label: "Retailer", value: "Retailer" }
+];
+
 export const salary_mode_options = [
     {label: 'Cash', value: 'Cash'},
     {label: 'Cheque', value: 'Cheque'},

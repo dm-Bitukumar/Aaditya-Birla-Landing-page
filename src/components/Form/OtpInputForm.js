@@ -21,8 +21,8 @@ const OtpInputForm = ({otpValue, setOtpValue, phone_number, handleResendOtp, han
 
     return (
         <div style={style}>
-            <h1 className="h3 mb-2 fw-normal" align="left" style={{fontSize: "18px !important", fontWeight: "lighter"}}>Mobile Verification</h1>
-            <p className="mb-2 fw-normal" style={{textAlign: "left", fontSize: "12px"}}>
+            <h1 className="h3 fw-normal my-4" align="left" style={{fontSize: "18px !important", fontWeight: "lighter"}}>Mobile OTP Verification</h1>
+            <p className="my-4 fw-normal" style={{textAlign: "left", fontSize: "12px"}}>
                 A One Time Password (OTP) has been sent to your
                 mobile number
                 <span className="text-decoration-underline"><u><span id="mobileno">{phone_number ? " " + phone_number : ""}</span></u></span>

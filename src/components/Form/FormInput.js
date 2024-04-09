@@ -1,6 +1,6 @@
 const FormInput = ({isValid, value, onChange, label, errorMessage, icon, ...props}) => {
     return (
-        <div className="input-group mb-3">
+        <div className={`input-group mb-3 ${props.className}`}>
           <span className="input-group-text" style={{height: "58px"}}>
             {icon}
           </span>

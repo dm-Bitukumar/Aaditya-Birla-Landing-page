@@ -5,28 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6ca4703-6456-4ffa-a68f-dd1e3b49249f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/CASHe-Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/Dm LOGO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/DropDown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/Icon Mobile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/Image 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/Tick Mark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/ca-certificates.crt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/check-box.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/digitmoney.csr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/digitmoney.in.csr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/favicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/header.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/logo1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/paysense-logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/icons/thumbs-up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Buttons/CheckboxTnC.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/pao/PreApprovedLoan.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/pao/components/Form.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/img/dm-bs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Form/CustomSquareRadioWIthIcon.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/BusinessLoan/BusinessLoan.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/BusinessLoan/BusinessLoanApply.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/BusinessLoan/components/ApplyFormStep2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/BusinessLoan/components/GstRegistrationOption.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/PAO/components/Form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form/FormInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/FormInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form/FormSelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/FormSelect.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Form/OtpInputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/OtpInputForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/formData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/formData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PersonalDetails/css/personal-details.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalDetails/css/personal-details.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PersonalLoan/components/Form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/pao/PreApprovedLoan.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/PAO/PreApprovedLoan.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/pao/components/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/BusinessLoan/components/Form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +60,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "develop",
-    "last_opened_file_path": "/Users/code-death/Desktop/Office/ant/Dm_Tech/main-website/public/assets/icons",
+    "last_opened_file_path": "/Users/code-death/Desktop/Office/ant/Dm_Tech/main-website/src/pages/BusinessLoan/components",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -75,11 +71,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/BusinessLoan/components" />
+      <recent name="$PROJECT_DIR$/public/assets/img" />
+      <recent name="$PROJECT_DIR$/src/pages/businessLoan" />
       <recent name="$PROJECT_DIR$/public/assets/icons" />
       <recent name="$PROJECT_DIR$/src/components/Buttons" />
-      <recent name="$PROJECT_DIR$/src/pages/pao/components" />
-      <recent name="$PROJECT_DIR$/public/assets" />
-      <recent name="$PROJECT_DIR$/src/components/Form" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -96,7 +92,7 @@
       <workItem from="1711610557779" duration="17267000" />
       <workItem from="1711869386900" duration="2000" />
       <workItem from="1711965897923" duration="10182000" />
-      <workItem from="1712033002849" duration="26490000" />
+      <workItem from="1712033002849" duration="37463000" />
     </task>
     <servers />
   </component>

@@ -9,7 +9,7 @@ const FormSelect = ({ isValid, options = [], value, onChange, label, errorMessag
     };
 
     return (
-        <div className="input-group mb-3" style={{flexWrap: 'nowrap'}}>
+        <div className={`input-group mb-3 ${props.className}`} style={{flexWrap: 'nowrap'}}>
             <span className="input-group-text" style={{ height: "58px" }}>
                 {icon}
             </span>
