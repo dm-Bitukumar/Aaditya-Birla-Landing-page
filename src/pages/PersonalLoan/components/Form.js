@@ -4,6 +4,7 @@ import CheckboxTnC from "./CheckboxTnC";
 import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
+import {useNavigate} from "react-router";
 
 const Form = ({formData, setFormData, ...props}) => {
     const [otp, setOtp] = useState("");
@@ -13,6 +14,8 @@ const Form = ({formData, setFormData, ...props}) => {
     const [pancard, setPancard] = useState('');
     const [isPancardValid, setIsPancardValid] = useState(true);
     const [isMobileValid, setIsMobileValid] = useState(true);
+
+    const navigate = useNavigate();
 
     const handleValidation = () => {
         let isValid = true;
@@ -69,6 +72,7 @@ const Form = ({formData, setFormData, ...props}) => {
 
     const handleSubmitOtp = () => {
         // todo submit logic
+        navigate('/apply')
     }
 
     return (
@@ -145,6 +149,7 @@ const Form = ({formData, setFormData, ...props}) => {
                             handleChange={handleChange}
                         />
                         <FormButton
+                            style={{marginTop: "30px"}}
                             className="w-100 btn btn-lg btn-primary btn-get-otp"
                             type="submit"
                             onClick={handleSubmit}

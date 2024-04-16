@@ -1,6 +1,6 @@
 const FormInput = ({isValid, value, onChange, label, errorMessage, icon, ...props}) => {
     return (
-        <div className="input-group mb-3">
+        <div className={`input-group mb-3 ${props.className}`}>
           <span className="input-group-text" style={{height: "58px"}}>
             {icon}
           </span>
@@ -13,7 +13,7 @@ const FormInput = ({isValid, value, onChange, label, errorMessage, icon, ...prop
                     value={value}
                     onChange={onChange}
                 />
-                <label htmlFor="pancard">{label ? label : 'Label here'}</label>
+                <label htmlFor={label}>{label ? label : 'Label here'}</label>
                 {!isValid && (
                     <div className="invalid-feedback" id="invalid-pan-no">
                         {errorMessage}

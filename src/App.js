@@ -8,6 +8,10 @@ import FullPageLoader from "./components/Loaders/FullPageLoader";
 import Homepage from "./pages/Homepage/Homepage";
 import {Route} from "react-router";
 import PersonalLoan from "./pages/PersonalLoan/PersonalLoan";
+import PersonalDetails from "./pages/PersonalDetails/PersonalDetails";
+import PreApprovedLoan from "./pages/PAO/PreApprovedLoan";
+import BusinessLoan from "./pages/BusinessLoan/BusinessLoan";
+import BusinessLoanApply from "./pages/BusinessLoan/BusinessLoanApply";
 
 function App() {
 
@@ -19,6 +23,9 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<Homepage />} />
                 <Route path={'/personal-loan'} element={<PersonalLoan />} />
+                <Route path={'/pao'} element={<PreApprovedLoan />} />
+                <Route path={'/business-loan'} element={<BusinessLoan />} />
+                <Route path={'/business-loan/apply'} element={<BusinessLoanApply />} />
             </Routes>
         )
     }
@@ -27,6 +34,10 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<Homepage />} />
                     <Route path={'/personal-loan'} element={<PersonalLoan />} />
+                    <Route path={'/apply'} element={<PersonalDetails />} />
+                    <Route path={'/pao'} element={<PreApprovedLoan />} />
+                    <Route path={'/business-loan'} element={<BusinessLoan />} />
+                    <Route path={'/business-loan/apply'} element={<BusinessLoanApply />} />
                 </Routes>
             )
         }
@@ -40,7 +51,7 @@ function App() {
             case AUTHENTICATING:
                 return <FullPageLoader/>;
             default:
-                return <NotAuthenticatedRoutes />;
+                return <AuthenticatedRoutes />;
         }
     };
 

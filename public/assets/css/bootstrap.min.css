@@ -2836,7 +2836,6 @@ textarea.form-control-lg {
 
 .input-group .btn {
 	position: relative;
-	z-index: 2
 }
 
 .input-group .btn:focus {
@@ -2844,6 +2843,7 @@ textarea.form-control-lg {
 }
 
 .input-group-text {
+	justify-content: center;
 	display: flex;
 	align-items: center;
 	padding: .375rem .75rem;
