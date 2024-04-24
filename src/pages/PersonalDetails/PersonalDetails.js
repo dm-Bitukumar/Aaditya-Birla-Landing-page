@@ -1,8 +1,10 @@
 import "./css/personal-details.css";
 import WorkDetailsForm from "./components/WorkDetailsForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StepWizard from "react-step-wizard";
 import PersonalDetailsForm from "./components/PersonalDetailsForm";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 let noTransitions = {
   enterRight: "",
@@ -12,6 +14,15 @@ let noTransitions = {
 };
 
 const PersonalDetails = () => {
+  const user = useSelector((state) => state.app.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/personal-loan", { replace: true });
+    }
+  }, [user]);
+
   const [data, setData] = useState({});
   const [step, setStep] = useState(0);
 

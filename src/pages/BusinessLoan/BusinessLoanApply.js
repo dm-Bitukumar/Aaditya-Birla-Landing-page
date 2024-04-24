@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HeadBar from "../../components/Static/HeadBar";
 import StepWizard from "react-step-wizard";
 import ApplyFormStep1 from "./components/ApplyFormStep1";
 import ApplyFormStep2 from "./components/ApplyFormStep2";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 let noTransitions = {
   enterRight: "",
@@ -12,6 +14,15 @@ let noTransitions = {
 };
 
 const BusinessLoanApply = () => {
+  const user = useSelector((state) => state.app.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/business-loan", { replace: true });
+    }
+  }, [user]);
+
   const [formData, setFormData] = useState({
     utm_campaign: "",
     utm_source: "",

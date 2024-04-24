@@ -1,7 +1,7 @@
 import { NOT_INITIALIZED } from "../../constants/authEnums";
 
 const initialState = {
-  authState: NOT_INITIALIZED,
+  user: undefined,
 };
 
 const AppReducer = (state = initialState, action) => {
