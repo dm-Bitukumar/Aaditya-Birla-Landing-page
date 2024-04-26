@@ -1,9 +1,5 @@
 const FullPageLoader = () => {
-    return (
-        <div>
-            Loading...
-        </div>
-    )
-}
+  return <div>Loading...</div>;
+};
 
-export default FullPageLoader
+export default FullPageLoader;

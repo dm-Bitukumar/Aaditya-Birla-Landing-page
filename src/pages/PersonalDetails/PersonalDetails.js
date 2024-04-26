@@ -1,38 +1,44 @@
-import './css/personal-details.css'
+import "./css/personal-details.css";
 import WorkDetailsForm from "./components/WorkDetailsForm";
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import StepWizard from "react-step-wizard";
 import PersonalDetailsForm from "./components/PersonalDetailsForm";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import OfferDetailsSegment from "./components/OfferDetailsSegment";
 
 let noTransitions = {
-    enterRight: '',
-    enterLeft: '',
-    exitRight: '',
-    exitLeft: ''
+  enterRight: "",
+  enterLeft: "",
+  exitRight: "",
+  exitLeft: "",
 };
 
 const PersonalDetails = () => {
-    const [data, setData] = useState({});
-    const [step, setStep] = useState(0);
+  const user = useSelector((state) => state.app.user);
+  const navigate = useNavigate();
 
-    return (
-        <div className={'form-signin-container pt-0'}>
-            <StepWizard
-                transitions={noTransitions}
-                initialStep={step}
-                onStepChange={({activeStep}) => setStep(activeStep)}
-            >
-                <PersonalDetailsForm
-                    updateData={setData}
-                    updateStep={setStep}
-                />
-                <WorkDetailsForm
-                    setStep={setStep}
-                    profession={data.profession}
-                />
-            </StepWizard>
-        </div>
-    )
-}
+  useEffect(() => {
+    if (!user) {
+      navigate("/personal-loan", { replace: true });
+    }
+  }, [user]);
 
-export default PersonalDetails
+  const [step, setStep] = useState(1);
+
+  return (
+    <div className={"form-signin-container pt-0"}>
+      <StepWizard
+        transitions={noTransitions}
+        initialStep={step}
+        onStepChange={({ activeStep }) => setStep(activeStep)}
+      >
+        <PersonalDetailsForm />
+        <WorkDetailsForm />
+        <OfferDetailsSegment />
+      </StepWizard>
+    </div>
+  );
+};
+
+export default PersonalDetails;

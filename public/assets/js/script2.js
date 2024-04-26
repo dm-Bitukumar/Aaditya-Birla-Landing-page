@@ -49,14 +49,14 @@ function calculateResult2() {
 //     Number(interestRateInput.value) || Number(interestRateTextInput.value);
 //   const years = Number(termInput.value) || Number(termTextInput.value);
 
-  // const monthlyInterestRate = interestRate / 100 / 12;
-  // const totalInstallments = years * 12;
-  // const emi =
-  //   (amount *
-  //     (monthlyInterestRate *
-  //       Math.pow(1 + monthlyInterestRate, totalInstallments))) /
-  //   (Math.pow(1 + monthlyInterestRate, totalInstallments) - 1);
-  // const totalinterest = emi * years;
+// const monthlyInterestRate = interestRate / 100 / 12;
+// const totalInstallments = years * 12;
+// const emi =
+//   (amount *
+//     (monthlyInterestRate *
+//       Math.pow(1 + monthlyInterestRate, totalInstallments))) /
+//   (Math.pow(1 + monthlyInterestRate, totalInstallments) - 1);
+// const totalinterest = emi * years;
 //   const tenure = years * 12;
 //   const rate = parseFloat(interestRate) / 100 / 12;
 //   const memi =

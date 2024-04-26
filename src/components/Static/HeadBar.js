@@ -1,10 +1,10 @@
 const HeadBar = () => {
-    return (
-        <>
-            <div className={'head-bar'}></div>
-            <br />
-        </>
-    )
-}
+  return (
+    <>
+      <div className={"head-bar"}></div>
+      <br />
+    </>
+  );
+};
 
-export default HeadBar
+export default HeadBar;
