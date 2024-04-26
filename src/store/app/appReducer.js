@@ -1,14 +1,26 @@
-import { NOT_INITIALIZED } from "../../constants/authEnums";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: undefined,
+  offers: [],
+  lead: {},
 };
 
-const AppReducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+const stateSlice = createSlice({
+  name: "app",
+  initialState,
+  reducers: {
+    login(state, action) {
+      state.user = action.payload;
+    },
+    setLead(state, action) {
+      state.lead = { ...state.lead, ...action.payload };
+    },
+    setOffers(state, action) {
+      state.offers = action.payload;
+    },
+  },
+});
 
-export default AppReducer;
+export const { login, setLead, setOffers } = stateSlice.actions;
+export default stateSlice.reducer;

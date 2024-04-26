@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import _ from "lodash";
 import CheckboxTnC from "./CheckboxTnC";
 import FormButton from "../../../components/Buttons/FormButton";
@@ -6,6 +6,9 @@ import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
 import callApi from "../../../utility/apiCaller";
+import { useDispatch } from "react-redux";
+import { login } from "../../../store/app/appReducer";
+import { toast } from "react-toastify";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -15,6 +18,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [pancard, setPancard] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -58,31 +62,65 @@ const Form = ({ formData, setFormData, ...props }) => {
     let isValid = handleValidation();
     if (isValid) {
       const res = await callApi(
-        "v1/otp",
+        "v1/sms/send-otp",
         "post",
         {
-          mobile,
+          contact_phone: mobile,
         },
-        "messaging",
+        "messaging"
       );
       if (res["status"] === "Success") {
         setIsOtpGenerated(true);
       }
     }
-    // Handle form submission
   };
 
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
   };
 
-  const handleResendOtp = () => {
-    // todo resend login with timer
+  const handleResendOtp = async () => {
+    try {
+      const res = await callApi(
+        "v1/sms/send-otp",
+        "post",
+        {
+          contact_phone: mobile,
+        },
+        "messaging"
+      );
+      if (res["status"] === "Success") {
+        toast("Otp sent", { hideProgressBar: true, type: "success" });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleSubmitOtp = () => {
-    // todo submit logic
-    navigate("/apply");
+  const handleSubmitOtp = async () => {
+    try {
+      const res = await callApi(
+        "v1/sms/validate-otp",
+        "post",
+        {
+          contact_phone: mobile,
+          otp,
+        },
+        "messaging"
+      );
+
+      if (res["status"] === "Success") {
+        dispatch(
+          login({ ...res.data.customer, token: res.data.token, pancard })
+        );
+        navigate("/apply");
+      }
+    } catch (err) {
+      if (err.response.data.data.message === "Invalid OTP") {
+        toast("Wrong OTP", { hideProgressBar: true, type: "error" });
+      }
+      console.log(err);
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes } from "react-router-dom";
 import React from "react";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Homepage from "./pages/Homepage/Homepage";
 import { Route } from "react-router";

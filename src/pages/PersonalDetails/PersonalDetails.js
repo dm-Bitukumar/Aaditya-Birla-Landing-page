@@ -5,6 +5,7 @@ import StepWizard from "react-step-wizard";
 import PersonalDetailsForm from "./components/PersonalDetailsForm";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import OfferDetailsSegment from "./components/OfferDetailsSegment";
 
 let noTransitions = {
   enterRight: "",
@@ -23,8 +24,7 @@ const PersonalDetails = () => {
     }
   }, [user]);
 
-  const [data, setData] = useState({});
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   return (
     <div className={"form-signin-container pt-0"}>
@@ -33,8 +33,9 @@ const PersonalDetails = () => {
         initialStep={step}
         onStepChange={({ activeStep }) => setStep(activeStep)}
       >
-        <PersonalDetailsForm updateData={setData} updateStep={setStep} />
-        <WorkDetailsForm setStep={setStep} profession={data.profession} />
+        <PersonalDetailsForm />
+        <WorkDetailsForm />
+        <OfferDetailsSegment />
       </StepWizard>
     </div>
   );

@@ -5,8 +5,13 @@ import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
 import SalariedForm from "./SalariedForm";
 import SelfEmployedForm from "./SelfEmployedForm";
+import { useDispatch, useSelector } from "react-redux";
+import { setLead } from "../../../store/app/appReducer";
 
-const WorkDetailsForm = ({ profession, nextStep, previousStep }) => {
+const WorkDetailsForm = ({ nextStep, previousStep }) => {
+  const dispatch = useDispatch();
+  const lead = useSelector((state) => state.app.lead);
+
   const [data, setData] = useState({
     company_name: "",
     company_type: "",
@@ -36,7 +41,7 @@ const WorkDetailsForm = ({ profession, nextStep, previousStep }) => {
     setErrors("");
     const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
 
-    if (profession === "Salaried") {
+    if (lead.profession === "Salaried") {
       const { company_name, company_type, monthly_income, salary_mode } = data;
 
       if (_.isEmpty(company_name)) {
@@ -126,8 +131,8 @@ const WorkDetailsForm = ({ profession, nextStep, previousStep }) => {
   const handleSubmit = () => {
     const isValid = handleValidate();
     if (isValid) {
-      // Proceed with form submission
-      console.log("Form data:", data);
+      dispatch(setLead({ ...data, stepDone: 2 }));
+      nextStep();
     }
   };
 
@@ -136,7 +141,7 @@ const WorkDetailsForm = ({ profession, nextStep, previousStep }) => {
   };
 
   const renderForm = () => {
-    switch (profession) {
+    switch (lead.profession) {
       case "Salaried":
         return (
           <SalariedForm
@@ -169,7 +174,7 @@ const WorkDetailsForm = ({ profession, nextStep, previousStep }) => {
       <div
         className={"d-flex gap-3"}
         style={
-          profession === "Salaried"
+          lead.profession === "Salaried"
             ? { position: "absolute", bottom: "10px" }
             : {}
         }

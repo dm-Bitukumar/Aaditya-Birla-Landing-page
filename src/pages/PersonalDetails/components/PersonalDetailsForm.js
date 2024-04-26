@@ -10,6 +10,8 @@ import _ from "lodash";
 import dayjs from "dayjs";
 import { next } from "lodash/seq";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { setLead } from "../../../store/app/appReducer";
 
 const profession_options = [
   { label: "Salaried", value: "Salaried" },
@@ -17,7 +19,8 @@ const profession_options = [
   { label: "Business Owner", value: "business owner" },
 ];
 
-const PersonalDetailsForm = ({ updateStep, updateData, nextStep }) => {
+const PersonalDetailsForm = ({ nextStep }) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     gender: "",
     name: "",
@@ -39,7 +42,7 @@ const PersonalDetailsForm = ({ updateStep, updateData, nextStep }) => {
     let isValid = true;
     setErrors("");
     const emailRegex = new RegExp(
-      /[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/,
+      /[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/
     );
 
     const { gender, name, dob, email, pincode, profession } = data;
@@ -89,7 +92,11 @@ const PersonalDetailsForm = ({ updateStep, updateData, nextStep }) => {
     const isValid = handleValidate();
     if (isValid) {
       nextStep();
-      updateData(data);
+      const localData = {
+        ...data,
+        dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
+      };
+      dispatch(setLead({ ...localData, stepDone: 1 }));
     }
   };
 
