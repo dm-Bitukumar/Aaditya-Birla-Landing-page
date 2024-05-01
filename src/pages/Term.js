@@ -241,7 +241,7 @@ const Term = () => {
               By using the Website, you hereby consent to the use of your
               information as we have outlined in our{" "}
               <span className="text-[#ff0000] text-xs">
-                <Link to="/privacy-policy">Privacy Policy.</Link>
+                <Link to={"/privacy-policy"}>Privacy Policy.</Link>
               </span>
             </p>
             <div className="pt-4 font-bold">

@@ -1,19 +1,20 @@
 import React from "react";
 import MainFooter from "./Homepage/components/MainFooter";
+import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {
   return (
     <>
       <div className="w-full h-full leading-[26px] text-white bg-black">
         <div className="px-20 ">
-          <a href="/">
+          <Link to={"/"}>
             <img
               className="pt-5"
               src="/assets/img/logo.png"
               alt=""
               width={150}
             />
-          </a>
+          </Link>
           <h1 className="pt-5 text-2xl font-semibold">
             PRIVACY AND SECURITY POLICY
           </h1>
