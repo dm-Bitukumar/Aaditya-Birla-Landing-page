@@ -1,5 +1,6 @@
 import React from "react";
 import MainFooter from "./Homepage/components/MainFooter";
+import { Link } from "react-router-dom";
 const Term = () => {
   return (
     <>
@@ -240,7 +241,7 @@ const Term = () => {
               By using the Website, you hereby consent to the use of your
               information as we have outlined in our{" "}
               <span className="text-[#ff0000] text-xs">
-                <a href="/privacy-policy">Privacy Policy.</a>
+                <Link to="/privacy-policy">Privacy Policy.</Link>
               </span>
             </p>
             <div className="pt-4 font-bold">
@@ -521,9 +522,9 @@ const Term = () => {
             </p>
           </div>
         </div>
-      <div className="h-10"></div>
+        <div className="h-10"></div>
       </div>
-      
+
       <MainFooter />
     </>
   );

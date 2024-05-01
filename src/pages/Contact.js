@@ -1,5 +1,6 @@
 import React from "react";
 import MainFooter from "./Homepage/components/MainFooter";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   return (
@@ -12,13 +13,13 @@ const Contact = () => {
         <div className="pt-24 text-center">
           <h1 className="text-[40px]  text-white">Contact us</h1>
 
-          <a
+          <Link
             className="text-[98px] text-[#00a5ca]"
-            href="mailto:hello@digitmoney.in.com"
+            to="mailto:hello@digitmoney.in"
           >
             {" "}
             hello@digitmoney.in{" "}
-          </a>
+          </Link>
         </div>
       </div>
       <MainFooter />

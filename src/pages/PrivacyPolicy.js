@@ -6,7 +6,7 @@ const PrivacyPolicy = () => {
     <>
       <div className="w-full h-full leading-[26px] text-white bg-black">
         <div className="px-20 ">
-          <a href="">
+          <a href="/">
             <img
               className="pt-5"
               src="/assets/img/logo.png"
