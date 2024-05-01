@@ -10,6 +10,9 @@ import PersonalDetails from "./pages/PersonalDetails/PersonalDetails";
 import PreApprovedLoan from "./pages/PAO/PreApprovedLoan";
 import BusinessLoan from "./pages/BusinessLoan/BusinessLoan";
 import BusinessLoanApply from "./pages/BusinessLoan/BusinessLoanApply";
+import Term from "./pages/Term";
+import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
@@ -22,10 +25,13 @@ function App() {
           <Route path={"/apply"} element={<PersonalDetails />} />
           <Route path={"/pao"} element={<PreApprovedLoan />} />
           <Route path={"/business-loan"} element={<BusinessLoan />} />
+          <Route path="/terms" element={<Term />} />
           <Route
             path={"/business-loan/apply"}
             element={<BusinessLoanApply />}
           />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
     </>
