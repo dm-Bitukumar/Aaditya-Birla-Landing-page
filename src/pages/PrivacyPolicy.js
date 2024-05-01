@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {
   return (
-    <>
-      <div className="w-full h-full leading-[26px] text-white bg-black">
+    <div className="bg-black">
+      <div className="w-full h-full container mx-auto leading-[26px] text-white ">
         <div className="px-20 ">
           <Link to={"/"}>
             <img
               className="pt-5"
-              src="/assets/img/logo.png"
+              src="/assets/img/Digit-Money-Logo.png"
               alt=""
               width={150}
             />
@@ -729,7 +729,7 @@ const PrivacyPolicy = () => {
         <div className="h-10"></div>
       </div>
       <MainFooter />
-    </>
+    </div>
   );
 };
 

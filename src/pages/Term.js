@@ -1,12 +1,20 @@
 import React from "react";
 import MainFooter from "./Homepage/components/MainFooter";
 import { Link } from "react-router-dom";
+
 const Term = () => {
   return (
-    <>
-      <div className="w-full h-full text-white bg-black">
+    <div className="bg-black">
+      <div className="w-full h-full text-white container mx-auto">
         <div className="px-20 leading-6">
-          <img className="pt-5" src="/assets/img/logo.png" alt="" width={150} />
+          <Link to={"/"}>
+            <img
+              className="pt-5"
+              src="/assets/img/Digit-Money-Logo.png"
+              alt=""
+              width={150}
+            />
+          </Link>
           <div className="leading-7">
             <h1 className="pt-5 text-2xl font-semibold">
               GENERAL TERMS OF USE
@@ -526,7 +534,7 @@ const Term = () => {
       </div>
 
       <MainFooter />
-    </>
+    </div>
   );
 };
 

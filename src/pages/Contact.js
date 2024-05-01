@@ -7,19 +7,21 @@ const Contact = () => {
     <>
       <div className="w-full h-screen bg-black ">
         <div className="px-[110px] pt-20 ">
-          <img src="/assets/img/logo.png" alt="" width={120} />
+          <Link to={"/"}>
+            <img src="/assets/img/Digit-Money-Logo.png" alt="" width={120} />
+          </Link>
         </div>
 
         <div className="pt-24 text-center">
           <h1 className="text-[40px]  text-white">Contact us</h1>
 
-          <Link
-            className="text-[98px] text-[#00a5ca]"
-            to="mailto:hello@digitmoney.in"
+          <a
+            className="text-[98px] text-[#00a5ca] hover:text-[#00a5ca] decoration-transparent"
+            href="mailto:hello@digitmoney.in"
           >
             {" "}
             hello@digitmoney.in{" "}
-          </Link>
+          </a>
         </div>
       </div>
       <MainFooter />
