@@ -20,7 +20,6 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
 
     company_age: "",
     TypeOfBusiness: "",
-    company_type2: "",
     turnover: "",
     gst: "",
     gst_no: "",
@@ -66,7 +65,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         company_name,
         company_age,
         TypeOfBusiness,
-        company_type2,
+        company_type,
         turnover,
         gst,
         category,
@@ -86,9 +85,9 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         isValid = false;
         setErrors("TypeOfBusiness");
         setErrorMessage("Please select Business Type");
-      } else if (_.isEmpty(company_type2)) {
+      } else if (_.isEmpty(company_type)) {
         isValid = false;
-        setErrors("company_type2");
+        setErrors("company_type");
         setErrorMessage("Please select Company Type");
       } else if (_.isEmpty(turnover)) {
         isValid = false;

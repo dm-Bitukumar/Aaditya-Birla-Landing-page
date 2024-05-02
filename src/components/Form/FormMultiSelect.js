@@ -20,12 +20,11 @@ const FormMultiSelect = ({
     control: (styles) => ({
       ...styles,
       padding: "0.43rem 0",
-      zIndex: "1000",
       maxWidth: "289px",
       height: "58px",
       overflow: "auto",
     }),
-    options: (styles) => ({ ...styles, overflow: "scroll", zIndex: "1000" }),
+    options: (styles) => ({ ...styles, overflow: "scroll" }),
   };
 
   return (
@@ -40,6 +39,7 @@ const FormMultiSelect = ({
           isClearable={isClearable}
           placeholder={label}
           styles={colorStyles}
+          className="z-10"
           options={options}
           onChange={handleChange}
         />
