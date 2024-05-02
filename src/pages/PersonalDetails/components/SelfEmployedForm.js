@@ -14,7 +14,7 @@ import FormMultiSelect from "../../../components/Form/FormMultiSelect";
 
 const SelfEmployedForm = ({ data, errors, errorMessage, handleDataChange }) => {
   const getProofOptions = () => {
-    switch (data.company_type2) {
+    switch (data.company_type) {
     }
   };
 
@@ -59,13 +59,13 @@ const SelfEmployedForm = ({ data, errors, errorMessage, handleDataChange }) => {
       />
       <FormSelect
         options={company_type_options}
-        placeholder="company_type2"
+        placeholder="company_type"
         required
-        id="company_type2"
-        value={data.company_type2}
-        onChange={(value) => handleDataChange("company_type2", value)}
+        id="company_type"
+        value={data.company_type}
+        onChange={(value) => handleDataChange("company_type", value)}
         errorMessage={errorMessage}
-        isValid={errors !== "company_type2"}
+        isValid={errors !== "company_type"}
         icon={<img src="/assets/icons/toc.png" style={{ height: "25px" }} />}
         label={"Company Type"}
       />
@@ -114,9 +114,7 @@ const SelfEmployedForm = ({ data, errors, errorMessage, handleDataChange }) => {
         ) : (
           <FormMultiSelect
             options={
-              data.company_type2
-                ? companyTypeOptionsMap[data.company_type2]
-                : []
+              data.company_type ? companyTypeOptionsMap[data.company_type] : []
             }
             placeholder="regd_proof"
             required

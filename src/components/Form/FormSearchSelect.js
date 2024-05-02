@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import Select from "react-select";
 
 const FormSearchSelect = ({
   isValid,
@@ -11,20 +12,16 @@ const FormSearchSelect = ({
   icon,
   ...props
 }) => {
-  const [searchValue, setSearchValue] = useState("");
-
-  const handleInputChange = (event) => {
-    setSearchValue(event.target.value);
+  const colorStyles = {
+    control: (styles) => ({
+      ...styles,
+      padding: "0.43rem 0",
+      maxWidth: "289px",
+      height: "58px",
+      overflow: "auto",
+    }),
+    options: (styles) => ({ ...styles, overflow: "scroll" }),
   };
-
-  const handleOptionSelect = (selectedValue) => {
-    setSearchValue("");
-    onChange(selectedValue);
-  };
-
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchValue.toLowerCase()),
-  );
 
   return (
     <div className="input-group mb-3" style={{ flexWrap: "nowrap" }}>
@@ -32,7 +29,16 @@ const FormSearchSelect = ({
         {icon}
       </span>
       <div className="form-floating flex-grow-1">
-        <Dropdown>
+        <Select
+          value={value}
+          isSearchable
+          placeholder={label}
+          styles={colorStyles}
+          options={options}
+          className="z-6"
+          onChange={(e) => onChange(e)}
+        />
+        {/* <Dropdown>
           <Dropdown.Toggle
             className={"form-control custom-dropdown"}
             variant="light"
@@ -70,7 +76,7 @@ const FormSearchSelect = ({
               )}
             </div>
           </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown> */}
         {!isValid && (
           <div
             style={{ display: "block" }}
