@@ -107,11 +107,13 @@ const OfferDetailsSegment = () => {
           <div className="bg-gray-300 px-10 rounded text-xs mt-4 font-semibold py-1">
             RECOMMENDED
           </div>
-          {offers.map((e) => (
-            <div key={e._id} className="my-4">
-              <OfferTile offer={e} />
-            </div>
-          ))}
+          {[...offers]
+            .sort((a, b) => parseInt(b.priority) - parseInt(a.priority))
+            .map((e, i) => (
+              <div key={e._id} className="my-4">
+                <OfferTile small={i !== 0} offer={e} />
+              </div>
+            ))}
           <h4 className="text-center text-xs">
             *These pre-approved offers are subject to change at discretion of
             Bank / NBFC after receiving all your documents and details. Final

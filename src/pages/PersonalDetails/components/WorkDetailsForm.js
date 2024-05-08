@@ -38,7 +38,8 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const handleValidate = () => {
     let isValid = true;
     setErrors("");
-    const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
+    const gstRegex = /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[0-9a-zA-Z]{3}$/;
+    // const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
 
     if (lead.profession === "Salaried") {
       const { company_name, company_type, monthly_income, salary_mode } = data;

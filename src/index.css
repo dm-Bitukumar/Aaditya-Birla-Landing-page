@@ -146,6 +146,20 @@ label {
   margin: 2rem auto 0 auto;
 }
 
+.continue-button-sm {
+  border-radius: 5px;
+  background-image: linear-gradient(3deg, #008bae 0%, #00c0ff 100%);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 400;
+  text-align: center;
+  border: 0;
+  font-family: "Montserrat", sans-serif;
+  margin: 2rem auto 0 auto;
+}
+
 .back-button {
   width: 50%;
   border-radius: 5px;
@@ -181,9 +195,7 @@ label {
   -moz-appearance: none;
   appearance: none;
   border-radius: 0.25rem;
-  transition:
-    border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-color: white;
 }
 
