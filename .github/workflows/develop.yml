@@ -29,6 +29,17 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Generate Env
+        run: |
+          echo "Generating env files"
+          touch .env
+          printf REACT_APP_CORE_API="https://core-apidev.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_REPORTING_API="https://report-apidev.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_LOAN_API="https://loan-apidev.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_MESSAGE_API="https://msg-apidev.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_JASOOS_API="https://jasoos.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_ALLIANCE_API="https://alliance-apidev.digitmoney.in\n" | tee -a .env
+
       - name: Install Dependencies
         run: |
           node --version
