@@ -8,10 +8,10 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     env:
-      BUCKET: app.digitmoney.in
+      BUCKET: web.digitmoney.in
       DIST: build
       REGION: ap-south-1
-      DIST_ID: E1FFE4BLBJNA7D
+      DIST_ID: E8FUZKBIPGDTA
       CI: false
 
     steps:
