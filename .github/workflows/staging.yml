@@ -1,0 +1,59 @@
+---
+name: Build and Deploy React App to CloudFront
+on:
+  push:
+    branches: [staging]
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    env:
+      BUCKET: app.digitmoney.in
+      DIST: build
+      REGION: ap-south-1
+      DIST_ID: E1FFE4BLBJNA7D
+      CI: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Generate Env
+        run: |
+          echo "Generating env files"
+          touch .env
+          printf REACT_APP_CORE_API="https://core-api.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_REPORTING_API="https://report-api.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_LOAN_API="https://loan-api.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_MESSAGE_API="https://msg-api.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_JASOOS_API="https://jasoos.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_ALLIANCE_API="https://alliance-api.digitmoney.in\n" | tee -a .env
+
+      - name: Install Dependencies
+        run: |
+          node --version
+          npm i --force
+
+      - name: Build Static Website
+        run: npm run build
+
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
+
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.DIST_ID }} \
+            --paths "/*"
