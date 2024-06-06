@@ -2,16 +2,16 @@
 name: Build and Deploy React App to CloudFront
 on:
   push:
-    branches: [develop]
+    branches: [staging]
 jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
     env:
-      BUCKET: appdev.digitmoney.in
+      BUCKET: app.digitmoney.in
       DIST: build
       REGION: ap-south-1
-      DIST_ID: E147TBF5041QM6
+      DIST_ID: E1FFE4BLBJNA7D
       CI: false
 
     steps:
@@ -33,12 +33,12 @@ jobs:
         run: |
           echo "Generating env files"
           touch .env
-          printf REACT_APP_CORE_API="https://core-apidev.digitmoney.in\n" | tee -a .env
-          printf REACT_APP_REPORTING_API="https://report-apidev.digitmoney.in\n" | tee -a .env
-          printf REACT_APP_LOAN_API="https://loan-apidev.digitmoney.in\n" | tee -a .env
-          printf REACT_APP_MESSAGE_API="https://msg-apidev.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_CORE_API="https://core-api.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_REPORTING_API="https://report-api.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_LOAN_API="https://loan-api.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_MESSAGE_API="https://msg-api.digitmoney.in\n" | tee -a .env
           printf REACT_APP_JASOOS_API="https://jasoos.digitmoney.in\n" | tee -a .env
-          printf REACT_APP_ALLIANCE_API="https://alliance-apidev.digitmoney.in\n" | tee -a .env
+          printf REACT_APP_ALLIANCE_API="https://alliance-api.digitmoney.in\n" | tee -a .env
 
       - name: Install Dependencies
         run: |
