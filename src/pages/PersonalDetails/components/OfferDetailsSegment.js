@@ -1,0 +1,129 @@
+import React, { useEffect, useState } from "react";
+import HeadBar from "../../../components/Static/HeadBar";
+import Stepper from "../../../components/Form/Stepper";
+import FormButton from "../../../components/Buttons/FormButton";
+import _ from "lodash";
+import SalariedForm from "./SalariedForm";
+import SelfEmployedForm from "./SelfEmployedForm";
+import { useDispatch, useSelector } from "react-redux";
+import { setLead, setOffers } from "../../../store/app/appReducer";
+import callApi from "../../../utility/apiCaller";
+import OfferTile from "./OfferTile";
+import { toast } from "react-toastify";
+import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
+
+const OfferDetailsSegment = () => {
+  const dispatch = useDispatch();
+  const lead = useSelector((state) => state.app.lead);
+  const user = useSelector((state) => state.app.user);
+  const offers = useSelector((state) => state.app.offers);
+  const [leadId, setLeadId] = useState();
+  //   662a73413a05656cf94543c4
+
+  useEffect(() => {
+    if (lead.stepDone === 2 && !leadId) {
+      submitLead();
+    }
+  }, [lead]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (leadId) fetchOffers();
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [leadId]);
+
+  const submitLead = async () => {
+    try {
+      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
+        ...lead,
+        ...user,
+      });
+      const res = await callApi(
+        "v1/lead/website-lead",
+        "post",
+        {
+          lead: processedLead,
+        },
+        "core",
+        user.token
+      );
+      console.log(res);
+      if (res.status === "Success" && res.data.lead) {
+        setLeadId(res.data.lead._id);
+      }
+    } catch (err) {
+      toast("Some error occurred", { hideProgressBar: true, type: "error" });
+      console.log(err);
+    }
+  };
+
+  const fetchOffers = async () => {
+    try {
+      const res = await callApi(
+        `v1/loan_offer/lead_id/${leadId}`,
+        "get",
+        {},
+        "core",
+        user.token
+      );
+
+      if (res.status === "Success") {
+        dispatch(setOffers(res.data.offers ?? []));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <div className={"form-signin-apply form-signin"}>
+      <HeadBar />
+      <Stepper
+        steps={["Personal Details", "Work Details", "Offer Page"]}
+        currentStep={2}
+      />
+      {offers?.length === 0 && (
+        <div
+          style={{
+            fontFamily: "Montserrat sans-serif",
+          }}
+          className="text-center text-xl font-normal"
+        >
+          Please wait while we are searching best offers for you
+        </div>
+      )}
+      {offers?.length > 0 && (
+        <div className="flex flex-col items-center justify-center">
+          <img src="/assets/img/Dm LOGO.png" />
+
+          <h3 className="text-lg mt-8">
+            Congratulations{" "}
+            <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
+          </h3>
+          <h3 className="text-lg">Your pre-approved offers </h3>
+
+          <div className="bg-gray-300 px-10 rounded text-xs mt-4 font-semibold py-1">
+            RECOMMENDED
+          </div>
+          {[...offers]
+            .sort((a, b) => parseInt(b.priority) - parseInt(a.priority))
+            .map((e, i) => (
+              <div key={e._id} className="my-4">
+                <OfferTile small={i !== 0} offer={e} />
+              </div>
+            ))}
+          <h4 className="text-center text-xs">
+            *These pre-approved offers are subject to change at discretion of
+            Bank / NBFC after receiving all your documents and details. Final
+            offer will be based on risk policy of Bank / NBFC. We do not
+            guarantee that final offer will be same as Pre-approved offer.
+          </h4>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default OfferDetailsSegment;

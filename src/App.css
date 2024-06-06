@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.head-bar {
+  width: auto;
+  height: 22px;
+  border-radius: 5px;
+  background-color: #13c1fb;
+  margin: -15px -20px;
+}

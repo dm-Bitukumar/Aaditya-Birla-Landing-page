@@ -1,0 +1,20 @@
+
+export const MALE = 'male';
+export const FEMALE = 'female';
+export const UNSPECIFIED = 'unspecified';
+export const PERSONAL_LOAN = 'personal_loan';
+export const BUSINESS_LOAN = 'business_loan';
+export const OVERDRAFT_LOAN = 'overdraft_loan';
+export const SALARIED = 'salaried';
+export const SELF_EMPLOYED = 'self_employed';
+export const BUSINESS_OWNER = 'business_owner';
+export const ONE_PERSON_COMPANY = 'one_person_company';
+export const PRIVATE_LIMITED_COMPANY = 'private_limited_company';
+export const PUBLIC_LIMITED_COMPANY = 'public_limited_company';
+export const GOVERNMENT = 'government';
+export const PARTNERSHIP = 'partnership';
+export const PROPRIETORSHIP = 'proprietorship';
+export const UNREGISTERED = 'unregistered';
+export const ONLINE_NEFT = 'online_neft';
+export const CHEQUE = 'cheque';
+export const CASH = 'cash';

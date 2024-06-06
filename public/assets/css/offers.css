@@ -1,0 +1,274 @@
+html,
+body {
+  height: 100%;
+}
+a {
+  text-decoration: none;
+  font-size: 13px;
+}
+p {
+  margin: 0px !important;
+}
+h3,
+.h3 {
+  font-size: 1.5rem;
+}
+.tnc {
+  font-size: 10px;
+  text-align: justify;
+  line-height: 12px;
+}
+body {
+  display: flex;
+  align-items: center;
+  /*padding-top: 40px;*/
+  padding-bottom: 40px;
+  background-color: #ffffff;
+}
+.form-signin {
+  width: 100%;
+  max-width: 390px;
+  padding: 15px 20px;
+  margin: auto;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 0px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.offerP {
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0px;
+  color: #343434;
+  font-weight: 300;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+}
+.offerP span {
+  font-size: 22px;
+}
+.offercontainer {
+  border-radius: 10px;
+  background-color: #ffffff;
+  filter: drop-shadow(0px 0px 3px lightgray);
+  padding: 1rem 0.8rem 1rem 0.8rem;
+  margin: auto auto 1rem auto;
+}
+@media (max-width: 576px) #signUpForm .gendermode,
+  #signUpForm .salmode,
+  #signUpForm .offercontainer,
+  #signUpForm .form-footer,
+  .first form .inputfield {
+  width: 90%;
+}
+@media (max-width: 768px) #signUpForm .gendermode,
+  #signUpForm .salmode,
+  #signUpForm .offercontainer,
+  #signUpForm .form-footer,
+  .first form .inputfield {
+  width: 80%;
+}
+@media (max-width: 991px) #signUpForm .gendermode,
+  #signUpForm .salmode,
+  #signUpForm .offercontainer,
+  #signUpForm .form-footer,
+  .first form .inputfield {
+  width: 70%;
+}
+@media (max-width: 1024px) #signUpForm .gendermode,
+  #signUpForm .salmode,
+  #signUpForm .offercontainer,
+  #signUpForm .form-footer,
+  #signUpForm .form-footer button .first form .inputfield {
+  width: 70%;
+}
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+#signUpForm .offercontainer .offerbtn button {
+  border-radius: 5px;
+  background-image: linear-gradient(3deg, #008bae 0%, #00c0ff 100%);
+  border: 0;
+  font-size: 9px;
+  letter-spacing: 1px;
+  line-height: 12px;
+  text-transform: uppercase;
+  color: #fffefe;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+  padding: 0.5rem 1.5rem;
+}
+.offerdetails {
+  padding-bottom: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.text-left {
+  text-align: left;
+}
+.offerimg {
+  height: 100px;
+  width: auto;
+}
+label {
+  font-size: 12px;
+}
+.stepIndicator {
+  font-size: 12px;
+}
+.firstName {
+  font-size: 34px;
+}
+.offerlastP {
+  font-size: 11px;
+}
+.view-more {
+  border-radius: 5px;
+  background-image: linear-gradient(3deg, #008bae 0%, #00c0ff 100%) !important;
+  border: 0;
+  font-size: 9px;
+  letter-spacing: 1px;
+  line-height: 12px;
+  text-transform: uppercase;
+  color: #fffefe;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+  padding: 0.5rem 1.5rem;
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+#loadMore {
+  display: none;
+}
+.view-more-btn a {
+  color: #f30a0a;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.loadMoreCard {
+  display: none;
+}
+
+.header-14-sub {
+  position: relative;
+  min-height: 900px; /* set default height */
+  transition: all 0.5s ease; /* optional css transition effect */
+}
+
+@media (max-width: 480px) {
+  .header-14-sub {
+    min-height: 750px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .header-14-sub {
+    min-height: 500px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .header-14-sub {
+    min-height: 500px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header-14-sub {
+    min-height: 500px;
+  }
+}
+
+.dot-pulse {
+  position: relative;
+  left: -9978px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #13c1fb;
+  box-shadow: 9999px 0 0 -5px;
+  /*animation: dot-pulse 1.5s infinite linear;
+	  animation-delay: 0.25s;*/
+  top: 10px;
+}
+.dot-pulse::before,
+.dot-pulse::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #13c1fb;
+}
+.dot-pulse::before {
+  box-shadow: 9984px 0 0 -5px;
+  animation: dot-pulse-before 1.5s infinite linear;
+  animation-delay: 0s;
+}
+.dot-pulse::after {
+  box-shadow: 10014px 0 0 -5px;
+  animation: dot-pulse-after 1.5s infinite linear;
+  animation-delay: 0.5s;
+}
+
+@keyframes dot-pulse-before {
+  0% {
+    box-shadow: 9984px 0 0 -5px;
+  }
+  30% {
+    box-shadow: 9984px 0 0 2px;
+  }
+  60%,
+  100% {
+    box-shadow: 9984px 0 0 -5px;
+  }
+}
+@keyframes dot-pulse {
+  0% {
+    box-shadow: 9999px 0 0 -5px;
+  }
+  30% {
+    box-shadow: 9999px 0 0 2px;
+  }
+  60%,
+  100% {
+    box-shadow: 9999px 0 0 -5px;
+  }
+}
+@keyframes dot-pulse-after {
+  0% {
+    box-shadow: 10014px 0 0 -5px;
+  }
+  30% {
+    box-shadow: 10014px 0 0 2px;
+  }
+  60%,
+  100% {
+    box-shadow: 10014px 0 0 -5px;
+  }
+}
