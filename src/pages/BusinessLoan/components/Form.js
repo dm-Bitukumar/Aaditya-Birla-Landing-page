@@ -98,7 +98,7 @@ const Form = ({ formData, setFormData, ...props }) => {
 
       if (res["status"] === "Success") {
         dispatch(
-          login({ ...res.data.customer, token: res.data.token, pancard })
+          login({ ...res.data.customer, token: res.data.token,  })
         );
         navigate("/business-loan/apply");
       }
