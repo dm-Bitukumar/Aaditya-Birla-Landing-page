@@ -5,7 +5,10 @@ import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
-
+import callApi from "../../../utility/apiCaller";
+import { toast } from "react-toastify";
+import { login } from "../../../store/app/appReducer";
+import { useDispatch } from "react-redux";
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
@@ -14,7 +17,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [pancard, setPancard] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleValidation = () => {
@@ -53,14 +56,25 @@ const Form = ({ formData, setFormData, ...props }) => {
     setMobile(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
       setIsOtpGenerated(true);
+      const res = await callApi(
+        "v1/sms/send-otp",
+        "post",
+        {
+          contact_phone: mobile,
+        },
+        "messaging"
+      );
+      if (res["status"] === "Success") {
+        setIsOtpGenerated(true);
+      }
     }
-    // Handle form submission
   };
+  // Handle form submission
 
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
@@ -70,15 +84,35 @@ const Form = ({ formData, setFormData, ...props }) => {
     // todo resend login with timer
   };
 
-  const handleSubmitOtp = () => {
-    // todo submit logic
-    navigate("/business-loan/apply");
-  };
+  const handleSubmitOtp = async () => {
+    try {
+      const res = await callApi(
+        "v1/sms/validate-otp",
+        "post",
+        {
+          contact_phone: mobile,
+          otp,
+        },
+        "messaging"
+      );
 
+      if (res["status"] === "Success") {
+        dispatch(
+          login({ ...res.data.customer, token: res.data.token,  })
+        );
+        navigate("/business-loan/apply");
+      }
+    } catch (err) {
+      if (err.response.data.data.message === "Invalid OTP") {
+        toast("Wrong OTP", { hideProgressBar: true, type: "error" });
+      }
+      console.log(err);
+    }
+  };
   return (
     <div className={"personal-loan-form"}>
       <img
-        className="mb-1 mt-3 img logo-img"
+        className="mt-3 mb-1 img logo-img"
         src="/assets/img/logo.png"
         alt=""
       />
@@ -96,12 +130,12 @@ const Form = ({ formData, setFormData, ...props }) => {
       ) : (
         <>
           <img
-            className="mb-3 my-5 img header-img"
+            className="my-5 mb-3 img header-img"
             src="/assets/img/dm-bs.png"
             alt=""
           />
           <h1
-            className="h3 mt-5 fw-normal text-center"
+            className="mt-5 text-center h3 fw-normal"
             style={{ fontSize: "20px", letterSpacing: "2pxs" }}
           >
             Lets Check Your
@@ -139,6 +173,30 @@ const Form = ({ formData, setFormData, ...props }) => {
             label={"Mobile Number"}
             errorMessage={"Please enter a valid Mobile Number"}
           />
+          {/* <FormInput
+            className={"my-5"}
+            icon={
+              <img
+                src="/assets/icons/phone-call.png"
+                height="25"
+                alt="PAN Card Icon"
+              />
+            }
+            type="text"
+            name="pancard"
+            isValid={isMobileValid}
+            id="Pancard"
+            aria-describedby="name"
+            placeholder="PAN Card"
+            minLength="10"
+            maxLength="10"
+            pattern="[0-9]{10}"
+            value={pancard}
+            onChange={handlePancardChange}
+            required
+            label={"Pancard"}
+            errorMessage={"Please enter a valid pancard Number"}
+          /> */}
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
           <FormButton
             style={{ marginTop: "10px" }}
