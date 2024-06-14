@@ -126,17 +126,17 @@ const Form = ({ formData, setFormData, ...props }) => {
   return (
     <div className={"personal-loan-form"}>
       <img
-        className="mb-1 mt-3 img logo-img"
+        className="mt-3 mb-1 img logo-img"
         src="/assets/img/logo.png"
         alt=""
       />
       <img
-        className="mb-3 mt-3 img header-img"
+        className="mt-3 mb-3 img header-img"
         src="/assets/img/header.png"
         alt=""
       />
       <h1
-        className="h3 mb-3 fw-normal text-center"
+        className="mb-3 text-center h3 fw-normal"
         style={{ fontSize: "20px" }}
       >
         Get Instant Personal Loan
@@ -158,7 +158,7 @@ const Form = ({ formData, setFormData, ...props }) => {
       ) : (
         <>
           <h1
-            className="h3 mb-2 fw-normal"
+            className="mb-2 h3 fw-normal"
             align="left"
             style={{ fontSize: "18px", fontWeight: "bold" }}
           >
