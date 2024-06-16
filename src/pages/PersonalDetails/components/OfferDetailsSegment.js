@@ -109,7 +109,7 @@ const OfferDetailsSegment = () => {
             RECOMMENDED
           </div>
           {[...offers]
-            .sort((a, b) => parseInt(b.priority) - parseInt(a.priority))
+            .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
             .map((e, i) => (
               <div key={e._id} className="my-4">
                 <OfferTile small={i !== 0} offer={e} />
