@@ -10,6 +10,9 @@ import {
   company_type_options,
   turnoverOptions,
 } from "../../../constants/formData";
+import { setLead } from "../../../store/app/appReducer";
+import { useDispatch } from "react-redux";
+import moment from "moment";
 
 const ApplyFormStep2 = ({
   formData,
@@ -21,13 +24,11 @@ const ApplyFormStep2 = ({
   const [errors, setErrors] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [data, setData] = useState({
-    gst_available: "",
-    gst_no: "",
-
+    business_type: "",
+    turnover: "",
     company_type: "",
-    regd_proof: "",
   });
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleValidation = () => {
@@ -46,7 +47,7 @@ const ApplyFormStep2 = ({
         isValid = false;
         setErrors("gst_no");
         setErrorMessage("Please enter GST Number");
-      } else if (gstRegex.test(gst_no)) {
+      } else if (!gstRegex.test(gst_no)) {
         isValid = false;
         setErrors("gst_no");
         setErrorMessage("Please enter valid GST Number");
@@ -67,6 +68,17 @@ const ApplyFormStep2 = ({
 
     return isValid;
   };
+  const handleSubmit = () => {
+    const isValid = handleValidation();
+    if (isValid) {
+      nextStep();
+      // const localData = {
+      //   ...data,
+      //   dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
+      // };
+      dispatch(setLead({ ...data, stepDone: 2 }));
+    }
+  };
 
   const handleDataChange = (keyName, keyValue) => {
     let update = { ...data };
@@ -74,11 +86,11 @@ const ApplyFormStep2 = ({
     setData(update);
   };
 
-  const handleSubmit = () => {
-    if (handleValidation()) {
-    }
-    // todo submit logic
-  };
+  // const handleSubmit = () => {
+  //   if (handleValidation()) {
+  //   }
+  //   // todo submit logic
+  // };
 
   const handleBack = () => {
     previousStep();
@@ -87,7 +99,7 @@ const ApplyFormStep2 = ({
   return (
     <div className={"personal-loan-form"}>
       <img
-        className="mb-1 my-5 img logo-img"
+        className="my-5 mb-1 img logo-img"
         src="/assets/img/logo.png"
         alt=""
       />
@@ -95,13 +107,13 @@ const ApplyFormStep2 = ({
         <FormSelect
           className={"my-3"}
           options={business_type_options}
-          placeholder="TypeOfBusiness"
+          placeholder="Type Of Business"
           required
-          id="TypeOfBusiness"
-          value={data.TypeOfBusiness}
-          onChange={(value) => handleDataChange("TypeOfBusiness", value)}
+          id="business_type"
+          value={data.business_type}
+          onChange={(value) => handleDataChange("business_type", value)}
           errorMessage={errorMessage}
-          isValid={errors !== "TypeOfBusiness"}
+          isValid={errors !== "business_type"}
           icon={
             <img src="/assets/icons/ctype.png" style={{ height: "25px" }} />
           }
@@ -124,13 +136,13 @@ const ApplyFormStep2 = ({
         />
         <FormSelect
           options={company_type_options}
-          placeholder="TypeOfIndustry"
+          placeholder="Type Of Industry"
           required
-          id="TypeOfIndustry"
-          value={data.TypeOfIndustry}
-          onChange={(value) => handleDataChange("TypeOfIndustry", value)}
+          id="company_type"
+          value={data.company_type}
+          onChange={(value) => handleDataChange("company_type", value)}
           errorMessage={errorMessage}
-          isValid={errors !== "TypeOfIndustry"}
+          isValid={errors !== "company_type"}
           icon={<img src="/assets/icons/toc.png" style={{ height: "25px" }} />}
           label={"Select Your Industry"}
         />
