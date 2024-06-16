@@ -3,14 +3,16 @@ import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
-import SalariedForm from "./SalariedForm";
-import SelfEmployedForm from "./SelfEmployedForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
-import OfferTile from "../OfferTile";
+import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
-import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
+import {
+  getAllianceLeadFromMoneyTapInput,
+  getBusinessTurnoverFromEntry,
+  getBusinessVintageFromEntry,
+} from "../../../utility/commonUtils";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -36,15 +38,16 @@ const OfferDetailsSegment = () => {
 
   const submitLead = async () => {
     try {
-      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        ...lead,
-        ...user,
-      });
       const res = await callApi(
         `v1/lead/${lead._id}/update-lead`,
         "post",
         {
-          lead: processedLead,
+          lead: {
+            ...lead,
+            gst: lead.gst_no,
+            turnover: getBusinessTurnoverFromEntry(lead.turnover),
+            business_vintage: getBusinessVintageFromEntry(lead.company_age),
+          },
         },
         "core",
         user.token

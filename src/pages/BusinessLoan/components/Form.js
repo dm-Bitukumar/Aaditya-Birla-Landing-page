@@ -102,12 +102,10 @@ const Form = ({ formData, setFormData, ...props }) => {
         const response = await callApi(
           "v1/lead/lead-from-phone",
           "post",
-
           {
             phone: mobile,
           },
           "core",
-
           res.data.token
         );
 

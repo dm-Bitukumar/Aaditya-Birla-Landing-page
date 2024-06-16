@@ -5,6 +5,7 @@ import ApplyFormStep1 from "./components/ApplyFormStep1";
 import ApplyFormStep2 from "./components/ApplyFormStep2";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import OfferDetailsSegment from "./components/OfferDetailsSegment";
 
 let noTransitions = {
   enterRight: "",
@@ -31,7 +32,7 @@ const BusinessLoanApply = () => {
   //   click_id: "",
   //   aff_id: "",
   // });
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   return (
     <div className={"personal-loan-container"} style={{ maxHeight: "100vh" }}>
@@ -43,7 +44,7 @@ const BusinessLoanApply = () => {
       >
         <ApplyFormStep1 />
         <ApplyFormStep2 />
-        {/* <OfferDetailsSegment /> */}
+        <OfferDetailsSegment />
       </StepWizard>
     </div>
   );

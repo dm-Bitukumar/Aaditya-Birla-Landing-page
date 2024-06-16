@@ -13,7 +13,7 @@ import {
 } from "./enum";
 const INDIAN_COUNTRY_CODE = "91";
 
-function getProfessionTypeFromEntry(profession) {
+export function getProfessionTypeFromEntry(profession) {
   profession = profession.split(", ");
 
   let professionTypes = [];
@@ -31,7 +31,7 @@ function getProfessionTypeFromEntry(profession) {
   return professionTypes;
 }
 
-function getSalaryModeFromEntry(salary_mode) {
+export function getSalaryModeFromEntry(salary_mode) {
   salary_mode = salary_mode.split(", ");
   let salaryModes = [];
 
@@ -79,7 +79,7 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   return alliance_lead;
 }
 
-function getBusinessVintageFromEntry(age) {
+export function getBusinessVintageFromEntry(age) {
   if (age === "Less Than 1 Year") {
     return 1;
   } else if (age === "1-3 Year") {
@@ -91,7 +91,7 @@ function getBusinessVintageFromEntry(age) {
   return 1;
 }
 
-function getBusinessTurnoverFromEntry(turnover) {
+export function getBusinessTurnoverFromEntry(turnover) {
   if (turnover === "0-25K") {
     return 25000;
   } else if (turnover === "25K-1 Lac") {
