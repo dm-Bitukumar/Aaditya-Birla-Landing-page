@@ -72,17 +72,17 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   return (
     <div className={"personal-loan-form"}>
       <img
-        className="mb-1 mt-3 img logo-img"
+        className="mt-3 mb-1 img logo-img"
         src="/assets/img/logo.png"
         alt=""
       />
       <img
-        className="mb-3 my-5 img header-img"
+        className="my-5 mb-3 img header-img"
         src="/assets/img/dm-bs.png"
         alt=""
       />
       <h1
-        className="h3 mt-5 fw-normal text-center"
+        className="mt-5 text-center h3 fw-normal"
         style={{ fontSize: "20px", letterSpacing: "2pxs" }}
       >
         Lets Check Your

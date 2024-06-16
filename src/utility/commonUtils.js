@@ -61,15 +61,48 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.is_company = lead.company_type !== "";
   alliance_lead.address1 = "";
   alliance_lead.address2 = "";
-  alliance_lead.core_id = lead.core_id;
   alliance_lead.city = "";
   alliance_lead.state = "";
+  alliance_lead.company_type = lead.company_type?.toLowerCase() ?? "";
+  alliance_lead.gst = lead.gst_no;
+  alliance_lead.turnover = getBusinessTurnoverFromEntry(lead.turnover);
+  alliance_lead.business_vintage = getBusinessVintageFromEntry(
+    lead.company_age
+  );
   alliance_lead.pincode = lead.pincode;
   alliance_lead.profession_type = getProfessionTypeFromEntry(lead.profession);
-  alliance_lead.monthly_income = lead.income;
+  alliance_lead.monthly_income = lead.monthly_income;
   alliance_lead.annual_income = 0;
   alliance_lead.pancard = lead.pancard;
   alliance_lead.salary_mode = getSalaryModeFromEntry(lead.salary_mode);
   alliance_lead.alliance_id = alliance_id;
   return alliance_lead;
+}
+
+function getBusinessVintageFromEntry(age) {
+  if (age === "Less Than 1 Year") {
+    return 1;
+  } else if (age === "1-3 Year") {
+    return 3;
+  } else if (age === "Above 3 Years") {
+    return 5;
+  }
+
+  return 1;
+}
+
+function getBusinessTurnoverFromEntry(turnover) {
+  if (turnover === "0-25K") {
+    return 25000;
+  } else if (turnover === "25K-1 Lac") {
+    return 100000;
+  } else if (turnover === "1-5 Lacs") {
+    return 500000;
+  } else if (turnover === "5-25 Lacs") {
+    return 2500000;
+  } else if (turnover === "25 Lacs+") {
+    return 10000000;
+  }
+
+  return 25000;
 }

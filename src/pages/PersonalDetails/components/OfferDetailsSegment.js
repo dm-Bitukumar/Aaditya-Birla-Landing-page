@@ -40,6 +40,7 @@ const OfferDetailsSegment = () => {
         ...lead,
         ...user,
       });
+
       const res = await callApi(
         "v1/lead/website-lead",
         "post",
@@ -89,7 +90,7 @@ const OfferDetailsSegment = () => {
           style={{
             fontFamily: "Montserrat sans-serif",
           }}
-          className="text-center text-xl font-normal"
+          className="text-xl font-normal text-center"
         >
           Please wait while we are searching best offers for you
         </div>
@@ -98,13 +99,13 @@ const OfferDetailsSegment = () => {
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
-          <h3 className="text-lg mt-8">
+          <h3 className="mt-8 text-lg">
             Congratulations{" "}
             <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 
-          <div className="bg-gray-300 px-10 rounded text-xs mt-4 font-semibold py-1">
+          <div className="px-10 py-1 mt-4 text-xs font-semibold bg-gray-300 rounded">
             RECOMMENDED
           </div>
           {[...offers]
@@ -114,7 +115,7 @@ const OfferDetailsSegment = () => {
                 <OfferTile small={i !== 0} offer={e} />
               </div>
             ))}
-          <h4 className="text-center text-xs">
+          <h4 className="text-xs text-center">
             *These pre-approved offers are subject to change at discretion of
             Bank / NBFC after receiving all your documents and details. Final
             offer will be based on risk policy of Bank / NBFC. We do not
