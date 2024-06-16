@@ -107,14 +107,14 @@ const Form = ({ formData, setFormData, ...props }) => {
           },
           "core",
           res.data.token
-        );
-
-        if (response["status"] === "Success") {
-          dispatch(setLead(response.data.lead));
-          navigate("/business-loan/apply");
-        } else {
-          navigate("/personal-loan");
-        }
+        )
+          .then((response) => {
+            if (response["status"] === "Success") {
+              dispatch(setLead(response.data.lead));
+              navigate("/business-loan/apply");
+            }
+          })
+          .catch((e) => navigate("/personal-loan"));
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {
