@@ -7,7 +7,7 @@ import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
 import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
-import { login } from "../../../store/app/appReducer";
+import { login, setLead } from "../../../store/app/appReducer";
 import { useDispatch } from "react-redux";
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -97,10 +97,26 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
 
       if (res["status"] === "Success") {
-        dispatch(
-          login({ ...res.data.customer, token: res.data.token,  })
+        dispatch(login({ ...res.data.customer, token: res.data.token }));
+
+        const response = await callApi(
+          "v1/lead/lead-from-phone",
+          "post",
+
+          {
+            phone: mobile,
+          },
+          "core",
+
+          res.data.token
         );
-        navigate("/business-loan/apply");
+
+        if (response["status"] === "Success") {
+          dispatch(setLead(response.data.lead));
+          navigate("/business-loan/apply");
+        } else {
+          navigate("/personal-loan");
+        }
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {

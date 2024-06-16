@@ -4,8 +4,12 @@ import FormButton from "../../../components/Buttons/FormButton";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
 import GstRegistrationOption from "./GstRegistrationOption";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { setLead } from "../../../store/app/appReducer";
 
 const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [data, setData] = useState({
@@ -21,7 +25,8 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   const handleValidation = () => {
     let isValid = true;
     setErrors("");
-    const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
+    const gstRegex = /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[0-9a-zA-Z]{3}$/;
+    // const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
 
     if (data.gst_available === "") {
       isValid = false;
@@ -34,7 +39,7 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
         isValid = false;
         setErrors("gst_no");
         setErrorMessage("Please enter GST Number");
-      } else if (gstRegex.test(gst_no)) {
+      } else if (!gstRegex.test(gst_no)) {
         isValid = false;
         setErrors("gst_no");
         setErrorMessage("Please enter valid GST Number");
@@ -55,6 +60,17 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
 
     return isValid;
   };
+  const handleSubmit = () => {
+    const isValid = handleValidation();
+    if (isValid) {
+      nextStep();
+      // const localData = {
+      //   ...data,
+      //   dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
+      // };
+      dispatch(setLead({ ...data, stepDone: 1 }));
+    }
+  };
 
   const handleDataChange = (keyName, keyValue) => {
     let update = { ...data };
@@ -62,27 +78,28 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
     setData(update);
   };
 
-  const handleSubmit = () => {
-    if (handleValidation()) {
-      nextStep();
-    }
-    // todo submit logic
-  };
+  // const handleSubmit = () => {
+  //   if (handleValidation()) {
+
+  //     nextStep();
+  //   }
+  //   // todo submit logic
+  // };
 
   return (
     <div className={"personal-loan-form"}>
       <img
-        className="mb-1 mt-3 img logo-img"
+        className="mt-3 mb-1 img logo-img"
         src="/assets/img/logo.png"
         alt=""
       />
       <img
-        className="mb-3 my-5 img header-img"
+        className="my-5 mb-3 img header-img"
         src="/assets/img/dm-bs.png"
         alt=""
       />
       <h1
-        className="h3 mt-5 fw-normal text-center"
+        className="mt-5 text-center h3 fw-normal"
         style={{ fontSize: "20px", letterSpacing: "2pxs" }}
       >
         Lets Check Your
