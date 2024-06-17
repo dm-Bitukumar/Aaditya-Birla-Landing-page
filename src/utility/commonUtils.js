@@ -90,7 +90,7 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.profession_type = getProfessionTypeFromEntry(lead.profession);
   alliance_lead.monthly_income = lead.monthly_income;
   alliance_lead.annual_income = 0;
-  alliance_lead.pancard = lead.pancard;
+  alliance_lead.pancard = lead.pancard?.toUpperCase() ?? "";
   alliance_lead.salary_mode = getSalaryModeFromEntry(lead.salary_mode);
   alliance_lead.alliance_id = alliance_id;
   return alliance_lead;
