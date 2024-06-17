@@ -118,7 +118,7 @@ export function getBusinessTurnoverFromEntry(turnover) {
   } else if (turnover === "5-25 Lacs") {
     return 2500000;
   } else if (turnover === "25 Lacs+") {
-    return 10000000;
+    return 2500000;
   }
 
   return 25000;
