@@ -10,6 +10,7 @@ import {
   PERSONAL_LOAN,
   SALARIED,
   SELF_EMPLOYED,
+  UNSPECIFIED,
 } from "./enum";
 const INDIAN_COUNTRY_CODE = "91";
 
