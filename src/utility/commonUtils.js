@@ -13,39 +13,55 @@ import {
 } from "./enum";
 const INDIAN_COUNTRY_CODE = "91";
 
-export function getProfessionTypeFromEntry(profession) {
-  profession = profession.split(", ");
-
-  let professionTypes = [];
-
-  if (profession.includes("Salaried")) {
-    professionTypes.push(SALARIED);
+function getProfessionTypeFromEntry(profession) {
+  if (profession.toLowerCase() === "salaried") {
+    return SALARIED;
   }
-  if (profession.includes("self employed")) {
-    professionTypes.push(SELF_EMPLOYED);
+  if (
+    profession.toLowerCase() === "self employed" ||
+    profession.toLowerCase() === "selfemployed" ||
+    profession.toLowerCase() === "self_employed" ||
+    profession.toLowerCase() === "self-employed"
+  ) {
+    return SELF_EMPLOYED;
   }
-  if (profession.includes("business owner")) {
-    professionTypes.push(BUSINESS_OWNER);
+  if (
+    profession.toLowerCase() === "business owner" ||
+    profession.toLowerCase() === "business_owner" ||
+    profession.toLowerCase() === "business-owner" ||
+    profession.toLowerCase() === "businessowner"
+  ) {
+    return BUSINESS_OWNER;
   }
-
-  return professionTypes;
 }
 
-export function getSalaryModeFromEntry(salary_mode) {
-  salary_mode = salary_mode.split(", ");
-  let salaryModes = [];
+function getSalaryModeFromEntry(salary_mode) {
+  if (
+    salary_mode.toLowerCase() === "online/neft" ||
+    salary_mode.toLowerCase() === "online neft" ||
+    salary_mode.toLowerCase() === "online|neft" ||
+    salary_mode.toLowerCase() === "online | neft" ||
+    salary_mode.toLowerCase() === "online-neft" ||
+    salary_mode.toLowerCase() === "online_neft"
+  ) {
+    return ONLINE_NEFT;
+  }
+  if (salary_mode.toLowerCase() === "cheque") {
+    return CHEQUE;
+  }
+  if (salary_mode.toLowerCase() === "cash") {
+    return CASH;
+  }
+}
 
-  if (salary_mode.includes("Online/NEFT")) {
-    salaryModes.push(ONLINE_NEFT);
+function getGenderFromEntry(gender) {
+  if (gender.toLowerCase() === "male") {
+    return MALE;
   }
-  if (salary_mode.includes("Cheque")) {
-    salaryModes.push(CHEQUE);
+  if (gender.toLowerCase() === "female") {
+    return FEMALE;
   }
-  if (salary_mode.includes("Cash")) {
-    salaryModes.push(CASH);
-  }
-
-  return salaryModes;
+  return UNSPECIFIED;
 }
 
 export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
@@ -55,7 +71,7 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.country_code = INDIAN_COUNTRY_CODE;
   alliance_lead.contact_email = lead.email;
   alliance_lead.dob = moment(lead.dob).toISOString();
-  alliance_lead.gender = lead.gender === "Male" ? MALE : FEMALE;
+  alliance_lead.gender = getGenderFromEntry(lead.gender);
   alliance_lead.loan_type =
     lead.company_type !== "" ? BUSINESS_LOAN : PERSONAL_LOAN;
   alliance_lead.is_company = lead.company_type !== "";
