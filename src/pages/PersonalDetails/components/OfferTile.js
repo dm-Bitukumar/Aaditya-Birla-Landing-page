@@ -9,7 +9,7 @@ const OfferTile = ({ offer, small }) => {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="flex flex-col items-center justify-center">
       <div
         className={`rounded-lg ring-1 ring-[#00c0ff] ${
           small ? "px-0 pb-2" : "px-16 pb-6"
@@ -21,18 +21,18 @@ const OfferTile = ({ offer, small }) => {
             small ? "text-xl" : "text-3xl"
           } font-semibold text-[#00c0ff]`}
         >
-          ₹ {convertNumberToIndianFormat(offer.credit_limit)}
+          ₹ {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
         </h2>
         {!small && (
           <div>
-            <h5 className="text-xs mt-6 font-semibold">
-              Amount: ₹ {convertNumberToIndianFormat(offer.credit_limit)}
+            <h5 className="mt-6 text-xs font-semibold">
+              Amount: ₹ {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
             </h5>
-            <h5 className="text-xs my-2 font-semibold">
+            <h5 className="my-2 text-xs font-semibold">
               Tenure: {offer.tenure} Months
             </h5>
             <h5 className="text-xs font-semibold">
-              EMI: ₹ {convertNumberToIndianFormat(offer.emi)}
+              EMI: ₹ {convertNumberToIndianFormat(offer.emi ?? 0)}
             </h5>
           </div>
         )}
