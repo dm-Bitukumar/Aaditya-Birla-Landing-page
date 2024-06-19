@@ -112,12 +112,24 @@ const OfferDetailsSegment = () => {
           </div>
           {[...offers]
             .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
+            .slice(0, 1)
             .map((e, i) => (
               <div key={e._id} className="my-4">
-                <OfferTile small={i !== 0} offer={e} />
+                <OfferTile small={false} offer={e} />
               </div>
             ))}
-          <h4 className="text-xs text-center">
+          <div className="grid grid-cols-3 gap-4">
+            {[...offers]
+              .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
+              .slice(1)
+              .map((e, i) => (
+                <div key={e._id} className="">
+                  <OfferTile small offer={e} />
+                </div>
+              ))}
+          </div>
+
+          <h4 className="mt-4 text-xs text-center">
             *These pre-approved offers are subject to change at discretion of
             Bank / NBFC after receiving all your documents and details. Final
             offer will be based on risk policy of Bank / NBFC. We do not

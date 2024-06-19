@@ -1,77 +1,34 @@
 import React, { useEffect, useState } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
-import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
-import SalariedForm from "./SalariedForm";
-import SelfEmployedForm from "./SelfEmployedForm";
-import { useDispatch, useSelector } from "react-redux";
-import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
-import OfferTile from "./OfferTile";
+import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
-import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
+import { useSearchParams } from "react-router-dom";
 
 const OfferDetailsSegment = () => {
-  const dispatch = useDispatch();
-  const lead = useSelector((state) => state.app.lead);
-  const user = useSelector((state) => state.app.user);
-  const offers = useSelector((state) => state.app.offers);
-  const [leadId, setLeadId] = useState();
-  //   662a73413a05656cf94543c4
+  const [lead, setLead] = useState();
+  const [offers, setOffers] = useState();
+
+  const [params] = useSearchParams();
 
   useEffect(() => {
-    if (lead.stepDone === 2 && !leadId) {
-      submitLead();
-    }
-  }, [lead]);
+    if (params.get("lid")) fetchOffers(params.get("lid"));
+  }, [params]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (leadId) fetchOffers();
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, [leadId]);
-
-  const submitLead = async () => {
-    try {
-      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        ...lead,
-        ...user,
-      });
-
-      const res = await callApi(
-        "v1/lead/website-lead",
-        "post",
-        {
-          lead: processedLead,
-        },
-        "core",
-        user.token
-      );
-      console.log(res);
-      if (res.status === "Success" && res.data.lead) {
-        setLeadId(res.data.lead._id);
-      }
-    } catch (err) {
-      toast("Some error occurred", { hideProgressBar: true, type: "error" });
-      console.log(err);
-    }
-  };
-
-  const fetchOffers = async () => {
+  const fetchOffers = async (lid) => {
     try {
       const res = await callApi(
-        `v1/loan_offer/lead_id/${leadId}`,
+        `v1/loan_offer/lead_id/${lid}`,
         "get",
         {},
-        "core",
-        user.token
+        "core"
       );
 
       if (res.status === "Success") {
-        dispatch(setOffers(res.data.offers ?? []));
+        setOffers(res.data.offers ?? []);
+        setLead(res.data.lead);
       }
     } catch (err) {
       console.log(err);
@@ -99,9 +56,9 @@ const OfferDetailsSegment = () => {
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
-          <h3 className="mt-8 text-lg">
+          <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
-            <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
+            <span className="text-2xl font-normal">{lead.contact_name}!!</span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 

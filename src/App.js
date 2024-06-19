@@ -13,6 +13,7 @@ import BusinessLoanApply from "./pages/BusinessLoan/BusinessLoanApply";
 import Term from "./pages/Term";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import OffersPage from "./pages/Offers/Offerspage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path={"/personal-loan"} element={<PersonalLoan />} />
           <Route path={"/apply"} element={<PersonalDetails />} />
           <Route path={"/pao"} element={<PreApprovedLoan />} />
+          <Route path={"/offers"} element={<OffersPage />} />
           <Route path={"/business-loan"} element={<BusinessLoan />} />
           <Route path="/terms" element={<Term />} />
           <Route
