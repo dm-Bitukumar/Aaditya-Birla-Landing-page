@@ -12,13 +12,13 @@ const OfferTile = ({ offer, small }) => {
     <div className="flex flex-col items-center justify-center">
       <div
         className={`rounded-lg ring-1 ring-[#00c0ff] ${
-          small ? "px-0 pb-2" : "px-16 pb-6"
+          small ? "px-0 pb-2" : "px-20 pb-6"
         } text-center`}
       >
-        <img src={offer.logo_image_url} />
+        <img width={small ? 100 : 200} src={offer.logo_image_url} />
         <h2
           className={`${
-            small ? "text-xl" : "text-3xl"
+            small ? "text-sm" : "text-3xl"
           } font-semibold text-[#00c0ff]`}
         >
           ₹ {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
@@ -47,7 +47,7 @@ const OfferTile = ({ offer, small }) => {
         )}
       </div>
       {small && (
-        <FormButton small={small} onClick={handleClick} className="!mt-2 !w-32">
+        <FormButton small={small} onClick={handleClick} className="!mt-2">
           APPLY NOW
         </FormButton>
       )}
