@@ -10,6 +10,7 @@ import {
   PERSONAL_LOAN,
   SALARIED,
   SELF_EMPLOYED,
+  UNSPECIFIED,
 } from "./enum";
 const INDIAN_COUNTRY_CODE = "91";
 
@@ -89,7 +90,7 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.profession_type = getProfessionTypeFromEntry(lead.profession);
   alliance_lead.monthly_income = lead.monthly_income;
   alliance_lead.annual_income = 0;
-  alliance_lead.pancard = lead.pancard;
+  alliance_lead.pancard = lead.pancard?.toUpperCase() ?? "";
   alliance_lead.salary_mode = getSalaryModeFromEntry(lead.salary_mode);
   alliance_lead.alliance_id = alliance_id;
   return alliance_lead;
@@ -117,7 +118,7 @@ export function getBusinessTurnoverFromEntry(turnover) {
   } else if (turnover === "5-25 Lacs") {
     return 2500000;
   } else if (turnover === "25 Lacs+") {
-    return 10000000;
+    return 2500000;
   }
 
   return 25000;
