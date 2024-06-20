@@ -44,9 +44,7 @@
 }
 
 .radio_input:checked + .radio_label {
-  background: #ed8847;
-  color: #fff;
-  border: none;
+ 
 }
 
 

@@ -32,10 +32,7 @@ const PreApprovedForm = ({ data }) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPincodeValid, setIsPincodeValid] = useState(true);
   const [isDobValid, setIsDobValid] = useState(true);
-  const [male, setMale] = useState("");
-  const [isMaleValid, setIsMaleValid] = useState(true);
-  const [female, setFemale] = useState("");
-  const [isFemaleValid, setIsFemaleValid] = useState(true);
+  const [userGender, setUserGender] = useState("");
 
   useEffect(() => {
     setMobile(data?.contact_phone);
@@ -121,6 +118,7 @@ const PreApprovedForm = ({ data }) => {
     setIsTncChecked((prev) => !prev);
   };
   const userGenderHandler = (keyName, keyValue) => {
+    console.log(keyValue);
     if (keyValue === gender[0]?.label) {
       setMale(keyValue);
     } else if (keyValue === gender[1]?.label) {
@@ -235,17 +233,18 @@ const PreApprovedForm = ({ data }) => {
                     <img src={item?.img} alt="" />
                   </div>
                   <RadioButton
-                    checked={item?.label === male}
+                    checked={item?.label === userGender}
                     label={item?.label}
+                    labelId={item?.label}
                     value={item?.value}
                     keyName={"gender"}
                     userGenderHandler={userGenderHandler}
                   />
-                  {/* {male === item.label ? (
+                  {userGender === item.label ? (
                     <div style={{ width: "40px", paddingLeft: "8px" }}>
                       <img src="assets/img/Tick Mark.png" alt="" />
                     </div>
-                  ) : null} */}
+                  ) : null}
                 </div>
               </>
             ))}

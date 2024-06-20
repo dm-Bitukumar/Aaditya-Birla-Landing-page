@@ -1,12 +1,12 @@
 [
     {
         "label":"Male",
-        "Value": "Male",
+        "value": "Male",
         "img":"assets/img/Male.png"
     },
     {
         "label":"Female",
-        "Value": "Female",
+        "value": "Female",
         "img":"assets/icons/female.png"
     }
 
