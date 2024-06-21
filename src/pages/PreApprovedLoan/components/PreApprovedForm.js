@@ -9,6 +9,7 @@ import _ from "lodash";
 import callApi from "../../../utility/apiCaller";
 import RadioButton from "../../../components/Form/RadioButton/RadioButton";
 import gender from "../../../constants/gender.json";
+import userOccupation from "../../../constants/occupation.json";
 const arr = ["Salaried", "Self Employed", "Business Owner"];
 
 const PreApprovedForm = ({ data }) => {
@@ -88,6 +89,7 @@ const PreApprovedForm = ({ data }) => {
     const { value } = event.target;
     setIsOccupationValid(true);
     setOccupation(value);
+    console.log(value);
   };
   const handlePancardChange = (event) => {
     const { value } = event.target;
@@ -287,15 +289,15 @@ const PreApprovedForm = ({ data }) => {
                 src="assets/icons/profession.png"
                 height="25"
                 style={{ maxHeight: "25px" }}
-                alt="PAN Card Icon"
+                alt="Icon"
               />
             }
-            options={arr}
+            options={userOccupation}
             isValid={isOccupationValid}
             value={occupation}
             onChange={handleSelectChange}
             label={"Occupation"}
-            id="pan"
+            id="pan1"
             required
             errorMessage={"Please select occupation"}
           />
