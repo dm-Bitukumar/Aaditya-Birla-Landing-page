@@ -120,9 +120,9 @@ const PreApprovedForm = ({ data }) => {
   const userGenderHandler = (keyName, keyValue) => {
     console.log(keyValue);
     if (keyValue === gender[0]?.label) {
-      setMale(keyValue);
+      setUserGender(keyValue);
     } else if (keyValue === gender[1]?.label) {
-      setMale(keyValue);
+      setUserGender(keyValue);
     }
   };
   const handleSubmit = async (event) => {
