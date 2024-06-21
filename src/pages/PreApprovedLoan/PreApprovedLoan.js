@@ -14,9 +14,7 @@ const PreApprovedLoan = () => {
   useEffect(() => {
     if (params.get("id")) fetchPreApprovedLoan(params.get("id"));
   }, [params]);
-  useEffect(() => {
-    fetchPreApprovedLoan();
-  }, []);
+
   const fetchPreApprovedLoan = async (id) => {
     try {
       const res = await callApi(`v1/preapproved_lead/${id}`, "get", {}, "core");
