@@ -14,6 +14,7 @@ import Term from "./pages/Term";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import OffersPage from "./pages/Offers/Offerspage";
+import PreLoan from "./pages/PreApprovedLoan/PreApprovedLoan";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path={"/offers"} element={<OffersPage />} />
           <Route path={"/business-loan"} element={<BusinessLoan />} />
           <Route path="/terms" element={<Term />} />
+          <Route path={"/rtg"} element={<PreLoan />} />
           <Route
             path={"/business-loan/apply"}
             element={<BusinessLoanApply />}
