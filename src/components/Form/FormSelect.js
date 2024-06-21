@@ -10,12 +10,12 @@ const FormSelect = ({
   icon,
   ...props
 }) => {
-  // const handleChange = (event) => {
-  //   // Get the selected value
-  //   const selectedValue = event.target.value;
-  //   // Pass the selected value to the parent component
-  //   onChange(selectedValue);
-  // };
+  const handleChange = (event) => {
+    // Get the selected value
+    const selectedValue = event.target.value;
+    // Pass the selected value to the parent component
+    onChange(selectedValue);
+  };
 
   return (
     <div
@@ -31,7 +31,7 @@ const FormSelect = ({
           {...props}
           className={`form-control ${isValid ? "" : "is-invalid"} text-xs pt-3`}
           value={value}
-          onChange={(e) => onChange(e)}
+          onChange={handleChange}
         >
           {value === "" && (
             <option disabled value="">
