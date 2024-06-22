@@ -1,0 +1,14 @@
+[
+    {
+        "label":"Salaried",
+        "value": "Salaried"
+    },
+    {
+        "label":"Self Employed",
+        "value": "Self Employed"
+    },
+    {
+        "label":"Business Owner",
+        "value": "Business Owner"
+    }
+]

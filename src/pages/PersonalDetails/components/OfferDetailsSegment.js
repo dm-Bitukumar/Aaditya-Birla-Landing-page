@@ -99,7 +99,7 @@ const OfferDetailsSegment = () => {
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
-          <h3 className="mt-8 text-lg">
+          <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
             <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
           </h3>
