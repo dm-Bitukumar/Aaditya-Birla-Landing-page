@@ -1,0 +1,14 @@
+[
+    {
+        "label":"Male",
+        "value": "Male",
+        "img":"assets/img/Male.png"
+    },
+    {
+        "label":"Female",
+        "value": "Female",
+        "img":"assets/icons/female.png"
+    }
+
+
+]
