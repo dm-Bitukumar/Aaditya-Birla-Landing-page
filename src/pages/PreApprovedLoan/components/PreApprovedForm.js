@@ -12,6 +12,11 @@ import gender from "../../../constants/gender.json";
 import userOccupation from "../../../constants/occupation.json";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login, setLead } from "../../../store/app/appReducer";
+import OfferDetailsSegment from "./OfferDetailsSegment";
+import CustomCheckboxGroup from "../../PersonalDetails/components/CustomCheckboxGroup";
+import moment from "moment";
 const arr = ["Salaried", "Self Employed", "Business Owner"];
 
 const PreApprovedForm = ({ data }) => {
@@ -21,16 +26,17 @@ const PreApprovedForm = ({ data }) => {
   const [otp, setOtp] = useState("");
   const [mobile, setMobile] = useState("");
   const [pancard, setPancard] = useState("");
-  const [isOccupationValid, setIsOccupationValid] = useState(true);
-  const [isMonthlyIncomeValid, setIsMonthlyIncomeValid] = useState(true);
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [userName, setUserName] = useState("");
+  const [lender_id, setLenderId] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [isUserNameValid, setIsUserNameValid] = useState(true);
   const [pincode, setPincode] = useState("");
   const [dob, setDob] = useState("");
   const [email, setEmail] = useState("");
   const [occupation, setOccupation] = useState("");
+  const [isOccupationValid, setIsOccupationValid] = useState(true);
+  const [isMonthlyIncomeValid, setIsMonthlyIncomeValid] = useState(true);
+  const [isUserNameValid, setIsUserNameValid] = useState(true);
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isCompanyNameValid, setIsCompanyNameValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
@@ -38,37 +44,74 @@ const PreApprovedForm = ({ data }) => {
   const [isPincodeValid, setIsPincodeValid] = useState(true);
   const [isDobValid, setIsDobValid] = useState(true);
   const [userGender, setUserGender] = useState("");
+  const [isGenderValid, setIsGenderValid] = useState(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setMobile(data?.contact_phone);
     setUserName(data?.contact_name);
+    setLenderId(data?.lender_id);
   }, [data]);
+
   const handleValidation = () => {
     let isValid = true;
 
     if (_.isEmpty(pancard)) {
       isValid = false;
       setIsPancardValid(false);
-    } else {
-      const isValidPancard = /^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard);
-      isValid = isValidPancard;
-      setIsPancardValid(isValidPancard);
+    }
+    if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
+      isValid = false;
+      setIsPancardValid(false);
     }
     if (_.isEmpty(mobile)) {
       isValid = false;
       setIsMobileValid(false);
-    } else {
-      const isValidMobile = /^\d{10}$/.test(mobile);
-      isValid = isValidMobile;
-      setIsMobileValid(isValidMobile);
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      isValid = false;
+      setIsMobileValid(false);
     }
     if (_.isEmpty(email)) {
       isValid = false;
       setIsEmailValid(false);
-    } else {
-      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      isValid = isValidEmail;
-      setIsEmailValid(isValidEmail);
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      isValid = false;
+      setIsEmailValid(false);
+    }
+    if (_.isEmpty(pincode)) {
+      isValid = false;
+      setIsPincodeValid(false);
+    }
+    if (pincode.length !== 6) {
+      isValid = false;
+      setIsPincodeValid(false);
+    }
+    if (!moment(dob, "DD/MM/YYYY").isValid()) {
+      isValid = false;
+      setIsDobValid(false);
+    }
+    if (_.isEmpty(companyName)) {
+      isValid = false;
+      setIsCompanyNameValid(false);
+    }
+    if (_.isEmpty(userName)) {
+      isValid = false;
+      setIsUserNameValid(false);
+    }
+    if (_.isEmpty(monthlyIncome)) {
+      isValid = false;
+      setIsMonthlyIncomeValid(false);
+    }
+    if (_.isEmpty(occupation)) {
+      isValid = false;
+      setIsOccupationValid(false);
+    }
+    if (_.isEmpty(userGender)) {
+      isValid = false;
+      setIsGenderValid(false);
     }
 
     return isValid;
@@ -90,10 +133,9 @@ const PreApprovedForm = ({ data }) => {
     setDob(value);
   };
   const handleSelectChange = (event) => {
-    const { value } = event.target;
     setIsOccupationValid(true);
-    setOccupation(value);
-    console.log(value);
+    setOccupation(event);
+    console.log(event);
   };
   const handlePancardChange = (event) => {
     const { value } = event.target;
@@ -123,19 +165,11 @@ const PreApprovedForm = ({ data }) => {
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
   };
-  const userGenderHandler = (keyName, keyValue) => {
-    console.log(keyValue);
-    if (keyValue === gender[0]?.label) {
-      setUserGender(keyValue);
-    } else if (keyValue === gender[1]?.label) {
-      setUserGender(keyValue);
-    }
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     let isValid = handleValidation();
-    if (isValid) {
+    if (isValid && isTncChecked) {
       const res = await callApi(
         "v1/sms/send-otp",
         "post",
@@ -145,6 +179,22 @@ const PreApprovedForm = ({ data }) => {
         "messaging"
       );
       if (res["status"] === "Success") {
+        dispatch(
+          setLead({
+            contact_phone: mobile,
+            pancard,
+            monthly_income: monthlyIncome,
+            name: userName,
+            company_name: companyName,
+            salary_mode: "online/neft",
+            pincode,
+            lender_id,
+            dob,
+            email,
+            profession: occupation,
+            gender: userGender,
+          })
+        );
         setIsOtpGenerated(true);
       }
     }
@@ -167,15 +217,9 @@ const PreApprovedForm = ({ data }) => {
       );
 
       if (res["status"] === "Success") {
-        const response = await callApi(
-          "v1/lead/lead-from-phone",
-          "post",
-          {
-            phone: mobile,
-          },
-          "core",
-          res.data.token
-        );
+        dispatch(login({ ...res.data.customer, token: res.data.token }));
+        setShowOffers(true);
+        setIsOtpGenerated(false);
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {
@@ -205,7 +249,8 @@ const PreApprovedForm = ({ data }) => {
             style={{ marginTop: "0.7em" }}
           />
         </div>
-        {isOtpGenerated ? (
+        {showOffers && <OfferDetailsSegment />}
+        {!showOffers && isOtpGenerated && (
           <div style={{ marginTop: "180px" }}>
             <OtpInputForm
               buttonStyle={{ marginTop: "200px", marginBottom: "50px" }}
@@ -216,7 +261,8 @@ const PreApprovedForm = ({ data }) => {
               handleSubmitOtp={handleSubmitOtp}
             />
           </div>
-        ) : (
+        )}
+        {!showOffers && !isOtpGenerated && (
           <>
             <div className={"personal-loan-form"} style={{ marginTop: "10px" }}>
               <FormInput
@@ -268,43 +314,16 @@ const PreApprovedForm = ({ data }) => {
                 label={"Pancard"}
                 errorMessage={"Please enter a valid PAN number"}
               />
-              <div
-                style={{
-                  display: "flex",
-                  marginBottom: "10px",
+
+              <CustomCheckboxGroup
+                isValid={isGenderValid}
+                errorMessage={"Please select a gender"}
+                activeGender={userGender}
+                setActiveGender={(value) => {
+                  setUserGender(value);
+                  setIsGenderValid(true);
                 }}
-              >
-                {gender?.map((item) => (
-                  <>
-                    <div
-                      style={{
-                        display: "flex",
-                        height: "4em",
-                        width: "50%",
-                        border: "1px solid #d8dde2",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div style={{ width: "40px", paddingLeft: "8px" }}>
-                        <img src={item?.img} alt="" />
-                      </div>
-                      <RadioButton
-                        checked={item?.label === userGender}
-                        label={item?.label}
-                        labelId={item?.label}
-                        value={item?.value}
-                        keyName={"gender"}
-                        userGenderHandler={userGenderHandler}
-                      />
-                      {userGender === item.label ? (
-                        <div style={{ width: "40px", paddingLeft: "8px" }}>
-                          <img src="assets/img/Tick Mark.png" alt="" />
-                        </div>
-                      ) : null}
-                    </div>
-                  </>
-                ))}
-              </div>
+              />
               <FormInput
                 icon={
                   <img

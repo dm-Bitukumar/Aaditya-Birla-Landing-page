@@ -35,10 +35,10 @@ const Form = ({ formData, setFormData, ...props }) => {
     if (_.isEmpty(mobile)) {
       isValid = false;
       setIsMobileValid(false);
-    } else {
-      const isValidMobile = /^\d{10}$/.test(mobile);
-      isValid = isValidMobile;
-      setIsMobileValid(isValidMobile);
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      isValid = false;
+      setIsMobileValid(false);
     }
 
     return isValid;

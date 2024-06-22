@@ -66,7 +66,7 @@ function getGenderFromEntry(gender) {
 }
 
 export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
-  let alliance_lead = {};
+  let alliance_lead = { ...lead };
   alliance_lead.contact_name = lead.name;
   alliance_lead.contact_phone = lead.contact_phone;
   alliance_lead.country_code = INDIAN_COUNTRY_CODE;

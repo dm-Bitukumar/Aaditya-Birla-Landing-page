@@ -8,11 +8,7 @@ import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
 import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
-import {
-  getAllianceLeadFromMoneyTapInput,
-  getBusinessTurnoverFromEntry,
-  getBusinessVintageFromEntry,
-} from "../../../utility/commonUtils";
+import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -23,7 +19,7 @@ const OfferDetailsSegment = () => {
   //   662a73413a05656cf94543c4
 
   useEffect(() => {
-    if (lead.stepDone === 2 && !leadId) {
+    if (lead && !leadId) {
       submitLead();
     }
   }, [lead]);
@@ -38,16 +34,14 @@ const OfferDetailsSegment = () => {
 
   const submitLead = async () => {
     try {
+      const processedLead = getAllianceLeadFromMoneyTapInput("website", lead);
+
       const res = await callApi(
-        `v1/lead/${lead._id}/update-lead`,
+        "v1/lead/website-lead",
         "post",
         {
-          lead: {
-            ...lead,
-            gst: lead.gst_no,
-            turnover: getBusinessTurnoverFromEntry(lead.turnover),
-            business_vintage: getBusinessVintageFromEntry(lead.company_age),
-          },
+          lead: processedLead,
+          lender_id: lead.lender_id,
         },
         "core",
         user.token
