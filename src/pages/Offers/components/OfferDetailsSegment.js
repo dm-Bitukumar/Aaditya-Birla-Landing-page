@@ -42,7 +42,7 @@ const OfferDetailsSegment = () => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       />
-      {offers?.length === 0 && (
+      {!offers && (
         <div
           style={{
             fontFamily: "Montserrat sans-serif",
@@ -52,7 +52,17 @@ const OfferDetailsSegment = () => {
           Please wait while we are searching best offers for you
         </div>
       )}
-      {offers?.length > 0 && (
+      {offers && offers.length === 0 && (
+        <div
+          style={{
+            fontFamily: "Montserrat sans-serif",
+          }}
+          className="text-xl font-normal text-center"
+        >
+          There is no offer for you currently.
+        </div>
+      )}
+      {offers && offers.length > 0 && (
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
