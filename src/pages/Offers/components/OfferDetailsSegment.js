@@ -68,7 +68,7 @@ const OfferDetailsSegment = () => {
 
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
-            <span className="text-2xl font-normal">{lead.contact_name}!!</span>{" "}
+            <span className="text-2xl font-normal">{lead?.contact_name}!!</span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 
