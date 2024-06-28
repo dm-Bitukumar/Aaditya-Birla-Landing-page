@@ -116,7 +116,16 @@ const OfferDetailsSegment = () => {
                 <OfferTile small={false} offer={e} />
               </div>
             ))}
-          <div className="grid grid-cols-3 gap-4">
+          <div
+            className={
+              "grid gap-4" +
+              (offers.length === 2
+                ? " grid-cols-1"
+                : offers.length === 3
+                ? " grid-cols-2"
+                : " grid-cols-3")
+            }
+          >
             {[...offers]
               .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
               .slice(1)
