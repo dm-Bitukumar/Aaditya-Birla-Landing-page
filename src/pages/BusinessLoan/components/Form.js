@@ -14,23 +14,12 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [mobile, setMobile] = useState("");
-  const [pancard, setPancard] = useState("");
-  const [isPancardValid, setIsPancardValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleValidation = () => {
     let isValid = true;
-
-    if (_.isEmpty(pancard)) {
-      isValid = false;
-      setIsPancardValid(false);
-    } else {
-      const isValidPancard = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pancard);
-      isValid = isValidPancard;
-      setIsPancardValid(isValidPancard);
-    }
 
     if (_.isEmpty(mobile)) {
       isValid = false;
@@ -42,12 +31,6 @@ const Form = ({ formData, setFormData, ...props }) => {
     }
 
     return isValid;
-  };
-
-  const handlePancardChange = (event) => {
-    const { value } = event.target;
-    setIsPancardValid(true);
-    setPancard(value);
   };
 
   const handleMobileChange = (event) => {
@@ -187,30 +170,6 @@ const Form = ({ formData, setFormData, ...props }) => {
             label={"Mobile Number"}
             errorMessage={"Please enter a valid Mobile Number"}
           />
-          {/* <FormInput
-            className={"my-5"}
-            icon={
-              <img
-                src="/assets/icons/phone-call.png"
-                height="25"
-                alt="PAN Card Icon"
-              />
-            }
-            type="text"
-            name="pancard"
-            isValid={isMobileValid}
-            id="Pancard"
-            aria-describedby="name"
-            placeholder="PAN Card"
-            minLength="10"
-            maxLength="10"
-            pattern="[0-9]{10}"
-            value={pancard}
-            onChange={handlePancardChange}
-            required
-            label={"Pancard"}
-            errorMessage={"Please enter a valid pancard Number"}
-          /> */}
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
           <FormButton
             style={{ marginTop: "10px" }}
