@@ -19,11 +19,12 @@ import PreLoan from "./pages/PreApprovedLoan/PreApprovedLoan";
 function App() {
   const location = useLocation();
   const [path, setPath] = useState("");
+
   useEffect(() => {
-    if (location.pathname) {
+    if (location?.pathname) {
       setPath(location.pathname);
     }
-  }, [location.pathname]);
+  }, [location?.pathname]);
   useEffect(() => {
     const setTime = setInterval(() => {
       if (path) {
@@ -37,24 +38,20 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/"} element={<Homepage />} />
-          <Route path={"/personal-loan"} element={<PersonalLoan />} />
-          <Route path={"/apply"} element={<PersonalDetails />} />
-          <Route path={"/pao"} element={<PreApprovedLoan />} />
-          <Route path={"/offers"} element={<OffersPage />} />
-          <Route path={"/business-loan"} element={<BusinessLoan />} />
-          <Route path="/terms" element={<Term />} />
-          <Route path={"/rtg"} element={<PreLoan />} />
-          <Route
-            path={"/business-loan/apply"}
-            element={<BusinessLoanApply />}
-          />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        </Routes>
-      </BrowserRouter>
+
+      <Routes>
+        <Route path={"/"} element={<Homepage />} />
+        <Route path={"/personal-loan"} element={<PersonalLoan />} />
+        <Route path={"/apply"} element={<PersonalDetails />} />
+        <Route path={"/pao"} element={<PreApprovedLoan />} />
+        <Route path={"/offers"} element={<OffersPage />} />
+        <Route path={"/business-loan"} element={<BusinessLoan />} />
+        <Route path="/terms" element={<Term />} />
+        <Route path={"/rtg"} element={<PreLoan />} />
+        <Route path={"/business-loan/apply"} element={<BusinessLoanApply />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      </Routes>
     </>
   );
 }
