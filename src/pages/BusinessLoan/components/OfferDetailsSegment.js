@@ -13,6 +13,7 @@ import {
   getBusinessTurnoverFromEntry,
   getBusinessVintageFromEntry,
 } from "../../../utility/commonUtils";
+import { TRACK_ID } from "../../../utility/enum";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -39,12 +40,14 @@ const OfferDetailsSegment = () => {
 
   const submitLead = async () => {
     try {
+      const trackId = localStorage.getItem(TRACK_ID);
       const res = await callApi(
         `v1/lead/${lead._id}/update-lead`,
         "post",
         {
           lead: {
             ...lead,
+            tracking_id: trackId,
             gst: lead.gst_no,
             turnover: getBusinessTurnoverFromEntry(lead.turnover),
             business_vintage: getBusinessVintageFromEntry(lead.company_age),

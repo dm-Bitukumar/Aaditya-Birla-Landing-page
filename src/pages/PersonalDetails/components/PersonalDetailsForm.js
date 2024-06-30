@@ -12,6 +12,7 @@ import { next } from "lodash/seq";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const profession_options = [
   { label: "Salaried", value: "Salaried" },
@@ -89,6 +90,9 @@ const PersonalDetailsForm = ({ nextStep }) => {
   };
 
   const handleSubmit = () => {
+    setUserClickData({
+      event_name: "personal_detail_form_button",
+    });
     const isValid = handleValidate();
     if (isValid) {
       nextStep();

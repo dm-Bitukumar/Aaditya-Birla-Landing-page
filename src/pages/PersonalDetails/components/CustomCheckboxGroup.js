@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const CustomCheckboxGroup = ({
   activeGender,
@@ -9,13 +10,16 @@ const CustomCheckboxGroup = ({
   const [selectedGender, setSelectedGender] = useState("");
 
   const handleGenderChange = (gender) => {
+    setUserClickData({
+      event_name: "gender_custom_button",
+    });
     setSelectedGender(gender);
     setActiveGender(gender);
   };
 
   return (
-    <div className="common-checkbox-element mb-3">
-      <div className="row mx-0 all-border">
+    <div className="mb-3 common-checkbox-element">
+      <div className="mx-0 row all-border">
         <div
           className={`gender-radio-btn w-50 male-radio ${
             activeGender === "male" ? "active-gender-box" : ""
@@ -55,7 +59,7 @@ const CustomCheckboxGroup = ({
           }`}
           onClick={() => handleGenderChange("female")}
         >
-          <div className="text-center  male-female">
+          <div className="text-center male-female">
             <img
               src="/assets/icons/female.png"
               alt="Female"
@@ -87,7 +91,7 @@ const CustomCheckboxGroup = ({
       </div>
       {!isValid && (
         <div
-          className="invalid-feedback d-block text-center"
+          className="text-center invalid-feedback d-block"
           id="invalid-select"
           style={{ display: "block" }}
         >
