@@ -21,9 +21,13 @@ import { TRACK_ID } from "./utility/enum";
 function App() {
   const location = useLocation();
   const sessionId = uuidv4();
-  window.localStorage.setItem(TRACK_ID, sessionId);
+  const trackId = window.localStorage.getItem(TRACK_ID);
   const [path, setPath] = useState("");
-
+  useEffect(() => {
+    if (!trackId) {
+      window.localStorage.setItem(TRACK_ID, sessionId);
+    }
+  }, []);
   useEffect(() => {
     if (location?.pathname) {
       setPath(location.pathname);

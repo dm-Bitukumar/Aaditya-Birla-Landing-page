@@ -51,10 +51,10 @@ export async function getUserMetaData(data) {
     browser_name: browser,
     user_device: userDevice,
     ip_address: ipAddress,
-    user_id: data?.user_id,
+    // user_id: data?.user_id,
     track_id: trackId,
     event_name: data?.event_name,
-    event_category: data?.event_category,
+    // event_category: data?.event_category,
   });
   if (res && res.status === "Success") {
   }
