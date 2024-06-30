@@ -21,18 +21,18 @@ const OfferTile = ({ offer, small }) => {
             small ? "text-sm" : "text-3xl"
           } font-semibold text-[#00c0ff]`}
         >
-          ₹ {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
+          {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
         </h2>
         {!small && (
           <div>
             <h5 className="mt-6 text-xs font-semibold">
-              Amount: ₹ {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
+              Amount: {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
             </h5>
             <h5 className="my-2 text-xs font-semibold">
               Tenure: {offer.tenure} Months
             </h5>
             <h5 className="text-xs font-semibold">
-              EMI: ₹ {convertNumberToIndianFormat(offer.emi ?? 0)}
+              EMI: {convertNumberToIndianFormat(offer.emi ?? 0)}
             </h5>
           </div>
         )}

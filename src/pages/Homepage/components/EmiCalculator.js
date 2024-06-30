@@ -22,7 +22,7 @@ const EMICalculator = () => {
   const calculateTotalAmountPayable = (
     loanAmount,
     interestRate,
-    loanTenure,
+    loanTenure
   ) => {
     const monthlyInterestRate = interestRate / 12 / 100;
     const numberOfPayments = loanTenure * 12;
@@ -77,7 +77,7 @@ const EMICalculator = () => {
               <div className="row" style={{ padding: "0 10px" }}>
                 <input
                   type="range"
-                  className="col-12 px-0"
+                  className="px-0 col-12"
                   id="amount"
                   name="amount"
                   min="10000"
@@ -111,7 +111,7 @@ const EMICalculator = () => {
               <div className="row" style={{ padding: "0 10px" }}>
                 <input
                   type="range"
-                  className="col-12 px-0"
+                  className="px-0 col-12"
                   id="interest-rate"
                   name="interest-rate"
                   min="1"
@@ -145,7 +145,7 @@ const EMICalculator = () => {
               <div className="row" style={{ padding: "0 10px" }}>
                 <input
                   type="range"
-                  className="col-12 px-0"
+                  className="px-0 col-12"
                   id="term"
                   name="term"
                   min="1"
@@ -158,47 +158,44 @@ const EMICalculator = () => {
           </div>
           <div className="col-md-6 col-12 right_part">
             <div className="card row">
-              <div className="col-sm-12 col-6 px-0 row up_part">
-                <div className="col-sm-6 col-12 px-0 total_payble">
+              <div className="px-0 col-sm-12 col-6 row up_part">
+                <div className="px-0 col-sm-6 col-12 total_payble">
                   <p className="mb-1">Total Payable</p>
                   <p>
-                    ₹{" "}
                     <span id="result3">
                       {calculateTotalAmountPayable(
                         loanAmount,
                         interestRate,
-                        loanTenure,
+                        loanTenure
                       )}
                     </span>
                   </p>
                 </div>
-                <div className="col-sm-6 col-12 px-0 principle_amount">
+                <div className="px-0 col-sm-6 col-12 principle_amount">
                   <p className="mb-1">Principle amount</p>
                   <p>
-                    ₹{" "}
                     <span id="result2">
                       {convertNumberToIndianFormat(loanAmount)}
                     </span>
                   </p>
                 </div>
               </div>
-              <div className="col-sm-12 col-6 px-0 row down_part">
-                <div className="col-12 px-0 monthly_emi">
+              <div className="px-0 col-sm-12 col-6 row down_part">
+                <div className="px-0 col-12 monthly_emi">
                   <p>Monthly EMI</p>
                   <p className={"my-3"}>
-                    ₹{" "}
                     <span id="result1">
                       {calculateMonthlyEMI(
                         loanAmount,
                         interestRate,
-                        loanTenure,
+                        loanTenure
                       )}
                     </span>
                   </p>
                 </div>
               </div>
             </div>
-            <div className="get_started_btn get_started_btn3 text-center">
+            <div className="text-center get_started_btn get_started_btn3">
               <Link to="/personal-loan">Get Started</Link>
             </div>
           </div>

@@ -77,18 +77,9 @@ export const numberToWordIncome = (number) => {
 };
 
 export const convertNumberToIndianFormat = (number) => {
-  let numberString = number.toString();
-
-  const parts = numberString.split(".");
-  let integerPart = parts[0];
-  const decimalPart = parts.length > 1 ? "." + parts[1] : "";
-
-  let formattedNumber = "";
-  while (integerPart.length > 3) {
-    formattedNumber = "," + integerPart.slice(-3) + formattedNumber;
-    integerPart = integerPart.slice(0, -3);
-  }
-  formattedNumber = integerPart + formattedNumber + decimalPart;
-
-  return formattedNumber;
+  return number.toLocaleString("en-IN", {
+    maximumFractionDigits: 0,
+    style: "currency",
+    currency: "INR",
+  });
 };
