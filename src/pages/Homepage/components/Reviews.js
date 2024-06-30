@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const Reviews = ({ data }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -20,7 +21,14 @@ const Reviews = ({ data }) => {
 
   return (
     <section className="reviews">
-      <div className="container m-auto">
+      <div
+        className="container m-auto"
+        onClick={() => {
+          setUserClickData({
+            event_name: "carousel_reviews_page",
+          });
+        }}
+      >
         <div className="heading">See What Others Are Saying</div>
         <OwlCarousel
           dots={false}

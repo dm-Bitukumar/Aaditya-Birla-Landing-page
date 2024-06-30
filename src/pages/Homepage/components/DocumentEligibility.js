@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const DocumentsEligibility = () => {
   const [activeType, setActiveType] = useState("salaried");
@@ -13,14 +14,16 @@ const DocumentsEligibility = () => {
       <div className="container m-auto">
         <div className="heading">Documents Required & Eligibility Criteria</div>
         <div className="both-parts">
-          <ul className="nav nav-tabs row mx-0" id="myTab" role="tablist">
+          <ul className="mx-0 nav nav-tabs row" id="myTab" role="tablist">
             <li
               onClick={() => setActiveType("salaried")}
-              className="nav-item col-sm-6 col-7 px-0"
+              className="px-0 nav-item col-sm-6 col-7"
             >
               <p
                 style={{ cursor: "pointer" }}
-                className={`nav-link ${activeType === "salaried" ? "active" : ""}`}
+                className={`nav-link ${
+                  activeType === "salaried" ? "active" : ""
+                }`}
                 id="salaried-tab"
                 data-toggle="tab"
                 role="tab"
@@ -32,11 +35,13 @@ const DocumentsEligibility = () => {
             </li>
             <li
               onClick={() => setActiveType("self-employed")}
-              className="nav-item col-sm-6 col-5 px-0"
+              className="px-0 nav-item col-sm-6 col-5"
             >
               <p
                 style={{ cursor: "pointer" }}
-                className={`nav-link ${activeType === "self-employed" ? "active" : ""}`}
+                className={`nav-link ${
+                  activeType === "self-employed" ? "active" : ""
+                }`}
                 id="self-employed-tab"
                 data-toggle="tab"
                 role="tab"
@@ -57,7 +62,9 @@ const DocumentsEligibility = () => {
             id="myTabContent"
           >
             <div
-              className={`tab-pane fade ${activeType === "salaried" ? "show active" : ""}`}
+              className={`tab-pane fade ${
+                activeType === "salaried" ? "show active" : ""
+              }`}
               id="salaried"
               role="tabpanel"
               aria-labelledby="salaried-tab"
@@ -102,28 +109,28 @@ const DocumentsEligibility = () => {
                 <div className="col-md-6 col-12 myTabContent_part">
                   <div className="documents">
                     <div className="row">
-                      <div className="col-6 px-0">
-                        <div className="d-flex my-3">
+                      <div className="px-0 col-6">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>PAN Card</p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>Aadhar Card</p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>Electricity Bill</p>
                         </div>
                       </div>
-                      <div className="col-6 px-0 my-3">
+                      <div className="px-0 my-3 col-6">
                         <div className="d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>
                             Last 3 months <br /> Bank Statement
                           </p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>
                             Last 3 months <br /> Salary slips
@@ -136,7 +143,9 @@ const DocumentsEligibility = () => {
               </div>
             </div>
             <div
-              className={`tab-pane fade ${activeType === "self-employed" ? "show active" : ""}`}
+              className={`tab-pane fade ${
+                activeType === "self-employed" ? "show active" : ""
+              }`}
               id="self-employed"
               role="tabpanel"
               aria-labelledby="self-employed-tab"
@@ -178,34 +187,34 @@ const DocumentsEligibility = () => {
                 <div className="col-md-6 col-12 myTabContent_part">
                   <div className="documents">
                     <div className="row">
-                      <div className="col-6 px-0">
-                        <div className="d-flex my-3">
+                      <div className="px-0 col-6">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>PAN Card - Individual</p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>PAN Card - Company</p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>Aadhar Card</p>
                         </div>
                       </div>
-                      <div className="col-6 px-0">
-                        <div className="d-flex my-3">
+                      <div className="px-0 col-6">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>GST Certificate</p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>Electricity Bill</p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>Last 2 Years ITR</p>
                         </div>
-                        <div className="d-flex my-3">
+                        <div className="my-3 d-flex">
                           <img src="/assets/img/check.png" alt="" />
                           <p>
                             Last 1 Year <br />
@@ -220,8 +229,17 @@ const DocumentsEligibility = () => {
             </div>
           </div>
         </div>
-        <div className="get_started_btn get_started_btn4 text-center">
-          <Link to="/personal-loan">Get Started</Link>
+        <div className="text-center get_started_btn get_started_btn4">
+          <Link
+            to="/personal-loan"
+            onClick={() => {
+              setUserClickData({
+                event_name: "get_started",
+              });
+            }}
+          >
+            Get Started
+          </Link>
         </div>
       </div>
     </section>

@@ -9,6 +9,7 @@ import callApi from "../../../utility/apiCaller";
 import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
+import { TRACK_ID } from "../../../utility/enum";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -35,13 +36,14 @@ const OfferDetailsSegment = () => {
 
   const submitLead = async () => {
     try {
+      const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", lead);
 
       const res = await callApi(
         "v1/lead/website-lead",
         "post",
         {
-          lead: processedLead,
+          lead: { ...processedLead, tracking_id: trackId },
           lender_id: lead.lender_id,
         },
         "core",
