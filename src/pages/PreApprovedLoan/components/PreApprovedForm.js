@@ -169,7 +169,7 @@ const PreApprovedForm = ({ data }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let isValid = handleValidation();
-    if (isValid && isTncChecked) {
+    if (isValid) {
       const res = await callApi(
         "v1/sms/send-otp",
         "post",
@@ -186,6 +186,7 @@ const PreApprovedForm = ({ data }) => {
             monthly_income: monthlyIncome,
             name: userName,
             company_name: companyName,
+            kyc_consent: isTncChecked,
             salary_mode: "online/neft",
             pincode,
             lender_id,

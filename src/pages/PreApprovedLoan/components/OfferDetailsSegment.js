@@ -36,6 +36,17 @@ const OfferDetailsSegment = () => {
 
   const submitLead = async () => {
     try {
+      let ip = "";
+
+      try {
+        ip = await fetch("https://api.ipify.org?format=json")
+          .then((response) => response.json())
+          .then((data) => data.ip);
+      } catch (err) {
+        ip = "";
+        console.log(err);
+      }
+
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", lead);
 
@@ -43,7 +54,11 @@ const OfferDetailsSegment = () => {
         "v1/lead/website-lead",
         "post",
         {
-          lead: { ...processedLead, tracking_id: trackId },
+          lead: {
+            ...processedLead,
+            tracking_id: trackId,
+            ip_address: ip,
+          },
           lender_id: lead.lender_id,
         },
         "core",
