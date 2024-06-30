@@ -18,3 +18,4 @@ export const ONLINE_NEFT = "online_neft";
 export const CHEQUE = "cheque";
 export const CASH = "cash";
 export const TRACK_ID = "track_id";
+export const SESSION_ID = "session_id";

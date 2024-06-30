@@ -11,7 +11,7 @@ import callApi from "../../../utility/apiCaller";
 import OfferTile from "./OfferTile";
 import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();

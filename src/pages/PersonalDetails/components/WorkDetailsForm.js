@@ -7,7 +7,7 @@ import SalariedForm from "./SalariedForm";
 import SelfEmployedForm from "./SelfEmployedForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const dispatch = useDispatch();
@@ -130,7 +130,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   };
 
   const handleSubmit = () => {
-    getUserMetaData({
+    setUserClickData({
       event_name: "work_detail_form_button",
     });
     const isValid = handleValidate();

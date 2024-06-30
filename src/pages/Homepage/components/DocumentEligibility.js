@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const DocumentsEligibility = () => {
   const [activeType, setActiveType] = useState("salaried");
@@ -233,7 +233,7 @@ const DocumentsEligibility = () => {
           <Link
             to="/personal-loan"
             onClick={() => {
-              getUserMetaData({
+              setUserClickData({
                 event_name: "get_started",
               });
             }}

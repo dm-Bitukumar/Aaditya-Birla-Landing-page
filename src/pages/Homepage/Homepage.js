@@ -6,7 +6,7 @@ import Reviews from "./components/Reviews";
 import PrivacyConcerns from "./components/PrivacyConcerns";
 import FaqsSection from "./components/FaqSection";
 import MainFooter from "./components/MainFooter";
-import { getUserMetaData } from "../../utility/getUserMetaData";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const carouselData = [
   {
@@ -126,7 +126,7 @@ const Homepage = () => {
             <Link
               to={"/personal-loan"}
               onClick={() => {
-                getUserMetaData({
+                setUserClickData({
                   event_name: "get_started",
                 });
               }}

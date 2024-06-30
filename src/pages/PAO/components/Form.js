@@ -5,7 +5,7 @@ import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -55,7 +55,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = (event) => {
-    getUserMetaData({
+    setUserClickData({
       event_name: "otp_button_pre_approved_loan_page",
     });
     event.preventDefault();

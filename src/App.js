@@ -16,7 +16,9 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import OffersPage from "./pages/Offers/Offerspage";
 import PreLoan from "./pages/PreApprovedLoan/PreApprovedLoan";
 import { v4 as uuidv4 } from "uuid";
-import { TRACK_ID } from "./utility/enum";
+import { SESSION_ID, TRACK_ID } from "./utility/enum";
+import callApi from "./utility/apiCaller";
+import { saveMetaData } from "./utility/setUserClickData";
 
 function App() {
   const location = useLocation();
@@ -24,10 +26,16 @@ function App() {
 
   useEffect(() => {
     const trackId = localStorage.getItem(TRACK_ID);
-    if (!trackId) {
-      const sessionId = uuidv4();
-      localStorage.setItem(TRACK_ID, sessionId);
+    const sessionId = sessionStorage.getItem(SESSION_ID);
+    if (!sessionId) {
+      sessionStorage.setItem(SESSION_ID, uuidv4());
     }
+    if (!trackId) {
+      localStorage.setItem(TRACK_ID, uuidv4());
+    }
+    setTimeout(() => {
+      saveMetaData();
+    }, 100);
   }, []);
 
   useEffect(() => {
@@ -46,7 +54,23 @@ function App() {
     return () => clearTimeout(setTime);
   }, [path]);
 
-  async function sessionTrack(path) {}
+  async function sessionTrack(path) {
+    const trackId = localStorage.getItem(TRACK_ID);
+    const sessionId = sessionStorage.getItem(SESSION_ID);
+    await callApi(
+      `v1/pages/ping/${sessionId}`,
+      "post",
+      {
+        analytics: {
+          path,
+          user_id: "",
+          tracking_id: trackId,
+          session_id: sessionId,
+        },
+      },
+      "jasoos"
+    );
+  }
 
   return (
     <>

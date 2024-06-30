@@ -5,7 +5,7 @@ import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
 import GstRegistrationOption from "./GstRegistrationOption";
 import FormSelect from "../../../components/Form/FormSelect";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 import {
   business_type_options,
   company_type_options,
@@ -70,7 +70,7 @@ const ApplyFormStep2 = ({
     return isValid;
   };
   const handleSubmit = () => {
-    getUserMetaData({ event_name: "step2_business_loan_page" });
+    setUserClickData({ event_name: "step2_business_loan_page" });
     const isValid = handleValidation();
     if (isValid) {
       nextStep();

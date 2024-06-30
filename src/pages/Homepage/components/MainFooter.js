@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const MainFooter = () => {
   return (
@@ -19,7 +19,7 @@ const MainFooter = () => {
                 <Link
                   to="/terms"
                   onClick={() => {
-                    getUserMetaData({
+                    setUserClickData({
                       event_name: "terms_link",
                     });
                   }}
@@ -30,7 +30,7 @@ const MainFooter = () => {
                 <Link
                   to="/privacy-policy"
                   onClick={() => {
-                    getUserMetaData({
+                    setUserClickData({
                       event_name: "privacy_policy_link",
                     });
                   }}
@@ -41,7 +41,7 @@ const MainFooter = () => {
                 <Link
                   to="/contact"
                   onClick={() => {
-                    getUserMetaData({
+                    setUserClickData({
                       event_name: "contact_us_link",
                     });
                   }}
@@ -53,7 +53,7 @@ const MainFooter = () => {
               <div
                 className="address"
                 onClick={() => {
-                  getUserMetaData({
+                  setUserClickData({
                     event_name: "about digit_money_link",
                   });
                 }}
@@ -76,7 +76,7 @@ const MainFooter = () => {
               <div
                 className="address"
                 onClick={() => {
-                  getUserMetaData({
+                  setUserClickData({
                     event_name: "grievance_digit_money_link",
                   });
                 }}
@@ -90,7 +90,7 @@ const MainFooter = () => {
               <div
                 className="social_icons"
                 onClick={() => {
-                  getUserMetaData({
+                  setUserClickData({
                     event_name: "social_media_link",
                   });
                 }}
@@ -151,7 +151,7 @@ const MainFooter = () => {
                   <div
                     className="text-center col-4"
                     onClick={() => {
-                      getUserMetaData({
+                      setUserClickData({
                         event_name: "watsapp_link",
                       });
                     }}
@@ -167,7 +167,7 @@ const MainFooter = () => {
                   <div
                     className="text-center col-4"
                     onClick={() => {
-                      getUserMetaData({
+                      setUserClickData({
                         event_name: "mail_link",
                       });
                     }}
@@ -183,7 +183,7 @@ const MainFooter = () => {
                   <div
                     className="text-center col-4"
                     onClick={() => {
-                      getUserMetaData({
+                      setUserClickData({
                         event_name: "digit_money_phone_link",
                       });
                     }}
@@ -226,7 +226,7 @@ const MainFooter = () => {
                     <a
                       href="/"
                       onClick={() => {
-                        getUserMetaData({
+                        setUserClickData({
                           event_name: "about_digit_money_page",
                         });
                       }}
@@ -238,7 +238,7 @@ const MainFooter = () => {
                     <a
                       href="#faqs"
                       onClick={() => {
-                        getUserMetaData({
+                        setUserClickData({
                           event_name: "digit_money_faqs_page",
                         });
                       }}
@@ -250,7 +250,7 @@ const MainFooter = () => {
                     <a
                       href="/"
                       onClick={() => {
-                        getUserMetaData({
+                        setUserClickData({
                           event_name: "digit_money_blogs_page",
                         });
                       }}
@@ -262,7 +262,7 @@ const MainFooter = () => {
                     <a
                       href="/"
                       onClick={() => {
-                        getUserMetaData({
+                        setUserClickData({
                           event_name: "digit_money_career_page",
                         });
                       }}
@@ -274,7 +274,7 @@ const MainFooter = () => {
                     <a
                       href="/"
                       onClick={() => {
-                        getUserMetaData({
+                        setUserClickData({
                           event_name: "digit_money_eligibility_calculator_page",
                         });
                       }}
@@ -286,7 +286,7 @@ const MainFooter = () => {
                 <ul className="col-6">
                   <li
                     onClick={() => {
-                      getUserMetaData({
+                      setUserClickData({
                         event_name: "digit_money_affiliate_program_page",
                       });
                     }}
@@ -295,7 +295,7 @@ const MainFooter = () => {
                   </li>
                   <li
                     onClick={() => {
-                      getUserMetaData({
+                      setUserClickData({
                         event_name: "digit_money_lending_partners_page",
                       });
                     }}
@@ -304,7 +304,7 @@ const MainFooter = () => {
                   </li>
                   <li
                     onClick={() => {
-                      getUserMetaData({
+                      setUserClickData({
                         event_name: "digit_money_our_partners_page",
                       });
                     }}
@@ -313,7 +313,7 @@ const MainFooter = () => {
                   </li>
                   <li
                     onClick={() => {
-                      getUserMetaData({
+                      setUserClickData({
                         event_name: "digit_money_emi_calculator_page",
                       });
                     }}

@@ -7,7 +7,7 @@ import GstRegistrationOption from "./GstRegistrationOption";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
     return isValid;
   };
   const handleSubmit = () => {
-    getUserMetaData({
+    setUserClickData({
       event_name: "step1_business_loan_page",
     });
     const isValid = handleValidation();

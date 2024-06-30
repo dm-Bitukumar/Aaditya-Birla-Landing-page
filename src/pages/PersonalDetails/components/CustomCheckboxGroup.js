@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const CustomCheckboxGroup = ({
   activeGender,
@@ -10,7 +10,7 @@ const CustomCheckboxGroup = ({
   const [selectedGender, setSelectedGender] = useState("");
 
   const handleGenderChange = (gender) => {
-    getUserMetaData({
+    setUserClickData({
       event_name: "gender_custom_button",
     });
     setSelectedGender(gender);

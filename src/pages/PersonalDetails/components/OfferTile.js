@@ -1,11 +1,11 @@
 import React from "react";
 import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferTile = ({ offer, small }) => {
   const handleClick = () => {
-    getUserMetaData({ event_name: "offer_tile_button" });
+    setUserClickData({ event_name: "offer_tile_button" });
     var win = window.open(offer.app_url, "_blank");
     win.focus();
   };

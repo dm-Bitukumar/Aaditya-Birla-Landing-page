@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const CustomCarousel = ({ data }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -12,7 +12,7 @@ const CustomCarousel = ({ data }) => {
   }, []);
 
   const calculateCarouselItems = () => {
-    getUserMetaData({ event_name: "calculate_carousel_home_page" });
+    setUserClickData({ event_name: "calculate_carousel_home_page" });
     if (windowWidth >= 1400) {
       return 5;
     } else if (windowWidth > 1200 && windowWidth < 1400) {

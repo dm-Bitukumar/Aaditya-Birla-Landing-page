@@ -1,10 +1,11 @@
 import callApi from "./apiCaller";
-import { TRACK_ID } from "./enum";
+import { SESSION_ID, TRACK_ID } from "./enum";
 
 const obj = {};
 
-export async function getUserMetaData(data) {
-  const trackId = window.localStorage.getItem(TRACK_ID);
+export async function saveMetaData() {
+  const trackId = localStorage.getItem(TRACK_ID);
+  const sessionId = sessionStorage.getItem(SESSION_ID);
   let browserInfo = navigator.userAgent;
   let browser;
   let userDevice;
@@ -47,15 +48,35 @@ export async function getUserMetaData(data) {
     return navigator.userAgent.match(toMatchItem);
   });
 
-  const res = await callApi("", "post", {
-    browser_name: browser,
-    user_device: userDevice,
-    ip_address: ipAddress,
-    // user_id: data?.user_id,
-    track_id: trackId,
-    event_name: data?.event_name,
-    // event_category: data?.event_category,
-  });
-  if (res && res.status === "Success") {
-  }
+  await callApi(
+    "v1/metadata/save-metadata",
+    "post",
+    {
+      metadata: {
+        browser: browser,
+        user_device: userDevice,
+        userIP: ipAddress,
+        tracking_id: trackId,
+        session_id: sessionId,
+      },
+    },
+    "jasoos"
+  );
+}
+
+export async function setUserClickData(data) {
+  const trackId = localStorage.getItem(TRACK_ID);
+  const sessionId = sessionStorage.getItem(SESSION_ID);
+  await callApi(
+    "v1/clicks/add-custom-event",
+    "post",
+    {
+      click: {
+        tracking_id: trackId,
+        session_id: sessionId,
+        event_name: data?.event_name,
+      },
+    },
+    "jasoos"
+  );
 }

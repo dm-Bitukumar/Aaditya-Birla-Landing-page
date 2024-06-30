@@ -12,7 +12,7 @@ import { next } from "lodash/seq";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
-import { getUserMetaData } from "../../../utility/getUserMetaData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const profession_options = [
   { label: "Salaried", value: "Salaried" },
@@ -90,7 +90,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
   };
 
   const handleSubmit = () => {
-    getUserMetaData({
+    setUserClickData({
       event_name: "personal_detail_form_button",
     });
     const isValid = handleValidate();
