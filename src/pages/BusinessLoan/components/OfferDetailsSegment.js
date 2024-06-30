@@ -19,6 +19,7 @@ const OfferDetailsSegment = () => {
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
+  const [isFinished, setIsFinished] = useState(false);
   const [leadId, setLeadId] = useState();
   //   662a73413a05656cf94543c4
 
@@ -63,6 +64,7 @@ const OfferDetailsSegment = () => {
   };
 
   const fetchOffers = async () => {
+    if (isFinished) return;
     try {
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
@@ -74,6 +76,11 @@ const OfferDetailsSegment = () => {
 
       if (res.status === "Success") {
         dispatch(setOffers(res.data.offers ?? []));
+        if (res.data.lead?.all_responses) {
+          setIsFinished(
+            res.data.lead?.all_responses === res.data.lead?.total_response
+          );
+        }
       }
     } catch (err) {
       console.log(err);
@@ -87,7 +94,7 @@ const OfferDetailsSegment = () => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       />
-      {offers?.length === 0 && (
+      {!isFinished && (
         <div
           style={{
             fontFamily: "Montserrat sans-serif",
@@ -95,6 +102,16 @@ const OfferDetailsSegment = () => {
           className="text-xl font-normal text-center"
         >
           Please wait while we are searching best offers for you
+        </div>
+      )}
+      {isFinished && offers?.length === 0 && (
+        <div
+          style={{
+            fontFamily: "Montserrat sans-serif",
+          }}
+          className="text-xl font-normal text-center"
+        >
+          There is no offer for you currently.
         </div>
       )}
       {offers?.length > 0 && (
