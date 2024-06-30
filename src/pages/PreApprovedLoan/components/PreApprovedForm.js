@@ -20,7 +20,7 @@ import moment from "moment";
 const arr = ["Salaried", "Self Employed", "Business Owner"];
 
 const PreApprovedForm = ({ data }) => {
-  const [isTncChecked, setIsTncChecked] = useState(true);
+  const [isTncChecked, setIsTncChecked] = useState(false);
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [showOffers, setShowOffers] = useState(false);
   const [otp, setOtp] = useState("");
