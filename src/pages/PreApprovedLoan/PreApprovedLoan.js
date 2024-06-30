@@ -21,7 +21,6 @@ const PreApprovedLoan = () => {
 
       if (res.status === "Success") {
         setPreLoans(res.data?.preapproved_lead);
-        //setLead(res.data.lead);
         let str1 = res.data?.preapproved_lead?.contact_name;
         let str = "";
         for (let i = 0; i < str1?.length; i++) {
