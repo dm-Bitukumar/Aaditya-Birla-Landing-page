@@ -1,8 +1,10 @@
 import callApi from "./apiCaller";
+import { TRACK_ID } from "./enum";
 
 const obj = {};
 
 export async function getUserMetaData(data) {
+  const trackId = window.localStorage.getItem(TRACK_ID);
   let browserInfo = navigator.userAgent;
   let browser;
   let userDevice;
@@ -50,6 +52,7 @@ export async function getUserMetaData(data) {
     user_device: userDevice,
     ip_address: ipAddress,
     user_id: data?.user_id,
+    track_id: trackId,
     event_name: data?.event_name,
     event_category: data?.event_category,
   });

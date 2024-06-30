@@ -15,9 +15,13 @@ import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import OffersPage from "./pages/Offers/Offerspage";
 import PreLoan from "./pages/PreApprovedLoan/PreApprovedLoan";
+import { v4 as uuidv4 } from "uuid";
+import { TRACK_ID } from "./utility/enum";
 
 function App() {
   const location = useLocation();
+  const sessionId = uuidv4();
+  window.localStorage.setItem(TRACK_ID, sessionId);
   const [path, setPath] = useState("");
 
   useEffect(() => {
