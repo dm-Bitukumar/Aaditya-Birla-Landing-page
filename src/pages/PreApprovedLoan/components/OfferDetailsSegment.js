@@ -1,34 +1,80 @@
 import React, { useEffect, useState } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
+import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
 import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
-import { useSearchParams } from "react-router-dom";
+import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 
 const OfferDetailsSegment = () => {
-  const [lead, setLead] = useState();
-  const [offers, setOffers] = useState();
-
-  const [params] = useSearchParams();
+  const dispatch = useDispatch();
+  const lead = useSelector((state) => state.app.lead);
+  const user = useSelector((state) => state.app.user);
+  const offers = useSelector((state) => state.app.offers);
+  const [isFinished, setIsFinished] = useState(false);
+  const [leadId, setLeadId] = useState();
+  //   662a73413a05656cf94543c4
 
   useEffect(() => {
-    if (params.get("lid")) fetchOffers(params.get("lid"));
-  }, [params]);
+    if (lead && !leadId) {
+      submitLead();
+    }
+  }, [lead]);
 
-  const fetchOffers = async (lid) => {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (leadId) fetchOffers();
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [leadId]);
+
+  const submitLead = async () => {
+    try {
+      const processedLead = getAllianceLeadFromMoneyTapInput("website", lead);
+
+      const res = await callApi(
+        "v1/lead/website-lead",
+        "post",
+        {
+          lead: processedLead,
+          lender_id: lead.lender_id,
+        },
+        "core",
+        user.token
+      );
+      console.log(res);
+      if (res.status === "Success" && res.data.lead) {
+        setLeadId(res.data.lead._id);
+      }
+    } catch (err) {
+      toast("Some error occurred", { hideProgressBar: true, type: "error" });
+      console.log(err);
+    }
+  };
+
+  const fetchOffers = async () => {
+    if (isFinished) return;
     try {
       const res = await callApi(
-        `v1/loan_offer/lead_id/${lid}`,
+        `v1/loan_offer/lead_id/${leadId}`,
         "get",
         {},
-        "core"
+        "core",
+        user.token
       );
 
       if (res.status === "Success") {
-        setOffers(res.data.offers ?? []);
-        setLead(res.data.lead);
+        dispatch(setOffers(res.data.offers ?? []));
+        if (res.data.lead?.all_responses) {
+          setIsFinished(
+            res.data.lead?.all_responses === res.data.lead?.total_response
+          );
+        }
       }
     } catch (err) {
       console.log(err);
@@ -42,7 +88,7 @@ const OfferDetailsSegment = () => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       />
-      {!offers && (
+      {!isFinished && (
         <div
           style={{
             fontFamily: "Montserrat sans-serif",
@@ -52,7 +98,7 @@ const OfferDetailsSegment = () => {
           Please wait while we are searching best offers for you
         </div>
       )}
-      {offers && offers.length === 0 && (
+      {isFinished && offers?.length === 0 && (
         <div
           style={{
             fontFamily: "Montserrat sans-serif",
@@ -62,13 +108,13 @@ const OfferDetailsSegment = () => {
           There is no offer for you currently.
         </div>
       )}
-      {offers && offers.length > 0 && (
+      {offers?.length > 0 && (
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
-            <span className="text-2xl font-normal">{lead?.contact_name}!!</span>{" "}
+            <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 

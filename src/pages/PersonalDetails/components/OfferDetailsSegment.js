@@ -18,6 +18,7 @@ const OfferDetailsSegment = () => {
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
+  const [isFinished, setIsFinished] = useState(false);
   const [leadId, setLeadId] = useState();
   //   662a73413a05656cf94543c4
 
@@ -65,6 +66,7 @@ const OfferDetailsSegment = () => {
     getUserMetaData({
       event_name: "offer_detail_page",
     });
+    if (isFinished) return;
     try {
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
@@ -76,6 +78,11 @@ const OfferDetailsSegment = () => {
 
       if (res.status === "Success") {
         dispatch(setOffers(res.data.offers ?? []));
+        if (res.data.lead?.all_responses) {
+          setIsFinished(
+            res.data.lead?.all_responses === res.data.lead?.total_response
+          );
+        }
       }
     } catch (err) {
       console.log(err);
@@ -89,7 +96,7 @@ const OfferDetailsSegment = () => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       />
-      {offers?.length === 0 && (
+      {!isFinished && (
         <div
           style={{
             fontFamily: "Montserrat sans-serif",
@@ -99,11 +106,21 @@ const OfferDetailsSegment = () => {
           Please wait while we are searching best offers for you
         </div>
       )}
+      {isFinished && offers?.length === 0 && (
+        <div
+          style={{
+            fontFamily: "Montserrat sans-serif",
+          }}
+          className="text-xl font-normal text-center"
+        >
+          There is no offer for you currently.
+        </div>
+      )}
       {offers?.length > 0 && (
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
-          <h3 className="mt-8 text-lg">
+          <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
             <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
           </h3>
@@ -120,7 +137,16 @@ const OfferDetailsSegment = () => {
                 <OfferTile small={false} offer={e} />
               </div>
             ))}
-          <div className="grid grid-cols-3 gap-4">
+          <div
+            className={
+              "grid gap-4" +
+              (offers.length === 2
+                ? " grid-cols-1"
+                : offers.length === 3
+                ? " grid-cols-2"
+                : " grid-cols-3")
+            }
+          >
             {[...offers]
               .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
               .slice(1)

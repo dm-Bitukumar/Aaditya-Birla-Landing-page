@@ -28,18 +28,18 @@ const Form = ({ formData, setFormData, ...props }) => {
     if (_.isEmpty(pancard)) {
       isValid = false;
       setIsPancardValid(false);
-    } else {
-      const isValidPancard = /^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard);
-      isValid = isValidPancard;
-      setIsPancardValid(isValidPancard);
+    }
+    if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
+      isValid = false;
+      setIsPancardValid(false);
     }
     if (_.isEmpty(mobile)) {
       isValid = false;
       setIsMobileValid(false);
-    } else {
-      const isValidMobile = /^\d{10}$/.test(mobile);
-      isValid = isValidMobile;
-      setIsMobileValid(isValidMobile);
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      isValid = false;
+      setIsMobileValid(false);
     }
 
     return isValid;

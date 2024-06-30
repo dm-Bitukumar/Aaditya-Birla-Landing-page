@@ -163,7 +163,6 @@ const EMICalculator = () => {
                 <div className="px-0 col-sm-6 col-12 total_payble">
                   <p className="mb-1">Total Payable</p>
                   <p>
-                    ₹{" "}
                     <span id="result3">
                       {calculateTotalAmountPayable(
                         loanAmount,
@@ -176,7 +175,6 @@ const EMICalculator = () => {
                 <div className="px-0 col-sm-6 col-12 principle_amount">
                   <p className="mb-1">Principle amount</p>
                   <p>
-                    ₹{" "}
                     <span id="result2">
                       {convertNumberToIndianFormat(loanAmount)}
                     </span>
@@ -187,7 +185,6 @@ const EMICalculator = () => {
                 <div className="px-0 col-12 monthly_emi">
                   <p>Monthly EMI</p>
                   <p className={"my-3"}>
-                    ₹{" "}
                     <span id="result1">
                       {calculateMonthlyEMI(
                         loanAmount,
