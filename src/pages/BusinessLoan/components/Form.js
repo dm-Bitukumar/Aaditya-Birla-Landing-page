@@ -85,7 +85,7 @@ const Form = ({ formData, setFormData, ...props }) => {
       if (res["status"] === "Success") {
         dispatch(login({ ...res.data.customer, token: res.data.token }));
 
-        const response = await callApi(
+        await callApi(
           "v1/lead/lead-from-phone",
           "post",
           {

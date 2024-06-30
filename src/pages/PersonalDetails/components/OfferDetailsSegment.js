@@ -12,6 +12,7 @@ import OfferTile from "./OfferTile";
 import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import { TRACK_ID } from "../../../utility/enum";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const OfferDetailsSegment = () => {
 
   const submitLead = async () => {
     try {
+      const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
         ...lead,
         ...user,
@@ -47,7 +49,7 @@ const OfferDetailsSegment = () => {
         "v1/lead/website-lead",
         "post",
         {
-          lead: processedLead,
+          lead: { ...processedLead, tracking_id: trackId },
         },
         "core",
         user.token
