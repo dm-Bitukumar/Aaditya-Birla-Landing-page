@@ -190,7 +190,7 @@ const PreApprovedForm = ({ data }) => {
             salary_mode: "online/neft",
             pincode,
             lender_id,
-            dob,
+            dob: moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
             email,
             profession: occupation,
             gender: userGender,
