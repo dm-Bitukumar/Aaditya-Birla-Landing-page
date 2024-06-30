@@ -63,9 +63,6 @@ const OfferDetailsSegment = () => {
   };
 
   const fetchOffers = async () => {
-    getUserMetaData({
-      event_name: "offer_detail_page",
-    });
     if (isFinished) return;
     try {
       const res = await callApi(

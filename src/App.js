@@ -20,19 +20,22 @@ import { TRACK_ID } from "./utility/enum";
 
 function App() {
   const location = useLocation();
-  const sessionId = uuidv4();
-  const trackId = window.localStorage.getItem(TRACK_ID);
   const [path, setPath] = useState("");
+
   useEffect(() => {
+    const trackId = localStorage.getItem(TRACK_ID);
     if (!trackId) {
-      window.localStorage.setItem(TRACK_ID, sessionId);
+      const sessionId = uuidv4();
+      localStorage.setItem(TRACK_ID, sessionId);
     }
   }, []);
+
   useEffect(() => {
     if (location?.pathname) {
       setPath(location.pathname);
     }
   }, [location?.pathname]);
+
   useEffect(() => {
     const setTime = setInterval(() => {
       if (path) {
@@ -42,7 +45,9 @@ function App() {
 
     return () => clearTimeout(setTime);
   }, [path]);
+
   async function sessionTrack(path) {}
+
   return (
     <>
       <ToastContainer />
