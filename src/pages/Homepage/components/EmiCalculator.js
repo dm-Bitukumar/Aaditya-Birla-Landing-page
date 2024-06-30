@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
+import { getUserMetaData } from "../../../utility/getUserMetaData";
 
 const EMICalculator = () => {
   const [loanAmount, setLoanAmount] = useState(1000000);
@@ -196,7 +197,16 @@ const EMICalculator = () => {
               </div>
             </div>
             <div className="text-center get_started_btn get_started_btn3">
-              <Link to="/personal-loan">Get Started</Link>
+              <Link
+                to="/personal-loan"
+                onClick={() => {
+                  getUserMetaData({
+                    event_name: "get_started",
+                  });
+                }}
+              >
+                Get Started
+              </Link>
             </div>
           </div>
         </div>

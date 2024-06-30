@@ -9,6 +9,7 @@ import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
 import { login, setLead } from "../../../store/app/appReducer";
 import { useDispatch } from "react-redux";
+import { getUserMetaData } from "../../../utility/getUserMetaData";
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
@@ -40,6 +41,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = async (event) => {
+    getUserMetaData({ event_name: "otp_button_business_loan_page" });
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
@@ -68,6 +70,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
+    getUserMetaData({ event_name: "otp_verify_button_business_loan_page" });
     try {
       const res = await callApi(
         "v1/sms/validate-otp",

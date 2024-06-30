@@ -6,6 +6,7 @@ import Reviews from "./components/Reviews";
 import PrivacyConcerns from "./components/PrivacyConcerns";
 import FaqsSection from "./components/FaqSection";
 import MainFooter from "./components/MainFooter";
+import { getUserMetaData } from "../../utility/getUserMetaData";
 
 const carouselData = [
   {
@@ -103,7 +104,7 @@ const Homepage = () => {
           <div className="container m-auto">
             <div className="row card" style={{ flexDirection: "row" }}>
               {itemsData.map((item, index) => (
-                <div key={index} className="col-md-2 col-4 m-auto text-center">
+                <div key={index} className="m-auto text-center col-md-2 col-4">
                   <img src={item.imgSrc} alt="" className="mx-auto my-1" />
                   <p className="mb-0">{item.title1}</p>
                   <p className="mb-0">{item.title2}</p>
@@ -113,7 +114,7 @@ const Homepage = () => {
           </div>
         </div>
         <div className="container m-auto">
-          <div className="get_started_btn get_started_btn5 text-center mt-0">
+          <div className="mt-0 text-center get_started_btn get_started_btn5">
             <Link to="/personal-loan">Get Started</Link>
           </div>
         </div>
@@ -121,19 +122,28 @@ const Homepage = () => {
       <section className="facilities">
         <div className="container m-auto" style={{ margin: "auto" }}>
           <CustomCarousel data={carouselData} />
-          <div className="get_started_btn get_started_btn1 text-center">
-            <Link to={"/personal-loan"}>Get Started</Link>
+          <div className="text-center get_started_btn get_started_btn1">
+            <Link
+              to={"/personal-loan"}
+              onClick={() => {
+                getUserMetaData({
+                  event_name: "get_started",
+                });
+              }}
+            >
+              Get Started
+            </Link>
           </div>
         </div>
       </section>
       <section className="video">
         <div className="container m-auto">
-          <div className="play text-center">
+          <div className="text-center play">
             {/* <img src="./asset/img/lock.png" alt="" className="w-50" /> */}
           </div>
-          <div className="get_started_btn get_started_btn2 text-center mt-0">
+          <div className="mt-0 text-center get_started_btn get_started_btn2">
             {/* <a href="https://digitmoney.in/personal-loan">Get Started</a> */}
-            <p className="coming_soon my-0">Coming Soon</p>
+            <p className="my-0 coming_soon">Coming Soon</p>
           </div>
         </div>
       </section>
@@ -145,8 +155,8 @@ const Homepage = () => {
           <div className="heading">
             Explore our latest news and updates from trusted sources.
           </div>
-          <div className="get_started_btn get_started_btn2 text-center mt-4">
-            <p className="coming_soon mb-0">Coming Soon</p>
+          <div className="mt-4 text-center get_started_btn get_started_btn2">
+            <p className="mb-0 coming_soon">Coming Soon</p>
           </div>
         </div>
       </section>

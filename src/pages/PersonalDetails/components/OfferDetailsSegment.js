@@ -11,6 +11,7 @@ import callApi from "../../../utility/apiCaller";
 import OfferTile from "./OfferTile";
 import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
+import { getUserMetaData } from "../../../utility/getUserMetaData";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -62,6 +63,9 @@ const OfferDetailsSegment = () => {
   };
 
   const fetchOffers = async () => {
+    getUserMetaData({
+      event_name: "offer_detail_page",
+    });
     if (isFinished) return;
     try {
       const res = await callApi(

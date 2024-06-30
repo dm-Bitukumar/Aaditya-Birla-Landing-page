@@ -5,6 +5,7 @@ import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
+import { getUserMetaData } from "../../../utility/getUserMetaData";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -54,6 +55,9 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = (event) => {
+    getUserMetaData({
+      event_name: "otp_button_pre_approved_loan_page",
+    });
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
@@ -77,7 +81,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   return (
     <div className={"personal-loan-form"}>
       <img
-        className="mb-1 mt-3 img logo-img"
+        className="mt-3 mb-1 img logo-img"
         src="/assets/img/logo.png"
         alt=""
       />
@@ -95,12 +99,12 @@ const Form = ({ formData, setFormData, ...props }) => {
       ) : (
         <>
           <img
-            className="mb-3 my-5 img header-img"
+            className="my-5 mb-3 img header-img"
             src="/assets/icons/header.png"
             alt=""
           />
           <h1
-            className="h3 mb-3 fw-normal text-center"
+            className="mb-3 text-center h3 fw-normal"
             style={{ fontSize: "20px" }}
           >
             Unlock Your Pre-approved
