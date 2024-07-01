@@ -6,6 +6,10 @@ import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import callApi from "../../../utility/apiCaller";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { login } from "../../../store/app/appReducer";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -15,7 +19,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [pancard, setPancard] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleValidation = () => {
@@ -54,14 +58,28 @@ const Form = ({ formData, setFormData, ...props }) => {
     setMobile(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     setUserClickData({
       event_name: "otp_button_pre_approved_loan_page",
     });
     event.preventDefault();
+    // let isValid = handleValidation();
+    // if (isValid) {
+    //   setIsOtpGenerated(true);
+    // }
     let isValid = handleValidation();
     if (isValid) {
-      setIsOtpGenerated(true);
+      const res = await callApi(
+        "v1/sms/send-otp",
+        "post",
+        {
+          contact_phone: mobile,
+        },
+        "messaging"
+      );
+      if (res["status"] === "Success") {
+        setIsOtpGenerated(true);
+      }
     }
     // Handle form submission
   };
@@ -74,8 +92,43 @@ const Form = ({ formData, setFormData, ...props }) => {
     // todo resend login with timer
   };
 
-  const handleSubmitOtp = () => {
+  const handleSubmitOtp = async () => {
     // todo submit logic
+    try {
+      const res = await callApi(
+        "v1/sms/validate-otp",
+        "post",
+        {
+          contact_phone: mobile,
+          otp,
+        },
+        "messaging"
+      );
+
+      if (res["status"] === "Success") {
+        await callApi(
+          "v1/lead/lead-from-phone",
+          "post",
+          {
+            phone: mobile,
+          },
+          "core",
+          res.data.token
+        )
+          .then((response) => {
+            if (response["status"] === "Success") {
+              if (response.data.lead)
+                navigate(`/offers?lid=${response.data.lead._id}`);
+            }
+          })
+          .catch((e) => navigate("/personal-loan"));
+      }
+    } catch (err) {
+      if (err.response.data.data.message === "Invalid OTP") {
+        toast("Wrong OTP", { hideProgressBar: true, type: "error" });
+      }
+      console.log(err);
+    }
   };
 
   return (
