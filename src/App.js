@@ -82,10 +82,10 @@ function App() {
         <Route path={"/apply"} element={<PersonalDetails />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
         <Route path={"/offers"} element={<OffersPage />} />
-        <Route path={"/business-loan"} element={<BusinessLoan />} />
-        <Route path="/terms" element={<Term />} />
         <Route path={"/rtg"} element={<PreLoan />} />
+        <Route path={"/business-loan"} element={<BusinessLoan />} />
         <Route path={"/business-loan/apply"} element={<BusinessLoanApply />} />
+        <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>

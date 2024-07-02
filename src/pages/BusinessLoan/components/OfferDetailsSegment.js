@@ -97,23 +97,14 @@ const OfferDetailsSegment = () => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       />
-      {!isFinished && (
-        <div
-          style={{
-            fontFamily: "Montserrat sans-serif",
-          }}
-          className="text-xl font-normal text-center"
-        >
+      {!isFinished && offers?.length === 0 && (
+        <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
+          <span class="ml-2 dot-pulse"></span>
         </div>
       )}
       {isFinished && offers?.length === 0 && (
-        <div
-          style={{
-            fontFamily: "Montserrat sans-serif",
-          }}
-          className="text-xl font-normal text-center"
-        >
+        <div className="mb-4 font-normal text-center">
           There is no offer for you currently.
         </div>
       )}
@@ -157,6 +148,13 @@ const OfferDetailsSegment = () => {
                 </div>
               ))}
           </div>
+
+          {!isFinished && (
+            <div className="mt-4 font-normal text-center">
+              Please wait while we are searching best offers for you
+              <span class="ml-2 dot-pulse"></span>
+            </div>
+          )}
 
           <h4 className="mt-4 text-xs text-center">
             *These pre-approved offers are subject to change at discretion of

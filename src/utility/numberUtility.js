@@ -77,7 +77,7 @@ export const numberToWordIncome = (number) => {
 };
 
 export const convertNumberToIndianFormat = (number) => {
-  return number.toLocaleString("en-IN", {
+  return Number(number).toLocaleString("en-IN", {
     maximumFractionDigits: 0,
     style: "currency",
     currency: "INR",
