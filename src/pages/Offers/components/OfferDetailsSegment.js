@@ -43,22 +43,13 @@ const OfferDetailsSegment = () => {
         currentStep={2}
       />
       {!offers && (
-        <div
-          style={{
-            fontFamily: "Montserrat sans-serif",
-          }}
-          className="text-xl font-normal text-center"
-        >
+        <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
+          <span class="ml-2 dot-pulse"></span>
         </div>
       )}
       {offers && offers.length === 0 && (
-        <div
-          style={{
-            fontFamily: "Montserrat sans-serif",
-          }}
-          className="text-xl font-normal text-center"
-        >
+        <div className="mb-4 font-normal text-center">
           There is no offer for you currently.
         </div>
       )}
