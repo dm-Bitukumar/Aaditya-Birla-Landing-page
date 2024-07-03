@@ -41,7 +41,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = async (event) => {
-    setUserClickData({ event_name: "otp_button_business_loan_page" });
+    setUserClickData({ event_name: "otp-button-business-loan-page" });
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
@@ -70,7 +70,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
-    setUserClickData({ event_name: "otp_verify_button_business_loan_page" });
+    setUserClickData({ event_name: "otp-verify-button-business-loan-page" });
     try {
       const res = await callApi(
         "v1/sms/validate-otp",

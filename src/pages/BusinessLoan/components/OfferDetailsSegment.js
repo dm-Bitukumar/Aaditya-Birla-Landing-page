@@ -14,6 +14,7 @@ import {
   getBusinessVintageFromEntry,
 } from "../../../utility/commonUtils";
 import { TRACK_ID } from "../../../utility/enum";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ const OfferDetailsSegment = () => {
   }, [leadId]);
 
   const submitLead = async () => {
+    setUserClickData({
+      event_name: "business-loan-page",
+    });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const res = await callApi(
