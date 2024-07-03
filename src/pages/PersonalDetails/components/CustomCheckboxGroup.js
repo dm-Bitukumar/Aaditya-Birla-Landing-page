@@ -11,7 +11,7 @@ const CustomCheckboxGroup = ({
 
   const handleGenderChange = (gender) => {
     setUserClickData({
-      event_name: "gender_custom_button",
+      event_name: "gender-custom-button",
     });
     setSelectedGender(gender);
     setActiveGender(gender);

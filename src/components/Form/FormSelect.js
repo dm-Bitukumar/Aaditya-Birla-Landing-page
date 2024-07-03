@@ -1,4 +1,5 @@
 import React from "react";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const FormSelect = ({
   isValid,
@@ -11,6 +12,9 @@ const FormSelect = ({
   ...props
 }) => {
   const handleChange = (event) => {
+    setUserClickData({
+      event_name: "single-select-input",
+    });
     // Get the selected value
     const selectedValue = event.target.value;
     // Pass the selected value to the parent component

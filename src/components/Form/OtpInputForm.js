@@ -2,6 +2,7 @@ import FormButton from "../Buttons/FormButton";
 import OTPInput from "react-otp-input";
 import _ from "lodash";
 import { useState } from "react";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const OtpInputForm = ({
   otpValue,
@@ -15,6 +16,9 @@ const OtpInputForm = ({
   const [isOtpValid, setIsOtpValid] = useState(true);
 
   const handleSubmit = () => {
+    setUserClickData({
+      event_name: "otp-input-form",
+    });
     if (otpValue.length === 4) {
       handleSubmitOtp();
     } else {
@@ -30,7 +34,7 @@ const OtpInputForm = ({
   return (
     <div style={style}>
       <h1
-        className="h3 fw-normal my-4"
+        className="my-4 h3 fw-normal"
         align="left"
         style={{ fontSize: "18px !important", fontWeight: "lighter" }}
       >
@@ -83,12 +87,12 @@ const OtpInputForm = ({
         />
       </div>
       {!isOtpValid && (
-        <div id="otperror" className="text-danger text-center">
+        <div id="otperror" className="text-center text-danger">
           Incorrect OTP. Please enter valid otp.
         </div>
       )}
       <div
-        className="checkbox mb-3 pull-left"
+        className="mb-3 checkbox pull-left"
         style={{ paddingTop: "5px", paddingBottom: "45px" }}
       >
         <p style={{ fontSize: "12px" }}>

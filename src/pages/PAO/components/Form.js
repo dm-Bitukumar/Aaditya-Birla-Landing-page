@@ -56,7 +56,7 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handleSubmit = (event) => {
     setUserClickData({
-      event_name: "otp_button_pre_approved_loan_page",
+      event_name: "otp-button-pre-approved-loan-page",
     });
     event.preventDefault();
     let isValid = handleValidation();
@@ -67,6 +67,9 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleChange = () => {
+    setUserClickData({
+      event_name: "check-tick-pre-approved-loan-page",
+    });
     setIsTncChecked((prev) => !prev);
   };
 

@@ -10,6 +10,7 @@ import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 import { TRACK_ID } from "../../../utility/enum";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ const OfferDetailsSegment = () => {
   }, [leadId]);
 
   const submitLead = async () => {
+    setUserClickData({
+      event_name: "offer-detail-api",
+    });
     try {
       let ip = "";
 

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,9 @@ const OfferDetailsSegment = () => {
   }, [leadId]);
 
   const submitLead = async () => {
+    setUserClickData({
+      event_name: "personal-detail-api",
+    });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
