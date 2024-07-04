@@ -25,6 +25,9 @@ const EMICalculator = () => {
     interestRate,
     loanTenure
   ) => {
+    setUserClickData({
+      event_name: "cal-total-amt-payable",
+    });
     const monthlyInterestRate = interestRate / 12 / 100;
     const numberOfPayments = loanTenure * 12;
     const x = Math.pow(1 + monthlyInterestRate, numberOfPayments);
@@ -34,6 +37,9 @@ const EMICalculator = () => {
   };
 
   const calculateMonthlyEMI = (loanAmount, interestRate, loanTenure) => {
+    setUserClickData({
+      event_name: "cal-monthly-emi",
+    });
     const monthlyInterestRate = interestRate / 12 / 100;
     const numberOfPayments = loanTenure * 12;
     const x = Math.pow(1 + monthlyInterestRate, numberOfPayments);
@@ -201,7 +207,7 @@ const EMICalculator = () => {
                 to="/personal-loan"
                 onClick={() => {
                   setUserClickData({
-                    event_name: "get_started",
+                    event_name: "get-started",
                   });
                 }}
               >

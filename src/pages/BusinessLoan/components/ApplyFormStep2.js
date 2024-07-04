@@ -70,7 +70,7 @@ const ApplyFormStep2 = ({
     return isValid;
   };
   const handleSubmit = () => {
-    setUserClickData({ event_name: "step2_business_loan_page" });
+    setUserClickData({ event_name: "step2-business-loan-page" });
     const isValid = handleValidation();
     if (isValid) {
       nextStep();

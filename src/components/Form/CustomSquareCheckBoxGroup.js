@@ -1,9 +1,14 @@
 import { useState } from "react";
+import { setUserClickData } from "../../utility/setUserClickData";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const CustomSquareCheckBoxGroup = ({ options, onSelect }) => {
   const [selectedValue, setSelectedValue] = useState("");
 
   const handleClick = (option) => {
+    setUserClickData({
+      event_name: "check-box-tick",
+    });
     setSelectedValue(option.value);
     onSelect(option.value);
   };
@@ -15,7 +20,11 @@ const CustomSquareCheckBoxGroup = ({ options, onSelect }) => {
         options.map((option, index) => (
           <div
             key={index}
-            className={`custom-square-checkbox-option${selectedValue === option.value ? " custom-square-checkbox-option-active" : ""}`}
+            className={`custom-square-checkbox-option${
+              selectedValue === option.value
+                ? " custom-square-checkbox-option-active"
+                : ""
+            }`}
             onClick={() => handleClick(option)}
           >
             {option.label}

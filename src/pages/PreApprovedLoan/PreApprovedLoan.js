@@ -5,6 +5,7 @@ import PreApprovedForm from "./components/PreApprovedForm";
 import { useSearchParams } from "react-router-dom";
 import callApi from "../../utility/apiCaller";
 import { convertNumberToIndianFormat } from "../../utility/numberUtility";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const PreApprovedLoan = () => {
   const [loans, setLoans] = useState(true);
@@ -39,6 +40,9 @@ const PreApprovedLoan = () => {
   };
 
   const handleSubmit = () => {
+    setUserClickData({
+      event_name: "disbursment-button",
+    });
     setLoans(false);
   };
 

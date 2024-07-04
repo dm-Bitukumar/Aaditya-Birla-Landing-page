@@ -131,7 +131,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
 
   const handleSubmit = () => {
     setUserClickData({
-      event_name: "work_detail_form_button",
+      event_name: "work-detail-form-button",
     });
     const isValid = handleValidate();
     if (isValid) {
@@ -141,10 +141,16 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   };
 
   const handleBack = () => {
+    setUserClickData({
+      event_name: "work-detail-back-button",
+    });
     previousStep();
   };
 
   const renderForm = () => {
+    setUserClickData({
+      event_name: "work-detail-page",
+    });
     switch (lead.profession) {
       case "Salaried":
         return (
