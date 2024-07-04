@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
-import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();

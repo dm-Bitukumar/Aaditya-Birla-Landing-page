@@ -1,6 +1,7 @@
 import React from "react";
 import MainFooter from "./Homepage/components/MainFooter";
 import { Link } from "react-router-dom";
+import { setUserClickData } from "../utility/setUserClickData";
 
 const PrivacyPolicy = () => {
   return (

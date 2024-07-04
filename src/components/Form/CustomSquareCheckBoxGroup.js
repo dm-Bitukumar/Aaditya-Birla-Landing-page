@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { setUserClickData } from "../../utility/setUserClickData";
-import { setUserClickData } from "../../utility/setUserClickData";
 
 const CustomSquareCheckBoxGroup = ({ options, onSelect }) => {
   const [selectedValue, setSelectedValue] = useState("");
