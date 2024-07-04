@@ -286,6 +286,7 @@ const PreApprovedForm = ({ data }) => {
               setOtpValue={setOtp}
               checked={isKYCConcent}
               handleChange={() => setIsKYCConcent((prev) => !prev)}
+              lenderId={lender_id}
               handleResendOtp={handleResendOtp}
               phone_number={mobile}
               handleSubmitOtp={handleSubmitOtp}

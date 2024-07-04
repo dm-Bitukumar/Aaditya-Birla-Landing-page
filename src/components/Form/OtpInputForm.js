@@ -1,7 +1,7 @@
 import FormButton from "../Buttons/FormButton";
 import OTPInput from "react-otp-input";
 import _ from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setUserClickData } from "../../utility/setUserClickData";
 import { Link } from "react-router-dom";
 
@@ -15,8 +15,39 @@ const OtpInputForm = ({
   buttonStyle,
   handleChange: handleKycChecked,
   checked,
+  lenderId,
 }) => {
   const [isOtpValid, setIsOtpValid] = useState(true);
+  const [name, setName] = useState("");
+  const [tnc, setTnc] = useState("");
+  const [privacy, setPrivacy] = useState("");
+  const [concent, setConcent] = useState("");
+
+  useEffect(() => {
+    if (lenderId) {
+      if (lenderId === "667ffb7b0dd50ee1bb6556c5") {
+        setName("Prefr");
+        setTnc("https://prefr.com/terms_and_conditions");
+        setPrivacy("https://prefr.com/privacy_policy");
+        setConcent("https://prefr.com/bureau_consent");
+      }
+      //  else if (lenderId === "") {
+      //   setName("Prefr");
+      //   setTnc(
+      //     "https://www.tatacapital.com/content/dam/tata-capital/pdf/tcfsl/PL_App_Form_TC.pdf"
+      //   );
+      //   setPrivacy(
+      //     "https://www.tatacapital.com/content/dam/tata-capital/pdf/tcfsl/PL_App_Form_TC.pdf"
+      //   );
+      //   setConcent("https://prefr.com/bureau_consent");
+      // } else if (lenderId === "") {
+      //   setName("Prefr");
+      //   setTnc("https://prefr.com/terms_and_conditions");
+      //   setPrivacy("https://prefr.com/privacy_policy");
+      //   setConcent("https://prefr.com/bureau_consent");
+      // }
+    }
+  }, [lenderId]);
 
   const handleSubmit = () => {
     setUserClickData({
@@ -118,16 +149,28 @@ const OtpInputForm = ({
               value="Yes"
               style={{ fontSize: "10px", marginRight: "4px" }}
             />
-            I have agreed to Prefr{" "}
-            <Link to="/terms" style={{ color: "#00A9DD", fontSize: "10px" }}>
+            I have agreed to {name}{" "}
+            <Link
+              target="_blank"
+              to={tnc}
+              style={{ color: "#00A9DD", fontSize: "10px" }}
+            >
               <b>T&C</b>
             </Link>{" "}
             and{" "}
-            <Link to="/lenders" style={{ color: "#00A9DD", fontSize: "10px" }}>
+            <Link
+              target="_blank"
+              to={privacy}
+              style={{ color: "#00A9DD", fontSize: "10px" }}
+            >
               <b>Privacy Policy</b>
             </Link>{" "}
             consent to CKYC and{" "}
-            <Link to="/lenders" style={{ color: "#00A9DD", fontSize: "10px" }}>
+            <Link
+              target="_blank"
+              to={concent}
+              style={{ color: "#00A9DD", fontSize: "10px" }}
+            >
               <b>Authorized</b>
             </Link>{" "}
             Prfer to retrieve my credit report
