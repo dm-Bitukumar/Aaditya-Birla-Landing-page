@@ -155,6 +155,7 @@ const OfferDetailsSegment = () => {
                 </div>
               ))}
           </div>
+
           {offers.length > 4 && !show && (
             <div>
               <FormButton
