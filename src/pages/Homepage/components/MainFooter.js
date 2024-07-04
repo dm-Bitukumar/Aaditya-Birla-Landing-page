@@ -20,7 +20,7 @@ const MainFooter = () => {
                   to="/terms"
                   onClick={() => {
                     setUserClickData({
-                      event_name: "terms_link",
+                      event_name: "terms-link",
                     });
                   }}
                 >
@@ -31,7 +31,7 @@ const MainFooter = () => {
                   to="/privacy-policy"
                   onClick={() => {
                     setUserClickData({
-                      event_name: "privacy_policy_link",
+                      event_name: "privacy-policy-link",
                     });
                   }}
                 >
@@ -42,7 +42,7 @@ const MainFooter = () => {
                   to="/contact"
                   onClick={() => {
                     setUserClickData({
-                      event_name: "contact_us_link",
+                      event_name: "contact-us-link",
                     });
                   }}
                 >
@@ -54,7 +54,7 @@ const MainFooter = () => {
                 className="address"
                 onClick={() => {
                   setUserClickData({
-                    event_name: "about digit_money_link",
+                    event_name: "about-digit-money-link",
                   });
                 }}
               >
@@ -77,7 +77,7 @@ const MainFooter = () => {
                 className="address"
                 onClick={() => {
                   setUserClickData({
-                    event_name: "grievance_digit_money_link",
+                    event_name: "grievance-digit-money-link",
                   });
                 }}
               >
@@ -91,7 +91,7 @@ const MainFooter = () => {
                 className="social_icons"
                 onClick={() => {
                   setUserClickData({
-                    event_name: "social_media_link",
+                    event_name: "social-media-link",
                   });
                 }}
               >
@@ -152,7 +152,7 @@ const MainFooter = () => {
                     className="text-center col-4"
                     onClick={() => {
                       setUserClickData({
-                        event_name: "watsapp_link",
+                        event_name: "whatsapp-link",
                       });
                     }}
                   >
@@ -168,7 +168,7 @@ const MainFooter = () => {
                     className="text-center col-4"
                     onClick={() => {
                       setUserClickData({
-                        event_name: "mail_link",
+                        event_name: "mail-link",
                       });
                     }}
                   >
@@ -184,7 +184,7 @@ const MainFooter = () => {
                     className="text-center col-4"
                     onClick={() => {
                       setUserClickData({
-                        event_name: "digit_money_phone_link",
+                        event_name: "digit-money-phone-link",
                       });
                     }}
                   >
@@ -227,7 +227,7 @@ const MainFooter = () => {
                       href="/"
                       onClick={() => {
                         setUserClickData({
-                          event_name: "about_digit_money_page",
+                          event_name: "about-digit-money-page",
                         });
                       }}
                     >
@@ -239,7 +239,7 @@ const MainFooter = () => {
                       href="#faqs"
                       onClick={() => {
                         setUserClickData({
-                          event_name: "digit_money_faqs_page",
+                          event_name: "digit-money-faqs-page",
                         });
                       }}
                     >
@@ -251,7 +251,7 @@ const MainFooter = () => {
                       href="/"
                       onClick={() => {
                         setUserClickData({
-                          event_name: "digit_money_blogs_page",
+                          event_name: "digit-money-blogs-page",
                         });
                       }}
                     >
@@ -263,7 +263,7 @@ const MainFooter = () => {
                       href="/"
                       onClick={() => {
                         setUserClickData({
-                          event_name: "digit_money_career_page",
+                          event_name: "digit-money-career-page",
                         });
                       }}
                     >
@@ -275,7 +275,7 @@ const MainFooter = () => {
                       href="/"
                       onClick={() => {
                         setUserClickData({
-                          event_name: "digit_money_eligibility_calculator_page",
+                          event_name: "digit-money-eligibility-calculator-page",
                         });
                       }}
                     >
@@ -287,7 +287,7 @@ const MainFooter = () => {
                   <li
                     onClick={() => {
                       setUserClickData({
-                        event_name: "digit_money_affiliate_program_page",
+                        event_name: "digit-money-affiliate-program-page",
                       });
                     }}
                   >
@@ -296,7 +296,7 @@ const MainFooter = () => {
                   <li
                     onClick={() => {
                       setUserClickData({
-                        event_name: "digit_money_lending_partners_page",
+                        event_name: "digit-money-lending-partners-page",
                       });
                     }}
                   >
@@ -305,7 +305,7 @@ const MainFooter = () => {
                   <li
                     onClick={() => {
                       setUserClickData({
-                        event_name: "digit_money_our_partners_page",
+                        event_name: "digit-money-our-partners-page",
                       });
                     }}
                   >
@@ -314,7 +314,7 @@ const MainFooter = () => {
                   <li
                     onClick={() => {
                       setUserClickData({
-                        event_name: "digit_money_emi_calculator_page",
+                        event_name: "digit-money-emi-calculator-page",
                       });
                     }}
                   >
@@ -338,13 +338,59 @@ const MainFooter = () => {
               <p>Personal Loan Simplified.</p>
               <h3>COMPANY</h3>
               <p>
-                <Link to="/terms">Terms</Link>|
-                <Link to="/privacy-policy">Privacy Policy</Link>|
-                <Link to="/contact">Contact Us</Link>|
-                <a href="https://sachet.rbi.org.in/">RBI Sachet</a>
+                <Link
+                  to="/terms"
+                  onClick={() => {
+                    setUserClickData({
+                      event_name: "link-term-page",
+                    });
+                  }}
+                >
+                  Terms
+                </Link>
+                |
+                <Link
+                  to="/privacy-policy"
+                  onClick={() => {
+                    setUserClickData({
+                      event_name: "link-privacy-page",
+                    });
+                  }}
+                >
+                  Privacy Policy
+                </Link>
+                |
+                <Link
+                  to="/contact"
+                  onClick={() => {
+                    setUserClickData({
+                      event_name: "link-contact-page",
+                    });
+                  }}
+                >
+                  Contact Us
+                </Link>
+                |
+                <a
+                  href="https://sachet.rbi.org.in/"
+                  onClick={() => {
+                    setUserClickData({
+                      event_name: "rbi-page-link",
+                    });
+                  }}
+                >
+                  RBI Sachet
+                </a>
               </p>
               <h3>GRIEVANCE REDRESSAL OFFICER DETAILS</h3>
-              <div className="address">
+              <div
+                className="address"
+                onClick={() => {
+                  setUserClickData({
+                    event_name: "grievance-digit-money",
+                  });
+                }}
+              >
                 <a href="mailto: grievance@digitmoney.in">
                   Ammy Pinheiro
                   <br />
@@ -353,7 +399,14 @@ const MainFooter = () => {
               </div>
             </div>
             <div className="text-center col-12">
-              <div className="social_icons">
+              <div
+                className="social_icons"
+                onClick={() => {
+                  setUserClickData({
+                    event_name: "social-media-link",
+                  });
+                }}
+              >
                 <a
                   rel={"noreferrer"}
                   href="https://www.facebook.com/DigitMoneyTechnologies"
@@ -411,23 +464,51 @@ const MainFooter = () => {
             <div className="text-center col-12">
               <div className="card">
                 <div className="mx-0 row">
-                  <div className="px-0 text-center col-4">
+                  <div
+                    className="px-0 text-center col-4"
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "whatsapp-link",
+                      });
+                    }}
+                  >
                     <a href="https://api.whatsapp.com/send/?phone=9076324177&amp;type=phone_number&amp;app_absent=0">
                       <img src="/assets/img/chat.png" alt="" />
                     </a>
                   </div>
-                  <div className="px-0 text-center col-4">
+                  <div
+                    className="px-0 text-center col-4"
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "dm-mail-link",
+                      });
+                    }}
+                  >
                     <a href="mailto: hello@digitmoney.in">
                       <img src="/assets/img/mail.png" alt="" />
                     </a>
                   </div>
-                  <div className="px-0 text-center col-4">
+                  <div
+                    className="px-0 text-center col-4"
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "dm-phone-link",
+                      });
+                    }}
+                  >
                     <a href="tel:9076324177">
                       <img src="/assets/img/call.png" alt="" />
                     </a>
                   </div>
                 </div>
-                <div className="mx-0 row">
+                <div
+                  className="mx-0 row"
+                  onClick={() => {
+                    setUserClickData({
+                      event_name: "whatsapp-chat-link",
+                    });
+                  }}
+                >
                   <div className="px-0 text-center col-4">
                     <p>
                       {" "}
@@ -457,33 +538,87 @@ const MainFooter = () => {
             <div className="col-12">
               <div className="row features">
                 <ul className="px-0 col-6">
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "about-us-link",
+                      });
+                    }}
+                  >
                     <a href="/">About Us</a>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "faqs-link",
+                      });
+                    }}
+                  >
                     <a href="#faqs">FAQs</a>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "blogs-link",
+                      });
+                    }}
+                  >
                     <a href="/">Blogs</a>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "blogs-link",
+                      });
+                    }}
+                  >
                     <a href="/">Career</a>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "eligibility-calc-link",
+                      });
+                    }}
+                  >
                     <a href="/">Eligibility Calculator</a>
                   </li>
                 </ul>
                 <ul className="px-0 col-6">
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "affiliate-link",
+                      });
+                    }}
+                  >
                     <a href="/">Affiliate Program</a>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "leading-partner-link",
+                      });
+                    }}
+                  >
                     <a href="/">Digital Lending Partners</a>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "our-partner-link",
+                      });
+                    }}
+                  >
                     <a href="/">Our Partners</a>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      setUserClickData({
+                        event_name: "emi-calc-link",
+                      });
+                    }}
+                  >
                     <a href="#emi">EMI Calculator</a>
                   </li>
                 </ul>
@@ -493,7 +628,14 @@ const MainFooter = () => {
               <hr />
             </div>
             <div className="text-center col-12">
-              <div className="address">
+              <div
+                className="address"
+                onClick={() => {
+                  setUserClickData({
+                    event_name: "digit-money-address-link",
+                  });
+                }}
+              >
                 <a
                   href="https://www.google.com/maps/place/Regus+-+Mumbai+Navi+Mumbai+Vashi/@19.0656051,72.9938251,17z/data=!3m2!4b1!5s0x3be7c14cc982360b:0xe56cd8202f48699c!4m6!3m5!1s0x3be7c8ee979c7bc9:0xeb3505e4b813f39d!8m2!3d19.0656!4d72.9964!16s%2Fg%2F1hc4583zv?entry=ttu"
                   target="_blank"

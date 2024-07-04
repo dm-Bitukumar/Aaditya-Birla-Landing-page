@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const CustomSquareRadioWithIcon = ({ onChange }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (option) => {
+    setUserClickData({
+      event_name: "radio-button",
+    });
     setSelectedOption(option);
     if (onChange) {
       onChange(option);
@@ -13,7 +17,9 @@ const CustomSquareRadioWithIcon = ({ onChange }) => {
   return (
     <div className="d-flex justify-content-between">
       <div
-        className={`radio-shadow d-flex align-items-center px-4 ${selectedOption === "yes" ? "active" : ""}`}
+        className={`radio-shadow d-flex align-items-center px-4 ${
+          selectedOption === "yes" ? "active" : ""
+        }`}
         style={{ width: "48%", cursor: "pointer" }}
         onClick={() => handleOptionChange("yes")}
       >
@@ -43,7 +49,9 @@ const CustomSquareRadioWithIcon = ({ onChange }) => {
         )}
       </div>
       <div
-        className={`radio-shadow d-flex align-items-center px-4 ${selectedOption === "no" ? "active" : ""}`}
+        className={`radio-shadow d-flex align-items-center px-4 ${
+          selectedOption === "no" ? "active" : ""
+        }`}
         style={{ width: "48%", cursor: "pointer" }}
         onClick={() => handleOptionChange("no")}
       >

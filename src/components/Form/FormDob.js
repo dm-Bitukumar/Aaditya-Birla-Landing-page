@@ -1,4 +1,5 @@
 import React from "react";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const FormDob = ({
   isValid,
@@ -10,6 +11,9 @@ const FormDob = ({
   ...props
 }) => {
   const handleInputChange = (event) => {
+    setUserClickData({
+      event_name: "dob-form",
+    });
     // Apply regex replacements to format the input value
     let formattedValue = event.target.value.replace(/^(\d\d)(\d)$/g, "$1/$2");
     formattedValue = formattedValue.replace(/^(\d\d\/\d\d)(\d+)$/g, "$1/$2");
@@ -19,7 +23,7 @@ const FormDob = ({
   };
 
   return (
-    <div className="input-group mb-3">
+    <div className="mb-3 input-group">
       <span className="input-group-text" style={{ height: "58px" }}>
         {icon}
       </span>
