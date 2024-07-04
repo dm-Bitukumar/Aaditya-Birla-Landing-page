@@ -38,6 +38,9 @@ const OfferDetailsSegment = () => {
   }, [leadId]);
 
   const submitLead = async () => {
+    setUserClickData({
+      event_name: "personal-detail-api",
+    });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {

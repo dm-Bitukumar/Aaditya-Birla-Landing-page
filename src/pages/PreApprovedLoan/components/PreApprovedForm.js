@@ -17,6 +17,7 @@ import { login, setLead } from "../../../store/app/appReducer";
 import OfferDetailsSegment from "./OfferDetailsSegment";
 import CustomCheckboxGroup from "../../PersonalDetails/components/CustomCheckboxGroup";
 import moment from "moment";
+import { setUserClickData } from "../../../utility/setUserClickData";
 const arr = ["Salaried", "Self Employed", "Business Owner"];
 
 const PreApprovedForm = ({ data }) => {
@@ -167,6 +168,9 @@ const PreApprovedForm = ({ data }) => {
   };
 
   const handleSubmit = async (event) => {
+    setUserClickData({
+      event_name: "otp-button-pre-approved-form",
+    });
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {

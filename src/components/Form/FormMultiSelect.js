@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const FormMultiSelect = ({
   isValid,
@@ -13,6 +14,9 @@ const FormMultiSelect = ({
   ...props
 }) => {
   const handleChange = (event) => {
+    setUserClickData({
+      event_name: "multi-select-input",
+    });
     onChange(event);
   };
 
@@ -28,7 +32,7 @@ const FormMultiSelect = ({
   };
 
   return (
-    <div className="input-group mb-3" style={{ flexWrap: "nowrap" }}>
+    <div className="mb-3 input-group" style={{ flexWrap: "nowrap" }}>
       <span className="input-group-text" style={{ height: "58px" }}>
         {icon}
       </span>

@@ -234,7 +234,7 @@ const DocumentsEligibility = () => {
             to="/personal-loan"
             onClick={() => {
               setUserClickData({
-                event_name: "get_started",
+                event_name: "get-started",
               });
             }}
           >
