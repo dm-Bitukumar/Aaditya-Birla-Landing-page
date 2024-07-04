@@ -13,7 +13,7 @@ import userOccupation from "../../../constants/occupation.json";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { login, setLead } from "../../../store/app/appReducer";
+import { login, setLead, setOffers } from "../../../store/app/appReducer";
 import OfferDetailsSegment from "./OfferDetailsSegment";
 import CustomCheckboxGroup from "../../PersonalDetails/components/CustomCheckboxGroup";
 import moment from "moment";
@@ -22,6 +22,7 @@ const arr = ["Salaried", "Self Employed", "Business Owner"];
 
 const PreApprovedForm = ({ data }) => {
   const [isTncChecked, setIsTncChecked] = useState(true);
+  const [isKYCConcent, setIsKYCConcent] = useState(true);
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [showOffers, setShowOffers] = useState(false);
   const [otp, setOtp] = useState("");
@@ -171,6 +172,9 @@ const PreApprovedForm = ({ data }) => {
     setUserClickData({
       event_name: "otp-button-pre-approved-form",
     });
+
+    if (!isTncChecked) return;
+
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
@@ -190,7 +194,7 @@ const PreApprovedForm = ({ data }) => {
             monthly_income: monthlyIncome,
             name: userName,
             company_name: companyName,
-            kyc_consent: isTncChecked,
+            kyc_consent: isKYCConcent,
             salary_mode: "online/neft",
             pincode,
             lender_id,
@@ -200,13 +204,32 @@ const PreApprovedForm = ({ data }) => {
             gender: userGender,
           })
         );
+        dispatch(setOffers([]));
         setIsOtpGenerated(true);
       }
     }
   };
 
-  const handleResendOtp = () => {
+  const handleResendOtp = async () => {
     // todo resend login with timer
+    setUserClickData({
+      event_name: "resend-otp-form-for-personal-loan",
+    });
+    try {
+      const res = await callApi(
+        "v1/sms/send-otp",
+        "post",
+        {
+          contact_phone: mobile,
+        },
+        "messaging"
+      );
+      if (res["status"] === "Success") {
+        toast("Otp sent", { hideProgressBar: true, type: "success" });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmitOtp = async () => {
@@ -258,9 +281,11 @@ const PreApprovedForm = ({ data }) => {
         {!showOffers && isOtpGenerated && (
           <div style={{ marginTop: "180px" }}>
             <OtpInputForm
-              buttonStyle={{ marginTop: "200px", marginBottom: "50px" }}
+              buttonStyle={{ marginTop: "10px", marginBottom: "50px" }}
               otpValue={otp}
               setOtpValue={setOtp}
+              checked={isKYCConcent}
+              handleChange={() => setIsKYCConcent((prev) => !prev)}
               handleResendOtp={handleResendOtp}
               phone_number={mobile}
               handleSubmitOtp={handleSubmitOtp}
