@@ -20,6 +20,7 @@ const OfferDetailsSegment = () => {
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
   const [isFinished, setIsFinished] = useState(false);
+  const [show, setShow] = useState(false);
   const [leadId, setLeadId] = useState();
   //   662a73413a05656cf94543c4
 
@@ -38,6 +39,9 @@ const OfferDetailsSegment = () => {
   }, [leadId]);
 
   const submitLead = async () => {
+    setUserClickData({
+      event_name: "personal-detail-api",
+    });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
@@ -86,6 +90,11 @@ const OfferDetailsSegment = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handelShow = () => {
+    setShow(true);
+    setUserClickData({ event_name: "view-more" });
   };
 
   return (
@@ -139,13 +148,26 @@ const OfferDetailsSegment = () => {
           >
             {[...offers]
               .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
-              .slice(1)
+              .slice(1, show ? 1000 : 4)
               .map((e, i) => (
                 <div key={e._id} className="">
                   <OfferTile small offer={e} />
                 </div>
               ))}
           </div>
+
+          {offers.length > 4 && !show && (
+            <div>
+              <FormButton
+                // small={small}
+                onClick={handelShow}
+                className="!mt-12 !w-40"
+              >
+                View more
+              </FormButton>
+            </div>
+          )}
+
           {!isFinished && (
             <div className="mt-4 font-normal text-center">
               Please wait while we are searching best offers for you

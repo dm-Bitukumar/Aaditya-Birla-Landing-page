@@ -2,6 +2,8 @@ import FormButton from "../Buttons/FormButton";
 import OTPInput from "react-otp-input";
 import _ from "lodash";
 import { useState } from "react";
+import { setUserClickData } from "../../utility/setUserClickData";
+import { Link } from "react-router-dom";
 
 const OtpInputForm = ({
   otpValue,
@@ -11,10 +13,15 @@ const OtpInputForm = ({
   handleSubmitOtp,
   style,
   buttonStyle,
+  handleChange: handleKycChecked,
+  checked,
 }) => {
   const [isOtpValid, setIsOtpValid] = useState(true);
 
   const handleSubmit = () => {
+    setUserClickData({
+      event_name: "otp-input-form",
+    });
     if (otpValue.length === 4) {
       handleSubmitOtp();
     } else {
@@ -30,7 +37,7 @@ const OtpInputForm = ({
   return (
     <div style={style}>
       <h1
-        className="h3 fw-normal my-4"
+        className="my-4 h3 fw-normal"
         align="left"
         style={{ fontSize: "18px !important", fontWeight: "lighter" }}
       >
@@ -53,6 +60,7 @@ const OtpInputForm = ({
         <OTPInput
           value={otpValue}
           onChange={handleChange}
+          inputType="number"
           numInputs={4}
           containerStyle={{
             display: "flex",
@@ -83,12 +91,12 @@ const OtpInputForm = ({
         />
       </div>
       {!isOtpValid && (
-        <div id="otperror" className="text-danger text-center">
+        <div id="otperror" className="text-center text-danger">
           Incorrect OTP. Please enter valid otp.
         </div>
       )}
       <div
-        className="checkbox mb-3 pull-left"
+        className="mb-3 checkbox pull-left"
         style={{ paddingTop: "5px", paddingBottom: "45px" }}
       >
         <p style={{ fontSize: "12px" }}>
@@ -98,6 +106,34 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
+      {handleKycChecked && (
+        <div className="mt-40 mb-3 checkbox pull-left">
+          <label className="tnc">
+            <input
+              onChange={handleKycChecked}
+              checked={checked}
+              className="form-check-input"
+              type="checkbox"
+              name="is_consent"
+              value="Yes"
+              style={{ fontSize: "10px", marginRight: "4px" }}
+            />
+            I have agreed to Prefr{" "}
+            <Link to="/terms" style={{ color: "#00A9DD", fontSize: "10px" }}>
+              <b>T&C</b>
+            </Link>{" "}
+            and{" "}
+            <Link to="/lenders" style={{ color: "#00A9DD", fontSize: "10px" }}>
+              <b>Privacy Policy</b>
+            </Link>{" "}
+            consent to CKYC and{" "}
+            <Link to="/lenders" style={{ color: "#00A9DD", fontSize: "10px" }}>
+              <b>Authorized</b>
+            </Link>{" "}
+            Prfer to retrieve my credit report
+          </label>
+        </div>
+      )}
       <FormButton style={buttonStyle} onClick={handleSubmit} id="myBtn">
         Verify
       </FormButton>

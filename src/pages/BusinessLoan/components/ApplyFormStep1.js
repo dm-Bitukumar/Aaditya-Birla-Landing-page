@@ -63,7 +63,7 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   };
   const handleSubmit = () => {
     setUserClickData({
-      event_name: "step1_business_loan_page",
+      event_name: "step1-business-loan-page",
     });
     const isValid = handleValidation();
     if (isValid) {

@@ -5,7 +5,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferTile = ({ offer, small }) => {
   const handleClick = () => {
-    setUserClickData({ event_name: "offer_tile_button" });
+    setUserClickData({ event_name: "offer-tile-button" });
     var win = window.open(offer.app_url, "_blank");
     win.focus();
   };

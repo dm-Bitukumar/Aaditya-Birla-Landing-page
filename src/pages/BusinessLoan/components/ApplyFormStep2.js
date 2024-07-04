@@ -11,7 +11,7 @@ import {
   company_type_options,
   turnoverOptions,
 } from "../../../constants/formData";
-import { setLead } from "../../../store/app/appReducer";
+import { setLead, setOffers } from "../../../store/app/appReducer";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 
@@ -70,15 +70,16 @@ const ApplyFormStep2 = ({
     return isValid;
   };
   const handleSubmit = () => {
-    setUserClickData({ event_name: "step2_business_loan_page" });
+    setUserClickData({ event_name: "step2-business-loan-page" });
     const isValid = handleValidation();
     if (isValid) {
-      nextStep();
       // const localData = {
       //   ...data,
       //   dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
       // };
       dispatch(setLead({ ...data, stepDone: 2 }));
+      dispatch(setOffers([]));
+      nextStep();
     }
   };
 

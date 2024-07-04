@@ -1,13 +1,21 @@
 import React from "react";
 import MainFooter from "./Homepage/components/MainFooter";
 import { Link } from "react-router-dom";
+import { setUserClickData } from "../utility/setUserClickData";
 
 const PrivacyPolicy = () => {
   return (
     <div className="bg-black">
       <div className="w-full h-full container mx-auto leading-[26px] text-white ">
         <div className="px-20 ">
-          <Link to={"/"}>
+          <Link
+            to={"/"}
+            onClick={() => {
+              setUserClickData({
+                event_name: "link-to-home-page",
+              });
+            }}
+          >
             <img
               className="pt-5"
               src="/assets/img/Digit-Money-Logo.png"

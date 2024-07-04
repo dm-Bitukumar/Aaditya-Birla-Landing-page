@@ -9,6 +9,7 @@ import callApi from "../../../utility/apiCaller";
 import { useDispatch } from "react-redux";
 import { login } from "../../../store/app/appReducer";
 import { toast } from "react-toastify";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -58,6 +59,9 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = async (event) => {
+    setUserClickData({
+      event_name: "form-for-personal-loan",
+    });
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
@@ -80,6 +84,9 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleResendOtp = async () => {
+    setUserClickData({
+      event_name: "resend-otp-form-for-personal-loan",
+    });
     try {
       const res = await callApi(
         "v1/sms/send-otp",
@@ -98,6 +105,9 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
+    setUserClickData({
+      event_name: "otp-form-for-personal-loan",
+    });
     try {
       const res = await callApi(
         "v1/sms/validate-otp",

@@ -115,7 +115,16 @@ const Homepage = () => {
         </div>
         <div className="container m-auto">
           <div className="mt-0 text-center get_started_btn get_started_btn5">
-            <Link to="/personal-loan">Get Started</Link>
+            <Link
+              to="/personal-loan"
+              onClick={() => {
+                setUserClickData({
+                  event_name: "link-to-personal-loan-page",
+                });
+              }}
+            >
+              Get Started
+            </Link>
           </div>
         </div>
       </section>
@@ -127,7 +136,7 @@ const Homepage = () => {
               to={"/personal-loan"}
               onClick={() => {
                 setUserClickData({
-                  event_name: "get_started",
+                  event_name: "get-started",
                 });
               }}
             >

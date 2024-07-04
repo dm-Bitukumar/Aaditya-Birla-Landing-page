@@ -91,7 +91,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
 
   const handleSubmit = () => {
     setUserClickData({
-      event_name: "personal_detail_form_button",
+      event_name: "personal-detail-form-button",
     });
     const isValid = handleValidate();
     if (isValid) {

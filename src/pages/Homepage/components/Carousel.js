@@ -12,7 +12,7 @@ const CustomCarousel = ({ data }) => {
   }, []);
 
   const calculateCarouselItems = () => {
-    setUserClickData({ event_name: "calculate_carousel_home_page" });
+    setUserClickData({ event_name: "calculate-carousel-home-page" });
     if (windowWidth >= 1400) {
       return 5;
     } else if (windowWidth > 1200 && windowWidth < 1400) {

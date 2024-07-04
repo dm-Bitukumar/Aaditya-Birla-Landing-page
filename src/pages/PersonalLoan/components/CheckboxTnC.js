@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const CheckboxTnC = ({ checked, handleChange }) => {
   const [isChecked, setIsChecked] = useState(true);
 
   const handleCheckChanged = () => {
+    setUserClickData({
+      event_name: "check-tick-personal-form-loan",
+    });
     setIsChecked((prev) => !prev);
   };
 
   return (
-    <div className="checkbox mb-3 pull-left">
+    <div className="mb-3 checkbox pull-left">
       <label className="tnc">
         <input
           onChange={handleChange ? handleChange : handleCheckChanged}
@@ -21,17 +25,41 @@ const CheckboxTnC = ({ checked, handleChange }) => {
           style={{ fontSize: "10px", marginRight: "4px" }}
         />
         I have read and agreed to the{" "}
-        <Link to="/terms" style={{ color: "#000", fontSize: "10px" }}>
+        <Link
+          to="/terms"
+          style={{ color: "#000", fontSize: "10px" }}
+          onClick={() => {
+            setUserClickData({
+              event_name: "link-to-terms-page",
+            });
+          }}
+        >
           <b>Terms of Use</b>
         </Link>{" "}
         and hereby give my consent to DigitMoney and its{" "}
-        <Link to="/lenders" style={{ color: "#000", fontSize: "10px" }}>
+        <Link
+          to="/lenders"
+          style={{ color: "#000", fontSize: "10px" }}
+          onClick={() => {
+            setUserClickData({
+              event_name: "link-to-lenders-page",
+            });
+          }}
+        >
           <b>Lending Partners</b>
         </Link>{" "}
         receive my credit information from credit bureaus. By submitting my
         details | override my NDNO registration & give consent to DigitMoney and
         its{" "}
-        <Link to="/lenders" style={{ color: "#000", fontSize: "10px" }}>
+        <Link
+          to="/lenders"
+          style={{ color: "#000", fontSize: "10px" }}
+          onClick={() => {
+            setUserClickData({
+              event_name: "link-to-lenders-page",
+            });
+          }}
+        >
           <b>Lending Partners</b>
         </Link>{" "}
         / representatives to contact me through Call, SMS, Email, WhatsApp, or

@@ -18,11 +18,11 @@ const PersonalDetails = () => {
   const user = useSelector((state) => state.app.user);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/personal-loan", { replace: true });
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/personal-loan", { replace: true });
+  //   }
+  // }, [user]);
 
   const [step, setStep] = useState(1);
 

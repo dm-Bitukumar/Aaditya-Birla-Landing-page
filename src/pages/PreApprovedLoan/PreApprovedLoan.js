@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import PreApprovedForm from "./components/PreApprovedForm";
 import { useSearchParams } from "react-router-dom";
 import callApi from "../../utility/apiCaller";
+import { convertNumberToIndianFormat } from "../../utility/numberUtility";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const PreApprovedLoan = () => {
   const [loans, setLoans] = useState(true);
@@ -36,9 +38,14 @@ const PreApprovedLoan = () => {
       console.log(err);
     }
   };
+
   const handleSubmit = () => {
+    setUserClickData({
+      event_name: "disbursment-button",
+    });
     setLoans(false);
   };
+
   return (
     <>
       {loans ? (
@@ -103,8 +110,9 @@ const PreApprovedLoan = () => {
                 <span
                   style={{ display: "flex", color: "black", fontWeight: "600" }}
                 >
-                  <img src="assets/img/rupee_img.svg" width={30} />
-                  <h3 style={{ fontSize: "2em" }}>{preLoans?.loan_amount}</h3>
+                  <h3 style={{ fontSize: "1.8em" }}>
+                    {convertNumberToIndianFormat(preLoans?.loan_amount ?? 0)}
+                  </h3>
                 </span>
               </div>
               <div>
@@ -112,13 +120,9 @@ const PreApprovedLoan = () => {
                   At an EMI of:
                 </span>
                 <span style={{ display: "flex", fontWeight: "600" }}>
-                  <img
-                    src="assets/img/rupee_img.svg"
-                    width={30}
-                    height={30}
-                    style={{ color: "#111" }}
-                  />
-                  <h3 style={{ fontSize: "2em" }}>{preLoans?.loan_emi}</h3>
+                  <h3 style={{ fontSize: "1.8em" }}>
+                    {convertNumberToIndianFormat(preLoans?.loan_emi ?? 0)}
+                  </h3>
                 </span>
               </div>
             </div>

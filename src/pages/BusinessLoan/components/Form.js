@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { login, setLead } from "../../../store/app/appReducer";
 import { useDispatch } from "react-redux";
 import { setUserClickData } from "../../../utility/setUserClickData";
+
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
@@ -41,7 +42,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = async (event) => {
-    setUserClickData({ event_name: "otp_button_business_loan_page" });
+    setUserClickData({ event_name: "otp-button-business-loan-page" });
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
@@ -65,12 +66,30 @@ const Form = ({ formData, setFormData, ...props }) => {
     setIsTncChecked((prev) => !prev);
   };
 
-  const handleResendOtp = () => {
+  const handleResendOtp = async () => {
     // todo resend login with timer
+    setUserClickData({
+      event_name: "resend-otp-form-for-personal-loan",
+    });
+    try {
+      const res = await callApi(
+        "v1/sms/send-otp",
+        "post",
+        {
+          contact_phone: mobile,
+        },
+        "messaging"
+      );
+      if (res["status"] === "Success") {
+        toast("Otp sent", { hideProgressBar: true, type: "success" });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmitOtp = async () => {
-    setUserClickData({ event_name: "otp_verify_button_business_loan_page" });
+    setUserClickData({ event_name: "otp-verify-button-business-loan-page" });
     try {
       const res = await callApi(
         "v1/sms/validate-otp",

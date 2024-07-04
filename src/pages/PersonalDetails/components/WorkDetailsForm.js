@@ -6,7 +6,7 @@ import _ from "lodash";
 import SalariedForm from "./SalariedForm";
 import SelfEmployedForm from "./SelfEmployedForm";
 import { useDispatch, useSelector } from "react-redux";
-import { setLead } from "../../../store/app/appReducer";
+import { setLead, setOffers } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
 
 const WorkDetailsForm = ({ nextStep, previousStep }) => {
@@ -131,20 +131,27 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
 
   const handleSubmit = () => {
     setUserClickData({
-      event_name: "work_detail_form_button",
+      event_name: "work-detail-form-button",
     });
     const isValid = handleValidate();
     if (isValid) {
       dispatch(setLead({ ...data, stepDone: 2 }));
+      dispatch(setOffers([]));
       nextStep();
     }
   };
 
   const handleBack = () => {
+    setUserClickData({
+      event_name: "work-detail-back-button",
+    });
     previousStep();
   };
 
   const renderForm = () => {
+    setUserClickData({
+      event_name: "work-detail-page",
+    });
     switch (lead.profession) {
       case "Salaried":
         return (
