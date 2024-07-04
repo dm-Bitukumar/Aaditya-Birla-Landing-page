@@ -6,11 +6,13 @@ import callApi from "../../../utility/apiCaller";
 import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
+import FormButton from "../../../components/Buttons/FormButton";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferDetailsSegment = () => {
   const [lead, setLead] = useState();
   const [offers, setOffers] = useState();
-
+  const [show, setShow] = useState(false);
   const [params] = useSearchParams();
 
   useEffect(() => {
@@ -33,6 +35,11 @@ const OfferDetailsSegment = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handelShow = () => {
+    setShow(true);
+    setUserClickData({ event_name: "view-more" });
   };
 
   return (
@@ -86,14 +93,24 @@ const OfferDetailsSegment = () => {
           >
             {[...offers]
               .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
-              .slice(1)
+              .slice(1, show ? 1000 : 4)
               .map((e, i) => (
                 <div key={e._id} className="">
                   <OfferTile small offer={e} />
                 </div>
               ))}
           </div>
-
+          {offers.length > 4 && !show && (
+            <div>
+              <FormButton
+                // small={small}
+                onClick={handelShow}
+                className="!mt-12 !w-40"
+              >
+                View more
+              </FormButton>
+            </div>
+          )}
           <h4 className="mt-4 text-xs text-center">
             *These pre-approved offers are subject to change at discretion of
             Bank / NBFC after receiving all your documents and details. Final

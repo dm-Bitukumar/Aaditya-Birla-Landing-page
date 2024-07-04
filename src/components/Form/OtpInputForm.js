@@ -3,6 +3,7 @@ import OTPInput from "react-otp-input";
 import _ from "lodash";
 import { useState } from "react";
 import { setUserClickData } from "../../utility/setUserClickData";
+import { Link } from "react-router-dom";
 
 const OtpInputForm = ({
   otpValue,
@@ -12,6 +13,8 @@ const OtpInputForm = ({
   handleSubmitOtp,
   style,
   buttonStyle,
+  handleChange: handleKycChecked,
+  checked,
 }) => {
   const [isOtpValid, setIsOtpValid] = useState(true);
 
@@ -57,6 +60,7 @@ const OtpInputForm = ({
         <OTPInput
           value={otpValue}
           onChange={handleChange}
+          inputType="number"
           numInputs={4}
           containerStyle={{
             display: "flex",
@@ -102,6 +106,34 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
+      {handleKycChecked && (
+        <div className="mt-40 mb-3 checkbox pull-left">
+          <label className="tnc">
+            <input
+              onChange={handleKycChecked}
+              checked={checked}
+              className="form-check-input"
+              type="checkbox"
+              name="is_consent"
+              value="Yes"
+              style={{ fontSize: "10px", marginRight: "4px" }}
+            />
+            I have agreed to Prefr{" "}
+            <Link to="/terms" style={{ color: "#00A9DD", fontSize: "10px" }}>
+              <b>T&C</b>
+            </Link>{" "}
+            and{" "}
+            <Link to="/lenders" style={{ color: "#00A9DD", fontSize: "10px" }}>
+              <b>Privacy Policy</b>
+            </Link>{" "}
+            consent to CKYC and{" "}
+            <Link to="/lenders" style={{ color: "#00A9DD", fontSize: "10px" }}>
+              <b>Authorized</b>
+            </Link>{" "}
+            Prfer to retrieve my credit report
+          </label>
+        </div>
+      )}
       <FormButton style={buttonStyle} onClick={handleSubmit} id="myBtn">
         Verify
       </FormButton>
