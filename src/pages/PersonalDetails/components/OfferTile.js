@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import Model from "./OfferModel";
 
 const OfferTile = ({ offer, small }) => {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [show]);
+
   const handleClick = () => {
     setUserClickData({ event_name: "offer-tile-button" });
     var win = window.open(offer.app_url, "_blank");
@@ -47,6 +58,15 @@ const OfferTile = ({ offer, small }) => {
             APPLY NOW
           </FormButton>
         )}
+        <div>
+          {show == true && (
+            <Model
+              show={show}
+              setShow={(e) => console.log(123, e)}
+              offer={offer}
+            />
+          )}
+        </div>
       </div>
       {small && (
         <FormButton small={small} onClick={handleClick} className="!mt-2">
