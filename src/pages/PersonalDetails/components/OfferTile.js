@@ -3,10 +3,10 @@ import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 
-const OfferTile = ({ offer, small }) => {
+const OfferTile = ({ offer, small, source }) => {
   const handleClick = () => {
-    setUserClickData({ event_name: "offer-tile-button" });
-    var win = window.open(offer.app_url, "_blank");
+    setUserClickData({ event_name: "offer-apply-button" });
+    var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
   };
 
