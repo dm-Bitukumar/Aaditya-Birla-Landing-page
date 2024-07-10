@@ -4,7 +4,7 @@ import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 
-const OfferTile = ({ offer, small }) => {
+const OfferTile = ({ offer, small, source }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -16,8 +16,9 @@ const OfferTile = ({ offer, small }) => {
   }, [show]);
 
   const handleClick = () => {
-    setUserClickData({ event_name: "offer-tile-button" });
-    var win = window.open(offer.app_url, "_blank");
+    setShow(true);
+    setUserClickData({ event_name: "offer-apply-button" });
+    var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
   };
 
