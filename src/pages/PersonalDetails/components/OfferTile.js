@@ -15,8 +15,19 @@ const OfferTile = ({ offer, small, source }) => {
     }
   }, [show]);
 
+  const handleContinueClick = () => {
+    setShow(false);
+    setUserClickData({ event_name: "offer-continue-button" });
+    var win = window.open(`${offer.app_url}${source}`, "_blank");
+    win.focus();
+  };
+
   const handleClick = () => {
-    setShow(true);
+    if (offer.lender_name === "Prefr") {
+      setShow(true);
+      return;
+    }
+
     setUserClickData({ event_name: "offer-apply-button" });
     var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
@@ -63,7 +74,8 @@ const OfferTile = ({ offer, small, source }) => {
           {show == true && (
             <Model
               show={show}
-              setShow={(e) => console.log(123, e)}
+              handleClick={handleContinueClick}
+              setShow={setShow}
               offer={offer}
             />
           )}

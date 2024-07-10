@@ -1,13 +1,17 @@
 import React, { Fragment } from "react";
 // import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
-import OfferPop from "./OfferPop";
+import FormButton from "../../../components/Buttons/FormButton";
 
-const Model = ({ show, setShow, offer }) => {
+const Model = ({ show, setShow, offer, handleClick }) => {
   return (
     <>
       <Transition.Root show={show} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setShow(false)}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -18,7 +22,7 @@ const Model = ({ show, setShow, offer }) => {
             leaveTo="opacity-0"
           >
             <div
-              onClick={() => console.log(false)}
+              // onClick={() => console.log(false)}
               className="fixed inset-0 transition-opacity bg-black bg-opacity-40"
             />
           </Transition.Child>
@@ -35,8 +39,24 @@ const Model = ({ show, setShow, offer }) => {
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
                 <Dialog.Panel className="w-full transition-all transform rounded-lg shadow-xl md:my-8 md:max-w-xl">
-                  <div>
-                    <OfferPop show={show} setShow={setShow} offer={offer} />
+                  <div className="w-full h-full px-4 py-3 rounded bg-[#fff]">
+                    <p>
+                      Your Privacy is important to us, and we safeguard your
+                      personal information. To process your personal loan
+                      application today, we required verification of your credit
+                      information <br /> please click
+                      <b> "Agree" </b> on the following screen to speed up the
+                      loan process and receive Funds today.
+                    </p>
+                    <div className="flex items-center justify-center">
+                      <FormButton
+                        className={"!w-24"}
+                        small
+                        onClick={handleClick}
+                      >
+                        continue
+                      </FormButton>
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
