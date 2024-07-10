@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import Model from "./OfferModel";
 
 const OfferTile = ({ offer, small, source }) => {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [show]);
+
+  const handleContinueClick = () => {
+    setShow(false);
+    setUserClickData({ event_name: "offer-continue-button" });
+    var win = window.open(`${offer.app_url}${source}`, "_blank");
+    win.focus();
+  };
+
   const handleClick = () => {
+    if (offer.lender_name === "Prefr") {
+      setShow(true);
+      return;
+    }
+
     setUserClickData({ event_name: "offer-apply-button" });
     var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
@@ -47,6 +70,16 @@ const OfferTile = ({ offer, small, source }) => {
             APPLY NOW
           </FormButton>
         )}
+        <div>
+          {show == true && (
+            <Model
+              show={show}
+              handleClick={handleContinueClick}
+              setShow={setShow}
+              offer={offer}
+            />
+          )}
+        </div>
       </div>
       {small && (
         <FormButton small={small} onClick={handleClick} className="!mt-2">
