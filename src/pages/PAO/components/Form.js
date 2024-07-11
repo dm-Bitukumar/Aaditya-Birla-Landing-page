@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import _ from "lodash";
 import CheckboxTnC from "../../../components/Buttons/CheckboxTnC";
 import FormButton from "../../../components/Buttons/FormButton";
@@ -10,6 +10,7 @@ import callApi from "../../../utility/apiCaller";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { login } from "../../../store/app/appReducer";
+import { useSearchParams } from "react-router-dom";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -21,6 +22,12 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [source, setSource] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("source")) setSource(params.get("source"));
+  }, [params]);
 
   const handleValidation = () => {
     let isValid = true;
@@ -139,10 +146,12 @@ const Form = ({ formData, setFormData, ...props }) => {
           .then((response) => {
             if (response["status"] === "Success") {
               if (response.data.lead)
-                navigate(`/offers?lid=${response.data.lead._id}`);
+                navigate(
+                  `/offers?lid=${response.data.lead._id}&source=${source}`
+                );
             }
           })
-          .catch((e) => navigate("/personal-loan"));
+          .catch((e) => navigate(`/personal-loan?source=${source}`));
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {
