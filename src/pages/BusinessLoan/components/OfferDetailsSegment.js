@@ -15,6 +15,7 @@ import {
 } from "../../../utility/commonUtils";
 import { TRACK_ID } from "../../../utility/enum";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,13 @@ const OfferDetailsSegment = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [show, setShow] = useState(false);
   const [leadId, setLeadId] = useState();
+  const [source, setSource] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("source")) setSource(params.get("source"));
+  }, [params]);
+
   //   662a73413a05656cf94543c4
 
   useEffect(() => {
@@ -56,6 +64,16 @@ const OfferDetailsSegment = () => {
             gst: lead.gst_no,
             turnover: getBusinessTurnoverFromEntry(lead.turnover),
             business_vintage: getBusinessVintageFromEntry(lead.company_age),
+            utm_medium:
+              source === "0"
+                ? "SMS"
+                : source === "1"
+                ? "Whatsapp"
+                : source === "2"
+                ? "IVR"
+                : source === "4"
+                ? "RCS"
+                : "",
           },
         },
         "core",

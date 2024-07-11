@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import _ from "lodash";
 import CheckboxTnC from "../../../components/Buttons/CheckboxTnC";
 import FormButton from "../../../components/Buttons/FormButton";
@@ -10,15 +10,22 @@ import { toast } from "react-toastify";
 import { login, setLead } from "../../../store/app/appReducer";
 import { useDispatch } from "react-redux";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [mobile, setMobile] = useState("");
+  const [source, setSource] = useState("");
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("source")) setSource(params.get("source"));
+  }, [params]);
 
   const handleValidation = () => {
     let isValid = true;
@@ -116,10 +123,10 @@ const Form = ({ formData, setFormData, ...props }) => {
           .then((response) => {
             if (response["status"] === "Success") {
               dispatch(setLead(response.data.lead));
-              navigate("/business-loan/apply");
+              navigate(`/business-loan/apply?source=${source}`);
             }
           })
-          .catch((e) => navigate("/personal-loan"));
+          .catch((e) => navigate(`/personal-loan?source=${source}`));
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {
