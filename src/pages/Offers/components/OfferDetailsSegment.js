@@ -30,8 +30,15 @@ const OfferDetailsSegment = () => {
         "core"
       );
 
+      const res2 = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
+
       if (res.status === "Success") {
-        setOffers(res.data.offers ?? []);
+        let activeLenders = res2.data.lenderList ?? [];
+        let localOffers = res.data.offers ?? [];
+        localOffers = localOffers.filter((e) =>
+          activeLenders.map((e) => e._id).includes(e.lender_id)
+        );
+        setOffers(localOffers);
         setLead(res.data.lead);
       }
     } catch (err) {

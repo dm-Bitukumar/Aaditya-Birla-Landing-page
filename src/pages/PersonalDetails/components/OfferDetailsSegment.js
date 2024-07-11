@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
+import { useSearchParams } from "react-router-dom";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,14 @@ const OfferDetailsSegment = () => {
   const offers = useSelector((state) => state.app.offers);
   const [isFinished, setIsFinished] = useState(false);
   const [show, setShow] = useState(false);
+  const [source, setSource] = useState("");
   const [leadId, setLeadId] = useState();
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("source")) setSource(params.get("source"));
+  }, [params]);
+
   //   662a73413a05656cf94543c4
 
   useEffect(() => {
@@ -53,7 +61,20 @@ const OfferDetailsSegment = () => {
         "v1/lead/website-lead",
         "post",
         {
-          lead: { ...processedLead, tracking_id: trackId },
+          lead: {
+            ...processedLead,
+            tracking_id: trackId,
+            utm_medium:
+              source === "0"
+                ? "SMS"
+                : source === "1"
+                ? "Whatsapp"
+                : source === "2"
+                ? "IVR"
+                : source === "4"
+                ? "RCS"
+                : "",
+          },
         },
         "core",
         user.token

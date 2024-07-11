@@ -47,7 +47,7 @@ function App() {
   useEffect(() => {
     const setTime = setInterval(() => {
       if (path) {
-        sessionTrack(path);
+        if (process.env.NODE_ENV !== "development") sessionTrack(path);
       }
     }, 5000);
 
