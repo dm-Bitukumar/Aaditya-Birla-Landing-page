@@ -661,7 +661,7 @@
 @media (max-width: 768px) {
   .first .quicks .owl-nav,
   .first .dailies .owl-nav {
-    display: none;
+    display: none
   }
 
   .contact .headerlogo .nav-plus-hamb .hamburger {
