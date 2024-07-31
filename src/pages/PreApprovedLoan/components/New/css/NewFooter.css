@@ -1,0 +1,303 @@
+@media (max-width: 575px) {
+  section.footer .mobile-footer2 .card2 {
+    padding: 1.5rem 0;
+    margin: 0 2rem;
+  }
+
+  section.footer .mobile-footer2 .card2 .col-4 img {
+    width: 25%;
+  }
+
+  section.footer {
+    padding: 3.5rem 0;
+  }
+}
+
+@media (max-width: 426px) {
+  section.footer .mobile-footer2 p,
+  section.footer .mobile-footer2 h3 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  section.footer .mobile-footer2 h3 {
+    margin-top: 1rem;
+  }
+
+  section.footer .mobile-footer2 .card2 {
+    padding: 1.5rem 0;
+    margin: 0 2rem;
+  }
+
+  section.footer .mobile-footer2 .card2 .col-4 img {
+    width: 30%;
+  }
+
+  section.footer .mobile-footer2 .card2 .col-4 p {
+    font-size: 11px;
+    line-height: 10px;
+  }
+
+  section.footer .mobile-footer2 .features2 {
+    margin: 1rem auto 0 auto;
+    width: 90%;
+  }
+
+  section.footer .mobile-footer2 .features2 ul li {
+    line-height: 1;
+  }
+
+  section.footer .copyright2,
+  section.footer .mobile-footer2 p a,
+  section.footer .mobile-footer2 .address,
+  section.footer .mobile-footer2 .features2 ul li a {
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  section.footer .mobile-footer2 .social_icons2 a img {
+    width: 20px;
+  }
+
+  section.footer .mobile-footer2 .social_icons2 a:first-child img {
+    width: 10px;
+  }
+
+  section.footer {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 320px) {
+  section.footer .mobile-footer2 p,
+  section.footer .mobile-footer2 h3 {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  section.footer .mobile-footer2 .card2 {
+    padding: 1.5rem 0;
+    margin: 0 1rem;
+  }
+
+  section.footer .mobile-footer2 .features2 ul li {
+    line-height: 1;
+  }
+
+  section.footer .copyright2,
+  section.footer .mobile-footer2 p a,
+  section.footer .mobile-footer2 .address,
+  section.footer .mobile-footer2 .features2 ul li a {
+    font-size: 10px;
+    line-height: 15px;
+  }
+
+  section.footer .copyright2 {
+    margin-top: 1rem;
+  }
+
+  section.footer .mobile-footer2 .social_icons2 a {
+    padding: 0 7px;
+  }
+
+  section.footer .mobile-footer2 .social_icons2 a img {
+    width: 18px;
+  }
+
+  section.footer .mobile-footer2 .social_icons2 a:first-child img {
+    width: 8px;
+  }
+
+  section.footer .mobile-footer2 .logo img {
+    width: 100px;
+  }
+
+  section.footer {
+    padding: 2rem 0;
+  }
+}
+
+@media (max-width: 290px) {
+  section.footer .mobile-footer2 .card2 {
+    padding: 1rem 0;
+    margin: 0 1rem;
+  }
+}
+
+section.footer .mobile-footer2 .logo img {
+  margin-bottom: 0.5rem;
+}
+
+section.footer .web-footer .logo img {
+  width: 40%;
+  margin-bottom: 0.5rem;
+}
+
+section.footer .mobile-footer2 p,
+section.footer .web-footer p {
+  font-size: 16px;
+  line-height: 23px;
+  color: #1a94c0;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+section.footer .mobile-footer2 p a,
+section.footer .web-footer p a {
+  font-size: 14px;
+  line-height: 23px;
+  color: #1a94c0;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  /* margin: 2rem 0; */
+  padding: 5px;
+  text-decoration: none;
+}
+
+section.footer .web-footer p a:first-child {
+  padding-left: 0px;
+}
+
+section.footer .mobile-footer2 h3,
+section.footer .web-footer h3 {
+  font-size: 16px;
+  line-height: 23px;
+  color: #1a94c0;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+section.footer .mobile-footer2 .address,
+section.footer .web-footer .address {
+  font-size: 14px;
+  line-height: 28px;
+  color: #5b5b5b;
+  font-weight: 800;
+  font-family: "RedHatText", sans-serif;
+  /* margin-top: 2rem; */
+}
+
+section.footer .mobile-footer2 .address a,
+section.footer .web-footer .address a {
+  text-decoration: none;
+  color: #5b5b5b;
+}
+
+section.footer .mobile-footer2 .social_icons2,
+section.footer .web-footer .social_icons2 {
+  display: flex !important;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+section.footer .mobile-footer2 .social_icons2 {
+  justify-content: center;
+}
+
+section.footer .mobile-footer2 .logo a img {
+  margin: auto;
+}
+
+section.footer .mobile-footer2 .social_icons2 {
+  padding-bottom: 2rem;
+}
+
+section.footer .mobile-footer2 .social_icons2 a,
+section.footer .web-footer .social_icons2 a {
+  padding: 0 10px;
+}
+
+section.footer .mobile-footer2 .social_icons2 a img,
+section.footer .web-footer .social_icons2 a img {
+  width: 25px;
+}
+
+section.footer .mobile-footer2 .social_icons2 a:first-child,
+section.footer .web-footer .social_icons2 a:first-child {
+  padding-left: 0;
+}
+
+section.footer .mobile-footer2 .social_icons2 a:last-child,
+section.footer .web-footer .social_icons2 a:last-child {
+  padding-right: 0;
+}
+
+section.footer .mobile-footer2 .social_icons2 a:first-child img,
+section.footer .web-footer .social_icons2 a:first-child img {
+  width: 15px;
+}
+
+section.footer .mobile-footer2 .card2,
+section.footer .web-footer .right-side .card2 {
+  opacity: 0.651;
+  border-radius: 20px;
+  filter: drop-shadow(0 0 34px rgba(215, 238, 249, 0.75));
+  background-color: #ffffff;
+  border: 0;
+  padding: 1.5rem 0;
+}
+
+section.footer .mobile-footer2 .card2 .col-4 img,
+section.footer .web-footer .right-side .card2 .col-4 img {
+  width: 25%;
+  text-align: center;
+}
+
+section.footer .mobile-footer2 .card2 .col-4 p,
+section.footer .web-footer .right-side .card2 .col-4 p {
+  font-size: 13px;
+  line-height: 16px;
+  color: #838484;
+  font-weight: 900;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+section.footer .mobile-footer2 .card2 .col-4 p a,
+section.footer .web-footer .right-side .card2 .col-4 p a {
+  text-decoration: none;
+  color: #838484;
+}
+
+section.footer .mobile-footer2 .features2 ul,
+.address {
+  padding: 2rem 0;
+}
+
+section.footer .mobile-footer2 .features2 {
+  margin: 1rem auto 0 auto;
+  width: 90%;
+}
+
+section.footer .mobile-footer2 .features2 ul li,
+section.footer .web-footer .right-side .features2 ul li {
+  list-style-type: none;
+}
+
+section.footer .mobile-footer2 .features2 ul li a,
+section.footer .web-footer .right-side .features2 ul li a {
+  font-size: 14px;
+  line-height: 28px;
+  color: #5b5b5b;
+  font-weight: 800;
+  font-family: "RedHatText", sans-serif;
+  text-decoration: none;
+  /* padding-top: 0.5rem; */
+}
+
+section.footer .copyright {
+  margin-top: 3rem;
+  font-size: 14px;
+  line-height: 28px;
+  color: #1a94c0;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+}
+
+section.footer .copyright a {
+  text-decoration: none;
+}
