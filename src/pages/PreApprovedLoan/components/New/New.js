@@ -16,6 +16,19 @@ const New = ({ pages, setPages }) => {
   const [errorMessage, setErrorMessage] = useState("");
   // const [pages, setPages] = useState(0);
   const [errors, setErrors] = useState("");
+
+  const [isOccupationValid, setIsOccupationValid] = useState(true);
+  const [isMonthlyIncomeValid, setIsMonthlyIncomeValid] = useState(true);
+  const [isUserNameValid, setIsUserNameValid] = useState(true);
+  const [isPancardValid, setIsPancardValid] = useState(true);
+  const [isCompanyNameValid, setIsCompanyNameValid] = useState(true);
+  const [isMobileValid, setIsMobileValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPincodeValid, setIsPincodeValid] = useState(true);
+  const [isDobValid, setIsDobValid] = useState(true);
+  const [userGender, setUserGender] = useState("");
+  const [isGenderValid, setIsGenderValid] = useState(true);
+
   const [data, setData] = useState({
     gender: "",
     name: "",
@@ -40,7 +53,7 @@ const New = ({ pages, setPages }) => {
     setData((prevData) => ({ ...prevData, [key]: value }));
   };
   return (
-    <>
+    <div>
       <div className="personal-loan-container bg-[#F4F8FF] ">
         {pages == 0 && (
           <div>
@@ -155,7 +168,7 @@ const New = ({ pages, setPages }) => {
                 }
                 type="text"
                 name="dob"
-                // isValid={isdobValid}
+                isValid={isDobValid}
                 id="dob"
                 aria-describedby="name"
                 placeholder="dob"
@@ -181,7 +194,7 @@ const New = ({ pages, setPages }) => {
                 }
                 type="number"
                 name="pincode"
-                // isValid={ispincodeValid}
+                isValid={isPincodeValid}
                 id="pincode"
                 aria-describedby="name"
                 placeholder="pincode"
@@ -207,7 +220,7 @@ const New = ({ pages, setPages }) => {
                 }
                 type="text"
                 name="PanCard"
-                // isValid={isPanCardValid}
+                isValid={isPancardValid}
                 id="PanCard"
                 aria-describedby="name"
                 placeholder="PanCard"
@@ -215,12 +228,12 @@ const New = ({ pages, setPages }) => {
                 // maxLength="10"
                 pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
                 title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                // value={PanCard}
-                onChange={(e) => handleDataChange("PanCard".e.target.value)}
+                value={data.PanCard}
+                onChange={(e) => handleDataChange("PanCard", e.target.value)}
                 required
                 style={{ textTransform: "uppercase" }}
                 label={"PanCard"}
-                // errorMessage={"Please enter a valid PAN number"}
+                errorMessage={"Please enter a valid PAN number"}
               />
             </div>
             <div className="mt-28">
@@ -229,114 +242,9 @@ const New = ({ pages, setPages }) => {
             <div onClick={() => setPages(pages + 1)}>
               <FormButton style={{ marginTop: "1px" }}>Next</FormButton>
             </div>
-            <h1 className="mt-10 font-bold text-center">Banking Partners</h1>
-
-            <div className="flex gap-3 mt-2">
-              <img src="/assets/img/Banking P 1.png" alt="" />
-
-              <img src="/assets/img/Banking P 2.png" alt="" />
-            </div>
-
-            <div className="flex gap-3 mt-2">
-              <img src="/assets/img/Banking P 3.png" alt="" />
-
-              <img src="/assets/img/Banking P 4.png" alt="" />
-            </div>
-            <div className="flex gap-3 mt-2">
-              <img src="/assets/img/Banking P 5.png" alt="" />
-
-              <img src="/assets/img/Banking P 6.png" alt="" />
-            </div>
-            <div className="flex gap-3 mt-2">
-              <img src="/assets/img/Banking P 7.png" alt="" />
-
-              <img src="/assets/img/Banking P 8.png" alt="" />
-            </div>
-            <div className="flex gap-3 mt-2">
-              <img src="/assets/img/Banking P 9.png" alt="" />
-
-              <img src="/assets/img/Banking P 10.png" alt="" />
-            </div>
-            <div className="flex gap-3 mt-2">
-              <img src="/assets/img/Banking P 11.png" alt="" />
-
-              <img src="/assets/img/Banking P 12.png" alt="" />
-            </div>
-
-            <div className="w-full h-[1px] bg-slate-400 mt-4"></div>
-
-            <div className="mt-4 ">
-              <div className="flex gap-3">
-                <div className="w-full h-32 rounded-lg bg-slate-50">
-                  <div className="px-4 mt-2">
-                    <img src="/assets/img/USP Icon 1.png" alt="" />
-                    <h1 className="mt-2 font-semibold">
-                      instant <br /> approvats
-                    </h1>
-                  </div>
-                </div>
-                <div className="w-full h-32 rounded-lg bg-slate-50">
-                  <div className="px-4 mt-2">
-                    <img src="/assets/img/USP Icon 2.png" alt="" />
-                    <h1 className="mt-2 font-semibold">
-                      Loan upto <br /> 25 Lacs
-                    </h1>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-3 mt-4">
-                <div className="w-full h-32 rounded-lg bg-slate-50">
-                  <div className="px-4 mt-2">
-                    <img src="/assets/img/USP Icon 3.png" alt="" />
-                    <h1 className="mt-2 font-semibold">
-                      Complete <br /> Digital Process
-                    </h1>
-                  </div>
-                </div>
-                <div className="w-full h-32 rounded-lg bg-slate-50">
-                  <div className="px-4 mt-2">
-                    <img src="/assets/img/USP Icon 4.png" alt="" />
-                    <h1 className="mt-2 font-semibold">
-                      Quick <br /> Disbursal
-                    </h1>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-3 mt-4">
-                <div className="w-full h-32 rounded-lg bg-slate-50">
-                  <div className="px-4 mt-2">
-                    <img src="/assets/img/USP Icon 5.png" alt="" />
-                    <h1 className="mt-2 font-semibold">
-                      No <br /> Guaranters
-                    </h1>
-                  </div>
-                </div>
-                <div className="w-full h-32 rounded-lg bg-slate-50">
-                  <div className="px-4 mt-2">
-                    <img src="/assets/img/USP Icon 6.png" alt="" />
-                    <h1 className="mt-2 font-semibold">
-                      Tenune upto <br /> 60 Months
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-full h-[1px] bg-slate-400 mt-4"></div>
-            <h1 className="mt-5 font-semibold text-center">Disclaimer</h1>
-            <p className="mt-2 text-center ">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam
-              voluptatum in sequi nihil quasi, nam at maxime nobis mollitia ex
-              distinctio sapiente eligendi ullam labore modi sit dolor dolores
-              fugiat.
-            </p>
-            <div className="w-full h-[1px] bg-slate-400 mt-5"></div>
-            <div className="mt-2 text-center">
-              <h1>Contact us</h1>
-              <h1 className="mt-2"> hello@digitmoney.com</h1>
-            </div>
-
           </div>
         )}
+
         {pages == 1 && (
           <NewForm
             pages={pages}
@@ -352,9 +260,116 @@ const New = ({ pages, setPages }) => {
 
         {pages == 2 && <NewOtp pages={pages} setPages={setPages} />}
         {pages == 3 && <NewOffer />}
+
+        <h1 className="mt-10 font-bold text-center">Banking Partners</h1>
+
+        <div className="flex gap-3 mt-2">
+          <img src="/assets/img/Banking P 1.png" alt="" />
+
+          <img src="/assets/img/Banking P 2.png" alt="" />
+        </div>
+
+        <div className="flex gap-3 mt-2">
+          <img src="/assets/img/Banking P 3.png" alt="" />
+
+          <img src="/assets/img/Banking P 4.png" alt="" />
+        </div>
+        <div className="flex gap-3 mt-2">
+          <img src="/assets/img/Banking P 5.png" alt="" />
+
+          <img src="/assets/img/Banking P 6.png" alt="" />
+        </div>
+        <div className="flex gap-3 mt-2">
+          <img src="/assets/img/Banking P 7.png" alt="" />
+
+          <img src="/assets/img/Banking P 8.png" alt="" />
+        </div>
+        <div className="flex gap-3 mt-2">
+          <img src="/assets/img/Banking P 9.png" alt="" />
+
+          <img src="/assets/img/Banking P 10.png" alt="" />
+        </div>
+        <div className="flex gap-3 mt-2">
+          <img src="/assets/img/Banking P 11.png" alt="" />
+
+          <img src="/assets/img/Banking P 12.png" alt="" />
+        </div>
+
+        <div className="w-full h-[1px] bg-slate-400 mt-4"></div>
+
+        <div className="mt-4 ">
+          <div className="flex gap-3">
+            <div className="w-full h-32 rounded-lg bg-slate-50">
+              <div className="px-4 mt-2">
+                <img src="/assets/img/USP Icon 1.png" alt="" />
+                <h1 className="mt-2 font-semibold">
+                  instant <br /> approvats
+                </h1>
+              </div>
+            </div>
+            <div className="w-full h-32 rounded-lg bg-slate-50">
+              <div className="px-4 mt-2">
+                <img src="/assets/img/USP Icon 2.png" alt="" />
+                <h1 className="mt-2 font-semibold">
+                  Loan upto <br /> 25 Lacs
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-4">
+            <div className="w-full h-32 rounded-lg bg-slate-50">
+              <div className="px-4 mt-2">
+                <img src="/assets/img/USP Icon 3.png" alt="" />
+                <h1 className="mt-2 font-semibold">
+                  Complete <br /> Digital Process
+                </h1>
+              </div>
+            </div>
+            <div className="w-full h-32 rounded-lg bg-slate-50">
+              <div className="px-4 mt-2">
+                <img src="/assets/img/USP Icon 4.png" alt="" />
+                <h1 className="mt-2 font-semibold">
+                  Quick <br /> Disbursal
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-4">
+            <div className="w-full h-32 rounded-lg bg-slate-50">
+              <div className="px-4 mt-2">
+                <img src="/assets/img/USP Icon 5.png" alt="" />
+                <h1 className="mt-2 font-semibold">
+                  No <br /> Guaranters
+                </h1>
+              </div>
+            </div>
+            <div className="w-full h-32 rounded-lg bg-slate-50">
+              <div className="px-4 mt-2">
+                <img src="/assets/img/USP Icon 6.png" alt="" />
+                <h1 className="mt-2 font-semibold">
+                  Tenune upto <br /> 60 Months
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full h-[1px] bg-slate-400 mt-4"></div>
+        <h1 className="mt-5 font-semibold text-center">Disclaimer</h1>
+        <p className="mt-2 text-center ">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam
+          voluptatum in sequi nihil quasi, nam at maxime nobis mollitia ex
+          distinctio sapiente eligendi ullam labore modi sit dolor dolores
+          fugiat.
+        </p>
+        <div className="w-full h-[1px] bg-slate-400 mt-5"></div>
+        <div className="mt-2 text-center">
+          <h1>Contact us</h1>
+          <h1 className="mt-2"> hello@digitmoney.com</h1>
+        </div>
+
         <NewFooter />
       </div>
-    </>
+    </div>
   );
 };
 
