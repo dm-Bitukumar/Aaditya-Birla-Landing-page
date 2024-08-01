@@ -106,7 +106,7 @@ const New = ({ pages, setPages }) => {
   const handleLoanAmountChange = (e) => {
     let inputValue = e.target.value;
     let formattedValue = formatAmount(inputValue);
-    formattedValue = formattedValue.replace(/[^\d]/g, "");
+
     let numericValue = inputValue.replace(/[^\d]/g, "");
     if (numericValue) {
       setAmountInWords(_.startCase(toWords(Number(numericValue))));
