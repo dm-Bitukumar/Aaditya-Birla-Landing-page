@@ -40,7 +40,10 @@ h3,
   text-align: justify;
   line-height: 12px;
 }
-
+.newFooter {
+  width: 100%;
+  max-width: 390px;
+}
 .form-signin {
   width: 100%;
   max-width: 390px;

@@ -128,7 +128,7 @@ const OtpInputForm = ({
       )}
       <div
         className="mb-3 checkbox pull-left"
-        style={{ paddingTop: "5px", paddingBottom: "45px" }}
+        style={{ paddingTop: "5px", paddingBottom: "3em" }}
       >
         <p style={{ fontSize: "12px" }}>
           Don't receive the OTP? Click here to{" "}
@@ -137,6 +137,7 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
+
       {handleKycChecked && (
         <div className="mt-40 mb-3 checkbox pull-left">
           <label className="tnc">
