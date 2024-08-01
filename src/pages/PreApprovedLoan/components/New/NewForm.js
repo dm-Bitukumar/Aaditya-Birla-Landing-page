@@ -7,6 +7,7 @@ import callApi from "../../../../utility/apiCaller";
 import userOccupation from "../../../../constants/occupation.json";
 import FormSelect from "../../../../components/Form/FormSelect";
 import _ from "lodash";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setLead, setUserDetail } from "../../../../store/app/appReducer";
 
@@ -93,6 +94,10 @@ const NewForm = ({
       );
       if (res["status"] === "Success") {
         setIsOtpGenerated(true);
+        toast("OTP send successfully", {
+          hideProgressBar: true,
+          type: "success",
+        });
         dispatch(
           setLead({
             ...data,
@@ -192,7 +197,7 @@ const NewForm = ({
           errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div style={{ marginTop: "22em" }}>
+      <div style={{ marginTop: "calc(100vh - 62vh)" }}>
         <div>
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
         </div>
