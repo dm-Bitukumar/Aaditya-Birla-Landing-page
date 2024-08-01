@@ -368,7 +368,7 @@ const New = ({ pages, setPages }) => {
               />
             </div>
 
-            <div style={{ marginTop: "16.625em" }}>
+            <div style={{ marginTop: "calc(100vh - 73vh)" }}>
               <FormButton
                 style={{ marginTop: "1px" }}
                 className="w-100 btn btn-lg btn-primary btn-get-otp"

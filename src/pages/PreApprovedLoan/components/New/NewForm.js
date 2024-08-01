@@ -192,7 +192,7 @@ const NewForm = ({
           errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div style={{ marginTop: "22em" }}>
+      <div style={{ marginTop: "calc(100vh - 62vh)" }}>
         <div>
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
         </div>
