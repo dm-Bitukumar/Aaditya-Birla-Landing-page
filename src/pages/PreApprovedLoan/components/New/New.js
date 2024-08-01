@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toWords } from "number-to-words";
 import CheckboxTnC from "../../../PersonalLoan/components/CheckboxTnC";
 import CustomCheckboxGroup from "../../../PersonalDetails/components/CustomCheckboxGroup";
 import FormButton from "../../../../components/Buttons/FormButton";
@@ -11,10 +12,12 @@ import NewForm from "./NewForm";
 import NewOtp from "./NewOtp";
 import OffersPage from "../../../Offers/Offerspage";
 import NewOffer from "./NewOffer";
+import "./css/new.css";
 import _ from "lodash";
 import moment from "moment";
 import callApi from "../../../../utility/apiCaller";
 import { useDispatch } from "react-redux";
+
 import { setUserDetail } from "../../../../store/app/appReducer";
 
 const New = ({ pages, setPages }) => {
@@ -37,6 +40,7 @@ const New = ({ pages, setPages }) => {
   const [dob, setDob] = useState("");
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [amountInWords, setAmountInWords] = useState("");
 
   const [isLoanAmountValid, setIsLoanAmountValid] = useState(true);
   const [isOccupationValid, setIsOccupationValid] = useState(true);
@@ -64,26 +68,59 @@ const New = ({ pages, setPages }) => {
 
     gender: "",
   });
-  const handleMonthlyChange = (event) => {
-    const { value } = event.target;
+  const handleMonthlyChange = (e) => {
+    let inputValue = e.target.value;
+    let formattedValue = formatAmount(inputValue);
     setIsMonthlyIncomeValid(true);
-    setMonthlyIncome(value);
+    setMonthlyIncome(formattedValue);
   };
   const handleCompanyChange = (event) => {
-    const { value } = event.target;
-    console.log(value);
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^A-Za-z" "]/g, "");
     setIsCompanyNameValid(true);
-    setCompanyName(value);
+    setCompanyName(inputValue);
   };
   const handleEmailChange = (event) => {
     const { value } = event.target;
     setIsEmailValid(true);
     setEmail(value);
   };
-  const handleLoanAmountChange = (event) => {
-    const { value } = event.target;
+  const formatAmount = (inputValue) => {
+    // Remove non-numeric characters
+    let value = inputValue.replace(/[^\d]/g, "");
+
+    // Apply the Indian numbering format
+    let length = value.length;
+    let formattedValue = "";
+
+    if (length > 3) {
+      let lastThree = value.slice(length - 3);
+      let otherNumbers = value.slice(0, length - 3);
+      otherNumbers = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+      formattedValue = otherNumbers + "," + lastThree;
+    } else {
+      formattedValue = value;
+    }
+
+    return formattedValue;
+  };
+
+  console.log(formatAmount(loanAmount));
+  const handleLoanAmountChange = (e) => {
+    let inputValue = e.target.value;
+    let formattedValue = formatAmount(inputValue);
+
+    // let value1 = value.replace(/[^\d]/g, "");
+
+    // Apply the Indian numbering format
+    let numericValue = inputValue.replace(/[^\d]/g, "");
+    if (numericValue) {
+      setAmountInWords(_.startCase(toWords(Number(numericValue))));
+    } else {
+      setAmountInWords("");
+    }
+    setLoanAmount(formattedValue);
     setIsLoanAmountValid(true);
-    setLoanAmount(value);
   };
   const handleMobileChange = (event) => {
     const { value } = event.target;
@@ -92,9 +129,10 @@ const New = ({ pages, setPages }) => {
   };
 
   const handlePincodeChange = (event) => {
-    const { value } = event.target;
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^0-9]/g, "");
     setIsPincodeValid(true);
-    setPincode(value);
+    setPincode(inputValue);
   };
   const handleDobChange = (event) => {
     const { value } = event.target;
@@ -107,15 +145,18 @@ const New = ({ pages, setPages }) => {
     console.log(event);
   };
 
-  const handlePancardChange = (event) => {
-    const { value } = event.target;
+  const handlePancardChange = (e) => {
+    let inputValue = e.target.value.toUpperCase(); // Convert to uppercase
+    inputValue = inputValue.replace(/[^A-Z0-9]/g, ""); // Remove non-alphanumeric characters
+
     setIsPancardValid(true);
-    setPancard(value);
+    setPancard(inputValue);
   };
   const handleUserNameChange = (event) => {
-    const { value } = event.target;
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^A-Za-z" "]/g, "");
     setIsUserNameValid(true);
-    setUserName(value);
+    setUserName(inputValue);
   };
 
   // const { gender, name, dob, email, pincode, profession,phone } = data;
@@ -126,15 +167,24 @@ const New = ({ pages, setPages }) => {
       isValid = false;
       setIsPancardValid(false);
     }
+    if (!/^[a-zA-Z0-9]*$/.test(pancard)) {
+      isValid = false;
+      setIsPancardValid(false);
+    }
     if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
       isValid = false;
       setIsPancardValid(false);
     }
+
     if (_.isEmpty(mobile)) {
       isValid = false;
       setIsMobileValid(false);
     }
     if (!/^\d{10}$/.test(mobile)) {
+      isValid = false;
+      setIsMobileValid(false);
+    }
+    if (mobile.length !== 10) {
       isValid = false;
       setIsMobileValid(false);
     }
@@ -151,11 +201,21 @@ const New = ({ pages, setPages }) => {
       isValid = false;
       setIsDobValid(false);
     }
+    if (
+      !/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.test(dob)
+    ) {
+      isValid = false;
+      setIsDobValid(false);
+    }
 
     if (_.isEmpty(userName)) {
       isValid = false;
       setIsUserNameValid(false);
     }
+    // if (!/^[a-zA-Z]*$/.test(userName)) {
+    //   isValid = false;
+    //   setIsUserNameValid(false);
+    // }
 
     if (_.isEmpty(userGender)) {
       isValid = false;
@@ -201,7 +261,7 @@ const New = ({ pages, setPages }) => {
     <div>
       <div className="personal-loan-container bg-[#F4F8FF] ">
         {pages == 0 && (
-          <div style={{ height: "100dhv" }}>
+          <div style={{ height: "100hv", marginBottom: "20em" }}>
             <center>
               <img src="/assets/img/logo.png" alt="" />
             </center>
@@ -209,6 +269,12 @@ const New = ({ pages, setPages }) => {
               <h1 className="">Lets get started</h1>
             </div>
             <div className="mt-2">
+              {/* <input
+                type="text"
+                value={loanAmount}
+                onChange={handleLoanAmountChange}
+                placeholder="Enter amount"
+              /> */}
               <FormInput
                 icon={
                   <img
@@ -219,14 +285,14 @@ const New = ({ pages, setPages }) => {
                   />
                 }
                 type="text"
-                name="pancard"
+                name="loanamount1"
                 isValid={isLoanAmountValid}
-                id="pancard"
+                id="loanamount1"
                 aria-describedby="name"
-                placeholder="PAN Card"
-                minLength="10"
-                maxLength="10"
-                pattern="[0-9]{10}"
+                placeholder="Loan Amount"
+                // minLength="10"
+                // maxLength="10"
+                // pattern="[0-9]{10}"
                 title="Please enter Loan Amount"
                 value={loanAmount}
                 onChange={handleLoanAmountChange}
@@ -235,6 +301,7 @@ const New = ({ pages, setPages }) => {
                 label={"Loan Amount Required"}
                 errorMessage={"Please enter a valid Loan Amount"}
               />
+              <p style={{ paddingBottom: "20px" }}>{amountInWords}</p>
             </div>
             <div className="bg-[#ffff]">
               <CustomCheckboxGroup
@@ -368,7 +435,17 @@ const New = ({ pages, setPages }) => {
               />
             </div>
 
-            <div style={{ marginTop: "calc(100vh - 73vh)" }}>
+            <div
+              className="stick_button"
+              // style={{
+              //   position: "absolute",
+              //   zIndex: 6,
+              //   minWidth: "360px",
+              //   top: "auto",
+              //   bottom: "5em",
+              //   right: "40%",
+              // }}
+            >
               <FormButton
                 style={{ marginTop: "1px" }}
                 className="w-100 btn btn-lg btn-primary btn-get-otp"
@@ -418,7 +495,7 @@ const New = ({ pages, setPages }) => {
           <NewOffer showPage={showPage} setShowPage={setShowPage} />
         )}
 
-        <h1 className="mt-10 font-bold text-center">Banking Partners</h1>
+        <h1 className="mt-12 font-bold text-center">Banking Partners</h1>
 
         <div className="flex gap-3 mt-2">
           <img src="/assets/img/Banking P 1.png" alt="" />
