@@ -1,12 +1,15 @@
-import FormButton from "../Buttons/FormButton";
+import FormButton from "../../Buttons/FormButton";
 import OTPInput from "react-otp-input";
 import _ from "lodash";
 import { useEffect, useState } from "react";
-import { setUserClickData } from "../../utility/setUserClickData";
+import { setUserClickData } from "../../../utility/setUserClickData";
 import { Link } from "react-router-dom";
+import "./otpForm.css";
 
 const OtpInputForm = ({
   otpValue,
+  pages,
+  setPages,
   setOtpValue,
   phone_number,
   handleResendOtp,
@@ -59,7 +62,26 @@ const OtpInputForm = ({
       setIsOtpValid(false);
     }
   };
+  useEffect(() => {
+    if ("OTPCredential" in window) {
+      const ac = new AbortController();
+      navigator.credentials
+        .get({
+          otp: { transport: ["sms"] },
+          signal: ac.signal,
+        })
+        .then((otp) => {
+          setOtpValue(otp.code);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
 
+      return () => {
+        ac.abort();
+      };
+    }
+  }, []);
   const handleChange = (value) => {
     setIsOtpValid(true);
     setOtpValue(value);
@@ -83,7 +105,16 @@ const OtpInputForm = ({
           <u>
             <span id="mobileno">{phone_number ? " " + phone_number : ""}</span>
           </u>
-        </span>
+        </span>{" "}
+        <Link
+          className="text-blue-700"
+          style={{ fontSize: "12px" }}
+          onClick={() => {
+            setPages(pages - 2);
+          }}
+        >
+          Edit
+        </Link>
         <br />
         Please enter the OTP below
       </p>
@@ -137,7 +168,7 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
-      <div style={{ marginTop: "calc(100vh - 70vh)" }}>
+      <div className="stick_button1">
         {handleKycChecked && (
           <div className="mt-40 mb-3 checkbox pull-left">
             <label className="tnc">

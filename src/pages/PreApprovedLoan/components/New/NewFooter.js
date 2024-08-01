@@ -143,11 +143,14 @@ const NewFooter = () => {
                 </a>
               </div>
             </div>
-            <div className="flex justify-center text-center col-12">
+            <div className="flex items-center justify-center col-12">
               <div className="card2">
                 <div className="mx-0 row">
                   <div
-                    className="flex justify-center px-0 text-center col-4"
+                    style={{
+                      paddingLeft: "45px",
+                    }}
+                    className="flex justify-center text-center col-4"
                     onClick={() => {
                       setUserClickData({
                         event_name: "whatsapp-link",
@@ -159,7 +162,10 @@ const NewFooter = () => {
                     </a>
                   </div>
                   <div
-                    className="flex justify-center px-0 text-center col-4"
+                    style={{
+                      paddingLeft: "45px",
+                    }}
+                    className="flex justify-center text-center col-4"
                     onClick={() => {
                       setUserClickData({
                         event_name: "dm-mail-link",
@@ -171,7 +177,10 @@ const NewFooter = () => {
                     </a>
                   </div>
                   <div
-                    className="flex justify-center px-0 text-center col-4"
+                    style={{
+                      paddingLeft: "45px",
+                    }}
+                    className="flex justify-center text-center col-4"
                     onClick={() => {
                       setUserClickData({
                         event_name: "dm-phone-link",
@@ -179,7 +188,7 @@ const NewFooter = () => {
                     }}
                   >
                     <a href="tel:9076324177">
-                      <img src="/assets/img/call.png" alt="" />
+                      <img src="/assets/img/call.png" width={"50px"} alt="" />
                     </a>
                   </div>
                 </div>
