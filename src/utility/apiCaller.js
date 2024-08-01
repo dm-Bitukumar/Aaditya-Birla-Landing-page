@@ -1,17 +1,17 @@
 import axios from "axios";
 
 const CORE_API =
-  process.env.REACT_APP_CORE_API || `https://core-apidev.digitmoney.in`;
+  process.env.REACT_APP_CORE_API || `https://core-api.digitmoney.in`;
 const REPORTING_API =
-  process.env.REACT_APP_REPORTING_API || `https://report-apidev.digitmoney.in`;
+  process.env.REACT_APP_REPORTING_API || `https://report-api.digitmoney.in`;
 const LOAN_API =
-  process.env.REACT_APP_LOAN_API || `https://loan-apidev.digitmoney.in`;
+  process.env.REACT_APP_LOAN_API || `https://loan-api.digitmoney.in`;
 const MESSAGE_API =
-  process.env.REACT_APP_MESSAGE_API || `https://msg-apidev.digitmoney.in`;
+  process.env.REACT_APP_MESSAGE_API || `https://msg-api.digitmoney.in`;
 const JASOOS_API =
   process.env.REACT_APP_JASOOS_API || `https://jasoos.digitmoney.in`;
 const ALLIANCE_API =
-  process.env.REACT_APP_ALLIANCE_API || `https://alliance-apidev.digitmoney.in`;
+  process.env.REACT_APP_ALLIANCE_API || `https://alliance-api.digitmoney.in`;
 
 export default async function callApi(
   endpoint,

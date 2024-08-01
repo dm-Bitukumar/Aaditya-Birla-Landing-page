@@ -4,52 +4,84 @@ import CheckboxTnC from "../../../PersonalLoan/components/CheckboxTnC";
 import FormButton from "../../../../components/Buttons/FormButton";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import callApi from "../../../../utility/apiCaller";
+import userOccupation from "../../../../constants/occupation.json";
+import FormSelect from "../../../../components/Form/FormSelect";
 import _ from "lodash";
+import { useDispatch } from "react-redux";
+import { setLead, setUserDetail } from "../../../../store/app/appReducer";
+
 const NewForm = ({
   pages,
+  data,
   setPages,
   phone,
-  handleDataChange,
   occupation,
-  MonthlyIncome,
-  OfficialEmail,
-  CompanyName,
+  // setCompanyName,
+  // setOccupation,
+  // setMobile,
+  // setMonthlyIncome,
+  setIsEmailValid,
+  setIsMonthlyIncomeValid,
+  setIsOccupationValid,
+  setIsCompanyNameValid,
+  isEmailValid,
+  isOccupationValid,
+  isCompanyNameValid,
+  isMonthlyIncomeValid,
+  monthlyIncome,
+  email,
+  companyName,
+  handleCompanyChange,
+  handleMonthlyChange,
+  handleEmailChange,
+  handleSelectChange,
 }) => {
-  const [mobile, setMobile] = useState("");
-  const [pancard, setPancard] = useState("");
-  const [source, setSource] = useState("");
-  const [isPancardValid, setIsPancardValid] = useState(true);
+  // const [mobile, setMobile] = useState("");
+  // const [pancard, setPancard] = useState("");
+  // const [source, setSource] = useState("");
+  // const [isPancardValid, setIsPancardValid] = useState(true);
+  const [isTncChecked, setIsTncChecked] = useState(true);
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
-  const [isMobileValid, setIsMobileValid] = useState(true);
+  const dispatch = useDispatch();
+  // const [isMobileValid, setIsMobileValid] = useState(true);
   const handleValidation = () => {
     let isValid = true;
 
-    if (_.isEmpty(pancard)) {
+    if (_.isEmpty(email)) {
       isValid = false;
-      setIsPancardValid(false);
+      setIsEmailValid(false);
     }
-    if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       isValid = false;
-      setIsPancardValid(false);
+      setIsEmailValid(false);
     }
-    if (_.isEmpty(phone)) {
+    if (_.isEmpty(monthlyIncome)) {
       isValid = false;
-      setIsMobileValid(false);
+      setIsMonthlyIncomeValid(false);
     }
-    if (!/^\d{10}$/.test(phone)) {
+    if (_.isEmpty(occupation)) {
       isValid = false;
-      setIsMobileValid(false);
+      setIsOccupationValid(false);
+    }
+    if (_.isEmpty(companyName)) {
+      isValid = false;
+      setIsCompanyNameValid(false);
     }
 
     return isValid;
   };
+  const handleChange = () => {
+    setIsTncChecked((prev) => !prev);
+  };
 
   const handleSubmit = async (event) => {
     setUserClickData({ event_name: "otp-button-personal-loan-page" });
+    if (!isTncChecked) return;
 
     event.preventDefault();
+
     let isValid = handleValidation();
-    if (!isValid) {
+    if (isValid) {
       setIsOtpGenerated(true);
       const res = await callApi(
         "v1/sms/send-otp",
@@ -61,6 +93,16 @@ const NewForm = ({
       );
       if (res["status"] === "Success") {
         setIsOtpGenerated(true);
+        dispatch(
+          setLead({
+            ...data,
+            email,
+            profession: occupation,
+            monthly_income: monthlyIncome,
+            company_type: companyName,
+            salary_mode: "online/neft",
+          })
+        );
         setPages(pages + 1);
       }
     }
@@ -68,7 +110,7 @@ const NewForm = ({
   };
 
   return (
-    <div className="personal-loan-container bg-[#F4F8FF] h-screen">
+    <div className=" bg-[#F4F8FF] h-screen">
       <center>
         <img src="/assets/img/logo.png" alt="" />
       </center>
@@ -76,118 +118,87 @@ const NewForm = ({
         <h1 className="">Lets get stared</h1>
       </div> */}
       <div className="mt-10">
-        <FormInput
+        <FormSelect
           icon={
             <img
-              src="/assets/img/Icon 8.png"
+              src="assets/icons/profession.png"
               height="25"
               style={{ maxHeight: "25px" }}
-              alt="PAN Card Icon"
+              alt="Icon"
             />
           }
-          type="text"
-          name="occupation"
-          // isValid={isoccupationValid}
-          id="occupation"
-          aria-describedby="name"
-          placeholder="occupation"
-          // minLength="10"
-          // maxLength="10"
-          pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-          title="Please enter a valid PAN number. E.g. AAAAA9999A"
-          // value={occupation}
-          // onChange={(e) =>
-          //   handleDataChange((e) => "occupation", e.target.value)
-          // }
+          options={userOccupation}
+          isValid={isOccupationValid}
+          value={occupation}
+          onChange={handleSelectChange}
+          label={"Occupation"}
+          id="pan1"
           required
-          style={{ textTransform: "uppercase" }}
-          label={"occupation"}
-          // errorMessage={"Please enter a valid PAN number"}
+          errorMessage={"Please select occupation"}
         />
         <FormInput
           icon={
-            <img
-              src="/assets/img/Icon 9.png"
-              height="25"
-              style={{ maxHeight: "25px" }}
-              alt="PAN Card Icon"
-            />
+            <img src="assets/icons/turnover.png" height="25" alt="Phone Icon" />
           }
-          type="text"
-          name="Monthly Income"
-          // isValid={isMonthely IncomeValid}
-          id="Monthly Income"
+          type="number"
+          name="monthlyIncome"
+          isValid={isMonthlyIncomeValid}
+          id="monthlyIncome"
           aria-describedby="name"
           placeholder="Monthly Income"
-          // minLength="10"
-          // maxLength="10"
-          pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-          title="Please enter a valid PAN number. E.g. AAAAA9999A"
-          // value={Monthely Income}
-          // onChange={handleMonthely IncomeChange}
+          minLength="10"
+          maxLength="10"
+          pattern="[0-9]{10}"
+          value={monthlyIncome}
+          onChange={handleMonthlyChange}
           required
-          style={{ textTransform: "uppercase" }}
           label={"Monthly Income"}
-          // errorMessage={"Please enter a valid PAN number"}
+          errorMessage={"Please enter a valid Monthly Income"}
+        />
+        <FormInput
+          icon={
+            <img src="assets/icons/email.png" height="25" alt="Phone Icon" />
+          }
+          type="text"
+          name="mobile"
+          isValid={isEmailValid}
+          id="mobile"
+          aria-describedby="name"
+          placeholder="Personal Email ID"
+          value={email}
+          onChange={handleEmailChange}
+          required
+          label={"Personal Email ID"}
+          errorMessage={"Please enter a valid Email ID"}
         />
         <FormInput
           icon={
             <img
-              src="/assets/img/Icon 10.png"
+              src="/assets/icons/Icon C Name.png"
               height="25"
-              style={{ maxHeight: "25px" }}
-              alt="PAN Card Icon"
+              alt="Phone Icon"
             />
           }
           type="text"
-          name="Official Email"
-          // isValid={isOfficial EmailValid}
-          id="Official Email"
+          name="companyName"
+          isValid={isCompanyNameValid}
+          id="companyName"
           aria-describedby="name"
-          placeholder="Official Email"
-          // minLength="10"
-          // maxLength="10"
-          pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-          title="Please enter a valid PAN number. E.g. AAAAA9999A"
-          // value={Official Email}
-          // onChange={handleOfficial EmailChange}
+          placeholder="Company Name"
+          value={companyName}
+          onChange={handleCompanyChange}
           required
-          style={{ textTransform: "uppercase" }}
-          label={"Official Email"}
-          // errorMessage={"Please enter a valid PAN number"}
-        />
-        <FormInput
-          icon={
-            <img
-              src="/assets/img/Icon 1.png"
-              height="25"
-              style={{ maxHeight: "25px" }}
-              alt="PAN Card Icon"
-            />
-          }
-          type="text"
-          name="company Name"
-          // isValid={iscompany NameValid}
-          id="company Name"
-          aria-describedby="name"
-          placeholder="company Name"
-          // minLength="10"
-          // maxLength="10"
-          pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-          title="Please enter a valid PAN number. E.g. AAAAA9999A"
-          // value={company Name}
-          // onChange={handlecompany NameChange}
-          required
-          style={{ textTransform: "uppercase" }}
-          label={"company Name"}
-          // errorMessage={"Please enter a valid PAN number"}
+          label={"Company Name"}
+          errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div className="mt-28">
-        <CheckboxTnC />
-      </div>
-      <div onClick={handleSubmit}>
-        <FormButton style={{ marginTop: "1px" }}>Get OTP</FormButton>
+      <div style={{ marginTop: "22em" }}>
+        <div>
+          <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
+        </div>
+        <div onClick={handleSubmit}>
+          <FormButton style={{ marginTop: "1px" }}>Get OTP</FormButton>
+        </div>
       </div>
     </div>
   );

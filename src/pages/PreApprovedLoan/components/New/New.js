@@ -11,57 +11,202 @@ import NewForm from "./NewForm";
 import NewOtp from "./NewOtp";
 import OffersPage from "../../../Offers/Offerspage";
 import NewOffer from "./NewOffer";
+import _ from "lodash";
+import moment from "moment";
+import callApi from "../../../../utility/apiCaller";
+import { useDispatch } from "react-redux";
+import { setUserDetail } from "../../../../store/app/appReducer";
 
 const New = ({ pages, setPages }) => {
   const [errorMessage, setErrorMessage] = useState("");
   // const [pages, setPages] = useState(0);
+  const dispatch = useDispatch();
+  const [showPage, setShowPage] = useState(false);
   const [errors, setErrors] = useState("");
+  const [isOtpGenerated, setIsOtpGenerated] = useState(false);
+  const [showOffers, setShowOffers] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [pancard, setPancard] = useState("");
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [userName, setUserName] = useState("");
+  const [lender_id, setLenderId] = useState("");
+  const [loanAmount, setLoanAmount] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [dob, setDob] = useState("");
+  const [email, setEmail] = useState("");
+  const [companyName, setCompanyName] = useState("");
 
+  const [isLoanAmountValid, setIsLoanAmountValid] = useState(true);
   const [isOccupationValid, setIsOccupationValid] = useState(true);
   const [isMonthlyIncomeValid, setIsMonthlyIncomeValid] = useState(true);
   const [isUserNameValid, setIsUserNameValid] = useState(true);
   const [isPancardValid, setIsPancardValid] = useState(true);
-  const [isCompanyNameValid, setIsCompanyNameValid] = useState(true);
-  const [isMobileValid, setIsMobileValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isMobileValid, setIsMobileValid] = useState(true);
+  const [isCompanyNameValid, setIsCompanyNameValid] = useState(true);
   const [isPincodeValid, setIsPincodeValid] = useState(true);
   const [isDobValid, setIsDobValid] = useState(true);
   const [userGender, setUserGender] = useState("");
   const [isGenderValid, setIsGenderValid] = useState(true);
 
   const [data, setData] = useState({
-    gender: "",
+    contact_phone: "",
+    pancard: "",
+
     name: "",
-    dob: "",
-    email: "",
+
+    amount_required: "",
     pincode: "",
-    profession: "",
-    LoanAmountRequired: "",
-    FullNameASPerCard: "",
-    phone: "",
-    PanCard: "",
-    occupation: "",
-    MonthlyIncome: "",
-    OfficialEmail: "",
-    CompanyName: "",
+
+    dob: "",
+
+    gender: "",
   });
+  const handleMonthlyChange = (event) => {
+    const { value } = event.target;
+    setIsMonthlyIncomeValid(true);
+    setMonthlyIncome(value);
+  };
+  const handleCompanyChange = (event) => {
+    const { value } = event.target;
+    console.log(value);
+    setIsCompanyNameValid(true);
+    setCompanyName(value);
+  };
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+    setIsEmailValid(true);
+    setEmail(value);
+  };
+  const handleLoanAmountChange = (event) => {
+    const { value } = event.target;
+    setIsLoanAmountValid(true);
+    setLoanAmount(value);
+  };
+  const handleMobileChange = (event) => {
+    const { value } = event.target;
+    setIsMobileValid(true);
+    setMobile(value);
+  };
+
+  const handlePincodeChange = (event) => {
+    const { value } = event.target;
+    setIsPincodeValid(true);
+    setPincode(value);
+  };
+  const handleDobChange = (event) => {
+    const { value } = event.target;
+    setIsDobValid(true);
+    setDob(value);
+  };
+  const handleSelectChange = (event) => {
+    setIsOccupationValid(true);
+    setOccupation(event);
+    console.log(event);
+  };
+
+  const handlePancardChange = (event) => {
+    const { value } = event.target;
+    setIsPancardValid(true);
+    setPancard(value);
+  };
+  const handleUserNameChange = (event) => {
+    const { value } = event.target;
+    setIsUserNameValid(true);
+    setUserName(value);
+  };
 
   // const { gender, name, dob, email, pincode, profession,phone } = data;
+  const handleValidation = () => {
+    let isValid = true;
 
-  const handleDataChange = (key, value) => {
-    setErrors("");
-    setData((prevData) => ({ ...prevData, [key]: value }));
+    if (_.isEmpty(pancard)) {
+      isValid = false;
+      setIsPancardValid(false);
+    }
+    if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
+      isValid = false;
+      setIsPancardValid(false);
+    }
+    if (_.isEmpty(mobile)) {
+      isValid = false;
+      setIsMobileValid(false);
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      isValid = false;
+      setIsMobileValid(false);
+    }
+
+    if (_.isEmpty(pincode)) {
+      isValid = false;
+      setIsPincodeValid(false);
+    }
+    if (pincode.length !== 6) {
+      isValid = false;
+      setIsPincodeValid(false);
+    }
+    if (!moment(dob, "DD/MM/YYYY").isValid()) {
+      isValid = false;
+      setIsDobValid(false);
+    }
+
+    if (_.isEmpty(userName)) {
+      isValid = false;
+      setIsUserNameValid(false);
+    }
+
+    if (_.isEmpty(userGender)) {
+      isValid = false;
+      setIsGenderValid(false);
+    }
+    if (_.isEmpty(loanAmount)) {
+      isValid = false;
+      setIsLoanAmountValid(false);
+    }
+
+    return isValid;
   };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let isValid = handleValidation();
+    if (isValid) {
+      // const res = await callApi();
+      // if (res["status"] === "Success") {
+      // }
+
+      setData({
+        contact_phone: mobile,
+        pancard: pancard,
+
+        name: userName,
+
+        amount_required: loanAmount,
+        pincode: pincode,
+
+        dob: moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
+
+        gender: userGender,
+      });
+
+      setPages(pages + 1);
+    }
+  };
+  // const handleDataChange = (key, value) => {
+  //   setErrors("");
+  //   setData((prevData) => ({ ...prevData, [key]: value }));
+  // };
   return (
     <div>
       <div className="personal-loan-container bg-[#F4F8FF] ">
         {pages == 0 && (
-          <div>
+          <div style={{ height: "100dhv" }}>
             <center>
               <img src="/assets/img/logo.png" alt="" />
             </center>
             <div className="mt-5">
-              <h1 className="">Lets get stared</h1>
+              <h1 className="">Lets get started</h1>
             </div>
             <div className="mt-2">
               <FormInput
@@ -74,93 +219,86 @@ const New = ({ pages, setPages }) => {
                   />
                 }
                 type="text"
-                name="LoanAmountRequired"
-                // isValid={isLoanAmountRequiredValid}
-                id="LoanAmountRequired"
+                name="pancard"
+                isValid={isLoanAmountValid}
+                id="pancard"
                 aria-describedby="name"
-                placeholder="LoanAmountRequired"
-                // minLength="10"
-                // maxLength="10"
-                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                // value={LoanAmountRequired}
-                onChange={(e) =>
-                  handleDataChange("LoanAmountRequired", e.target.value)
-                }
-                style={{ textTransform: "uppercase" }}
-                label={"LoanAmountRequired"}
-                // errorMessage={"Please enter a valid PAN number"}
+                placeholder="PAN Card"
+                minLength="10"
+                maxLength="10"
+                pattern="[0-9]{10}"
+                title="Please enter Loan Amount"
+                value={loanAmount}
+                onChange={handleLoanAmountChange}
                 required
+                style={{ textTransform: "uppercase" }}
+                label={"Loan Amount Required"}
+                errorMessage={"Please enter a valid Loan Amount"}
               />
             </div>
             <div className="bg-[#ffff]">
               <CustomCheckboxGroup
-                // isValid={errors !== "gender"}
-                errorMessage={errorMessage}
-                activeGender={data.gender}
-                setActiveGender={(value) => handleDataChange("gender", value)}
+                isValid={isGenderValid}
+                errorMessage={"Please select a gender"}
+                activeGender={userGender}
+                setActiveGender={(value) => {
+                  setUserGender(value);
+                  setIsGenderValid(true);
+                }}
               />
             </div>
             <div>
               <FormInput
                 icon={
                   <img
-                    src="/assets/img/icon 2.png"
+                    src="assets/icons/male.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 2.png"
                   />
                 }
                 type="text"
-                name="FullNameASPerCard"
-                // isValid={isFullNameASPerCardValid}
-                id="FullNameASPerCard"
+                name="userName"
+                isValid={isUserNameValid}
+                id="userName"
                 aria-describedby="name"
-                placeholder="FullNameASPerCard"
-                // minLength="10"
-                // maxLength="10"
-                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                // value={FullNameASPerCard}
-
-                onChange={(e) =>
-                  handleDataChange("FullNameASPerCard", e.target.value)
-                }
+                placeholder="Full Name"
+                value={userName}
+                onChange={handleUserNameChange}
                 required
-                style={{ textTransform: "uppercase" }}
-                label={"FullNameASPerCard"}
-                // errorMessage={"Please enter a valid PAN number"}
+                label={"Full Name"}
+                errorMessage={"Please enter a valid user name"}
               />
               <FormInput
                 icon={
                   <img
-                    src="/assets/img/icon 4.png"
+                    src="/assets/icons/phone-call.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 4.png"
                   />
                 }
                 type="number"
-                name="phone"
-                // isValid={isphoneValid}
+                name="mobile"
+                isValid={isMobileValid}
                 id="phone"
                 aria-describedby="name"
                 placeholder="phone"
-                // minLength="10"
-                // maxLength="10"
-                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                // value={phone}
-                onChange={(e) => handleDataChange("phone", e.target.value)}
+                minLength="10"
+                maxLength="10"
+                pattern="[0-9]{10}"
+                title="Please enter a Valid mobile no."
+                value={mobile}
+                onChange={handleMobileChange}
                 required
                 style={{ textTransform: "uppercase" }}
-                label={"phone"}
-                // errorMessage={"Please enter a valid PAN number"}
+                label={"Mobile Number"}
+                errorMessage={"Please enter a valid Mobile Number"}
               />{" "}
               <FormInput
                 icon={
                   <img
-                    src="/assets/img/icon 5.png"
+                    src="assets/icons/dob.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 5.png"
@@ -171,22 +309,17 @@ const New = ({ pages, setPages }) => {
                 isValid={isDobValid}
                 id="dob"
                 aria-describedby="name"
-                placeholder="dob"
-                // minLength="10"
-                // maxLength="10"
-                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                // value={dob}
-                // onChange={handledobChange}
+                placeholder="Date Of Birth (DD| MM | YYYY)"
+                value={dob}
+                onChange={handleDobChange}
                 required
-                style={{ textTransform: "uppercase" }}
-                label={"dob"}
-                // errorMessage={"Please enter a valid PAN number"}
+                label={"Date Of Birth (DD| MM | YYYY)"}
+                errorMessage={"Please enter a valid Dob"}
               />
               <FormInput
                 icon={
                   <img
-                    src="/assets/img/icon 6.png"
+                    src="assets/icons/pincode.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 6.png"
@@ -197,22 +330,20 @@ const New = ({ pages, setPages }) => {
                 isValid={isPincodeValid}
                 id="pincode"
                 aria-describedby="name"
-                placeholder="pincode"
-                // minLength="10"
-                // maxLength="10"
-                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                // value={pincode}
-                onChange={(e) => handleDataChange("pincode", e.target.value)}
+                placeholder="Pincode"
+                minLength="10"
+                maxLength="10"
+                pattern="[0-9]{10}"
+                value={pincode}
+                onChange={handlePincodeChange}
                 required
-                style={{ textTransform: "uppercase" }}
-                label={"pincode"}
-                // errorMessage={"Please enter a valid PAN number"}
+                label={"Pincode"}
+                errorMessage={"Please enter a valid Pincode"}
               />
               <FormInput
                 icon={
                   <img
-                    src="/assets/img/icon 7.png"
+                    src="/assets/icons/pancard.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="PAN Card Icon"
@@ -223,24 +354,30 @@ const New = ({ pages, setPages }) => {
                 isValid={isPancardValid}
                 id="PanCard"
                 aria-describedby="name"
-                placeholder="PanCard"
-                // minLength="10"
-                // maxLength="10"
+                placeholder="Pan Card"
+                minLength="10"
+                maxLength="10"
                 pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
                 title="Please enter a valid PAN number. E.g. AAAAA9999A"
-                value={data.PanCard}
-                onChange={(e) => handleDataChange("PanCard", e.target.value)}
+                value={pancard}
+                onChange={handlePancardChange}
                 required
                 style={{ textTransform: "uppercase" }}
-                label={"PanCard"}
+                label={"Pancard"}
                 errorMessage={"Please enter a valid PAN number"}
               />
             </div>
-            <div className="mt-28">
-              <CheckboxTnC />
-            </div>
-            <div onClick={() => setPages(pages + 1)}>
-              <FormButton style={{ marginTop: "1px" }}>Next</FormButton>
+
+            <div style={{ marginTop: "16.625em" }}>
+              <FormButton
+                style={{ marginTop: "1px" }}
+                className="w-100 btn btn-lg btn-primary btn-get-otp"
+                type="submit"
+                onClick={handleSubmit}
+                id="myBtn"
+              >
+                Next
+              </FormButton>
             </div>
           </div>
         )}
@@ -249,17 +386,37 @@ const New = ({ pages, setPages }) => {
           <NewForm
             pages={pages}
             setPages={setPages}
-            phone={data.phone}
-            occupation={data.occupation}
-            MonthlyIncome={data.MonthlyIncome}
-            OfficialEmail={data.OfficialEmail}
-            CompanyName={data.CompanyName}
-            handleDataChange={data.handleDataChange}
+            phone={mobile}
+            occupation={occupation}
+            monthlyIncome={monthlyIncome}
+            email={email}
+            companyName={companyName}
+            // setCompanyName={setCompanyName}
+            // setOccupation={setOccupation}
+            // setMobile={setMobile}
+            // setMonthlyIncome={setMonthlyIncome}
+            isOccupationValid={isOccupationValid}
+            isEmailValid={isEmailValid}
+            isMonthlyIncomeValid={isMonthlyIncomeValid}
+            isCompanyNameValid={isCompanyNameValid}
+            setIsCompanyNameValid={setIsCompanyNameValid}
+            setIsMonthlyIncomeValid={setIsMonthlyIncomeValid}
+            setIsEmailValid={setIsEmailValid}
+            setIsOccupationValid={setIsCompanyNameValid}
+            handleCompanyChange={handleCompanyChange}
+            handleMonthlyChange={handleMonthlyChange}
+            handleEmailChange={handleEmailChange}
+            handleSelectChange={handleSelectChange}
+            data={data}
           />
         )}
 
-        {pages == 2 && <NewOtp pages={pages} setPages={setPages} />}
-        {pages == 3 && <NewOffer />}
+        {pages == 2 && (
+          <NewOtp pages={pages} setPages={setPages} phone={mobile} />
+        )}
+        {pages == 3 && (
+          <NewOffer showPage={showPage} setShowPage={setShowPage} />
+        )}
 
         <h1 className="mt-10 font-bold text-center">Banking Partners</h1>
 
