@@ -126,15 +126,25 @@ const NewOffer = ({ showPage, setShowPage }) => {
         currentStep={2}
       /> */}
       {!offers && (
-        <div className="mb-4 font-normal text-center">
-          Please wait while we are searching best offers for you
-          <span class="ml-2 dot-pulse"></span>
-        </div>
+        <>
+          <center>
+            <img src="/assets/img/logo.png" alt="" />
+          </center>
+          <div className="mb-4 font-normal text-center">
+            Please wait while we are searching best offers for you
+            <span class="ml-2 dot-pulse"></span>
+          </div>
+        </>
       )}
       {offers && offers.length === 0 && (
-        <div className="mb-4 font-normal text-center">
-          There is no offer for you currently.
-        </div>
+        <>
+          <center>
+            <img src="/assets/img/logo.png" alt="" />
+          </center>
+          <div className="mb-4 font-normal text-center">
+            There is no offer for you currently.
+          </div>
+        </>
       )}
       {offers && offers.length > 0 && (
         <div className="flex flex-col items-center justify-center">

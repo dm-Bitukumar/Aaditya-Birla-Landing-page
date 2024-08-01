@@ -7,6 +7,7 @@ import callApi from "../../../../utility/apiCaller";
 import userOccupation from "../../../../constants/occupation.json";
 import FormSelect from "../../../../components/Form/FormSelect";
 import _ from "lodash";
+import "./css/new.css";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setLead, setUserDetail } from "../../../../store/app/appReducer";
@@ -68,6 +69,10 @@ const NewForm = ({
       isValid = false;
       setIsCompanyNameValid(false);
     }
+    // if (!/^[a-zA-Z ]*$/.test(companyName)) {
+    //   isValid = false;
+    //   setIsCompanyNameValid(false);
+    // }
 
     return isValid;
   };
@@ -111,7 +116,6 @@ const NewForm = ({
         setPages(pages + 1);
       }
     }
-    console.log("click");
   };
 
   return (
@@ -145,15 +149,15 @@ const NewForm = ({
           icon={
             <img src="assets/icons/turnover.png" height="25" alt="Phone Icon" />
           }
-          type="number"
+          type="text"
           name="monthlyIncome"
           isValid={isMonthlyIncomeValid}
           id="monthlyIncome"
           aria-describedby="name"
           placeholder="Monthly Income"
-          minLength="10"
-          maxLength="10"
-          pattern="[0-9]{10}"
+          // minLength="10"
+          // maxLength="10"
+          // pattern="[0-9]{10}"
           value={monthlyIncome}
           onChange={handleMonthlyChange}
           required
@@ -197,10 +201,10 @@ const NewForm = ({
           errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div style={{ marginTop: "calc(100vh - 62vh)" }}>
-        <div>
+      <div className="stick_button">
+        <span>
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
-        </div>
+        </span>
         <div onClick={handleSubmit}>
           <FormButton style={{ marginTop: "1px" }}>Get OTP</FormButton>
         </div>
