@@ -47,15 +47,15 @@ function App() {
     }
   }, [location?.pathname]);
 
-  useEffect(() => {
-    const setTime = setInterval(() => {
-      if (path) {
-        if (process.env.NODE_ENV !== "development") sessionTrack(path);
-      }
-    }, 5000);
+  // useEffect(() => {
+  //   const setTime = setInterval(() => {
+  //     if (path) {
+  //       if (process.env.NODE_ENV !== "development") sessionTrack(path);
+  //     }
+  //   }, 5000);
 
-    return () => clearTimeout(setTime);
-  }, [path]);
+  //   return () => clearTimeout(setTime);
+  // }, [path]);
 
   async function sessionTrack(path) {
     const trackId = localStorage.getItem(TRACK_ID);

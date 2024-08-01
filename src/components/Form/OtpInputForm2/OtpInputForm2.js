@@ -168,9 +168,9 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
-      <div className="stick_button1">
+      <div>
         {handleKycChecked && (
-          <div className="mt-40 mb-3 checkbox pull-left">
+          <div className="mt-10 mb-3 checkbox pull-left">
             <label className="tnc">
               <input
                 onChange={handleKycChecked}
@@ -218,6 +218,8 @@ const OtpInputForm = ({
             </label>
           </div>
         )}
+      </div>
+      <div className="stick_button1">
         <FormButton style={buttonStyle} onClick={handleSubmit} id="myBtn">
           SEE MY OFFERS
         </FormButton>
