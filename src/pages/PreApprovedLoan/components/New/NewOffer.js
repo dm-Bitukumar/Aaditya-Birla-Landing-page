@@ -1,32 +1,49 @@
 import React, { useEffect, useState } from "react";
 // import HeadBar from "../../../components/Static/HeadBar";
 // import Stepper from "../../../components/Form/Stepper";
+import { useSelector } from "react-redux";
 import _ from "lodash";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import callApi from "../../../../utility/apiCaller";
 import OfferTile from "../../../PersonalDetails/components/OfferTile";
-
+import { getAllianceLeadFromMoneyTapInput } from "../../../../utility/commonUtils";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
-
+import { TRACK_ID } from "../../../../utility/enum";
 import FormButton from "../../../../components/Buttons/FormButton";
 
-const NewOffer = () => {
-  const [lead, setLead] = useState();
+const NewOffer = ({ showPage, setShowPage }) => {
+  const lead = useSelector((state) => state.app.lead);
+  const user = useSelector((state) => state.app.user);
+  const [leadId, setLeadId] = useState();
+  const [leads, setLeads] = useState();
   const [offers, setOffers] = useState();
   const [show, setShow] = useState(false);
   const [source, setSource] = useState("");
   const [params] = useSearchParams();
 
   useEffect(() => {
-    if (params.get("lid")) fetchOffers(params.get("lid"));
+    // if (params.get("lid")) fetchOffers(params.get("lid"));
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
+  useEffect(() => {
+    if (!leadId) {
+      submitLead();
+    }
+  }, [leadId]);
+  console.log(lead);
+  console.log(user);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (leadId) fetchOffers();
+    }, 5000);
 
-  const fetchOffers = async (lid) => {
+    return () => clearInterval(timer);
+  }, [leadId]);
+  const fetchOffers = async () => {
     try {
       const res = await callApi(
-        `v1/loan_offer/lead_id/${lid}`,
+        `v1/loan_offer/lead_id/${leadId}`,
         "get",
         {},
         "core"
@@ -41,9 +58,53 @@ const NewOffer = () => {
           activeLenders.map((e) => e._id).includes(e.lender_id)
         );
         setOffers(localOffers);
-        setLead(res.data.lead);
+        setLeads(res.data.lead);
+        setShowPage(!showPage);
       }
     } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitLead = async () => {
+    setUserClickData({
+      event_name: "personal-detail-api",
+    });
+    try {
+      const trackId = localStorage.getItem(TRACK_ID);
+      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
+        ...lead,
+        ...user,
+      });
+
+      const res = await callApi(
+        "v1/lead/website-lead",
+        "post",
+        {
+          lead: {
+            ...processedLead,
+            tracking_id: trackId,
+            utm_medium:
+              source === "0"
+                ? "SMS"
+                : source === "1"
+                ? "Whatsapp"
+                : source === "2"
+                ? "IVR"
+                : source === "4"
+                ? "RCS"
+                : "",
+          },
+        },
+        "core",
+        user.token
+      );
+      console.log(res);
+      if (res.status === "Success" && res.data.lead) {
+        setLeadId(res.data.lead._id);
+      }
+    } catch (err) {
+      toast("Some error occurred", { hideProgressBar: true, type: "error" });
       console.log(err);
     }
   };
@@ -54,7 +115,11 @@ const NewOffer = () => {
   };
 
   return (
-    <div className={"form-signin-apply form-signin !bg-[#F4F8FF] !border-solid !border-2 !border-[#F4F8FF]"}>
+    <div
+      className={
+        "form-signin-apply form-signin !bg-[#F4F8FF] !border-solid !border-2 !border-[#F4F8FF]"
+      }
+    >
       {/* <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}

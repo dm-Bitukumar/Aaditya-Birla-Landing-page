@@ -137,50 +137,60 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
-
-      {handleKycChecked && (
-        <div className="mt-40 mb-3 checkbox pull-left">
-          <label className="tnc">
-            <input
-              onChange={handleKycChecked}
-              checked={checked}
-              className="form-check-input"
-              type="checkbox"
-              name="is_consent"
-              value="Yes"
-              style={{ fontSize: "10px", marginRight: "4px" }}
-            />
-            I have agreed to {name}{" "}
-            <Link
-              target="_blank"
-              to={tnc}
-              style={{ color: "#00A9DD", fontSize: "10px" }}
-            >
-              <b>T&C</b>
-            </Link>{" "}
-            and{" "}
-            <Link
-              target="_blank"
-              to={privacy}
-              style={{ color: "#00A9DD", fontSize: "10px" }}
-            >
-              <b>Privacy Policy</b>
-            </Link>{" "}
-            consent to CKYC and{" "}
-            <Link
-              target="_blank"
-              to={concent}
-              style={{ color: "#00A9DD", fontSize: "10px" }}
-            >
-              <b>Authorized</b>
-            </Link>{" "}
-            Prfer to retrieve my credit report
-          </label>
-        </div>
-      )}
-      <FormButton style={buttonStyle} onClick={handleSubmit} id="myBtn">
-        Verify
-      </FormButton>
+      <div style={{ marginTop: "20em" }}>
+        {handleKycChecked && (
+          <div className="mt-40 mb-3 checkbox pull-left">
+            <label className="tnc">
+              <input
+                onChange={handleKycChecked}
+                checked={checked}
+                className="form-check-input"
+                type="checkbox"
+                name="is_consent"
+                value="Yes"
+                style={{ fontSize: "10px", marginRight: "4px" }}
+              />
+              I have agreed to {name} have read
+              {/* <Link
+                target="_blank"
+                to={tnc}
+                style={{ color: "#00A9DD", fontSize: "10px" }}
+              >
+                <b>T&C</b>
+              </Link>{" "} */}{" "}
+              &{" "}
+              {/* <Link
+                target="_blank"
+                to={privacy}
+                style={{ color: "#00A9DD", fontSize: "10px" }}
+              >
+                <b>Privacy Policy</b>
+              </Link>{" "}
+              consent to CKYC and{" "}
+              <Link
+                target="_blank"
+                to={concent}
+                style={{ color: "#00A9DD", fontSize: "10px" }}
+              >
+                <b>Authorized</b>
+              </Link>{" "}
+              Prfer to retrieve my credit report */}
+              understood the "Terms & Conditions" and confirm to the
+              "declaration" provided in the link{" "}
+              <Link
+                target="_blank"
+                to={privacy}
+                style={{ color: "#00A9DD", fontSize: "10px" }}
+              >
+                <b>Click here</b>
+              </Link>{" "}
+            </label>
+          </div>
+        )}
+        <FormButton style={buttonStyle} onClick={handleSubmit} id="myBtn">
+          SEE MY OFFERS
+        </FormButton>
+      </div>
     </div>
   );
 };
