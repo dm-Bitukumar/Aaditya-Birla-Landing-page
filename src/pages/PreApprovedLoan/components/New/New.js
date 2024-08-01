@@ -248,6 +248,7 @@ const New = ({ pages, setPages }) => {
         dob: moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
 
         gender: userGender,
+        loan_type: "personal_loan",
       });
 
       setPages(pages + 1);
