@@ -27,7 +27,7 @@ export async function saveMetaData() {
   await fetch("https://api.ipify.org?format=json")
     .then((response) => response.json())
     .then((data) => {
-      ipAddress = data.ip;
+      ipAddress = data?.ip;
       console.log(data.ip);
     })
     .catch((error) => {
@@ -45,7 +45,7 @@ export async function saveMetaData() {
   ];
 
   userDevice = toMatch.some((toMatchItem) => {
-    return navigator.userAgent.match(toMatchItem);
+    return navigator.userAgent?.match(toMatchItem);
   });
 
   await callApi(
