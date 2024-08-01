@@ -62,6 +62,7 @@ const NewOtp = ({ pages, setPages, phone }) => {
       if (res["status"] === "Success") {
         dispatch(login({ ...res.data.customer, token: res.data.token }));
         setPages(pages + 1);
+
         // navigate(`/apply?source=${source}`);
       }
     } catch (err) {

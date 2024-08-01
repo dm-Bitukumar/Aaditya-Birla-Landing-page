@@ -66,7 +66,7 @@ const OtpInputForm = ({
   };
 
   return (
-    <div style={style}>
+    <div>
       <h1
         className="my-4 h3 fw-normal"
         align="left"
@@ -137,7 +137,7 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
-      <div style={{ marginTop: "20em" }}>
+      <div style={{ marginTop: "calc(100vh - 70vh)" }}>
         {handleKycChecked && (
           <div className="mt-40 mb-3 checkbox pull-left">
             <label className="tnc">
