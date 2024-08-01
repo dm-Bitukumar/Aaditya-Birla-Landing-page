@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../store/app/appReducer";
 import { toast } from "react-toastify";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -17,11 +18,16 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [mobile, setMobile] = useState("");
   const [pancard, setPancard] = useState("");
+  const [source, setSource] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("source")) setSource(params.get("source"));
+  }, [params]);
 
   const handleValidation = () => {
     let isValid = true;
@@ -123,7 +129,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         dispatch(
           login({ ...res.data.customer, token: res.data.token, pancard })
         );
-        navigate("/apply");
+        navigate(`/apply?source=${source}`);
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {

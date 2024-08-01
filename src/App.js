@@ -19,10 +19,13 @@ import { v4 as uuidv4 } from "uuid";
 import { SESSION_ID, TRACK_ID } from "./utility/enum";
 import callApi from "./utility/apiCaller";
 import { saveMetaData } from "./utility/setUserClickData";
+import New from "./pages/PreApprovedLoan/components/New/New";
+import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
 
 function App() {
   const location = useLocation();
   const [path, setPath] = useState("");
+  const [pages, setPages] = useState(0);
 
   useEffect(() => {
     const trackId = localStorage.getItem(TRACK_ID);
@@ -47,7 +50,7 @@ function App() {
   useEffect(() => {
     const setTime = setInterval(() => {
       if (path) {
-        sessionTrack(path);
+        if (process.env.NODE_ENV !== "development") sessionTrack(path);
       }
     }, 5000);
 
@@ -88,6 +91,11 @@ function App() {
         <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route
+          path="/new"
+          element={<New pages={pages} setPages={setPages} />}
+        />
+        {/* <Route path="/newform" element={<NewForm />} /> */}
       </Routes>
     </>
   );
