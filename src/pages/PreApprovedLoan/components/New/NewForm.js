@@ -46,7 +46,7 @@ const NewForm = ({
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const dispatch = useDispatch();
   // const [isMobileValid, setIsMobileValid] = useState(true);
-  const handleValidation = () => {
+  const handleValidation1 = () => {
     let isValid = true;
 
     if (_.isEmpty(email)) {
@@ -61,14 +61,15 @@ const NewForm = ({
       isValid = false;
       setIsMonthlyIncomeValid(false);
     }
-    if (_.isEmpty(occupation)) {
-      isValid = false;
-      setIsOccupationValid(false);
-    }
     if (_.isEmpty(companyName)) {
       isValid = false;
       setIsCompanyNameValid(false);
     }
+    if (_.isEmpty(occupation)) {
+      isValid = false;
+      setIsOccupationValid(false);
+    }
+
     // if (!/^[a-zA-Z ]*$/.test(companyName)) {
     //   isValid = false;
     //   setIsCompanyNameValid(false);
@@ -86,7 +87,7 @@ const NewForm = ({
 
     event.preventDefault();
 
-    let isValid = handleValidation();
+    let isValid = handleValidation1();
     if (isValid) {
       setIsOtpGenerated(true);
       const res = await callApi(
@@ -201,10 +202,12 @@ const NewForm = ({
           errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div className="stick_button">
+      <div>
         <span>
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
         </span>
+      </div>
+      <div className="stick_button">
         <div onClick={handleSubmit}>
           <FormButton style={{ marginTop: "1px" }}>Get OTP</FormButton>
         </div>
