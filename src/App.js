@@ -92,7 +92,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route
-          path="/new"
+          path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
         />
         {/* <Route path="/newform" element={<NewForm />} /> */}
