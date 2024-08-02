@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OtpInputForm from "../../../../components/Form/OtpInputForm2";
+import OtpInputForm from "../../../../components/Form/OtpInputForm2/OtpInputForm2";
 import { toast } from "react-toastify";
 import callApi from "../../../../utility/apiCaller";
 import { useDispatch } from "react-redux";
@@ -81,6 +81,8 @@ const NewOtp = ({ pages, setPages, phone }) => {
       <div style={{ marginTop: "5em" }}>
         <OtpInputForm
           otpValue={otp}
+          setPages={setPages}
+          pages={pages}
           setOtpValue={setOtp}
           handleResendOtp={handleResendOtp}
           phone_number={phone}

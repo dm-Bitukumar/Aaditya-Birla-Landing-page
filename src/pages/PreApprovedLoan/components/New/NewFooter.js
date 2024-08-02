@@ -143,44 +143,56 @@ const NewFooter = () => {
                 </a>
               </div>
             </div>
-            <div className="flex justify-center text-center col-12">
+            <div className="flex items-center justify-center col-12">
               <div className="card2">
                 <div className="mx-0 row">
                   <div
-                    className="flex justify-center px-0 text-center col-4"
+                    className="flex justify-center text-center col-4"
                     onClick={() => {
                       setUserClickData({
                         event_name: "whatsapp-link",
                       });
                     }}
                   >
-                    <a href="https://api.whatsapp.com/send/?phone=9076324177&amp;type=phone_number&amp;app_absent=0">
-                      <img src="/assets/img/chat.png" alt="" />
-                    </a>
+                    <Link href="https://api.whatsapp.com/send/?phone=9076324177&amp;type=phone_number&amp;app_absent=0">
+                      <img
+                        src="/assets/img/chat.png"
+                        style={{ width: "28px" }}
+                        alt=""
+                      />
+                    </Link>
                   </div>
                   <div
-                    className="flex justify-center px-0 text-center col-4"
+                    className="flex justify-center text-center col-4"
                     onClick={() => {
                       setUserClickData({
                         event_name: "dm-mail-link",
                       });
                     }}
                   >
-                    <a href="mailto: hello@digitmoney.in">
-                      <img src="/assets/img/mail.png" alt="" />
-                    </a>
+                    <Link href="mailto: hello@digitmoney.in">
+                      <img
+                        src="/assets/img/mail.png"
+                        style={{ width: "28px" }}
+                        alt=""
+                      />
+                    </Link>
                   </div>
                   <div
-                    className="flex justify-center px-0 text-center col-4"
+                    className="flex justify-center text-center col-4"
                     onClick={() => {
                       setUserClickData({
                         event_name: "dm-phone-link",
                       });
                     }}
                   >
-                    <a href="tel:9076324177">
-                      <img src="/assets/img/call.png" alt="" />
-                    </a>
+                    <Link href="tel:9076324177">
+                      <img
+                        src="/assets/img/call.png"
+                        style={{ width: "28px" }}
+                        alt=""
+                      />
+                    </Link>
                   </div>
                 </div>
                 <div

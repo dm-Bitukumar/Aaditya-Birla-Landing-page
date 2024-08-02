@@ -7,6 +7,7 @@ import callApi from "../../../../utility/apiCaller";
 import userOccupation from "../../../../constants/occupation.json";
 import FormSelect from "../../../../components/Form/FormSelect";
 import _ from "lodash";
+import "./css/new.css";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setLead, setUserDetail } from "../../../../store/app/appReducer";
@@ -45,7 +46,7 @@ const NewForm = ({
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const dispatch = useDispatch();
   // const [isMobileValid, setIsMobileValid] = useState(true);
-  const handleValidation = () => {
+  const handleValidation1 = () => {
     let isValid = true;
 
     if (_.isEmpty(email)) {
@@ -60,14 +61,19 @@ const NewForm = ({
       isValid = false;
       setIsMonthlyIncomeValid(false);
     }
-    if (_.isEmpty(occupation)) {
-      isValid = false;
-      setIsOccupationValid(false);
-    }
     if (_.isEmpty(companyName)) {
       isValid = false;
       setIsCompanyNameValid(false);
     }
+    if (_.isEmpty(occupation)) {
+      isValid = false;
+      setIsOccupationValid(false);
+    }
+
+    // if (!/^[a-zA-Z ]*$/.test(companyName)) {
+    //   isValid = false;
+    //   setIsCompanyNameValid(false);
+    // }
 
     return isValid;
   };
@@ -81,7 +87,7 @@ const NewForm = ({
 
     event.preventDefault();
 
-    let isValid = handleValidation();
+    let isValid = handleValidation1();
     if (isValid) {
       setIsOtpGenerated(true);
       const res = await callApi(
@@ -111,7 +117,6 @@ const NewForm = ({
         setPages(pages + 1);
       }
     }
-    console.log("click");
   };
 
   return (
@@ -145,15 +150,15 @@ const NewForm = ({
           icon={
             <img src="assets/icons/turnover.png" height="25" alt="Phone Icon" />
           }
-          type="number"
+          type="text"
           name="monthlyIncome"
           isValid={isMonthlyIncomeValid}
           id="monthlyIncome"
           aria-describedby="name"
           placeholder="Monthly Income"
-          minLength="10"
-          maxLength="10"
-          pattern="[0-9]{10}"
+          // minLength="10"
+          // maxLength="10"
+          // pattern="[0-9]{10}"
           value={monthlyIncome}
           onChange={handleMonthlyChange}
           required
@@ -197,10 +202,12 @@ const NewForm = ({
           errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div style={{ marginTop: "calc(100vh - 62vh)" }}>
-        <div>
+      <div>
+        <span>
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
-        </div>
+        </span>
+      </div>
+      <div className="stick_button">
         <div onClick={handleSubmit}>
           <FormButton style={{ marginTop: "1px" }}>Get OTP</FormButton>
         </div>

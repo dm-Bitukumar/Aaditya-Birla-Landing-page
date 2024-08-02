@@ -1,0 +1,42 @@
+.stick_button1{
+    position: fixed;
+    z-index: 6;
+    min-width: 22.5em;
+    max-width: 22.5em;
+    top: auto;
+    bottom: 3em;
+    padding-right: 0.6em;
+    right: auto;
+    left: auto;
+  }
+  
+  @media (max-width : 600px){
+    .stick_button1{
+        position: fixed;
+        padding: 0 0.6em ;
+        z-index: 6;
+        min-width: 100%;
+        max-width: 100%;
+        top: auto;
+        bottom: 3em;
+      
+        
+        right: 0;
+        left: 0;
+    } 
+  }
+  @media (max-width : 398px){
+    .stick_button1{
+        position: fixed;
+        padding: 0 0.6em ;
+        z-index: 6;
+        min-width: 100%;
+        max-width: 100%;
+        top: auto;
+        bottom: 2em;
+        
+        
+        right: 0;
+        left: 0;
+    } 
+  }
