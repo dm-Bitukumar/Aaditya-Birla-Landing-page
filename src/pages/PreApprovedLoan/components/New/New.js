@@ -296,8 +296,8 @@ const New = ({ pages, setPages }) => {
                 id="loanamount1"
                 aria-describedby="name"
                 placeholder="Loan Amount"
-                minLength="6"
-                maxLength="6"
+                // minLength="6"
+                // maxLength="6"
                 pattern="[0-9]{10}"
                 title="Please enter Loan Amount"
                 value={loanAmount}
