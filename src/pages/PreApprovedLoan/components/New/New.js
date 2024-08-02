@@ -14,6 +14,7 @@ import OffersPage from "../../../Offers/Offerspage";
 import NewOffer from "./NewOffer";
 import "./css/new.css";
 import _ from "lodash";
+
 import moment from "moment";
 import callApi from "../../../../utility/apiCaller";
 import { useDispatch } from "react-redux";
@@ -40,6 +41,7 @@ const New = ({ pages, setPages }) => {
   const [dob, setDob] = useState("");
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [monthlyAmountInWords, setMonthlyAmountInWords] = useState("");
   const [amountInWords, setAmountInWords] = useState("");
 
   const [isLoanAmountValid, setIsLoanAmountValid] = useState(true);
@@ -72,6 +74,12 @@ const New = ({ pages, setPages }) => {
     let inputValue = e.target.value;
     let formattedValue = formatAmount(inputValue);
     setIsMonthlyIncomeValid(true);
+    let numericValue = inputValue.replace(/[^\d]/g, "");
+    if (numericValue) {
+      setMonthlyAmountInWords(_.startCase(toWords(Number(numericValue))));
+    } else {
+      setMonthlyAmountInWords("");
+    }
     setMonthlyIncome(formattedValue);
   };
   const handleCompanyChange = (event) => {
@@ -105,17 +113,23 @@ const New = ({ pages, setPages }) => {
 
   const handleLoanAmountChange = (e) => {
     let inputValue = e.target.value;
-    let formattedValue = formatAmount(inputValue);
+    let formattedValue;
+    if (inputValue.length <= 7) {
+      formattedValue = formatAmount(inputValue);
 
-    let numericValue = inputValue.replace(/[^\d]/g, "");
-    if (numericValue) {
-      setAmountInWords(_.startCase(toWords(Number(numericValue))));
-    } else {
-      setAmountInWords("");
-    }
-    if (formattedValue.length <= 6) {
+      // let numericValue = inputValue;
+
+      // if (formattedValue.length <= 7) {
       setLoanAmount(formattedValue);
-    } else if (inputValue.length > 6) {
+      if (formattedValue) {
+        setAmountInWords(
+          _.startCase(toWords(Number(formattedValue.replace(/[^\d]/g, ""))))
+        );
+        // } else {
+        //   setAmountInWords("");
+        // }
+      } else if (inputValue.length > 7) {
+      }
     }
 
     setIsLoanAmountValid(true);
@@ -246,29 +260,25 @@ const New = ({ pages, setPages }) => {
       // const res = await callApi();
       // if (res["status"] === "Success") {
       // }
-
+      // moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD")
       setData({
         contact_phone: mobile,
         pancard: pancard,
 
         name: userName,
 
-        amount_required: loanAmount,
+        amount_required: loanAmount.replace(/[^\d]/g, ""),
         pincode: pincode,
 
-        dob: moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
+        dob: dob,
 
         gender: userGender,
-        loan_type: "personal_loan",
       });
 
       setPages(pages + 1);
     }
   };
-  // const handleDataChange = (key, value) => {
-  //   setErrors("");
-  //   setData((prevData) => ({ ...prevData, [key]: value }));
-  // };
+
   return (
     <div>
       <div className="personal-loan-container bg-[#F4F8FF] ">
@@ -307,7 +317,9 @@ const New = ({ pages, setPages }) => {
                 label={"Loan Amount Required"}
                 errorMessage={"Please enter a valid Loan Amount"}
               />
-              <p style={{ paddingBottom: "20px" }}>{amountInWords}</p>
+              {amountInWords ? (
+                <p style={{ paddingBottom: "10px" }}>{amountInWords}</p>
+              ) : null}
             </div>
             <div className="bg-[#ffff]">
               <CustomCheckboxGroup
@@ -471,6 +483,7 @@ const New = ({ pages, setPages }) => {
             phone={mobile}
             occupation={occupation}
             monthlyIncome={monthlyIncome}
+            monthlyAmountInWords={monthlyAmountInWords}
             email={email}
             companyName={companyName}
             // setCompanyName={setCompanyName}
