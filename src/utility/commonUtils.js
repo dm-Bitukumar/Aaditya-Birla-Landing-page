@@ -73,8 +73,8 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.contact_email = lead.email;
   alliance_lead.dob = moment(lead.dob).add("hours", 6).toISOString();
   alliance_lead.gender = getGenderFromEntry(lead.gender);
-  alliance_lead.loan_type =
-    lead.company_type !== "" ? BUSINESS_LOAN : PERSONAL_LOAN;
+  alliance_lead.loan_type = PERSONAL_LOAN;
+
   alliance_lead.is_company = lead.company_type !== "";
   alliance_lead.address1 = "";
   alliance_lead.address2 = "";

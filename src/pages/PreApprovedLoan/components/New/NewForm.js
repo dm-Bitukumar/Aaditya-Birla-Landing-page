@@ -22,6 +22,7 @@ const NewForm = ({
   // setOccupation,
   // setMobile,
   // setMonthlyIncome,
+  monthlyAmountInWords,
   setIsEmailValid,
   setIsMonthlyIncomeValid,
   setIsOccupationValid,
@@ -83,7 +84,13 @@ const NewForm = ({
 
   const handleSubmit = async (event) => {
     setUserClickData({ event_name: "otp-button-personal-loan-page" });
-    if (!isTncChecked) return;
+    if (!isTncChecked) {
+      toast("Please accept terms and conditions", {
+        hideProgressBar: true,
+        type: "success",
+      });
+      return;
+    }
 
     event.preventDefault();
 
@@ -109,7 +116,7 @@ const NewForm = ({
             ...data,
             email,
             profession: occupation,
-            monthly_income: monthlyIncome,
+            monthly_income: monthlyIncome.replace(/[^\d]/g, ""),
             company_type: companyName,
             salary_mode: "online/neft",
           })
@@ -165,6 +172,9 @@ const NewForm = ({
           label={"Monthly Income"}
           errorMessage={"Please enter a valid Monthly Income"}
         />
+        {monthlyAmountInWords ? (
+          <p style={{ paddingBottom: "10px" }}>{monthlyAmountInWords}</p>
+        ) : null}
         <FormInput
           icon={
             <img src="assets/icons/email.png" height="25" alt="Phone Icon" />

@@ -127,7 +127,11 @@ const NewOffer = ({ showPage, setShowPage }) => {
       /> */}
       {!offers && (
         <>
-          <center>
+          <center
+            style={{
+              marginBottom: "1.25em",
+            }}
+          >
             <img src="/assets/img/logo.png" alt="" />
           </center>
           <div className="mb-4 font-normal text-center">
@@ -138,7 +142,11 @@ const NewOffer = ({ showPage, setShowPage }) => {
       )}
       {offers && offers.length === 0 && (
         <>
-          <center>
+          <center
+            style={{
+              marginBottom: "1.25em",
+            }}
+          >
             <img src="/assets/img/logo.png" alt="" />
           </center>
           <div className="mb-4 font-normal text-center">
