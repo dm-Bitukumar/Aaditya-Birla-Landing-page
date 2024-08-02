@@ -62,6 +62,10 @@ const NewForm = ({
       isValid = false;
       setIsMonthlyIncomeValid(false);
     }
+    if (!(monthlyIncome.length >= 4)) {
+      isValid = false;
+      setIsMonthlyIncomeValid(false);
+    }
     if (_.isEmpty(companyName)) {
       isValid = false;
       setIsCompanyNameValid(false);
@@ -163,7 +167,7 @@ const NewForm = ({
           id="monthlyIncome"
           aria-describedby="name"
           placeholder="Monthly Income"
-          // minLength="10"
+          minLength="4"
           // maxLength="10"
           // pattern="[0-9]{10}"
           value={monthlyIncome}
