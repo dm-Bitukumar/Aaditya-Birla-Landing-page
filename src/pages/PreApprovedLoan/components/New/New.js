@@ -86,10 +86,8 @@ const New = ({ pages, setPages }) => {
     setEmail(value);
   };
   const formatAmount = (inputValue) => {
-    // Remove non-numeric characters
     let value = inputValue.replace(/[^\d]/g, "");
 
-    // Apply the Indian numbering format
     let length = value.length;
     let formattedValue = "";
 
@@ -105,52 +103,62 @@ const New = ({ pages, setPages }) => {
     return formattedValue;
   };
 
-  console.log(formatAmount(loanAmount));
   const handleLoanAmountChange = (e) => {
     let inputValue = e.target.value;
     let formattedValue = formatAmount(inputValue);
 
-    // let value1 = value.replace(/[^\d]/g, "");
-
-    // Apply the Indian numbering format
     let numericValue = inputValue.replace(/[^\d]/g, "");
     if (numericValue) {
       setAmountInWords(_.startCase(toWords(Number(numericValue))));
     } else {
       setAmountInWords("");
     }
-    setLoanAmount(formattedValue);
+    if (formattedValue.length <= 6) {
+      setLoanAmount(formattedValue);
+    } else if (inputValue.length > 6) {
+    }
+
     setIsLoanAmountValid(true);
   };
   const handleMobileChange = (event) => {
-    const { value } = event.target;
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^0-9]/g, "");
+    if (/^\d*$/.test(inputValue) && inputValue.length <= 10) {
+      setMobile(inputValue);
+    } else if (inputValue.length > 10) {
+    }
     setIsMobileValid(true);
-    setMobile(value);
   };
 
   const handlePincodeChange = (event) => {
     let inputValue = event.target.value;
     inputValue = inputValue.replace(/[^0-9]/g, "");
+    if (/^\d*$/.test(inputValue) && inputValue.length <= 6) {
+      setPincode(inputValue);
+    } else if (inputValue.length > 6) {
+    }
     setIsPincodeValid(true);
-    setPincode(inputValue);
   };
   const handleDobChange = (event) => {
     const { value } = event.target;
     setIsDobValid(true);
     setDob(value);
+    console.log(value);
   };
+
   const handleSelectChange = (event) => {
     setIsOccupationValid(true);
     setOccupation(event);
-    console.log(event);
   };
 
   const handlePancardChange = (e) => {
     let inputValue = e.target.value.toUpperCase(); // Convert to uppercase
     inputValue = inputValue.replace(/[^A-Z0-9]/g, ""); // Remove non-alphanumeric characters
-
+    if (inputValue.length <= 10) {
+      setPancard(inputValue);
+    } else if (inputValue.length > 10) {
+    }
     setIsPancardValid(true);
-    setPancard(inputValue);
   };
   const handleUserNameChange = (event) => {
     let inputValue = event.target.value;
@@ -159,7 +167,6 @@ const New = ({ pages, setPages }) => {
     setUserName(inputValue);
   };
 
-  // const { gender, name, dob, email, pincode, profession,phone } = data;
   const handleValidation = () => {
     let isValid = true;
 
@@ -197,16 +204,20 @@ const New = ({ pages, setPages }) => {
       isValid = false;
       setIsPincodeValid(false);
     }
-    if (!moment(dob, "DD/MM/YYYY").isValid()) {
+    // if (!moment(dob, "DD/MM/YYYY").isValid()) {
+    //   isValid = false;
+    //   setIsDobValid(false);
+    // }
+    if (!dob) {
       isValid = false;
       setIsDobValid(false);
     }
-    if (
-      !/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.test(dob)
-    ) {
-      isValid = false;
-      setIsDobValid(false);
-    }
+    // if (
+    //   !/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.test(dob)
+    // ) {
+    //   isValid = false;
+    //   setIsDobValid(false);
+    // }
 
     if (_.isEmpty(userName)) {
       isValid = false;
@@ -270,12 +281,6 @@ const New = ({ pages, setPages }) => {
               <h1 className="">Lets get started</h1>
             </div>
             <div className="mt-2">
-              {/* <input
-                type="text"
-                value={loanAmount}
-                onChange={handleLoanAmountChange}
-                placeholder="Enter amount"
-              /> */}
               <FormInput
                 icon={
                   <img
@@ -291,9 +296,9 @@ const New = ({ pages, setPages }) => {
                 id="loanamount1"
                 aria-describedby="name"
                 placeholder="Loan Amount"
-                // minLength="10"
-                // maxLength="10"
-                // pattern="[0-9]{10}"
+                // minLength="6"
+                // maxLength="6"
+                pattern="[0-9]{10}"
                 title="Please enter Loan Amount"
                 value={loanAmount}
                 onChange={handleLoanAmountChange}
@@ -372,7 +377,7 @@ const New = ({ pages, setPages }) => {
                     alt="icon 5.png"
                   />
                 }
-                type="text"
+                type="date"
                 name="dob"
                 isValid={isDobValid}
                 id="dob"
@@ -399,8 +404,7 @@ const New = ({ pages, setPages }) => {
                 id="pincode"
                 aria-describedby="name"
                 placeholder="Pincode"
-                minLength="10"
-                maxLength="10"
+                maxLength="6"
                 pattern="[0-9]{10}"
                 value={pincode}
                 onChange={handlePincodeChange}
@@ -480,7 +484,7 @@ const New = ({ pages, setPages }) => {
             setIsCompanyNameValid={setIsCompanyNameValid}
             setIsMonthlyIncomeValid={setIsMonthlyIncomeValid}
             setIsEmailValid={setIsEmailValid}
-            setIsOccupationValid={setIsCompanyNameValid}
+            setIsOccupationValid={setIsOccupationValid}
             handleCompanyChange={handleCompanyChange}
             handleMonthlyChange={handleMonthlyChange}
             handleEmailChange={handleEmailChange}
