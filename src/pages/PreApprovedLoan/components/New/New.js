@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { toWords } from "number-to-words";
+// import { toWords } from "number-to-words";
 import CheckboxTnC from "../../../PersonalLoan/components/CheckboxTnC";
 import CustomCheckboxGroup from "../../../PersonalDetails/components/CustomCheckboxGroup";
 import FormButton from "../../../../components/Buttons/FormButton";
@@ -14,7 +14,7 @@ import OffersPage from "../../../Offers/Offerspage";
 import NewOffer from "./NewOffer";
 import "./css/new.css";
 import _ from "lodash";
-
+import numberToWords from "../../../../utility/numberToWords";
 import moment from "moment";
 import callApi from "../../../../utility/apiCaller";
 import { useDispatch } from "react-redux";
@@ -76,7 +76,7 @@ const New = ({ pages, setPages }) => {
     setIsMonthlyIncomeValid(true);
     let numericValue = inputValue.replace(/[^\d]/g, "");
     if (numericValue) {
-      setMonthlyAmountInWords(_.startCase(toWords(Number(numericValue))));
+      setMonthlyAmountInWords(_.startCase(numberToWords(Number(numericValue))));
     } else {
       setMonthlyAmountInWords("");
     }
@@ -112,25 +112,16 @@ const New = ({ pages, setPages }) => {
   };
 
   const handleLoanAmountChange = (e) => {
-    let inputValue = e.target.value;
+    let inputValue1 = e.target.value;
+
     let formattedValue;
-    if (inputValue.length <= 7) {
-      formattedValue = formatAmount(inputValue);
 
-      // let numericValue = inputValue;
+    formattedValue = formatAmount(inputValue1);
 
-      // if (formattedValue.length <= 7) {
-      setLoanAmount(formattedValue);
-      if (formattedValue) {
-        setAmountInWords(
-          _.startCase(toWords(Number(formattedValue.replace(/[^\d]/g, ""))))
-        );
-        // } else {
-        //   setAmountInWords("");
-        // }
-      } else if (inputValue.length > 7) {
-      }
-    }
+    setLoanAmount(formattedValue);
+    setAmountInWords(
+      _.startCase(numberToWords(Number(inputValue1.replace(/[^0-9]/g, ""))))
+    );
 
     setIsLoanAmountValid(true);
   };
@@ -307,7 +298,7 @@ const New = ({ pages, setPages }) => {
                 aria-describedby="name"
                 placeholder="Loan Amount"
                 // minLength="6"
-                // maxLength="6"
+                maxLength="9"
                 pattern="[0-9]{10}"
                 title="Please enter Loan Amount"
                 value={loanAmount}
