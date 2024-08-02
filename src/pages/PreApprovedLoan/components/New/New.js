@@ -113,17 +113,23 @@ const New = ({ pages, setPages }) => {
 
   const handleLoanAmountChange = (e) => {
     let inputValue = e.target.value;
-    let formattedValue = formatAmount(inputValue);
+    let formattedValue;
+    if (inputValue.length <= 7) {
+      formattedValue = formatAmount(inputValue);
 
-    let numericValue = inputValue.replace(/[^\d]/g, "");
-    if (numericValue) {
-      setAmountInWords(_.startCase(toWords(Number(numericValue))));
-    } else {
-      setAmountInWords("");
-    }
-    if (formattedValue.length <= 6) {
+      // let numericValue = inputValue;
+
+      // if (formattedValue.length <= 7) {
       setLoanAmount(formattedValue);
-    } else if (inputValue.length > 6) {
+      if (formattedValue) {
+        setAmountInWords(
+          _.startCase(toWords(Number(formattedValue.replace(/[^\d]/g, ""))))
+        );
+        // } else {
+        //   setAmountInWords("");
+        // }
+      } else if (inputValue.length > 7) {
+      }
     }
 
     setIsLoanAmountValid(true);
