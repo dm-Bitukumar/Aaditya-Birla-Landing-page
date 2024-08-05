@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 // import { toWords } from "number-to-words";
 import CheckboxTnC from "../../../PersonalLoan/components/CheckboxTnC";
-import CustomCheckboxGroup from "../../../PersonalDetails/components/CustomCheckboxGroup";
+import CustomCheckboxGroupNew from "../../../PersonalDetails/components/CustomCheckboxGroupNew";
 import FormButton from "../../../../components/Buttons/FormButton";
 import FormSelect from "../../../../components/Form/FormSelect";
-import FormInput from "../../../../components/Form/FormInput";
+import FormInput from "../../../../components/Form/FormInputNew";
 import MainFooter from "../../../Homepage/components/MainFooter";
 import NewFooter from "./NewFooter";
 import OtpInputForm from "../../../../components/Form/OtpInputForm";
@@ -275,7 +275,11 @@ const New = ({ pages, setPages }) => {
       <div className="personal-loan-container bg-[#F4F8FF] ">
         {pages == 0 && (
           <div style={{ height: "100hv", marginBottom: "20em" }}>
-            <center>
+            <center
+              style={{
+                marginTop: "2em",
+              }}
+            >
               <img src="/assets/img/logo.png" alt="" />
             </center>
             <div className="mt-5">
@@ -292,9 +296,9 @@ const New = ({ pages, setPages }) => {
                   />
                 }
                 type="text"
-                name="loanamount1"
+                name="loanamount11"
                 isValid={isLoanAmountValid}
-                id="loanamount1"
+                id="loanamount11"
                 aria-describedby="name"
                 placeholder="Loan Amount"
                 // minLength="6"
@@ -304,7 +308,11 @@ const New = ({ pages, setPages }) => {
                 value={loanAmount}
                 onChange={handleLoanAmountChange}
                 required
-                style={{ textTransform: "uppercase" }}
+                style={{
+                  textTransform: "uppercase",
+                  borderRadius: "0 1.2em 1.2em 0",
+                  borderLeft: "none",
+                }}
                 label={"Loan Amount Required"}
                 errorMessage={"Please enter a valid Loan Amount"}
               />
@@ -312,8 +320,10 @@ const New = ({ pages, setPages }) => {
                 <p style={{ paddingBottom: "10px" }}>{amountInWords}</p>
               ) : null}
             </div>
-            <div className="bg-[#ffff]">
-              <CustomCheckboxGroup
+            <div
+            //className="bg-[#ffff]"
+            >
+              <CustomCheckboxGroupNew
                 isValid={isGenderValid}
                 errorMessage={"Please select a gender"}
                 activeGender={userGender}
