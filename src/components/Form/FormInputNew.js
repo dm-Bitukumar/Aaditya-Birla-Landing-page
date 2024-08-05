@@ -19,7 +19,7 @@ const FormInput = ({
         className="input-group-text"
         style={{
           height: "58px",
-          borderRadius: "1.2em 0 0 1.2em ",
+          borderRadius: "1.1em 0 0 1.1em ",
           background: "#fff",
           borderRight: "none",
           boxShadow: "0 0 5px 0pt #d3d3d3",
@@ -27,14 +27,20 @@ const FormInput = ({
       >
         {icon}
       </span>
-      <div className="form-floating flex-grow-1">
+      <div
+        className="form-floating flex-grow-1"
+        style={{
+          height: "65px",
+        }}
+      >
         <input
           {...props}
           style={{
-            borderRadius: "0 1.2em 1.2em 0",
+            borderRadius: "0 1.1em 1.1em 0",
             boxShadow: "2px 0px 5px 0pt #d3d3d3",
             borderLeft: "none",
-            padding: "16px",
+
+            // padding: "20px",
           }}
           className={`form-control ${isValid ? "" : "is-invalid"}`}
           value={value}
