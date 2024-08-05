@@ -19,6 +19,7 @@
 .dot-pulse {
   position: relative;
   left: -9978px;
+
   width: 5px;
   height: 5px;
   border-radius: 5px;
@@ -107,6 +108,7 @@
   border: 1px solid #ced4da;
   margin-top: -26px !important;
   height: 58px !important;
+  border-radius: 20px;
 }
 .filter-option-inner-inner {
   padding-top: 8px;
@@ -240,24 +242,34 @@ select {
 }
 
 .all-border {
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+  /* border: 1px solid #ced4da; */
+
   height: 60px;
+  border-radius: 1.2em;
 }
 
 .gender-radio-btn {
   position: relative;
   cursor: pointer;
   font-size: 12px;
-  color: #919191;
+  box-shadow: 0 0 5px 0.5pt #d3d3d3 ;
+  background-color: #fff;
+  /* color: #919191; */
   font-weight: 300;
+  width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
+  border: 1px solid #ced4da;
+  padding: 16px 0 ;
+  border-radius: 1.2em;
 }
 
 .male-radio {
-  border-right: 1px solid black;
+  /* border-right: 1px solid black; */
+}
+.check_male_female{
+  border-radius: 20px;
 }
 
 .male-female {
@@ -271,6 +283,7 @@ select {
   border-color: rgb(64, 211, 237);
   box-shadow: rgb(64, 211, 237) 0px 0px 0px 1px; */
   background-color: #fff;
+  border-radius: 1.2em;
 }
 
 .gender-image {

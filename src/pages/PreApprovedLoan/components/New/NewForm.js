@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import FormInput from "../../../../components/Form/FormInput";
+import FormInput from "../../../../components/Form/FormInputNew";
 import CheckboxTnC from "../../../PersonalLoan/components/CheckboxTnC";
 import FormButton from "../../../../components/Buttons/FormButton";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import callApi from "../../../../utility/apiCaller";
 import userOccupation from "../../../../constants/occupation.json";
-import FormSelect from "../../../../components/Form/FormSelect";
+import FormSelect from "../../../../components/Form/FormSelectNew";
 import _ from "lodash";
 import "./css/new.css";
 import { toast } from "react-toastify";
@@ -132,7 +132,11 @@ const NewForm = ({
 
   return (
     <div className=" bg-[#F4F8FF] h-screen">
-      <center>
+      <center
+        style={{
+          marginTop: "2em",
+        }}
+      >
         <img src="/assets/img/logo.png" alt="" />
       </center>
       {/* <div className="mt-5">
@@ -216,7 +220,11 @@ const NewForm = ({
           errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div>
+      <div
+        style={{
+          marginTop: "17em",
+        }}
+      >
         <span>
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
         </span>
