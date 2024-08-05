@@ -337,7 +337,7 @@ const New = ({ pages, setPages }) => {
               <FormInput
                 icon={
                   <img
-                    src="assets/icons/male.png"
+                    src="/assets/img/Icon 2.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 2.png"
@@ -358,7 +358,7 @@ const New = ({ pages, setPages }) => {
               <FormInput
                 icon={
                   <img
-                    src="/assets/icons/phone-call.png"
+                    src="/assets/img/Icon 4.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 4.png"
@@ -384,7 +384,7 @@ const New = ({ pages, setPages }) => {
               <FormInput
                 icon={
                   <img
-                    src="assets/icons/dob.png"
+                    src="/assets/img/Icon 5.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 5.png"
@@ -405,7 +405,7 @@ const New = ({ pages, setPages }) => {
               <FormInput
                 icon={
                   <img
-                    src="assets/icons/pincode.png"
+                    src="/assets/img/Icon 6.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="icon 6.png"
@@ -428,7 +428,7 @@ const New = ({ pages, setPages }) => {
               <FormInput
                 icon={
                   <img
-                    src="/assets/icons/pancard.png"
+                    src="/assets/img/Icon 7.png"
                     height="25"
                     style={{ maxHeight: "25px" }}
                     alt="PAN Card Icon"

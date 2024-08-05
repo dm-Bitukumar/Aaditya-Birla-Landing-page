@@ -9,7 +9,7 @@ const FormInput = ({
 }) => {
   return (
     <div
-      className={`input-group mb-3 ${props.className}`}
+      className={`input-group ${!isValid ? "mb-4" : "mb-2"} ${props.className}`}
       style={{
         // boxShadow: "0 0 5px 0.5pt #d3d3d3",
         borderRadius: "1.2em",
