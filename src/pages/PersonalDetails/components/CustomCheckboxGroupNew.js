@@ -18,12 +18,7 @@ const CustomCheckboxGroup = ({
   };
 
   return (
-    <div
-      //   className="mb-3 "
-      style={{
-        marginBottom: "0.75rem",
-      }}
-    >
+    <div className="mb-3 ">
       <div
         style={{
           display: "flex",
