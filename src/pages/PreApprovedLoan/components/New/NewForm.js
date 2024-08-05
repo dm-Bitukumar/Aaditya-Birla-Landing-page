@@ -146,7 +146,7 @@ const NewForm = ({
         <FormSelect
           icon={
             <img
-              src="assets/icons/profession.png"
+              src="/assets/img/Icon 7.png"
               height="25"
               style={{ maxHeight: "25px" }}
               alt="Icon"
@@ -163,7 +163,7 @@ const NewForm = ({
         />
         <FormInput
           icon={
-            <img src="assets/icons/turnover.png" height="25" alt="Phone Icon" />
+            <img src="/assets/img/Icon 9.png" height="25" alt="Phone Icon" />
           }
           type="text"
           name="monthlyIncome"
@@ -185,7 +185,7 @@ const NewForm = ({
         ) : null}
         <FormInput
           icon={
-            <img src="assets/icons/email.png" height="25" alt="Phone Icon" />
+            <img src="/assets/img/Icon 10.png" height="25" alt="Phone Icon" />
           }
           type="text"
           name="mobile"
@@ -201,11 +201,7 @@ const NewForm = ({
         />
         <FormInput
           icon={
-            <img
-              src="/assets/icons/Icon C Name.png"
-              height="25"
-              alt="Phone Icon"
-            />
+            <img src="/assets/img/Icon 8.png" height="25" alt="Phone Icon" />
           }
           type="text"
           name="companyName"

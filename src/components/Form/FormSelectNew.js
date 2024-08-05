@@ -23,7 +23,7 @@ const FormSelect = ({
 
   return (
     <div
-      className={`input-group mb-3 ${props.className}`}
+      className={`input-group ${!isValid ? "mb-2" : "mb-3"} ${props.className}`}
       style={{
         flexWrap: "nowrap",
 
@@ -49,9 +49,12 @@ const FormSelect = ({
             borderRadius: "0 1.2em  1.2em 0",
             boxShadow: "2px 0 5px 0pt #d3d3d3",
             border: "none",
+            paddingRight: "30px",
           }}
           {...props}
-          className={`form-control ${isValid ? "" : "is-invalid"} text-xs pt-3`}
+          className={`form-control ${
+            isValid ? "" : "is-invalid"
+          } text-xs pt-3 `}
           value={value}
           onChange={handleChange}
         >
