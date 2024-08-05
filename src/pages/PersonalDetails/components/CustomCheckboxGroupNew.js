@@ -18,7 +18,7 @@ const CustomCheckboxGroup = ({
   };
 
   return (
-    <div className="mb-3 ">
+    <div className={`${!isValid ? "mb-2" : "mb-3"} `}>
       <div
         style={{
           display: "flex",
@@ -38,7 +38,7 @@ const CustomCheckboxGroup = ({
               style={{
                 marginLeft: "10px",
               }}
-              src="/assets/icons/male.png"
+              src="/assets/img/Icon 2.png"
               alt="Male"
               className="gender-image"
             />
@@ -77,7 +77,7 @@ const CustomCheckboxGroup = ({
               style={{
                 marginLeft: "10px",
               }}
-              src="/assets/icons/female.png"
+              src="/assets/img/Icon 3.png"
               alt="Female"
               className="gender-image"
             />
