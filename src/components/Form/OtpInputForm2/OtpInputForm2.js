@@ -134,17 +134,18 @@ const OtpInputForm = ({
           }}
           inputStyle={{
             display: "block",
-            width: "100%",
-            padding: ".375rem .75rem",
+            width: "80%",
+            boxShadow: "0 0 5px 0.5pt #d3d3d3",
+            padding: ".75rem .1rem",
             fontSize: "1rem",
             fontWeight: "400",
-            lineHeight: 1.5,
+            lineHeight: 2.5,
             color: "#212529",
             backgroundColor: "#fff",
             backgroundClip: "padding-box",
             border: "1px solid #ced4da",
             appearance: "none",
-            borderRadius: ".25rem",
+            borderRadius: "1.1rem",
             transition:
               "border-color .15s ease-in-out, box-shadow .15s ease-in-out",
           }}
@@ -168,7 +169,11 @@ const OtpInputForm = ({
           </a>
         </p>
       </div>
-      <div>
+      <div
+        style={{
+          marginTop: "22em",
+        }}
+      >
         {handleKycChecked && (
           <div className="mt-10 mb-3 checkbox pull-left">
             <label className="tnc">

@@ -75,7 +75,11 @@ const NewOtp = ({ pages, setPages, phone }) => {
 
   return (
     <div className="bg-[#F4F8FF] h-screen">
-      <center>
+      <center
+        style={{
+          marginTop: "2em",
+        }}
+      >
         <img src="/assets/img/logo.png" alt="" />
       </center>
       <div style={{ marginTop: "5em" }}>
