@@ -24,6 +24,7 @@ import { setUserDetail } from "../../../../store/app/appReducer";
 const New = ({ pages, setPages }) => {
   const [errorMessage, setErrorMessage] = useState("");
   // const [pages, setPages] = useState(0);
+  const [inputType, setInputType] = useState("text");
   const dispatch = useDispatch();
   const [showPage, setShowPage] = useState(false);
   const [errors, setErrors] = useState("");
@@ -144,10 +145,21 @@ const New = ({ pages, setPages }) => {
     }
     setIsPincodeValid(true);
   };
+  const handleFocus = () => {
+    setInputType("date");
+  };
+
+  const handleBlur = (event) => {
+    if (!event.target.value) {
+      setInputType("text");
+    }
+  };
   const handleDobChange = (event) => {
     const { value } = event.target;
+
     setIsDobValid(true);
     setDob(value);
+    setInputType("date");
     console.log(value);
   };
 
@@ -274,7 +286,7 @@ const New = ({ pages, setPages }) => {
     <div>
       <div className="personal-loan-container bg-[#F4F8FF] ">
         {pages == 0 && (
-          <div style={{ height: "100hv", marginBottom: "20em" }}>
+          <div style={{ height: "100dhv", marginBottom: "20em" }}>
             <center
               style={{
                 marginTop: "2em",
@@ -390,7 +402,9 @@ const New = ({ pages, setPages }) => {
                     alt="icon 5.png"
                   />
                 }
-                type="date"
+                type={inputType}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 name="dob"
                 isValid={isDobValid}
                 id="dob"

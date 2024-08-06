@@ -12,12 +12,19 @@
     left: auto;
     background-color: #F4F8FF;
 }
+.personal-loan-container{
+    
+    font-family: "Raleway", sans-serif !important;
+    height: 100dvh;
+}
 
 
 @media (max-width : 600px){
     .personal-loan-container{
         width: 100%;
         max-width: 100%;
+    
+        
     }
     .stick_button{
         position: fixed;
