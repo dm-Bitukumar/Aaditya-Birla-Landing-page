@@ -37,7 +37,7 @@ const FormInput = ({
           {...props}
           style={{
             borderRadius: "0 1.1em 1.1em 0",
-            boxShadow: "2px 0px 5px 0pt #d3d3d3",
+            boxShadow: "3px 0px 5px 0pt #d3d3d3",
             borderLeft: "none",
 
             // padding: "20px",

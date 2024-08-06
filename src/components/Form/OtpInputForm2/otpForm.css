@@ -12,8 +12,19 @@
     left: auto;
     background-color: #F4F8FF;
   }
+  .personal-loan-container{
+    
+    font-family: "Raleway" !important;
+    height: 100dvh;
+}
   
   @media (max-width : 600px){
+    .personal-loan-container{
+      width: 100%;
+      max-width: 100%;
+      height: 100dvb;
+      font-family: "Raleway" !important;
+  }
     .stick_button1{
         position: fixed;
         padding-left:0.6em ;
@@ -32,6 +43,12 @@
     } 
   }
   @media (max-width : 398px){
+    .personal-loan-container{
+      width: 100%;
+      max-width: 100%;
+      height: 100dvb;
+      font-family: "Raleway" !important;
+  }
     .stick_button1{
         position: fixed;
         padding-left:0.6em ;
