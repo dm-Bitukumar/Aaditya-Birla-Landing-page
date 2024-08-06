@@ -220,7 +220,12 @@ const NewOffer = ({ showPage, setShowPage }) => {
                 </div>
               ))}
           </div>
-          <p className="mt-4 mb-3 text-xs text-center">
+          <p
+            className="mt-3 mb-0 text-center"
+            style={{
+              fontSize: "10px",
+            }}
+          >
             Choose from these incredible offers that best suit your needs
           </p>
           {/* {offers.length > 4 && !show && (
@@ -234,7 +239,7 @@ const NewOffer = ({ showPage, setShowPage }) => {
               </FormButton>
             </div>
           )} */}
-          <h4 className="mt-4 text-xs text-center">
+          <h4 className="mt-3 text-xs text-center">
             *These pre-approved offers are subject to change at discretion of
             Bank / NBFC after receiving all your documents and details. Final
             offer will be based on risk policy of Bank / NBFC. We do not
