@@ -35,7 +35,7 @@ const FormSelect = ({
         style={{
           height: "58px",
           borderRadius: "1.2em  0 0 1.2em ",
-          boxShadow: "0 0 5px 0pt #d3d3d3",
+          boxShadow: "0 0 5px 0.5pt #d3d3d3",
           background: "#fff",
           border: "none",
         }}
