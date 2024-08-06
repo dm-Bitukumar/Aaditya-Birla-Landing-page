@@ -216,16 +216,11 @@ const NewForm = ({
           errorMessage={"Please enter a valid company name"}
         />
       </div>
-      <div
-        style={{
-          marginTop: "17em",
-        }}
-      >
+      <div className="stick_button">
         <span>
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
         </span>
-      </div>
-      <div className="stick_button">
+
         <div onClick={handleSubmit}>
           <FormButton style={{ marginTop: "1px" }}>Get OTP</FormButton>
         </div>

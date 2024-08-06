@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import callApi from "../../../../utility/apiCaller";
-import OfferTile from "../../../PersonalDetails/components/OfferTile";
+import OfferTile from "../../../PersonalDetails/components/OfferTileNew";
+import OfferTile2 from "../../../PersonalDetails/components/OfferTileNew2";
 import { getAllianceLeadFromMoneyTapInput } from "../../../../utility/commonUtils";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
@@ -31,8 +32,7 @@ const NewOffer = ({ showPage, setShowPage }) => {
       submitLead();
     }
   }, [leadId]);
-  console.log(lead);
-  console.log(user);
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (leadId) fetchOffers();
@@ -54,10 +54,22 @@ const NewOffer = ({ showPage, setShowPage }) => {
       if (res.status === "Success") {
         let activeLenders = res2.data.lenderList ?? [];
         let localOffers = res.data.offers ?? [];
+        let localOffer = res.data.offers ?? [];
         localOffers = localOffers.filter((e) =>
           activeLenders.map((e) => e._id).includes(e.lender_id)
         );
-        setOffers(localOffers);
+        let arr = [];
+        for (let item1 of localOffer) {
+          for (let item of activeLenders) {
+            if (item?._id === item1?.lender_id) {
+              arr.push({ ...item1, logo_image_url: item?.logo_image_url });
+            }
+          }
+        }
+
+        setOffers(arr);
+        console.log(arr);
+
         setLeads(res.data.lead);
         setShowPage(!showPage);
       }
@@ -160,24 +172,38 @@ const NewOffer = ({ showPage, setShowPage }) => {
 
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
-            <span className="text-2xl font-normal">{lead?.contact_name}!!</span>{" "}
+            <span className="text-2xl font-normal">
+              {leads?.contact_name}!!
+            </span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 
-          <div className="px-10 py-1 mt-4 text-xs font-semibold bg-gray-300 rounded">
+          <div
+            className="px-6 py-2 mt-4 text-xs font-semibold rounded "
+            style={{
+              background: "#111",
+              color: "#fff",
+            }}
+          >
             RECOMMENDED
           </div>
           {[...offers]
             .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
             .slice(0, 1)
             .map((e, i) => (
-              <div key={e._id} className="my-4">
+              <div
+                key={e._id}
+                style={{
+                  marginTop: "0.7em",
+                  marginBottom: "1em",
+                }}
+              >
                 <OfferTile small={false} offer={e} source={source} />
               </div>
             ))}
           <div
             className={
-              "grid gap-4" +
+              "grid gap-2" +
               (offers.length === 2
                 ? " grid-cols-1"
                 : offers.length === 3
@@ -190,11 +216,19 @@ const NewOffer = ({ showPage, setShowPage }) => {
               .slice(1, show ? 1000 : 4)
               .map((e, i) => (
                 <div key={e._id} className="">
-                  <OfferTile small offer={e} source={source} />
+                  <OfferTile2 small offer={e} source={source} />
                 </div>
               ))}
           </div>
-          {offers.length > 4 && !show && (
+          <p
+            className="mt-3 mb-0 text-center"
+            style={{
+              fontSize: "10px",
+            }}
+          >
+            Choose from these incredible offers that best suit your needs
+          </p>
+          {/* {offers.length > 4 && !show && (
             <div>
               <FormButton
                 // small={small}
@@ -204,8 +238,8 @@ const NewOffer = ({ showPage, setShowPage }) => {
                 View more
               </FormButton>
             </div>
-          )}
-          <h4 className="mt-4 text-xs text-center">
+          )} */}
+          <h4 className="mt-3 text-xs text-center">
             *These pre-approved offers are subject to change at discretion of
             Bank / NBFC after receiving all your documents and details. Final
             offer will be based on risk policy of Bank / NBFC. We do not

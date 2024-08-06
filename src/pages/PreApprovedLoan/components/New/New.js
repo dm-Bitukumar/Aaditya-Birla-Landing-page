@@ -283,7 +283,7 @@ const New = ({ pages, setPages }) => {
               <img src="/assets/img/logo.png" alt="" />
             </center>
             <div className="mt-5">
-              <h1 className="">Lets get started</h1>
+              <h1 className="">Let's get started</h1>
             </div>
             <div className="mt-2">
               <FormInput

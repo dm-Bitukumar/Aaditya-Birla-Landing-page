@@ -45,7 +45,7 @@ const FormSelect = ({
       <div className="form-floating flex-grow-1">
         <select
           style={{
-            maxWidth: "300px",
+            maxWidth: "99.5%",
             borderRadius: "0 1.2em  1.2em 0",
             boxShadow: "2px 0 5px 0pt #d3d3d3",
             border: "none",

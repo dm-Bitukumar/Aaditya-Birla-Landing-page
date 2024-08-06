@@ -4,38 +4,47 @@
     min-width: 22.5em;
     max-width: 22.5em;
     top: auto;
-    bottom: 3em;
+    bottom: 0em;
+    /* padding-top: 1rem; */
+    padding-bottom: 3em;
     padding-right: 0.6em;
     right: auto;
     left: auto;
+    background-color: #F4F8FF;
   }
   
   @media (max-width : 600px){
     .stick_button1{
         position: fixed;
-        padding: 0 0.6em ;
+        padding-left:0.6em ;
+        padding-right: 0.6em;
         z-index: 6;
         min-width: 100%;
         max-width: 100%;
         top: auto;
-        bottom: 3em;
-      
+        bottom: 0em;
         
-        right: 0;
-        left: 0;
+        padding-bottom: 3em;
+    
+        background-color: #F4F8FF;
+        right: 0em;
+        left: 0em;
     } 
   }
   @media (max-width : 398px){
     .stick_button1{
         position: fixed;
-        padding: 0 0.6em ;
+        padding-left:0.6em ;
+      
         z-index: 6;
-        min-width: 100%;
+        width: 100%;
         max-width: 100%;
         top: auto;
-        bottom: 2em;
-        
-        
+        bottom: 0;
+    
+        padding-bottom: 3em;
+        padding-right: 0.6em;
+        background-color: #F4F8FF;
         right: 0;
         left: 0;
     } 
