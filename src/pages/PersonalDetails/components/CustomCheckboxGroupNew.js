@@ -27,8 +27,10 @@ const CustomCheckboxGroup = ({
         <div
           style={{
             marginRight: "5px",
+            boxShadow: "0 0 5px 0pt #d3d3d3",
+            borderRadius: "1.2em",
           }}
-          className={`gender-radio-btn  male-radio ${
+          className={`gender-radio-btn   ${
             activeGender === "male" ? "active-gender-box" : ""
           }`}
           onClick={() => handleGenderChange("male")}
@@ -66,6 +68,8 @@ const CustomCheckboxGroup = ({
         <div
           style={{
             marginLeft: "5px",
+            boxShadow: "0 0 5px 0pt #d3d3d3",
+            borderRadius: "1.2em",
           }}
           className={`gender-radio-btn  female-radio ${
             activeGender === "female" ? "active-gender-box" : ""
