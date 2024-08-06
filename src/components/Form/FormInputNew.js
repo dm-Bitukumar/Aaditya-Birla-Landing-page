@@ -22,7 +22,7 @@ const FormInput = ({
           borderRadius: "1.1em 0 0 1.1em ",
           background: "#fff",
           borderRight: "none",
-          boxShadow: "-2px 0 3px -0.2pt #d3d3d3",
+          boxShadow: "-2px 0 4px -0.2pt #d3d3d3",
         }}
       >
         {icon}
@@ -37,7 +37,7 @@ const FormInput = ({
           {...props}
           style={{
             borderRadius: "0 1.1em 1.1em 0",
-            boxShadow: "2px 0px 3px -0.2pt #d3d3d3",
+            boxShadow: "2px 0px 4px -0.2pt #d3d3d3",
             borderLeft: "none",
 
             // padding: "20px",
