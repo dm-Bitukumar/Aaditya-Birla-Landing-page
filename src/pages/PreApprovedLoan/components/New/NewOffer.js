@@ -117,6 +117,9 @@ const NewOffer = ({ showPage, setShowPage }) => {
         preApprovedData = preApprovedData.sort(
           (a, b) => mappedPriority[a.lender_id] - mappedPriority[b.lender_id]
         );
+        preApprovedData = preApprovedData.filter((e) =>
+          activeLendersData.map((r) => r._id).includes(e.lender_id)
+        );
         if (preApprovedData.length > 0) {
           additionalData.lender_id = preApprovedData[0].lender_id ?? "";
         }

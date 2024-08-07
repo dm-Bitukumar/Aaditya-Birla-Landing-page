@@ -31,6 +31,7 @@ const CustomCheckboxGroup = ({
               src="/assets/icons/male.png"
               alt="Male"
               className="gender-image"
+              style={{ paddingLeft: "20px" }}
             />
             &nbsp;
             <input
@@ -41,7 +42,10 @@ const CustomCheckboxGroup = ({
               name="gender"
               required=""
             />
-            <span className="" style={{ paddingRight: "60px" }}>
+            <span
+              className=""
+              style={{ paddingRight: "30px", paddingLeft: "10px" }}
+            >
               Male
             </span>
             <span className="ml-4">
@@ -64,6 +68,7 @@ const CustomCheckboxGroup = ({
               src="/assets/icons/female.png"
               alt="Female"
               className="gender-image"
+              style={{ paddingLeft: "20px" }}
             />
             &nbsp;
             <input
@@ -74,7 +79,10 @@ const CustomCheckboxGroup = ({
               name="gender"
               required=""
             />
-            <span className="" style={{ paddingRight: "50px" }}>
+            <span
+              className=""
+              style={{ paddingRight: "25px", paddingLeft: "10px" }}
+            >
               Female
             </span>
             <span className="ml-4">
