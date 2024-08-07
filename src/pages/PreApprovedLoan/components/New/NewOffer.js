@@ -16,6 +16,7 @@ import FormButton from "../../../../components/Buttons/FormButton";
 const NewOffer = ({ showPage, setShowPage }) => {
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
+  const [activeLenders, setActiveLenders] = useState([]);
   const [leadId, setLeadId] = useState();
   const [leads, setLeads] = useState();
   const [offers, setOffers] = useState();
@@ -24,9 +25,9 @@ const NewOffer = ({ showPage, setShowPage }) => {
   const [params] = useSearchParams();
 
   useEffect(() => {
-    // if (params.get("lid")) fetchOffers(params.get("lid"));
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
+
   useEffect(() => {
     if (!leadId) {
       submitLead();
@@ -40,6 +41,7 @@ const NewOffer = ({ showPage, setShowPage }) => {
 
     return () => clearInterval(timer);
   }, [leadId]);
+
   const fetchOffers = async () => {
     try {
       const res = await callApi(
@@ -49,10 +51,7 @@ const NewOffer = ({ showPage, setShowPage }) => {
         "core"
       );
 
-      const res2 = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
-
       if (res.status === "Success") {
-        let activeLenders = res2.data.lenderList ?? [];
         let localOffers = res.data.offers ?? [];
         let localOffer = res.data.offers ?? [];
         localOffers = localOffers.filter((e) =>
@@ -83,6 +82,48 @@ const NewOffer = ({ showPage, setShowPage }) => {
       event_name: "personal-detail-api",
     });
     try {
+      let ip = "";
+
+      try {
+        ip = await fetch("https://api.ipify.org?format=json")
+          .then((response) => response.json())
+          .then((data) => data.ip);
+      } catch (err) {
+        ip = "";
+        console.log(err);
+      }
+
+      const res1 = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
+      const activeLendersData = res1.data.lenderList ?? [];
+      setActiveLenders(activeLendersData);
+
+      let additionalData = {};
+      try {
+        const res2 = await callApi(
+          `v1/preapproved_lead/list`,
+          "post",
+          {
+            filters: {
+              contact_phone: lead.contact_phone,
+            },
+          },
+          "core"
+        );
+        let preApprovedData = res2.data.preapproved_leadList ?? [];
+        const mappedPriority = {};
+        activeLendersData.forEach((e) => {
+          mappedPriority[e._id] = e.pre_priority;
+        });
+        preApprovedData = preApprovedData.sort(
+          (a, b) => mappedPriority[a.lender_id] - mappedPriority[b.lender_id]
+        );
+        if (preApprovedData.length > 0) {
+          additionalData.lender_id = preApprovedData[0].lender_id ?? "";
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
         ...lead,
@@ -93,9 +134,11 @@ const NewOffer = ({ showPage, setShowPage }) => {
         "v1/lead/website-lead",
         "post",
         {
+          ...additionalData,
           lead: {
             ...processedLead,
             tracking_id: trackId,
+            ip_address: ip,
             utm_medium:
               source === "0"
                 ? "SMS"
