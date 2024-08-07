@@ -5,7 +5,7 @@ import callApi from "../../../../utility/apiCaller";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { setUserClickData } from "../../../../utility/setUserClickData";
-import { login } from "../../../../store/app/appReducer";
+import { login, setOffers } from "../../../../store/app/appReducer";
 const NewOtp = ({ pages, setPages, phone }) => {
   const [pancard, setPancard] = useState("");
   const [isTncChecked, setIsTncChecked] = useState(true);
@@ -61,6 +61,7 @@ const NewOtp = ({ pages, setPages, phone }) => {
 
       if (res["status"] === "Success") {
         dispatch(login({ ...res.data.customer, token: res.data.token }));
+        dispatch(setOffers([]));
         setPages(pages + 1);
 
         // navigate(`/apply?source=${source}`);

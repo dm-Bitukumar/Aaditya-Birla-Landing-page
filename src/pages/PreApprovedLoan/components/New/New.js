@@ -15,28 +15,15 @@ import NewOffer from "./NewOffer";
 import "./css/new.css";
 import _ from "lodash";
 import numberToWords from "../../../../utility/numberToWords";
-import moment from "moment";
-import callApi from "../../../../utility/apiCaller";
-import { useDispatch } from "react-redux";
-
-import { setUserDetail } from "../../../../store/app/appReducer";
 
 const New = ({ pages, setPages }) => {
-  const [errorMessage, setErrorMessage] = useState("");
-  // const [pages, setPages] = useState(0);
   const [inputType, setInputType] = useState("text");
-  const dispatch = useDispatch();
   const [showPage, setShowPage] = useState(false);
-  const [errors, setErrors] = useState("");
-  const [isOtpGenerated, setIsOtpGenerated] = useState(false);
-  const [showOffers, setShowOffers] = useState(false);
-  const [otp, setOtp] = useState("");
   const [mobile, setMobile] = useState("");
   const [pancard, setPancard] = useState("");
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [occupation, setOccupation] = useState("");
   const [userName, setUserName] = useState("");
-  const [lender_id, setLenderId] = useState("");
   const [loanAmount, setLoanAmount] = useState("");
   const [pincode, setPincode] = useState("");
   const [dob, setDob] = useState("");
