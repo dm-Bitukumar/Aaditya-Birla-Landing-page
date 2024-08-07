@@ -261,7 +261,7 @@ select {
   align-items: center;
   border: 1px solid #ced4da;
   padding: 16px 0 ;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .male-radio {
