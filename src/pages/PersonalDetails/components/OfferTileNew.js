@@ -3,9 +3,12 @@ import FormButton from "../../../components/Buttons/FormButtonNew";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
+import NewOfferModel from "./NewOfferModel";
 
 const OfferTile = ({ offer, small, source }) => {
   const [show, setShow] = useState(false);
+  const [offerLink, setOfferLink] = useState("");
+  const [showModel, setShowModel] = useState(false);
 
   useEffect(() => {
     if (show) {
@@ -25,16 +28,21 @@ const OfferTile = ({ offer, small, source }) => {
   const handleClick = () => {
     if (offer.lender_name === "Prefr") {
       setShow(true);
+
       return;
     }
-
+    if (offer.lender_name === "CashE") {
+      setShowModel(true);
+      setOfferLink(`${offer.app_url}${source}`);
+      return;
+    }
     setUserClickData({ event_name: "offer-apply-button" });
     var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
   };
 
   return (
-    <div>
+    <>
       <div
         className={`rounded-lg ring-1 ring-[#00c0ff] ${
           small ? "px-0 pb-2" : "px-20 pb-6"
@@ -105,7 +113,14 @@ const OfferTile = ({ offer, small, source }) => {
           APPLY NOW
         </FormButton>
       )}
-    </div>
+      {showModel && (
+        <NewOfferModel
+          show={showModel}
+          setShow={setShowModel}
+          offerLink={offerLink}
+        />
+      )}
+    </>
   );
 };
 

@@ -3,9 +3,12 @@ import FormButton from "../../../components/Buttons/FormButtonNew";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
+import NewOfferModel from "./NewOfferModel";
 
 const OfferTile = ({ offer, small, source }) => {
   const [show, setShow] = useState(false);
+  const [offerLink, setOfferLink] = useState("");
+  const [showModel, setShowModel] = useState(false);
 
   useEffect(() => {
     if (show) {
@@ -27,7 +30,11 @@ const OfferTile = ({ offer, small, source }) => {
       setShow(true);
       return;
     }
-
+    if (offer.lender_name === "CashE") {
+      setOfferLink(`${offer.app_url}${source}`);
+      setShowModel(true);
+      return;
+    }
     setUserClickData({ event_name: "offer-apply-button" });
     var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
@@ -93,6 +100,13 @@ const OfferTile = ({ offer, small, source }) => {
         <FormButton small={small} onClick={handleClick} className="!mt-2">
           APPLY NOW
         </FormButton>
+      )}
+      {showModel && (
+        <NewOfferModel
+          show={showModel}
+          setShow={setShowModel}
+          offerLink={offerLink}
+        />
       )}
     </div>
   );
