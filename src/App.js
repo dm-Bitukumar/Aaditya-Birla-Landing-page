@@ -8,6 +8,7 @@ import { Route, useLocation } from "react-router";
 import PersonalLoan from "./pages/PersonalLoan/PersonalLoan";
 import PersonalDetails from "./pages/PersonalDetails/PersonalDetails";
 import PreApprovedLoan from "./pages/PAO/PreApprovedLoan";
+import CashE from "./pages/CashE";
 import BusinessLoan from "./pages/BusinessLoan/BusinessLoan";
 import BusinessLoanApply from "./pages/BusinessLoan/BusinessLoanApply";
 import Term from "./pages/Term";
@@ -88,6 +89,7 @@ function App() {
         <Route path={"/rtg"} element={<PreLoan />} />
         <Route path={"/business-loan"} element={<BusinessLoan />} />
         <Route path={"/business-loan/apply"} element={<BusinessLoanApply />} />
+        <Route path="/cashe" element={<CashE />} />
         <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
