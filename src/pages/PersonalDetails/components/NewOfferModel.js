@@ -1,19 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 // import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import FormButton from "../../../components/Buttons/FormButton";
 
 const Model = ({ show, setShow, offerLink }) => {
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
   return (
     <>
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           top: "0",
           bottom: "0",
-          height: "100dvh",
-          zIndex: "4",
-
+          height: "100svh",
+          zIndex: "10",
+          background: "#fff",
           left: "0",
           right: "0",
           margin: "auto",
@@ -54,7 +60,7 @@ const Model = ({ show, setShow, offerLink }) => {
           width="100%"
           style={{
             position: "relative",
-            height: "96dvh",
+            height: "96svh",
             width: "100%",
             border: "1px solid #ccc",
             background: "#fff",
