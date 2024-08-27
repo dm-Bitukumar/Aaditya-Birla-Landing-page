@@ -6,8 +6,17 @@ import {
 } from "../../../constants/formData";
 import CustomSquareCheckBoxGroup from "../../../components/Form/CustomSquareCheckBoxGroup";
 import { numberToWordIncome } from "../../../utility/numberUtility";
+import numberToWords from "../../../utility/numberToWords";
 
-const SalariedForm = ({ data, errors, errorMessage, handleDataChange }) => {
+const SalariedForm = ({
+  data,
+  errors,
+  words,
+  errorMessage,
+  handleDataChange,
+  handleMonthlyIncome,
+  monthlyIncome,
+}) => {
   return (
     <>
       <FormInput
@@ -34,20 +43,18 @@ const SalariedForm = ({ data, errors, errorMessage, handleDataChange }) => {
         label={"Company Type"}
       />
       <FormInput
-        type={"number"}
+        type={"text"}
         placeholder="monthly_income"
         required
         id="monthly_income"
-        value={data.monthly_income}
-        onChange={(e) => handleDataChange("monthly_income", e.target.value)}
+        value={monthlyIncome}
+        onChange={(e) => handleMonthlyIncome(e)}
         errorMessage={errorMessage}
         isValid={errors !== "monthly_income"}
         icon={<img src="/assets/icons/income.png" style={{ height: "25px" }} />}
         label={"Monthly Income"}
       />
-      {data.monthly_income && (
-        <p className={"my-3"}>{numberToWordIncome(data.monthly_income)}</p>
-      )}
+      {words && <p className={"my-3"}>{words}</p>}
       <div>
         <p style={{ fontSize: "0.8rem" }}>Salary Mode</p>
         <CustomSquareCheckBoxGroup
