@@ -8,15 +8,18 @@ import SelfEmployedForm from "./SelfEmployedForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead, setOffers } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import numberToWords from "../../../utility/numberToWords";
+import { formatAmount } from "../../../utility/amountFormat";
 
 const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const dispatch = useDispatch();
   const lead = useSelector((state) => state.app.lead);
-
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [words, setWords] = useState("");
   const [data, setData] = useState({
     company_name: "",
     company_type: "",
-    monthly_income: "",
+    // monthly_income: "",
     salary_mode: "",
 
     company_age: "",
@@ -31,8 +34,23 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState("");
 
+  const handleMonthlyIncome = (e) => {
+    setErrors("");
+    let inputValue = e.target.value;
+
+    let formattedValue;
+    formattedValue = formatAmount(inputValue);
+    setMonthlyIncome(formattedValue);
+    let numericValue = inputValue.replace(/[^\d]/g, "");
+    if (numericValue) {
+      setWords(_.startCase(numberToWords(Number(numericValue))));
+    } else {
+      setWords("");
+    }
+  };
   const handleDataChange = (key, value) => {
     setErrors("");
+
     setData((prevData) => ({ ...prevData, [key]: value }));
   };
 
@@ -43,7 +61,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     // const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
 
     if (lead.profession === "Salaried") {
-      const { company_name, company_type, monthly_income, salary_mode } = data;
+      const { company_name, company_type, salary_mode } = data;
 
       if (_.isEmpty(company_name)) {
         isValid = false;
@@ -53,7 +71,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         isValid = false;
         setErrors("company_type");
         setErrorMessage("Please enter Company Type");
-      } else if (_.isEmpty(monthly_income)) {
+      } else if (_.isEmpty(monthlyIncome)) {
         isValid = false;
         setErrors("monthly_income");
         setErrorMessage("Please enter your Monthly Income");
@@ -157,6 +175,9 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         return (
           <SalariedForm
             data={data}
+            words={words}
+            monthlyIncome={monthlyIncome}
+            handleMonthlyIncome={handleMonthlyIncome}
             errors={errors}
             errorMessage={errorMessage}
             handleDataChange={handleDataChange}

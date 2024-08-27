@@ -14,7 +14,7 @@ const FormButton = ({ className, type, ...props }) => {
 
   return (
     <button
-      style={{ minWidth: props.small ? "60px" : "164px" }}
+      style={{ minWidth: props.small ? "60px" : "164px", whiteSpace: "nowrap" }}
       className={`w-100 btn btn-lg ${handleCalculateStyles(type)} ${className}`}
       type="submit"
       {...props}
