@@ -19,6 +19,8 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [mobile, setMobile] = useState("");
   const [pancard, setPancard] = useState("");
   const [source, setSource] = useState("");
+  const [utmSource, setUtmSource] = useState("");
+  const [affId, setAffId] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
@@ -27,6 +29,8 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
+    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
 
   const handleValidation = () => {
@@ -129,7 +133,9 @@ const Form = ({ formData, setFormData, ...props }) => {
         dispatch(
           login({ ...res.data.customer, token: res.data.token, pancard })
         );
-        navigate(`/apply?source=${source}`);
+        navigate(
+          `/apply?aff_id=${affId}&utm_source=${utmSource}&source=${source}`
+        );
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {

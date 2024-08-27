@@ -23,14 +23,16 @@ const OfferDetailsSegment = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [show, setShow] = useState(false);
   const [source, setSource] = useState("");
+  const [utmSource, setUtmSource] = useState("");
+  const [affId, setAffId] = useState("");
   const [leadId, setLeadId] = useState();
   const [params] = useSearchParams();
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
+    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
-
-  //   662a73413a05656cf94543c4
 
   useEffect(() => {
     if (lead.stepDone === 2 && !leadId) {
@@ -64,6 +66,8 @@ const OfferDetailsSegment = () => {
           lead: {
             ...processedLead,
             tracking_id: trackId,
+            aff_id: affId,
+            utm_source: utmSource,
             utm_medium:
               source === "0"
                 ? "SMS"
