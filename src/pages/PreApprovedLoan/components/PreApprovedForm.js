@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { login, setLead, setOffers } from "../../../store/app/appReducer";
 import OfferDetailsSegment from "./OfferDetailsSegment";
+import { formatAmount } from "../../../utility/amountFormat";
 import CustomCheckboxGroup from "../../PersonalDetails/components/CustomCheckboxGroup";
 import moment from "moment";
 import { setUserClickData } from "../../../utility/setUserClickData";
@@ -149,10 +150,13 @@ const PreApprovedForm = ({ data }) => {
     setIsUserNameValid(true);
     setUserName(value);
   };
-  const handleMonthlyChange = (event) => {
-    const { value } = event.target;
+
+  const handleMonthlyChange = (e) => {
+    let inputValue = e.target.value;
+    let formattedValue = formatAmount(inputValue);
     setIsMonthlyIncomeValid(true);
-    setMonthlyIncome(value);
+
+    setMonthlyIncome(formattedValue);
   };
   const handleCompanyChange = (event) => {
     const { value } = event.target;
