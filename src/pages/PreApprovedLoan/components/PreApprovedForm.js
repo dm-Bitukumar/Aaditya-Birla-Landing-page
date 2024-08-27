@@ -445,7 +445,7 @@ const PreApprovedForm = ({ data }) => {
                     alt="Phone Icon"
                   />
                 }
-                type="number"
+                type="text"
                 name="monthlyIncome"
                 isValid={isMonthlyIncomeValid}
                 id="monthlyIncome"
