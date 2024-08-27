@@ -13,11 +13,13 @@
     background-color: #F4F8FF;
 }
 .personal-loan-container{
-    
-    font-family: "Raleway", sans-serif !important;
+    font-family: "Montserrat", sans-serif;
+   
     height: 100dvh;
 }
-
+.font_family{
+    font-family: "Raleway", sans-serif !important;
+}
 
 @media (max-width : 600px){
     .personal-loan-container{

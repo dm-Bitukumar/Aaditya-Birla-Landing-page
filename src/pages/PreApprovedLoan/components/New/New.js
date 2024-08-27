@@ -15,6 +15,7 @@ import NewOffer from "./NewOffer";
 import "./css/new.css";
 import _ from "lodash";
 import numberToWords from "../../../../utility/numberToWords";
+import { formatAmount } from "../../../../utility/amountFormat";
 
 const New = ({ pages, setPages }) => {
   const [inputType, setInputType] = useState("text");
@@ -80,23 +81,6 @@ const New = ({ pages, setPages }) => {
     const { value } = event.target;
     setIsEmailValid(true);
     setEmail(value);
-  };
-  const formatAmount = (inputValue) => {
-    let value = inputValue.replace(/[^\d]/g, "");
-
-    let length = value.length;
-    let formattedValue = "";
-
-    if (length > 3) {
-      let lastThree = value.slice(length - 3);
-      let otherNumbers = value.slice(0, length - 3);
-      otherNumbers = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
-      formattedValue = otherNumbers + "," + lastThree;
-    } else {
-      formattedValue = value;
-    }
-
-    return formattedValue;
   };
 
   const handleLoanAmountChange = (e) => {
@@ -282,7 +266,7 @@ const New = ({ pages, setPages }) => {
               <img src="/assets/img/logo.png" alt="" />
             </center>
             <div className="mt-5">
-              <h1 className="">Let's get started</h1>
+              <h1 className="font_family">Let's get started</h1>
             </div>
             <div className="mt-2">
               <FormInput
