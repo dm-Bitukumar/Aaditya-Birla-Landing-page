@@ -1,0 +1,47 @@
+.lender_heading{
+    font-size: 2.5em;
+      letter-spacing: -1px;
+      line-height: 47px;
+      color: #4e5477;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      margin-bottom: 2rem;
+  }
+  .lender_faq{
+    background: rgb(244, 248, 255);
+    background: linear-gradient(180deg, rgba(244, 248, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
+  }
+  .lenders_img{
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-left: 0rem;
+  }
+  .lender_img{
+    /* width: 30%; */
+    display: block;
+    margin-bottom: 0;
+  }
+  .lender_row{
+   
+    padding: 0px 80px ;
+    padding-top: 0px;
+    padding-bottom: 40px;
+  }
+  .main_lender_img{
+    line-height: 110px;
+    background-color: #f6fafd;
+    padding: 2.5em 3.12em;
+  }
+
+  @media (max-width: 600px){
+    .lender_row{
+    padding: 0px 10px;
+    }
+    .lender_heading{
+        font-size: 1.5em;
+    }
+    .main_lender_img{
+        padding: 2.5em 0.5em;
+    }
+  }
