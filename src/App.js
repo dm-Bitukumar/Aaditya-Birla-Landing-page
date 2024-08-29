@@ -82,7 +82,7 @@ function App() {
 
       <Routes>
         <Route path={"/"} element={<Homepage />} />
-        <Route path={"/lender"} element={<LenderPage />} />
+        <Route path={"/lenders"} element={<LenderPage />} />
         <Route path={"/personal-loan"} element={<PersonalLoan />} />
         <Route path={"/apply"} element={<PersonalDetails />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
