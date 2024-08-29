@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Homepage from "./pages/Homepage/Homepage";
+import LenderPage from "./pages/LenderPage/LenderPage";
 import { Route, useLocation } from "react-router";
 import PersonalLoan from "./pages/PersonalLoan/PersonalLoan";
 import PersonalDetails from "./pages/PersonalDetails/PersonalDetails";
@@ -81,6 +82,7 @@ function App() {
 
       <Routes>
         <Route path={"/"} element={<Homepage />} />
+        <Route path={"/lender"} element={<LenderPage />} />
         <Route path={"/personal-loan"} element={<PersonalLoan />} />
         <Route path={"/apply"} element={<PersonalDetails />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
