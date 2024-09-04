@@ -12,6 +12,7 @@ const JASOOS_API =
   process.env.REACT_APP_JASOOS_API || `https://jasoos.digitmoney.in`;
 const ALLIANCE_API =
   process.env.REACT_APP_ALLIANCE_API || `https://alliance-apidev.digitmoney.in`;
+const URL_SHORT = process.env.REACT_APP_URL_SHORT || `https://dgtm.co`;
 
 export default async function callApi(
   endpoint,
@@ -38,6 +39,8 @@ export default async function callApi(
         ? ALLIANCE_API
         : service === "jasoos"
         ? JASOOS_API
+        : service === "url"
+        ? URL_SHORT
         : LOAN_API
     }/api/${endpoint}`,
     method,
