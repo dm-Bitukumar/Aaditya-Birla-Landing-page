@@ -146,12 +146,33 @@ const Form = ({ formData, setFormData, ...props }) => {
           "core",
           res.data.token
         )
-          .then((response) => {
-            if (response["status"] === "Success") {
-              setPreData(response.data.lead);
-              // setSelect(true);
+          .then(async (response) => {
+            try {
+              const data = await callApi(
+                "urls/new",
+                "post",
+                {
+                  longUrl: response.data.lead.redirection_link,
+                  refId: response.data.lead._id,
+                  refName: `preapproved`,
+                },
+                "url",
+                res.data.token
+              );
+              setPreData({
+                ...response.data.lead,
+                app_url: data.data.shortUrl.shortUrl,
+                credit_limit: response.data.lead.loan_amount,
+                emi: response.data.lead.loan_emi,
+                tenure: response.data.lead.loan_tenure,
+              });
               setIsOtpGenerated(isOtpGenerated + 1);
-              // `/offers?lid=${response.data.lead._id}&source=${source}`
+            } catch (err) {
+              console.log(err);
+              toast("Some error occurred", {
+                hideProgressBar: true,
+                type: "error",
+              });
             }
           })
           .catch((e) => navigate(`/personal-loan?source=${source}`));
@@ -163,17 +184,7 @@ const Form = ({ formData, setFormData, ...props }) => {
       console.log(err);
     }
   };
-  // const handleOffer = async () => {
-  //   const res = await callApi(
-  //     "api/v1/preapproved_lead/preapproved-lead-from-phone",
-  //     "post",
-  //     {
-  //       contact_phone: mobile,
-  //     },
-  //     "messaging"
-  //   );
-  // };
-  console.log(select);
+
   return (
     <div className={"personal-loan-form"}>
       <img
@@ -196,7 +207,7 @@ const Form = ({ formData, setFormData, ...props }) => {
 
       {isOtpGenerated === 0 && (
         <>
-          <div className="mt-5">
+          <div className="absolute top-[30%] -translate-y-[50%] left-0 right-0">
             <img
               className="my-5 mb-3 img header-img"
               src="/assets/icons/header.png"
@@ -221,43 +232,47 @@ const Form = ({ formData, setFormData, ...props }) => {
             <input type="hidden" name="aff_id" value="" />
             <input type="hidden" name="src" value="" />
 
-            <FormInput
-              icon={
-                <img
-                  src="/assets/icons/phone-call.png"
-                  height="25"
-                  alt="Phone Icon"
-                />
-              }
-              type="number"
-              name="mobile"
-              isValid={isMobileValid}
-              id="mobile"
-              aria-describedby="name"
-              placeholder="Mobile"
-              minLength="10"
-              maxLength="10"
-              pattern="[0-9]{10}"
-              value={mobile}
-              onChange={handleMobileChange}
-              required
-              label={"Mobile Number"}
-              errorMessage={"Please enter a valid Mobile Number"}
-            />
-            <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
-            <FormButton
-              // style={{ marginTop: "120px" }}
-              className="w-100 btn btn-lg btn-primary btn-get-otp"
-              type="submit"
-              onClick={handleSubmit}
-              id="myBtn"
-            >
-              GET OTP
-            </FormButton>
+            <div className="preApprovebutton">
+              <FormInput
+                icon={
+                  <img
+                    src="/assets/icons/phone-call.png"
+                    height="25"
+                    alt="Phone Icon"
+                  />
+                }
+                iconColor="#fff"
+                type="number"
+                name="mobile"
+                isValid={isMobileValid}
+                id="mobile"
+                aria-describedby="name"
+                placeholder="Mobile"
+                minLength="10"
+                maxLength="10"
+                pattern="[0-9]{10}"
+                title="Please enter a Valid mobile no."
+                value={mobile}
+                onChange={handleMobileChange}
+                required
+                label={"Mobile Number"}
+                errorMessage={"Please enter a valid Mobile Number"}
+              />
+              <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
+              <FormButton
+                // style={{ marginTop: "120px" }}
+                className="w-100 btn btn-lg btn-primary btn-get-otp"
+                type="submit"
+                onClick={handleSubmit}
+                id="myBtn"
+              >
+                GET OTP
+              </FormButton>
+            </div>
           </div>
         </>
       )}
-      {isOtpGenerated === 2 && <PreOffer PreData={PreData} />}
+      {isOtpGenerated === 2 && <PreOffer PreData={PreData} source={source} />}
     </div>
   );
 };
