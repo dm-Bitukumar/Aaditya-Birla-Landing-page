@@ -147,7 +147,7 @@ label {
   border: 0;
   padding: 1rem;
   font-family: "Montserrat", sans-serif;
-  margin: 2rem auto 0 auto;
+  /* margin: 2rem auto 0 auto; */
 }
 
 .continue-button-sm {
@@ -238,8 +238,8 @@ label {
 .form-control {
   border-radius: 0 5px 5px 0;
 }
-.active-gender-box{
-  background-color: #ced4da ;
+.active-gender-box {
+  background-color: #ced4da;
   color: #111;
 }
 
@@ -249,5 +249,94 @@ label {
   border-radius: 5px;
   padding: 0.9rem 0;
 }
+.preApproveForm {
+  position: fixed;
+  z-index: 6;
+  min-width: 22.5em;
+  max-width: 22.5em;
+  top: auto;
+  /* bottom: 0em; */
+  padding-top: 1rem;
+  padding-bottom: 1em;
+  padding-right: 0.6em;
+  right: auto;
+  left: auto;
+}
 
+.preApprovebutton {
+  position: fixed;
+  z-index: 6;
+  min-width: 22.5em;
+  max-width: 22.5em;
+  top: auto;
+  bottom: 1em;
+  padding-top: 1rem;
+  padding-bottom: 1em;
+  padding-right: 0.6em;
+  right: auto;
+  left: auto;
+}
+@media (max-width: 600px) {
+  .preApprovebutton {
+    position: fixed;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    z-index: 6;
 
+    max-width: 100%;
+    top: auto;
+    bottom: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 3em;
+    /* background-color: #f4f8ff; */
+    right: 0em;
+    left: 0em;
+  }
+  .preApproveForm {
+    position: fixed;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    z-index: 6;
+
+    max-width: 100%;
+    top: auto;
+    bottom: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 3em;
+    /* background-color: #f4f8ff; */
+    right: 0em;
+    left: 0em;
+  }
+}
+@media (max-width: 398px) {
+  .preApprovebutton {
+    position: fixed;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    z-index: 6;
+    min-width: 100%;
+    max-width: 100%;
+    top: auto;
+    bottom: 1em;
+    /* background-color: #f4f8ff; */
+    padding-top: 1rem;
+    padding-bottom: 3em;
+    right: 0;
+    left: 0;
+  }
+  .preApproveForm {
+    position: fixed;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    z-index: 6;
+    min-width: 100%;
+    max-width: 100%;
+    top: auto;
+    bottom: 1em;
+    /* background-color: #f4f8ff; */
+    padding-top: 1rem;
+    padding-bottom: 3em;
+    right: 0;
+    left: 0;
+  }
+}
