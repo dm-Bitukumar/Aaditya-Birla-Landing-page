@@ -3,7 +3,7 @@ import _ from "lodash";
 
 import FormButton from "../../components/Buttons/FormButton";
 import FormInput from "../../components/Form/FormInput";
-import OtpInputForm from "../../components/Form/OtpInputForm";
+import OtpInputForPreApprove from "../../components/Form/OtpInputForPreApprove";
 import { useNavigate } from "react-router";
 import { setUserClickData } from "../../utility/setUserClickData";
 import callApi from "../../utility/apiCaller";
@@ -194,7 +194,8 @@ const Form = ({ formData, setFormData, ...props }) => {
       />
       {isOtpGenerated === 1 && (
         <div style={{ marginTop: "180px" }}>
-          <OtpInputForm
+          <OtpInputForPreApprove
+            setIsOtpGenerated={setIsOtpGenerated}
             buttonStyle={{ marginTop: "200px", marginBottom: "50px" }}
             otpValue={otp}
             setOtpValue={setOtp}
