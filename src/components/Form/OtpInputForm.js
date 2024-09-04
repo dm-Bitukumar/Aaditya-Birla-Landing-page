@@ -178,9 +178,17 @@ const OtpInputForm = ({
           </label>
         </div>
       )}
-      <FormButton style={buttonStyle} onClick={handleSubmit} id="myBtn">
-        Verify
-      </FormButton>
+      <div className="">
+        <div className="preApprovebutton">
+          <FormButton
+            // style={buttonStyle}
+            onClick={handleSubmit}
+            id="myBtn"
+          >
+            Verify
+          </FormButton>
+        </div>
+      </div>
     </div>
   );
 };

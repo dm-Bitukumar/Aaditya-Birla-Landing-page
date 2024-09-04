@@ -22,6 +22,7 @@ import callApi from "./utility/apiCaller";
 import { saveMetaData } from "./utility/setUserClickData";
 import New from "./pages/PreApprovedLoan/components/New/New";
 import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
+import PreApprove from "./pages/PreApprove/PreApprove";
 
 function App() {
   const location = useLocation();
@@ -93,6 +94,7 @@ function App() {
         <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/preapprove" element={<PreApprove />} />
         <Route
           path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
