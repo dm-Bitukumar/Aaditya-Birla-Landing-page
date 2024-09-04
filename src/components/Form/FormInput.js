@@ -9,7 +9,10 @@ const FormInput = ({
 }) => {
   return (
     <div className={`input-group mb-3 ${props.className}`}>
-      <span className="input-group-text" style={{ height: "58px" }}>
+      <span
+        className="input-group-text"
+        style={{ height: "58px", background: props.iconColor }}
+      >
         {icon}
       </span>
       <div className="form-floating flex-grow-1">

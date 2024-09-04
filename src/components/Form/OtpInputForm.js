@@ -81,7 +81,9 @@ const OtpInputForm = ({
         A One Time Password (OTP) has been sent to your mobile number
         <span className="text-decoration-underline">
           <u>
-            <span id="mobileno">{phone_number ? " " + phone_number : ""}</span>
+            <span id="mobileno" className="text-blue-700">
+              {phone_number ? " " + phone_number : ""}
+            </span>
           </u>
         </span>
         <br />
