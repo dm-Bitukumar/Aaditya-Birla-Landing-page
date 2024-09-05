@@ -94,7 +94,7 @@ const OfferDetailsSegment = () => {
             className={
               "grid gap-4" +
               (offers.length === 2
-                ? " grid-cols-1"
+                ? "flex justify-center"
                 : offers.length === 3
                 ? " grid-cols-2"
                 : " grid-cols-3")
