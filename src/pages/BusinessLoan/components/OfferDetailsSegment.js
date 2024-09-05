@@ -12,6 +12,7 @@ import {
   getAllianceLeadFromMoneyTapInput,
   getBusinessTurnoverFromEntry,
   getBusinessVintageFromEntry,
+  sourceConvert,
 } from "../../../utility/commonUtils";
 import { TRACK_ID } from "../../../utility/enum";
 import { setUserClickData } from "../../../utility/setUserClickData";
@@ -64,16 +65,7 @@ const OfferDetailsSegment = () => {
             gst: lead.gst_no,
             turnover: getBusinessTurnoverFromEntry(lead.turnover),
             business_vintage: getBusinessVintageFromEntry(lead.company_age),
-            utm_medium:
-              source === "0"
-                ? "SMS"
-                : source === "1"
-                ? "Whatsapp"
-                : source === "2"
-                ? "IVR"
-                : source === "4"
-                ? "RCS"
-                : "",
+            utm_medium: sourceConvert(source),
           },
         },
         "core",

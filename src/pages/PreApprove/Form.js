@@ -13,6 +13,8 @@ import { login } from "../../store/app/appReducer";
 import { useSearchParams } from "react-router-dom";
 import CheckboxTnC from "../../components/Buttons/CheckboxTnC";
 import PreOffer from "./PreOffer";
+import { sourceConvert } from "../../utility/commonUtils";
+
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(0);
@@ -24,12 +26,14 @@ const Form = ({ formData, setFormData, ...props }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [source, setSource] = useState("");
+  const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
   const [select, setSelect] = useState(false);
   const [PreData, setPreData] = useState();
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
 
   const handleValidation = () => {
@@ -148,6 +152,17 @@ const Form = ({ formData, setFormData, ...props }) => {
         )
           .then(async (response) => {
             try {
+              if (response.data.lead.lender_id === "662752eb65fdba1a48d6e47e") {
+                response.data.lead.redirection_link = `${
+                  response.data.lead.redirection_link
+                }&utm_medium=${sourceConvert(source)}&utm_source=${affId}`;
+              } else if (
+                response.data.lead.lender_id === "662752eb65fdba1a48d6e480"
+              ) {
+                response.data.lead.redirection_link = `https://oneapp.abfldirect.com/esb/login?dsa_hash=32d899515d13789903053da851d2beb4408727f62ce87daa772960fa323fcccb&utmsource=PA_${sourceConvert(
+                  source
+                )}${affId}`;
+              }
               const data = await callApi(
                 "urls/new",
                 "post",

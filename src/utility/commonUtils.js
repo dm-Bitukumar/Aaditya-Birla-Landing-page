@@ -123,3 +123,19 @@ export function getBusinessTurnoverFromEntry(turnover) {
 
   return 25000;
 }
+
+export function sourceConvert(source) {
+  return source === "0"
+    ? "SMS"
+    : source === "1"
+    ? "Whatsapp"
+    : source === "2"
+    ? "IVR"
+    : source === "3"
+    ? "RCS"
+    : source === "4"
+    ? "FB"
+    : source === "5"
+    ? "GO"
+    : "";
+}
