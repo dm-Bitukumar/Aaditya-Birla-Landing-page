@@ -145,9 +145,9 @@ label {
   font-weight: 400;
   text-align: center;
   border: 0;
-  padding: 1rem;
+  /* padding: 1rem; */
   font-family: "Montserrat", sans-serif;
-  /* margin: 2rem auto 0 auto; */
+  margin: 2rem auto 0 auto;
 }
 
 .continue-button-sm {
