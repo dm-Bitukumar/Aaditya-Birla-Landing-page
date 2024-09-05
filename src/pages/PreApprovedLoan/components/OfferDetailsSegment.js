@@ -8,7 +8,10 @@ import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
 import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
-import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
+import {
+  getAllianceLeadFromMoneyTapInput,
+  sourceConvert,
+} from "../../../utility/commonUtils";
 import { TRACK_ID } from "../../../utility/enum";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
@@ -71,16 +74,7 @@ const OfferDetailsSegment = () => {
             ...processedLead,
             tracking_id: trackId,
             ip_address: ip,
-            utm_medium:
-              source === "0"
-                ? "SMS"
-                : source === "1"
-                ? "Whatsapp"
-                : source === "2"
-                ? "IVR"
-                : source === "4"
-                ? "RCS"
-                : "",
+            utm_medium: sourceConvert(source),
           },
           lender_id: lead.lender_id,
         },

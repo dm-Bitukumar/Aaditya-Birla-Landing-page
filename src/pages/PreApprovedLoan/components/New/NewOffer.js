@@ -7,7 +7,10 @@ import { setUserClickData } from "../../../../utility/setUserClickData";
 import callApi from "../../../../utility/apiCaller";
 import OfferTile from "../../../PersonalDetails/components/OfferTileNew";
 import OfferTile2 from "../../../PersonalDetails/components/OfferTileNew2";
-import { getAllianceLeadFromMoneyTapInput } from "../../../../utility/commonUtils";
+import {
+  getAllianceLeadFromMoneyTapInput,
+  sourceConvert,
+} from "../../../../utility/commonUtils";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import { TRACK_ID } from "../../../../utility/enum";
@@ -142,16 +145,7 @@ const NewOffer = ({ showPage, setShowPage }) => {
             ...processedLead,
             tracking_id: trackId,
             ip_address: ip,
-            utm_medium:
-              source === "0"
-                ? "SMS"
-                : source === "1"
-                ? "Whatsapp"
-                : source === "2"
-                ? "IVR"
-                : source === "4"
-                ? "RCS"
-                : "",
+            utm_medium: sourceConvert(source),
           },
         },
         "core",
