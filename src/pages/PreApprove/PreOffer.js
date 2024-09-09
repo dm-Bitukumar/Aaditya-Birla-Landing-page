@@ -40,14 +40,16 @@ const PreOffer = ({ PreData, source }) => {
           RECOMMENDED
         </div>
 
-        <div
-          style={{
-            marginTop: "0.7em",
-            marginBottom: "1em",
-          }}
-        >
-          <OfferTile small={false} offer={PreData} source={source} />
-        </div>
+        {PreData && (
+          <div
+            style={{
+              marginTop: "0.7em",
+              marginBottom: "1em",
+            }}
+          >
+            <OfferTile small={false} offer={PreData} source={source} />
+          </div>
+        )}
 
         <p
           className="mt-3 mb-0 text-center"
