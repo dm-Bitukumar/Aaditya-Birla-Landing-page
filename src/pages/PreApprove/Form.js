@@ -288,7 +288,7 @@ const Form = ({ formData, setFormData, ...props }) => {
           </div>
         </>
       )}
-      {isOtpGenerated === 1 && <PreOffer PreData={PreData} source={source} />}
+      {isOtpGenerated === 2 && <PreOffer PreData={PreData} source={source} />}
     </div>
   );
 };
