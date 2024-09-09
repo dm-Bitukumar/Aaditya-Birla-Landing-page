@@ -206,7 +206,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         </div>
       )}
 
-      {isOtpGenerated === 0 && (
+      {isOtpGenerated === 2 && (
         <>
           <div className="absolute top-[30%] -translate-y-[50%] left-0 right-0">
             <img
@@ -273,7 +273,7 @@ const Form = ({ formData, setFormData, ...props }) => {
           </div>
         </>
       )}
-      {isOtpGenerated === 2 && <PreOffer PreData={PreData} source={source} />}
+      {isOtpGenerated === 0 && <PreOffer PreData={PreData} source={source} />}
     </div>
   );
 };
