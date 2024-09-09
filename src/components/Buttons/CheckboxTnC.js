@@ -9,7 +9,7 @@ const CheckboxTnC = ({ checked, handleChange }) => {
   };
 
   return (
-    <div className="checkbox mb-3 pull-left">
+    <div className="mb-1 checkbox pull-left">
       <label className="tnc">
         <input
           onChange={handleChange ? handleChange : handleCheckChanged}

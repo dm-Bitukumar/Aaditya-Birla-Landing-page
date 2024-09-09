@@ -188,7 +188,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   return (
     <div className={"personal-loan-form"}>
       <img
-        className="mt-3 mb-1 img logo-img"
+        className="mt-3 mb-2 img logo-img"
         src="/assets/img/logo.png"
         alt=""
       />
@@ -210,12 +210,12 @@ const Form = ({ formData, setFormData, ...props }) => {
         <>
           <div className="absolute top-[30%] -translate-y-[50%] left-0 right-0">
             <img
-              className="my-5 mb-3 img header-img"
+              className="my-5 mb-3 img header-img lock_img"
               src="/assets/icons/header.png"
               alt=""
             />
             <h1
-              className="mb-3 text-center h3 fw-normal"
+              className="mb-5 text-center h3 fw-normal"
               style={{ fontSize: "20px" }}
             >
               Unlock Your Pre-approved
