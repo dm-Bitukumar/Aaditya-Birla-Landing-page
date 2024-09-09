@@ -317,12 +317,16 @@ label {
     min-width: 100%;
     max-width: 100%;
     top: auto;
-    bottom: 1em;
+    bottom: 0em;
     /* background-color: #f4f8ff; */
     padding-top: 1rem;
     padding-bottom: 3em;
     right: 0;
     left: 0;
+  
+  }
+  .lock_img{
+     height: 180px; 
   }
   .preApproveForm {
     position: fixed;
@@ -332,7 +336,7 @@ label {
     min-width: 100%;
     max-width: 100%;
     top: auto;
-    bottom: 1em;
+    bottom: 0em;
     /* background-color: #f4f8ff; */
     padding-top: 1rem;
     padding-bottom: 3em;

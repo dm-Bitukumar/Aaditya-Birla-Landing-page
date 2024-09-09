@@ -49,7 +49,7 @@ const OfferTile = ({ offer, small, source }) => {
           small ? "px-0 pb-2" : "px-20 pb-6"
         } text-center`}
       >
-        <img width={small ? 100 : 200} src={offer.logo_image_url} />
+        <img width={small ? 100 : 200} src={offer?.logo_image_url} />
         <h2
           className={`${
             small ? "text-sm" : "text-3xl"
