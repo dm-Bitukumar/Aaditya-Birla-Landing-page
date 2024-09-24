@@ -37,7 +37,7 @@ const PreOffer = ({ PreData, source }) => {
             color: "#000",
           }}
         >
-          RECOMMENDED
+          {/* RECOMMENDED */}
         </div>
 
         {PreData && (
