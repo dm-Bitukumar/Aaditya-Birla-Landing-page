@@ -225,7 +225,7 @@ const NewOffer = ({ showPage, setShowPage }) => {
               color: "#fff",
             }}
           >
-            RECOMMENDED
+            {offers.length > 1 ? "RECOMMENDED" : null}
           </div>
           {[...offers]
             .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
