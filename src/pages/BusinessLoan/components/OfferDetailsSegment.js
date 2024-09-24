@@ -139,7 +139,7 @@ const OfferDetailsSegment = () => {
           <h3 className="text-lg">Your pre-approved offers </h3>
 
           <div className="px-10 py-1 mt-4 text-xs font-semibold bg-gray-300 rounded">
-            RECOMMENDED
+            {offers.length > 1 ? "RECOMMENDED" : null}
           </div>
           {[...offers]
             .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
