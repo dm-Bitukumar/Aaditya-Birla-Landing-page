@@ -218,15 +218,17 @@ const NewOffer = ({ showPage, setShowPage }) => {
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 
-          <div
-            className="px-6 py-2 mt-4 text-xs font-semibold rounded "
-            style={{
-              background: "#111",
-              color: "#fff",
-            }}
-          >
-            {offers.length > 1 ? "RECOMMENDED" : null}
-          </div>
+          {offers.length > 1 ? (
+            <div
+              className="px-6 py-2 mt-4 text-xs font-semibold rounded "
+              style={{
+                background: "#111",
+                color: "#fff",
+              }}
+            >
+              RECOMMENDED
+            </div>
+          ) : null}
           {[...offers]
             .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
             .slice(0, 1)
