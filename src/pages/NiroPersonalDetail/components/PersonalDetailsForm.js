@@ -136,10 +136,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
   });
 
   return (
-    <div
-      className={"form-signin-apply form-signin"}
-      style={{ height: "100dvh" }}
-    >
+    <div className={"form-signin-apply "} style={{ height: "100dvh" }}>
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}

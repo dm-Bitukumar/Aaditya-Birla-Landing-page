@@ -136,7 +136,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
 
   return (
     <div
-      className={"form-signin-apply form-signin"}
+      className={"form-signin-apply"}
       style={{
         height: "100dvh",
       }}

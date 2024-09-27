@@ -119,7 +119,7 @@ const OfferDetailsSegment = () => {
 
   return (
     <div
-      className={"form-signin-apply form-signin"}
+      className={"form-signin-apply "}
       style={{
         height: "100dvh",
         color: "GrayText",
