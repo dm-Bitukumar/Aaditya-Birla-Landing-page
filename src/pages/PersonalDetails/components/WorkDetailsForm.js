@@ -153,7 +153,9 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     });
     const isValid = handleValidate();
     if (isValid) {
-      dispatch(setLead({ ...data, stepDone: 2 }));
+      dispatch(
+        setLead({ ...data, monthly_income: monthlyIncome, stepDone: 2 })
+      );
       dispatch(setOffers([]));
       nextStep();
     }
