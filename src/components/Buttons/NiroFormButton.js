@@ -14,7 +14,11 @@ const FormButton = ({ className, type, ...props }) => {
 
   return (
     <button
-      style={{ whiteSpace: "nowrap" }}
+      style={{
+        whiteSpace: "nowrap",
+        fontSize: "0.85em",
+        fontWeight: "600",
+      }}
       className={` btn btn-lg ${handleCalculateStyles(type)} ${className}`}
       type="submit"
       {...props}

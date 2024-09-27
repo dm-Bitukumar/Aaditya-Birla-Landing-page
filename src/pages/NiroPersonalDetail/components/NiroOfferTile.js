@@ -92,8 +92,9 @@ const OfferTile = ({ offer, small, source }) => {
           <h5
             className="mt-20 text-xs font-semibold"
             style={{
-              color: "#fff",
+              color: "#f4f4f4",
               textAlign: "center",
+              fontSize: "1em",
             }}
           >
             Maddy Bellwoar
@@ -107,8 +108,7 @@ const OfferTile = ({ offer, small, source }) => {
               padding: "1em 0",
             }}
           >
-            Amount:
-            {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
+            Amount : {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
           </h1>
 
           {/* <h5 className="text-xs font-semibold">
@@ -131,7 +131,10 @@ const OfferTile = ({ offer, small, source }) => {
           Powered by the Niro
         </h5>
       </div>
-      <NiroFormButton onClick={handleClick} className="!mt-4 !min-w-64">
+      <NiroFormButton
+        onClick={handleClick}
+        className="!mt-4 !min-w-72 !py-4 !px-6"
+      >
         ACCEPT AND CONTINUE
       </NiroFormButton>
 
