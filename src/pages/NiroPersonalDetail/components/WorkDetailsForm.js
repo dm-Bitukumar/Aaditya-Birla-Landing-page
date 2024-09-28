@@ -5,11 +5,13 @@ import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
 import WorkDetail from "./workDetail";
 import SelfEmployedForm from "./SelfEmployedForm";
+import ContinueBtn from "../../../components/Buttons/ContinueBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead, setOffers } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import numberToWords from "../../../utility/numberToWords";
 import { formatAmount } from "../../../utility/amountFormat";
+import { toast } from "react-toastify";
 
 const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const dispatch = useDispatch();
@@ -122,7 +124,8 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         setLead({ ...data, monthly_income: monthlyIncome, stepDone: 2 })
       );
       dispatch(setOffers([]));
-      nextStep();
+      // nextStep();
+      toast("Thank you!");
     }
   };
 
@@ -166,10 +169,16 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         className={"d-flex gap-3"}
         style={{ position: "absolute", bottom: "10px" }}
       >
-        <FormButton type={"secondary"} onClick={handleBack}>
+        <ContinueBtn
+          className="!py-4 !px-6"
+          type={"secondary"}
+          onClick={handleBack}
+        >
           Back
-        </FormButton>
-        <FormButton onClick={handleSubmit}>Continue</FormButton>
+        </ContinueBtn>
+        <ContinueBtn className="!py-4 !px-6" onClick={handleSubmit}>
+          Continue
+        </ContinueBtn>
       </div>
     </div>
   );

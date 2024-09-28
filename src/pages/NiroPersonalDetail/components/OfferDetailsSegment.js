@@ -4,7 +4,6 @@ import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
 import SalariedForm from "./SalariedForm";
-import NiroOfferTile from "./NiroOfferTile";
 import SelfEmployedForm from "./SelfEmployedForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead, setOffers } from "../../../store/app/appReducer";
@@ -118,13 +117,7 @@ const OfferDetailsSegment = () => {
   };
 
   return (
-    <div
-      className={"form-signin-apply "}
-      style={{
-        height: "100dvh",
-        color: "GrayText",
-      }}
-    >
+    <div className={"form-signin-apply form-signin"}>
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
@@ -141,31 +134,76 @@ const OfferDetailsSegment = () => {
           There is no offer for you currently.
         </div>
       )}
+      {offers?.length > 0 && (
+        <div className="flex flex-col items-center justify-center">
+          <img src="/assets/img/Dm LOGO.png" />
 
-      <div className="flex flex-col items-center justify-center">
-        <img src="/assets/img/Dm LOGO.png" />
+          <h3 className="mt-8 text-lg text-center">
+            Congratulations{" "}
+            <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
+          </h3>
+          <h3 className="text-lg">Your pre-approved offers </h3>
 
-        <h3 className="mt-8 text-lg text-center">
-          Congratulations{" "}
-          <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
-        </h3>
-        <h3 className="text-lg">Your pre-approved offers </h3>
-        {offers.length > 1 ? (
-          <div className="px-10 py-1 mt-4 text-xs font-semibold bg-gray-300 rounded">
-            RECOMMENDED
+          {offers.length > 1 ? (
+            <div className="px-10 py-1 mt-4 text-xs font-semibold bg-gray-300 rounded">
+              RECOMMENDED
+            </div>
+          ) : null}
+          {[...offers]
+            .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
+            .slice(0, 1)
+            .map((e, i) => (
+              <div key={e._id} className="my-4">
+                <OfferTile small={false} offer={e} source={source} />
+              </div>
+            ))}
+          <div
+            className={
+              "grid gap-4" +
+              (offers.length === 2
+                ? " grid-cols-1"
+                : offers.length === 3
+                ? " grid-cols-2"
+                : " grid-cols-3")
+            }
+          >
+            {[...offers]
+              .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
+              .slice(1, show ? 1000 : 4)
+              .map((e, i) => (
+                <div key={e._id} className="">
+                  <OfferTile small offer={e} source={source} />
+                </div>
+              ))}
           </div>
-        ) : null}
-        <div key={"e._id"} className="my-4">
-          <NiroOfferTile small={false} offer={"e"} source={source} />
-        </div>
 
-        <h4 className="mt-4 text-xs text-center">
-          *These pre-approved offers are subject to change at discretion of Bank
-          / NBFC after receiving all your documents and details. Final offer
-          will be based on risk policy of Bank / NBFC. We do not guarantee that
-          final offer will be same as Pre-approved offer.
-        </h4>
-      </div>
+          {offers.length > 4 && !show && (
+            <div>
+              <FormButton
+                // small={small}
+                onClick={handelShow}
+                className="!mt-12 !w-40"
+              >
+                View more
+              </FormButton>
+            </div>
+          )}
+
+          {!isFinished && (
+            <div className="mt-4 font-normal text-center">
+              Please wait while we are searching best offers for you
+              <span class="ml-2 dot-pulse"></span>
+            </div>
+          )}
+
+          <h4 className="mt-4 text-xs text-center">
+            *These pre-approved offers are subject to change at discretion of
+            Bank / NBFC after receiving all your documents and details. Final
+            offer will be based on risk policy of Bank / NBFC. We do not
+            guarantee that final offer will be same as Pre-approved offer.
+          </h4>
+        </div>
+      )}
     </div>
   );
 };

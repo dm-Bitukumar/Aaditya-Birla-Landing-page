@@ -6,6 +6,7 @@ import FormInputNewNiro from "../../../components/Form/FormInputNewNiro";
 import FormDob from "../../../components/Form/FormDob";
 import FormSelect from "../../../components/Form/FormSelect";
 import FormButton from "../../../components/Buttons/FormButton";
+import ContinueBtn from "../../../components/Buttons/ContinueBtn";
 import _ from "lodash";
 import dayjs from "dayjs";
 import { next } from "lodash/seq";
@@ -156,7 +157,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
         setActiveGender={(value) => handleDataChange("gender", value)}
       />
       <FormInputNewNiro
-        placeholder="Name"
+        placeholder="Full Name as per Pan Card"
         required
         id="name"
         value={data.name}
@@ -164,7 +165,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
         errorMessage={errorMessage}
         isValid={errors !== "name"}
         icon={<img src="/assets/icons/male.png" style={{ height: "25px" }} />}
-        label={"Full Name"}
+        label={"Full Name as per Pan Card"}
       />
       <FormInputNewNiro
         icon={
@@ -212,12 +213,12 @@ const PersonalDetailsForm = ({ nextStep }) => {
         onChange={handlePancardChange}
         required
         style={{ textTransform: "uppercase" }}
-        label={"Pancard"}
+        label={"PAN Card"}
         errorMessage={"Please enter a valid PAN number"}
       />
       <FormInputNewNiro
         type={"email"}
-        placeholder="email"
+        placeholder="Personal Email ID"
         required
         id="email"
         value={data.email}
@@ -225,7 +226,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
         errorMessage={errorMessage}
         isValid={errors !== "email"}
         icon={<img src="/assets/icons/email.png" style={{ height: "25px" }} />}
-        label={"Email"}
+        label={"Personal Email ID"}
       />
       <FormInputNewNiro
         type={"text"}
@@ -257,7 +258,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
       />
       <FormInputNewNiro
         type={"number"}
-        placeholder="Enter home pincode"
+        placeholder="Home Pin Code"
         required
         id="pincode"
         value={data.pincode}
@@ -267,10 +268,12 @@ const PersonalDetailsForm = ({ nextStep }) => {
         icon={
           <img src="/assets/icons/pincode.png" style={{ height: "25px" }} />
         }
-        label={"Pincode"}
+        label={"Home Pin Code"}
       />
       <div className="preApprovebutton">
-        <FormButton onClick={handleSubmit}>Continue</FormButton>
+        <ContinueBtn className="!py-4 !px-6" onClick={handleSubmit}>
+          Continue
+        </ContinueBtn>
       </div>
     </div>
   );

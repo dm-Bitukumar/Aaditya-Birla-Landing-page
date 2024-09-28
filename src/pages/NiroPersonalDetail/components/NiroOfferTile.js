@@ -20,10 +20,9 @@ const OfferTile = ({ offer, small, source }) => {
   }, [show]);
 
   const handleContinueClick = () => {
-    setShow(false);
     setUserClickData({ event_name: "offer-continue-button" });
 
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
+    var win = window.open(`${offer?.app_url}${source}`, "_blank");
     win.focus();
   };
 
@@ -108,7 +107,7 @@ const OfferTile = ({ offer, small, source }) => {
               padding: "1em 0",
             }}
           >
-            Amount : {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
+            Amount : {convertNumberToIndianFormat(offer?.credit_limit ?? 0)}
           </h1>
 
           {/* <h5 className="text-xs font-semibold">
@@ -132,28 +131,12 @@ const OfferTile = ({ offer, small, source }) => {
         </h5>
       </div>
       <NiroFormButton
-        onClick={handleClick}
+        onClick={handleContinueClick}
         className="!mt-4 !min-w-72 !py-4 !px-6"
       >
         ACCEPT AND CONTINUE
       </NiroFormButton>
 
-      {/* <div>
-          {show == true && (
-            <Model
-              show={show}
-              handleClick={handleContinueClick}
-              setShow={setShow}
-              offer={offer}
-            />
-          )}
-        </div> */}
-
-      {/* {small && (
-        <FormButton small={small} onClick={handleClick} className="!mt-2">
-          APPLY NOW
-        </FormButton>
-      )} */}
       {showModel && (
         <NewOfferModel
           show={showModel}

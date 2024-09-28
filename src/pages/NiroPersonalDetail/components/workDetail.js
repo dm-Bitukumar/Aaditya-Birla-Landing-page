@@ -59,7 +59,7 @@ const WorkDetail = ({
         onChange={(value) => handleDataChange("company_type", value)}
         errorMessage={errorMessage}
         isValid={errors !== "company_type"}
-        icon={<img src="/assets/icons/toc.png" style={{ height: "25px" }} />}
+        icon={<img src="/assets/icons/cname.png" style={{ height: "25px" }} />}
         label={"Company Type"}
       />
       <FormInputNewNiro
@@ -86,7 +86,7 @@ const WorkDetail = ({
         icon={<img src="/assets/icons/income.png" style={{ height: "25px" }} />}
         label={"Monthly Income"}
       />
-      {words && <p className={"my-3"}>{words}</p>}
+      {words && <p className={"my-2"}>{words}</p>}
       <FormInputNewNiro
         type={"text"}
         placeholder="Work Address Line 1"

@@ -27,17 +27,23 @@ const CheckboxTnC = ({ checked, handleChange }) => {
         I have read and agreed to the{" "}
         <Link
           to="/terms"
-          style={{ color: "#000", fontSize: "10px" }}
+          style={{
+            color: "#111",
+            fontWeight: "600",
+            fontSize: "10px",
+            textDecoration: "underline",
+            textDecorationColor: "grey",
+          }}
           onClick={() => {
             setUserClickData({
               event_name: "link-to-terms-page",
             });
           }}
         >
-          <b>Terms of Use</b>
+          Terms of Use
         </Link>{" "}
         and hereby give my consent to DigitMoney and its{" "}
-        <Link
+        {/* <Link
           to="/lenders"
           style={{ color: "#000", fontSize: "10px" }}
           onClick={() => {
@@ -45,13 +51,13 @@ const CheckboxTnC = ({ checked, handleChange }) => {
               event_name: "link-to-lenders-page",
             });
           }}
-        >
-          <b>Lending Partners</b>
-        </Link>{" "}
+        > */}
+        Lending Partners
+        {/* </Link> */}
         receive my credit information from credit bureaus. By submitting my
         details | override my NDNO registration & give consent to DigitMoney and
         its{" "}
-        <Link
+        {/* <Link
           to="/lenders"
           style={{ color: "#000", fontSize: "10px" }}
           onClick={() => {
@@ -59,12 +65,12 @@ const CheckboxTnC = ({ checked, handleChange }) => {
               event_name: "link-to-lenders-page",
             });
           }}
-        >
-          <b>Lending Partners</b>
-        </Link>{" "}
-        / representatives to contact me through Call, SMS, Email, WhatsApp, or
-        any other mode. You also authorize us to send you new promotional offers
-        of financial & non-financial products or services from time to time.
+        > */}
+        Lending Partners
+        {/* </Link> */} / representatives to contact me through Call, SMS,
+        Email, WhatsApp, or any other mode. You also authorize us to send you
+        new promotional offers of financial & non-financial products or services
+        from time to time.
       </label>
     </div>
   );
