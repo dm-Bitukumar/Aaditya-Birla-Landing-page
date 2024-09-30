@@ -68,7 +68,7 @@ const OtpInputForm = ({
   return (
     <div style={style}>
       <h1
-        className="my-4  h3 fw-normal"
+        className="my-4 h3 fw-normal"
         align="left"
         style={{
           fontSize: "18px !important",
@@ -186,6 +186,7 @@ const OtpInputForm = ({
       <div className="">
         <div className="preApprovebutton">
           <FormButton
+            className="!py-4 !px-6"
             // style={buttonStyle}
             onClick={handleSubmit}
             id="myBtn"

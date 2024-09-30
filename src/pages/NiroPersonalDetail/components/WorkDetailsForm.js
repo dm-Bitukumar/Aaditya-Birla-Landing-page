@@ -143,7 +143,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     <div
       className={"form-signin-apply"}
       style={{
-        height: "100dvh",
+        height: "120dvh",
       }}
     >
       <HeadBar />
