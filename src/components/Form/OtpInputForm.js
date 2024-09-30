@@ -68,9 +68,12 @@ const OtpInputForm = ({
   return (
     <div style={style}>
       <h1
-        className="my-4 h3 fw-normal"
+        className="my-4  h3 fw-normal"
         align="left"
-        style={{ fontSize: "18px !important", fontWeight: "lighter" }}
+        style={{
+          fontSize: "18px !important",
+          fontWeight: "lighter",
+        }}
       >
         Mobile OTP Verification
       </h1>

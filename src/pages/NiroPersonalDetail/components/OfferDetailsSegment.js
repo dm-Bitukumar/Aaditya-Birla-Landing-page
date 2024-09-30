@@ -3,37 +3,42 @@ import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
+import SalariedForm from "./SalariedForm";
+import SelfEmployedForm from "./SelfEmployedForm";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
-import OfferTile from "../../PersonalDetails/components/OfferTile";
+import OfferTile from "./OfferTile";
 import { toast } from "react-toastify";
 import {
   getAllianceLeadFromMoneyTapInput,
-  getBusinessTurnoverFromEntry,
-  getBusinessVintageFromEntry,
   sourceConvert,
 } from "../../../utility/commonUtils";
-import { TRACK_ID } from "../../../utility/enum";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import { TRACK_ID } from "../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { state } = location;
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
   const [isFinished, setIsFinished] = useState(false);
   const [show, setShow] = useState(false);
-  const [leadId, setLeadId] = useState();
   const [source, setSource] = useState("");
+  const [utmSource, setUtmSource] = useState("");
+  const [affId, setAffId] = useState("");
+  const [leadId, setLeadId] = useState();
   const [params] = useSearchParams();
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
+    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
-
-  //   662a73413a05656cf94543c4
 
   useEffect(() => {
     if (lead.stepDone === 2 && !leadId) {
@@ -51,20 +56,25 @@ const OfferDetailsSegment = () => {
 
   const submitLead = async () => {
     setUserClickData({
-      event_name: "business-loan-page",
+      event_name: "personal-detail-api",
     });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
+      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
+        contact_name: state?.contact_name,
+        ...lead,
+        ...user,
+      });
+
       const res = await callApi(
-        `v1/lead/${lead._id}/update-lead`,
+        "v1/lead/website-lead",
         "post",
         {
           lead: {
-            ...lead,
+            ...processedLead,
             tracking_id: trackId,
-            gst: lead.gst_no,
-            turnover: getBusinessTurnoverFromEntry(lead.turnover),
-            business_vintage: getBusinessVintageFromEntry(lead.company_age),
+            aff_id: affId,
+            utm_source: utmSource,
             utm_medium: sourceConvert(source),
           },
         },
@@ -182,6 +192,7 @@ const OfferDetailsSegment = () => {
               </FormButton>
             </div>
           )}
+
           {!isFinished && (
             <div className="mt-4 font-normal text-center">
               Please wait while we are searching best offers for you
