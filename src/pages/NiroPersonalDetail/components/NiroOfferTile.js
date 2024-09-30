@@ -124,7 +124,13 @@ const OfferTile = ({ amount, small, source, contactName }) => {
           Powered by the Niro
         </h5>
       </div>
-      <Link to={`${source}&vendorName=digitmoney`}>
+      <Link
+        to={`${source}&vendorName=digitmoney`}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <NiroFormButton
           // onClick={handleContinueClick}
           className="!mt-4 !min-w-72 !py-4 !px-6"

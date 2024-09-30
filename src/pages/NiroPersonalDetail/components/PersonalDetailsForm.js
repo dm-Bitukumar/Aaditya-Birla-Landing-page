@@ -133,7 +133,10 @@ const PersonalDetailsForm = ({ nextStep }) => {
   };
 
   return (
-    <div className={"form-signin-apply "} style={{ height: "100dvh" }}>
+    <div
+      className={"form-signin-apply "}
+      style={{ height: "120dvh", overflowY: "scroll" }}
+    >
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
@@ -166,7 +169,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
       <FormInputNewNiro
         icon={
           <img
-            src="/assets/img/Icon 5.png"
+            src="/assets/icons/dob.png"
             height="25"
             style={{ maxHeight: "25px" }}
             alt="icon 5.png"
