@@ -15,8 +15,9 @@
 }
 
 .header-img {
-  height: 210px;
+  height: 8em;
 }
+
 
 .img {
   margin: auto;
@@ -124,4 +125,10 @@ input::-webkit-inner-spin-button {
   flex-wrap: wrap;
   align-items: stretch;
   width: 100%;
+}
+
+@media (max-width: 390px ){
+  .header-img{
+    height: 7em;
+  }
 }

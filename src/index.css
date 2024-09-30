@@ -320,7 +320,7 @@ label {
     bottom: 0em;
     /* background-color: #f4f8ff; */
     padding-top: 1rem;
-    padding-bottom: 3em;
+    padding-bottom: 0.5em;
     right: 0;
     left: 0;
   
@@ -344,3 +344,4 @@ label {
     left: 0;
   }
 }
+
