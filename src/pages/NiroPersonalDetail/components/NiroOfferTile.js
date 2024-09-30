@@ -6,41 +6,33 @@ import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
 import NiroFormButton from "../../../components/Buttons/NiroFormButton";
 
-const OfferTile = ({ offer, small, source }) => {
+const OfferTile = ({ amount, small, source, contactName }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
 
-  // useEffect(() => {
-  //   if (show) {
-  //     document.body.classList.add("overflow-hidden");
-  //   } else {
-  //     document.body.classList.remove("overflow-hidden");
-  //   }
-  // }, [show]);
-
   const handleContinueClick = () => {
     setUserClickData({ event_name: "offer-continue-button" });
 
-    var win = window.open(`${offer?.app_url}${source}`, "_blank");
+    var win = window.open(`${source}`, "_blank");
     win.focus();
   };
 
-  const handleClick = () => {
-    if (offer.lender_name === "Prefr") {
-      setShow(true);
-      return;
-    }
-    if (offer.lender_name === "CashE") {
-      setOfferLink(`${offer.app_url}${source}`);
-      setShowModel(true);
-      return;
-    }
+  // const handleClick = () => {
+  //   if (offer.lender_name === "Prefr") {
+  //     setShow(true);
+  //     return;
+  //   }
+  //   if (offer.lender_name === "CashE") {
+  //     setOfferLink(`${offer.app_url}${source}`);
+  //     setShowModel(true);
+  //     return;
+  //   }
 
-    setUserClickData({ event_name: "offer-apply-button" });
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
-    win.focus();
-  };
+  //   setUserClickData({ event_name: "offer-apply-button" });
+  //   var win = window.open(`${source}`, "_blank");
+  //   win.focus();
+  // };
 
   return (
     <div className="flex flex-col ">
@@ -97,7 +89,7 @@ const OfferTile = ({ offer, small, source }) => {
               fontSize: "1em",
             }}
           >
-            {offer?.contact_name}
+            {contactName}
           </h5>
           <h1
             className="mt-3 font-bold "
@@ -108,8 +100,7 @@ const OfferTile = ({ offer, small, source }) => {
               padding: "1em 0",
             }}
           >
-            Amount :{" "}
-            {convertNumberToIndianFormat(offer?.offers?.[0]?.credit_limit ?? 0)}
+            Amount : {convertNumberToIndianFormat(amount ?? 0)}
           </h1>
 
           {/* <h5 className="text-xs font-semibold">

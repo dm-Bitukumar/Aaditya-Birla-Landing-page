@@ -29,16 +29,16 @@ const OfferDetailsSegment = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [show, setShow] = useState(false);
   const [source, setSource] = useState("");
-  const [utmSource, setUtmSource] = useState("");
-  const [affId, setAffId] = useState("");
+  const [amount, setAmount] = useState("");
+  const [contactName, setContactName] = useState("");
   const [leadId, setLeadId] = useState();
   const [params] = useSearchParams();
   console.log(state);
-  // useEffect(() => {
-  //   if (params.get("source")) setSource(params.get("source"));
-  //   if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
-  //   if (params.get("aff_id")) setAffId(params.get("aff_id"));
-  // }, [params]);
+  useEffect(() => {
+    if (params.get("app_url")) setSource(params.get("app_url"));
+    if (params.get("amount")) setAmount(params.get("amount"));
+    if (params.get("contact_name")) setContactName(params.get("contact_name"));
+  }, [params]);
 
   // useEffect(() => {
   //   if (lead.stepDone === 2 && !leadId) {
@@ -132,12 +132,12 @@ const OfferDetailsSegment = () => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       /> */}
-      {state === null && (
+      {/* {state === null && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span class="ml-2 dot-pulse"></span>
         </div>
-      )}
+      )} */}
       {/* {lead === null === 0 && (
         <div className="mb-4 font-normal text-center">
           There is no offer for you currently.
@@ -150,7 +150,7 @@ const OfferDetailsSegment = () => {
         <h3 className="mt-8 text-lg text-center">
           Congratulations{" "}
           <span className="text-2xl font-normal">
-            {state?.contact_name?.split(" ")[0]}!!
+            {contactName?.split(" ")[0]}!!
           </span>{" "}
         </h3>
         <h3 className="text-lg">Your pre-approved offers </h3>
@@ -160,7 +160,12 @@ const OfferDetailsSegment = () => {
           </div> */}
         {/* ) : null */}
         <div className="my-4">
-          <NiroOfferTile small={false} offer={state} source={source} />
+          <NiroOfferTile
+            small={false}
+            amount={amount}
+            source={source}
+            contactName={contactName}
+          />
         </div>
 
         <h4 className="mt-20 text-xs text-center">
