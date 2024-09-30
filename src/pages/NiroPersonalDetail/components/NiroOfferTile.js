@@ -4,6 +4,7 @@ import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
+import { Link } from "react-router-dom";
 import NiroFormButton from "../../../components/Buttons/NiroFormButton";
 
 const OfferTile = ({ amount, small, source, contactName }) => {
@@ -11,12 +12,12 @@ const OfferTile = ({ amount, small, source, contactName }) => {
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
 
-  const handleContinueClick = () => {
-    setUserClickData({ event_name: "offer-continue-button" });
+  // const handleContinueClick = () => {
+  //   setUserClickData({ event_name: "offer-continue-button" });
 
-    var win = window.open(`${source}`, "_blank");
-    win.focus();
-  };
+  //   var win = window.open(`${source}`, "");
+  //   win.focus();
+  // };
 
   // const handleClick = () => {
   //   if (offer.lender_name === "Prefr") {
@@ -123,12 +124,14 @@ const OfferTile = ({ amount, small, source, contactName }) => {
           Powered by the Niro
         </h5>
       </div>
-      <NiroFormButton
-        onClick={handleContinueClick}
-        className="!mt-4 !min-w-72 !py-4 !px-6"
-      >
-        ACCEPT AND CONTINUE
-      </NiroFormButton>
+      <Link to={`${source}&vendorName=digitmoney`}>
+        <NiroFormButton
+          // onClick={handleContinueClick}
+          className="!mt-4 !min-w-72 !py-4 !px-6"
+        >
+          ACCEPT AND CONTINUE
+        </NiroFormButton>
+      </Link>
 
       {showModel && (
         <NewOfferModel
