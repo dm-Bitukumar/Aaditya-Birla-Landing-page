@@ -161,8 +161,7 @@ const Form = () => {
             if (result?.data?.status === true) {
               dispatch(setLead({ ...result.data }));
               navigate(
-                `/niro-offer?aff_id=${affId}&utm_source=${utmSource}&source=${source}`,
-                { state: result.data }
+                `/niro-offer?contact_name=${result.data?.contact_name}&amount=${result?.data?.offers?.[0]?.credit_limit}&app_url=${result?.data?.app_url}`
               );
             } else {
               navigate(
@@ -198,9 +197,6 @@ const Form = () => {
             className="mt-3 mb-3 img header-img"
             src="/assets/img/header.png"
             alt=""
-            style={{
-              height: "20em",
-            }}
           />
           <h1
             className="mb-3 text-center h3 fw-normal"
