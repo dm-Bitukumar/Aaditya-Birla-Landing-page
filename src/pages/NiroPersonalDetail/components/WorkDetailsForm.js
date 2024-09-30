@@ -143,7 +143,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     <div
       className={"form-signin-apply"}
       style={{
-        height: "120dvh",
+        height: "150dvh",
       }}
     >
       <HeadBar />
@@ -168,8 +168,9 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         handleDataChange={handleDataChange}
       />
       <div
-        className={"d-flex gap-3"}
-        style={{ position: "absolute", bottom: "10px" }}
+        // className=""
+        className={"d-flex gap-3 preApprovebutton"}
+        // style={{ position: "absolute", bottom: "10px" }}
       >
         <ContinueBtn
           className="!py-4 !px-6"
