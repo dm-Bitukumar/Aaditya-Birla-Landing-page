@@ -138,7 +138,6 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     });
     previousStep();
   };
-  console.log({ ...data, monthly_income: monthlyIncome.replace(/[^\d]/g, "") });
 
   return (
     <div

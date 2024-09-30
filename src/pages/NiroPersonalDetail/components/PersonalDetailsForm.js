@@ -131,11 +131,6 @@ const PersonalDetailsForm = ({ nextStep }) => {
       dispatch(setLead({ ...localData, stepDone: 1 }));
     }
   };
-  console.log({
-    ...data,
-    pancard: pancard,
-    dob: dob,
-  });
 
   return (
     <div className={"form-signin-apply "} style={{ height: "100dvh" }}>
