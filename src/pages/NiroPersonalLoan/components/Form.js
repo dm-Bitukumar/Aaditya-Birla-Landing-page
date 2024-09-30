@@ -183,7 +183,12 @@ const Form = () => {
   };
 
   return (
-    <div className={"personal-loan-form"}>
+    <div
+      className={"personal-loan-form"}
+      style={{
+        height: "70dvh",
+      }}
+    >
       {" "}
       <img
         className="mt-3 mb-1 img logo-img"
@@ -241,7 +246,7 @@ const Form = () => {
           <FormInputNewNiro
             icon={
               <img
-                src="/assets/img/Icon 2.png"
+                src="/assets/icons/male.png"
                 height="25"
                 style={{ maxHeight: "25px" }}
                 alt="icon 2.png"
