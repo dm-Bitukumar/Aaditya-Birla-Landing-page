@@ -40,7 +40,7 @@ const CustomCheckboxGroup = ({
               style={{
                 marginLeft: "1.5em",
               }}
-              src="/assets/img/Icon 2.png"
+              src="/assets/icons/male.png"
               alt="Male"
               className="gender-image"
             />
@@ -84,7 +84,7 @@ const CustomCheckboxGroup = ({
               style={{
                 marginLeft: "1.5em",
               }}
-              src="/assets/img/Icon 3.png"
+              src="/assets/icons/female.png"
               alt="Female"
               className="gender-image"
             />
