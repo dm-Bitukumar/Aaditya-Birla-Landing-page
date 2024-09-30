@@ -17,10 +17,12 @@ const Form = () => {
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [mobile, setMobile] = useState("");
+  const [userName, setUserName] = useState("");
   const [ipAddress, setIpAddress] = useState("");
   const [source, setSource] = useState("");
   const [utmSource, setUtmSource] = useState("");
   const [affId, setAffId] = useState("");
+  const [isUserNameValid, setIsUserNameValid] = useState(true);
 
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
@@ -59,6 +61,10 @@ const Form = () => {
       isValid = false;
       setIsMobileValid(false);
     }
+    if (_.isEmpty(userName)) {
+      isValid = false;
+      setIsUserNameValid(false);
+    }
 
     return isValid;
   };
@@ -92,6 +98,13 @@ const Form = () => {
 
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
+  };
+
+  const handleUserNameChange = (event) => {
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^A-Za-z" "]/g, "");
+    setIsUserNameValid(true);
+    setUserName(inputValue);
   };
 
   const handleResendOtp = async () => {
@@ -136,25 +149,31 @@ const Form = () => {
           const result = await callApi(
             "v1/lender/fb-niro-first-check",
             "post",
+
             {
+              contact_name: userName,
               contact_phone: mobile,
               ip_address: ipAddress,
             },
             "loan"
           );
           if (result?.status === "Success") {
-            dispatch(setLead({ ...result.data }));
-            navigate(
-              `/niro-offer?aff_id=${affId}&utm_source=${utmSource}&source=${source}`
-            );
+            if (result?.data?.status === true) {
+              dispatch(setLead({ ...result.data }));
+              navigate(
+                `/niro-offer?aff_id=${affId}&utm_source=${utmSource}&source=${source}`,
+                { state: result.data }
+              );
+            } else {
+              navigate(
+                `/niro-apply?aff_id=${affId}&utm_source=${utmSource}&source=${source}`,
+                { state: result.data }
+              );
+            }
           }
           // if (result?.status === "Error") {
           // }
-        } catch (err) {
-          navigate(
-            `/niro-apply?aff_id=${affId}&utm_source=${utmSource}&source=${source}`
-          );
-        }
+        } catch (err) {}
       }
     } catch (err) {
       if (err.response.data.data.message === "Invalid OTP") {
@@ -223,6 +242,27 @@ const Form = () => {
           <input type="hidden" name="click_id" value="" />
           <input type="hidden" name="aff_id" value="" />
           <input type="hidden" name="src" value="" />
+          <FormInputNewNiro
+            icon={
+              <img
+                src="/assets/img/Icon 2.png"
+                height="25"
+                style={{ maxHeight: "25px" }}
+                alt="icon 2.png"
+              />
+            }
+            type="text"
+            name="userName"
+            isValid={isUserNameValid}
+            id="userName"
+            aria-describedby="name"
+            placeholder="Full Name"
+            value={userName}
+            onChange={handleUserNameChange}
+            required
+            label={"Full Name"}
+            errorMessage={"Please enter a valid user name"}
+          />
 
           <FormInputNewNiro
             icon={

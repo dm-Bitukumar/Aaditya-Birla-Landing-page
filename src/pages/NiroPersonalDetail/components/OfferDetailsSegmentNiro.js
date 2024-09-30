@@ -17,11 +17,13 @@ import {
 } from "../../../utility/commonUtils";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
-  const lead = useSelector((state) => state.app.lead);
+  const location = useLocation();
+  const { state } = location;
+  // const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
   const [isFinished, setIsFinished] = useState(false);
@@ -31,7 +33,7 @@ const OfferDetailsSegment = () => {
   const [affId, setAffId] = useState("");
   const [leadId, setLeadId] = useState();
   const [params] = useSearchParams();
-
+  console.log(state);
   // useEffect(() => {
   //   if (params.get("source")) setSource(params.get("source"));
   //   if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
@@ -130,7 +132,7 @@ const OfferDetailsSegment = () => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       /> */}
-      {lead === null && (
+      {state === null && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span class="ml-2 dot-pulse"></span>
@@ -147,7 +149,9 @@ const OfferDetailsSegment = () => {
 
         <h3 className="mt-8 text-lg text-center">
           Congratulations{" "}
-          <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
+          <span className="text-2xl font-normal">
+            {state?.contact_name?.split(" ")[0]}!!
+          </span>{" "}
         </h3>
         <h3 className="text-lg">Your pre-approved offers </h3>
         {/* {of.length > 1 ? (
@@ -156,10 +160,10 @@ const OfferDetailsSegment = () => {
           </div> */}
         {/* ) : null */}
         <div className="my-4">
-          <NiroOfferTile small={false} offer={lead} source={source} />
+          <NiroOfferTile small={false} offer={state} source={source} />
         </div>
 
-        <h4 className="mt-4 text-xs text-center">
+        <h4 className="mt-20 text-xs text-center">
           *These pre-approved offers are subject to change at discretion of Bank
           / NBFC after receiving all your documents and details. Final offer
           will be based on risk policy of Bank / NBFC. We do not guarantee that

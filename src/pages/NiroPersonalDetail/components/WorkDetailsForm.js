@@ -121,11 +121,14 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     const isValid = handleValidate();
     if (isValid) {
       dispatch(
-        setLead({ ...data, monthly_income: monthlyIncome, stepDone: 2 })
+        setLead({
+          ...data,
+          monthly_income: monthlyIncome.replace(/[^\d]/g, ""),
+          stepDone: 2,
+        })
       );
       dispatch(setOffers([]));
-      // nextStep();
-      toast("Thank you!");
+      nextStep();
     }
   };
 
@@ -135,7 +138,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     });
     previousStep();
   };
-  console.log({ ...data, monthly_income: monthlyIncome });
+  console.log({ ...data, monthly_income: monthlyIncome.replace(/[^\d]/g, "") });
 
   return (
     <div

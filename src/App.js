@@ -25,7 +25,7 @@ import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
 import PreApprove from "./pages/PreApprove/PreApprove";
 import NiroPersonalLoan from "./pages/NiroPersonalLoan/NiroPersonalLoan";
 import NiroPersonalDetails from "./pages/NiroPersonalDetail/PersonalDetails";
-import OfferDetailsSegment from "./pages/NiroPersonalDetail/components/OfferDetailsSegment";
+import OfferDetailsSegmentNiro from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro";
 
 function App() {
   const location = useLocation();
@@ -99,12 +99,12 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/preapprove" element={<PreApprove />} />
-        <Route path="/niro" element={<NiroPersonalLoan />} />
+        <Route path="/niro-pre" element={<NiroPersonalLoan />} />
         <Route
           path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
         />
-        <Route path="/niro-offer" element={<OfferDetailsSegment />} />
+        <Route path="/niro-offer" element={<OfferDetailsSegmentNiro />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
       </Routes>
     </>

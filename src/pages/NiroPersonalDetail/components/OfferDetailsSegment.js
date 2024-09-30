@@ -6,6 +6,7 @@ import _ from "lodash";
 import SalariedForm from "./SalariedForm";
 import SelfEmployedForm from "./SelfEmployedForm";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
 import OfferTile from "./OfferTile";
@@ -20,6 +21,8 @@ import { useSearchParams } from "react-router-dom";
 
 const OfferDetailsSegment = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { state } = location;
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
@@ -58,6 +61,7 @@ const OfferDetailsSegment = () => {
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
+        contact_name: state?.contact_name,
         ...lead,
         ...user,
       });

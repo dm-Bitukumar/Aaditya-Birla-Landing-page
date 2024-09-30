@@ -11,13 +11,13 @@ const OfferTile = ({ offer, small, source }) => {
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
 
-  useEffect(() => {
-    if (show) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
-  }, [show]);
+  // useEffect(() => {
+  //   if (show) {
+  //     document.body.classList.add("overflow-hidden");
+  //   } else {
+  //     document.body.classList.remove("overflow-hidden");
+  //   }
+  // }, [show]);
 
   const handleContinueClick = () => {
     setUserClickData({ event_name: "offer-continue-button" });
@@ -54,6 +54,7 @@ const OfferTile = ({ offer, small, source }) => {
           background: "linear-gradient(to right, #0095bd 0%, #0095bd 100%)",
           borderRadius: "1em",
           width: "22em",
+          marginTop: "3em",
         }}
       >
         <div
@@ -96,7 +97,7 @@ const OfferTile = ({ offer, small, source }) => {
               fontSize: "1em",
             }}
           >
-            Maddy Bellwoar
+            {offer?.contact_name}
           </h5>
           <h1
             className="mt-3 font-bold "
@@ -107,7 +108,8 @@ const OfferTile = ({ offer, small, source }) => {
               padding: "1em 0",
             }}
           >
-            Amount : {convertNumberToIndianFormat(offer?.credit_limit ?? 0)}
+            Amount :{" "}
+            {convertNumberToIndianFormat(offer?.offers?.[0]?.credit_limit ?? 0)}
           </h1>
 
           {/* <h5 className="text-xs font-semibold">
