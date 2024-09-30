@@ -20,7 +20,7 @@ const PersonalDetails = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/niro", { replace: true });
+      navigate("/niro-pre", { replace: true });
     }
   }, [user]);
 

@@ -6,6 +6,8 @@ import FormInputNewNiro from "../../../components/Form/FormInputNewNiro";
 import FormDob from "../../../components/Form/FormDob";
 import FormSelect from "../../../components/Form/FormSelect";
 import FormButton from "../../../components/Buttons/FormButton";
+import ContinueBtn from "../../../components/Buttons/ContinueBtn";
+import { useLocation } from "react-router";
 import _ from "lodash";
 import dayjs from "dayjs";
 import { next } from "lodash/seq";
@@ -16,6 +18,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 
 const PersonalDetailsForm = ({ nextStep }) => {
   const dispatch = useDispatch();
+
   const [inputType, setInputType] = useState("text");
   const [pancard, setPancard] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
@@ -23,7 +26,6 @@ const PersonalDetailsForm = ({ nextStep }) => {
   const [dob, setDob] = useState("");
   const [data, setData] = useState({
     gender: "",
-    name: "",
 
     email: "",
     pincode: "",
@@ -67,16 +69,16 @@ const PersonalDetailsForm = ({ nextStep }) => {
       /[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/
     );
 
-    const { gender, name, email, pincode, profession } = data;
+    const { gender, email, pincode, profession } = data;
 
     if (_.isEmpty(gender)) {
       isValid = false;
       setErrors("gender");
       setErrorMessage("Please select your gender");
-    } else if (_.isEmpty(name)) {
-      isValid = false;
-      setErrors("name");
-      setErrorMessage("Please enter your name");
+      // } else if (_.isEmpty(name)) {
+      //   isValid = false;
+      //   setErrors("name");
+      //   setErrorMessage("Please enter your name");
     } else if (_.isEmpty(dob)) {
       isValid = false;
       setIsDobValid(false);
@@ -129,11 +131,6 @@ const PersonalDetailsForm = ({ nextStep }) => {
       dispatch(setLead({ ...localData, stepDone: 1 }));
     }
   };
-  console.log({
-    ...data,
-    pancard: pancard,
-    dob: dob,
-  });
 
   return (
     <div className={"form-signin-apply "} style={{ height: "100dvh" }}>
@@ -155,8 +152,8 @@ const PersonalDetailsForm = ({ nextStep }) => {
         activeGender={data.gender}
         setActiveGender={(value) => handleDataChange("gender", value)}
       />
-      <FormInputNewNiro
-        placeholder="Name"
+      {/* <FormInputNewNiro
+        placeholder="Full Name as per Pan Card"
         required
         id="name"
         value={data.name}
@@ -164,8 +161,8 @@ const PersonalDetailsForm = ({ nextStep }) => {
         errorMessage={errorMessage}
         isValid={errors !== "name"}
         icon={<img src="/assets/icons/male.png" style={{ height: "25px" }} />}
-        label={"Full Name"}
-      />
+        label={"Full Name as per Pan Card"}
+      /> */}
       <FormInputNewNiro
         icon={
           <img
@@ -212,12 +209,12 @@ const PersonalDetailsForm = ({ nextStep }) => {
         onChange={handlePancardChange}
         required
         style={{ textTransform: "uppercase" }}
-        label={"Pancard"}
+        label={"PAN Card"}
         errorMessage={"Please enter a valid PAN number"}
       />
       <FormInputNewNiro
         type={"email"}
-        placeholder="email"
+        placeholder="Personal Email ID"
         required
         id="email"
         value={data.email}
@@ -225,7 +222,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
         errorMessage={errorMessage}
         isValid={errors !== "email"}
         icon={<img src="/assets/icons/email.png" style={{ height: "25px" }} />}
-        label={"Email"}
+        label={"Personal Email ID"}
       />
       <FormInputNewNiro
         type={"text"}
@@ -257,7 +254,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
       />
       <FormInputNewNiro
         type={"number"}
-        placeholder="Enter home pincode"
+        placeholder="Home Pin Code"
         required
         id="pincode"
         value={data.pincode}
@@ -267,10 +264,12 @@ const PersonalDetailsForm = ({ nextStep }) => {
         icon={
           <img src="/assets/icons/pincode.png" style={{ height: "25px" }} />
         }
-        label={"Pincode"}
+        label={"Home Pin Code"}
       />
       <div className="preApprovebutton">
-        <FormButton onClick={handleSubmit}>Continue</FormButton>
+        <ContinueBtn className="!py-4 !px-6" onClick={handleSubmit}>
+          Continue
+        </ContinueBtn>
       </div>
     </div>
   );
