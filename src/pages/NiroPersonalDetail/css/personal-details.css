@@ -1,7 +1,7 @@
 .form-signin-container {
   padding-top: 80px;
   width: 100%;
-  min-height: 100vh;
+  min-height: 10dvh;
   /* background-color: #e9e9e9; */
 }
 
@@ -16,7 +16,7 @@
   border-radius: 5px;
 }
 .heightwrap{
-  height: 120dvh;
+  height: 100dvh;
 }
 
 .dot-pulse {
@@ -291,8 +291,8 @@ select {
   height: 25px;
 }
 
-/* @media (max-width : 398px){
+@media (max-width : 398px){
   .heightwrap{
-    height: 120dvh;
+    height: 130dvh;
   }
-} */
+}
