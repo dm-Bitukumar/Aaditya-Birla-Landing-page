@@ -19,12 +19,12 @@
   height: 100dvh;
 } */
 .react-date{
-  width: 18.15em;
+  width: 19.99em;
   border-radius: 0 0.6em 0.6em 0;
   box-shadow: 2px 0px 4px -0.2pt #d3d3d3;
   border-left: none;
-  padding: 1em;
-  font-size: 1em;
+  padding: 1.2em;
+  font-size: 0.9em;
 }
 .dot-pulse {
   position: relative;
@@ -309,7 +309,7 @@ select {
 
 @media (max-width : 600px){
   .heightwrap{
-    min-height: 95dvh;
+    min-height: 100dvh;
   }
 }
 @media (max-width : 388px){
