@@ -3,7 +3,7 @@ import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import _ from "lodash";
 import callApi from "../../../utility/apiCaller";
-import OfferTile from "../../PersonalDetails/components/OfferTile";
+import OfferTile from "../../PreapprovedOffer/components/OfferTile";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import FormButton from "../../../components/Buttons/FormButton";
@@ -40,7 +40,7 @@ const OfferDetailsSegment = () => {
         // );
 
         setOffers(localOffers);
-        // setLead(res.data.lead);
+        setLead(res.data.preapproved_leadList?.[0]?.contact_name);
       }
     } catch (err) {
       console.log(err);
@@ -76,7 +76,9 @@ const OfferDetailsSegment = () => {
 
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
-            <span className="text-2xl font-normal">{lead?.contact_name}!!</span>{" "}
+            <span className="text-2xl font-normal">
+              {lead?.split(" ")[0]}!!
+            </span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 
