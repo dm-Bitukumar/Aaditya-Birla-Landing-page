@@ -1,7 +1,7 @@
 .form-signin-container {
   padding-top: 80px;
   width: 100%;
-  min-height: 10dvh;
+  min-height: 100dvh;
   /* background-color: #e9e9e9; */
 }
 
@@ -309,11 +309,11 @@ select {
 
 @media (max-width : 600px){
   .heightwrap{
-    height: 90dvh;
+    min-height: 95dvh;
   }
 }
 @media (max-width : 388px){
   .heightwrap{
-    height: 110dvh;
+    min-height: 110dvh;
   }
 }
