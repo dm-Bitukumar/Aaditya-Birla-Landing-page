@@ -19,13 +19,13 @@
   min-height: 100vh;
 }
 .react-datepicker__input-container input {
-  font-size: 12.25px; 
+  font-size: 12.35px; 
   font-weight: 600;
   letter-spacing: 1px;
  }
 
 .react-date{
-  width: 23.25em;
+  width: 23.55em;
   border-radius: 0 0.6em 0.6em 0;
   box-shadow: 2px 0px 4px -0.2pt #d3d3d3;
   border-left: none;
