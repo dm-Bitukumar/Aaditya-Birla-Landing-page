@@ -45,6 +45,13 @@ const OfferDetailsSegment = () => {
       submitLead();
     }
   }, [lead]);
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -81,7 +88,7 @@ const OfferDetailsSegment = () => {
         "core",
         user.token
       );
-      console.log(res);
+
       if (res.status === "Success" && res.data.lead) {
         setLeadId(res.data.lead._id);
       }
