@@ -16,7 +16,7 @@
   border-radius: 5px;
 }
 .heightwrap{
-  min-height: 110vh;
+  min-height: 100vh;
 }
 .react-datepicker__input-container input {
   font-size: 12.5px; 
