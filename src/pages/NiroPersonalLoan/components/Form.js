@@ -186,7 +186,7 @@ const Form = () => {
     <div
       className={"personal-loan-form"}
       style={{
-        height: "70dvh",
+        height: "30dvh",
       }}
     >
       {" "}
@@ -221,6 +221,7 @@ const Form = () => {
         <div style={{ marginTop: "13em" }}>
           <OtpInputForm
             otpValue={otp}
+            setIsOtpGenerated={setIsOtpGenerated}
             setOtpValue={setOtp}
             handleResendOtp={handleResendOtp}
             phone_number={mobile}

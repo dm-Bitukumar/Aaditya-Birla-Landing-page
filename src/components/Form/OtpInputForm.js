@@ -11,6 +11,7 @@ const OtpInputForm = ({
   phone_number,
   handleResendOtp,
   handleSubmitOtp,
+  setIsOtpGenerated,
   style,
   buttonStyle,
   handleChange: handleKycChecked,
@@ -89,6 +90,15 @@ const OtpInputForm = ({
             </span>
           </u>
         </span>
+        <Link
+          className="text-blue-700"
+          style={{ fontSize: "12px", marginLeft: "10px" }}
+          onClick={() => {
+            setIsOtpGenerated(false);
+          }}
+        >
+          Edit
+        </Link>
         <br />
         Please enter the OTP below
       </p>

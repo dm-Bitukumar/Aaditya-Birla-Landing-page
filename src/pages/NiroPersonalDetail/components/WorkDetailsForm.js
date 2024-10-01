@@ -140,12 +140,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   };
 
   return (
-    <div
-      className={"form-signin-apply"}
-      style={{
-        height: "150dvh",
-      }}
-    >
+    <div className={"form-signin-apply heightwrap"}>
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
@@ -170,7 +165,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
       <div
         // className=""
         className={"d-flex gap-3 preApprovebutton"}
-        // style={{ position: "absolute", bottom: "10px" }}
+        style={{ background: "#fff", paddingTop: "10px !important" }}
       >
         <ContinueBtn
           className="!py-4 !px-6"
