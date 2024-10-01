@@ -28,7 +28,7 @@ const OfferDetailsSegment = () => {
         `v1/preapproved_lead/list`,
         "post",
         {
-          filters: { contact_phone: "9922187005" },
+          filters: { contact_phone: phone },
         },
         "core"
       );
