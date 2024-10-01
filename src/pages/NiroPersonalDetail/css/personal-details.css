@@ -21,7 +21,7 @@
 .react-datepicker__input-container input {
   font-size: 12.35px; 
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: normal;
  }
 
 .react-date{
@@ -320,6 +320,6 @@ select {
 }
 @media (max-width : 388px){
   .heightwrap{
-    min-height: 110 vh;
+    min-height: 120 dvh;
   }
 }
