@@ -140,7 +140,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   };
 
   return (
-    <div className={"form-signin-apply heightwrap"}>
+    <div className={"form-signin-apply "}>
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
