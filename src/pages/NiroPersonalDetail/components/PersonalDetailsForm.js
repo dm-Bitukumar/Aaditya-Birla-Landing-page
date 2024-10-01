@@ -133,10 +133,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
   };
 
   return (
-    <div
-      className={"form-signin-apply "}
-      style={{ height: "120dvh", overflowY: "scroll" }}
-    >
+    <div className={"form-signin-apply heightwrap"}>
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}

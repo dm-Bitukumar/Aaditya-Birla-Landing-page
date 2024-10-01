@@ -15,6 +15,9 @@
   /* border: 1px solid #e1e1e1; */
   border-radius: 5px;
 }
+.heightwrap{
+  height: 120dvh;
+}
 
 .dot-pulse {
   position: relative;
@@ -287,3 +290,9 @@ select {
 .gender-image {
   height: 25px;
 }
+
+/* @media (max-width : 398px){
+  .heightwrap{
+    height: 120dvh;
+  }
+} */
