@@ -16,21 +16,21 @@
   border-radius: 5px;
 }
 .heightwrap{
-  min-height: 110vh;
+  min-height: 100vh;
 }
 .react-datepicker__input-container input {
-  font-size: 12.35px; 
+  font-size: 12px; 
   font-weight: 600;
   letter-spacing: normal;
-  color: #111;
+  color: #111 !important;
  }
 
 .react-date{
-  width: 23.55em;
+  width: 24.2em;
   border-radius: 0 0.6em 0.6em 0;
   box-shadow: 2px 0px 4px -0.2pt #d3d3d3;
   border-left: none;
-  padding: 1.5em 0.8em;
+  padding: 1.6em 0.8em;
   
 }
 .dot-pulse {

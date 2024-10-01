@@ -23,6 +23,13 @@ const PersonalDetails = () => {
       navigate("/niro-pre", { replace: true });
     }
   }, [user]);
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   const [step, setStep] = useState(1);
 
