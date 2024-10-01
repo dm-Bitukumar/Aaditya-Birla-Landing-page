@@ -7,6 +7,7 @@ import {
 import CustomSquareCheckBoxGroup from "../../../components/Form/CustomSquareCheckBoxGroup";
 import { numberToWordIncome } from "../../../utility/numberUtility";
 import numberToWords from "../../../utility/numberToWords";
+import { useEffect } from "react";
 
 const WorkDetail = ({
   data,
@@ -22,6 +23,13 @@ const WorkDetail = ({
     { label: "Self Employed", value: "self employed" },
     { label: "Business Owner", value: "business owner" },
   ];
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <>

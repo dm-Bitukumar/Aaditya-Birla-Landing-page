@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import CustomCheckboxGroupNew from "./CustomCheckboxGroupNew";
@@ -137,6 +137,13 @@ const PersonalDetailsForm = ({ nextStep }) => {
       dispatch(setLead({ ...localData, stepDone: 1 }));
     }
   };
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <div className={"form-signin-apply "}>
