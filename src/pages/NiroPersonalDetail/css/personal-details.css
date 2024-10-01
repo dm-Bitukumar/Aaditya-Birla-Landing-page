@@ -15,9 +15,9 @@
   /* border: 1px solid #e1e1e1; */
   border-radius: 5px;
 }
-.heightwrap{
+/* .heightwrap{
   height: 100dvh;
-}
+} */
 
 .dot-pulse {
   position: relative;
@@ -291,8 +291,13 @@ select {
   height: 25px;
 }
 
-@media (max-width : 398px){
+@media (max-width : 500px){
   .heightwrap{
-    height: 130dvh;
+    height: 85dvh;
+  }
+}
+@media (max-width : 388px){
+  .heightwrap{
+    height: 110dvh;
   }
 }
