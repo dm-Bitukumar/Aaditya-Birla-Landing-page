@@ -25,6 +25,7 @@ import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
 import PreApprove from "./pages/PreApprove/PreApprove";
 import NiroPersonalLoan from "./pages/NiroPersonalLoan/NiroPersonalLoan";
 import NiroPersonalDetails from "./pages/NiroPersonalDetail/PersonalDetails";
+import NiroPreapprovedOffer from "./pages/NiroPreapprovedOffer/NiroPreapprovedOffer";
 import OfferDetailsSegmentNiro from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro";
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
           path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
         />
+        <Route path="/niro-preapproved" element={<NiroPreapprovedOffer />} />
         <Route path="/niro-offer" element={<OfferDetailsSegmentNiro />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
       </Routes>
