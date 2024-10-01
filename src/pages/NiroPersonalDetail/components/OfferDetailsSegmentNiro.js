@@ -33,13 +33,20 @@ const OfferDetailsSegment = () => {
   const [contactName, setContactName] = useState("");
   const [leadId, setLeadId] = useState();
   const [params] = useSearchParams();
-  console.log(state);
+
   useEffect(() => {
     if (params.get("app_url")) setSource(params.get("app_url"));
     if (params.get("amount")) setAmount(params.get("amount"));
     if (params.get("contact_name")) setContactName(params.get("contact_name"));
   }, [params]);
 
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
   // useEffect(() => {
   //   if (lead.stepDone === 2 && !leadId) {
   //     submitLead();
