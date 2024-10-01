@@ -199,7 +199,7 @@ const Form = () => {
         <>
           {" "}
           <img
-            className="mt-3 mb-3 img header-img"
+            className="mt-3 img header-img"
             src="/assets/img/header.png"
             alt=""
           />
@@ -290,7 +290,12 @@ const Form = () => {
             errorMessage={"Please enter a valid Mobile Number"}
           />
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
-          <div className="preApprovebutton">
+          <div
+            className="preApprovebutton"
+            style={{
+              background: "#fff",
+            }}
+          >
             <FormButton
               style={{ marginTop: "30px" }}
               className="w-100 btn btn-lg btn-primary btn-get-otp"
