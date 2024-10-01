@@ -16,12 +16,13 @@
   border-radius: 5px;
 }
 .heightwrap{
-  min-height: 100vh;
+  min-height: 110vh;
 }
 .react-datepicker__input-container input {
   font-size: 12.35px; 
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: normal;
+  color: #111;
  }
 
 .react-date{
@@ -320,6 +321,6 @@ select {
 }
 @media (max-width : 388px){
   .heightwrap{
-    min-height: 110 vh;
+    height: 110 vh;
   }
 }
