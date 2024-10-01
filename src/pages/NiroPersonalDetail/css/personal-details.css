@@ -309,11 +309,11 @@ select {
 
 @media (max-width : 600px){
   .heightwrap{
-    height: 90dvh;
+    min-height: 90vh;
   }
 }
 @media (max-width : 388px){
   .heightwrap{
-    height: 110dvh;
+    min-height: 110dvh;
   }
 }
