@@ -36,6 +36,7 @@ const FormInput = ({
         className="form-floating flex-grow-1"
         style={{
           height: "65px",
+          fontSize: "5px",
         }}
       >
         <DatePicker

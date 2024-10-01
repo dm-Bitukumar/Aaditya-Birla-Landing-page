@@ -15,16 +15,21 @@
   /* border: 1px solid #e1e1e1; */
   border-radius: 5px;
 }
-/* .heightwrap{
-  height: 100dvh;
-} */
+.heightwrap{
+  min-height: 110vh;
+}
+.react-datepicker__input-container input {
+  font-size: 12.5px; 
+  font-weight: 500;
+ }
+
 .react-date{
-  width: 19.99em;
+  width: 23.25em;
   border-radius: 0 0.6em 0.6em 0;
   box-shadow: 2px 0px 4px -0.2pt #d3d3d3;
   border-left: none;
-  padding: 1.2em;
-  font-size: 0.9em;
+  padding: 1.5em 0.8em;
+  font-weight: 500;
 }
 .dot-pulse {
   position: relative;
@@ -309,11 +314,11 @@ select {
 
 @media (max-width : 600px){
   .heightwrap{
-    min-height: 100dvh;
+    min-height: 110 vh;
   }
 }
 @media (max-width : 388px){
   .heightwrap{
-    min-height: 110dvh;
+    min-height: 110 vh;
   }
 }
