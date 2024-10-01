@@ -45,13 +45,6 @@ const OfferDetailsSegment = () => {
       submitLead();
     }
   }, [lead]);
-  useEffect(() => {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -126,6 +119,13 @@ const OfferDetailsSegment = () => {
     setShow(true);
     setUserClickData({ event_name: "view-more" });
   };
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <div className={"form-signin-apply form-signin"}>

@@ -41,6 +41,13 @@ const OfferTile = ({ offer, small, source }) => {
     var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
   };
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center">
