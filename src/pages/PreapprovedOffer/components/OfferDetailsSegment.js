@@ -17,29 +17,30 @@ const OfferDetailsSegment = () => {
   const [params] = useSearchParams();
 
   useEffect(() => {
-    if (params.get("lid")) fetchOffers(params.get("lid"));
-    if (params.get("source")) setSource(params.get("source"));
+    if (params.get("phone")) fetchOffers(params.get("phone"));
   }, [params]);
-
-  const fetchOffers = async (lid) => {
+  useEffect(() => {
+    fetchOffers();
+  }, []);
+  const fetchOffers = async (phone) => {
     try {
       const res = await callApi(
-        `v1/loan_offer/lead_id/${lid}`,
-        "get",
-        {},
+        `v1/preapproved_lead/list`,
+        "post",
+        {
+          filters: { contact_phone: "9922187005" },
+        },
         "core"
       );
 
-      const res2 = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
-
       if (res.status === "Success") {
-        let activeLenders = res2.data.lenderList ?? [];
-        let localOffers = res.data.offers ?? [];
-        localOffers = localOffers.filter((e) =>
-          activeLenders.map((e) => e._id).includes(e.lender_id)
-        );
+        let localOffers = res.data.preapproved_leadList ?? [];
+        // localOffers = localOffers.filter((e) =>
+        //   activeLenders.map((e) => e._id).includes(e.lender_id)
+        // );
+
         setOffers(localOffers);
-        setLead(res.data.lead);
+        // setLead(res.data.lead);
       }
     } catch (err) {
       console.log(err);
