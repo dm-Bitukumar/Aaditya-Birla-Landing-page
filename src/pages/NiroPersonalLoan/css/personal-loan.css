@@ -15,7 +15,8 @@
 }
 
 .header-img {
-  height: 8em;
+  height: 12em;
+  width: 15em;
 }
 
 
@@ -129,6 +130,7 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 390px ){
   .header-img{
-    height: 7em;
+    height: 12em;
+  width: 15em;
   }
 }

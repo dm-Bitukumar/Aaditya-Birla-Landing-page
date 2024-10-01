@@ -45,9 +45,10 @@ const FormSelect = ({
       >
         {icon}
       </span>
-      <div className="form-floating flex-grow-1">
+      <div className=" form-floating flex-grow-1">
         <select
           style={{
+            appearance: "none !important",
             maxWidth: "99.5%",
             borderRadius: "0 0.8em  0.8em 0",
             boxShadow: "2px 0px 4px -0.2pt #d3d3d3",
@@ -55,12 +56,12 @@ const FormSelect = ({
             borderLeft: "0px",
             borderTop: "1px solid #ced4da",
             borderBottom: "1px solid #ced4da",
-            paddingRight: "30px",
+            paddingRight: "20px !important",
           }}
           {...props}
           className={`form-control ${
             isValid ? "" : "is-invalid"
-          } text-xs pt-3 `}
+          } text-xs pt-3 custom-selected`}
           value={value}
           onChange={handleChange}
         >

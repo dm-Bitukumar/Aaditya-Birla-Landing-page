@@ -165,7 +165,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
       <div
         // className=""
         className={"d-flex gap-3 preApprovebutton"}
-        style={{ background: "#fff", paddingTop: "10px !important" }}
+        style={{ background: "#fff" }}
       >
         <ContinueBtn
           className="!py-4 !px-6"

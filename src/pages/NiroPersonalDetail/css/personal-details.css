@@ -18,7 +18,14 @@
 /* .heightwrap{
   height: 100dvh;
 } */
-
+.react-date{
+  width: 18.15em;
+  border-radius: 0 0.6em 0.6em 0;
+  box-shadow: 2px 0px 4px -0.2pt #d3d3d3;
+  border-left: none;
+  padding: 1em;
+  font-size: 1em;
+}
 .dot-pulse {
   position: relative;
   left: -9978px;
@@ -291,9 +298,20 @@ select {
   height: 25px;
 }
 
-@media (max-width : 500px){
+
+.custom-selected {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 20px !important;
+
+  background-color: white;
+}
+
+
+@media (max-width : 600px){
   .heightwrap{
-    height: 85dvh;
+    height: 90dvh;
   }
 }
 @media (max-width : 388px){
