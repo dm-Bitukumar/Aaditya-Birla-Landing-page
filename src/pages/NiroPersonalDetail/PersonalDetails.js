@@ -20,7 +20,7 @@ const PersonalDetails = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/niro-pre", { replace: true });
+      navigate("/fb/lp01", { replace: true });
     }
   }, [user]);
   useEffect(() => {

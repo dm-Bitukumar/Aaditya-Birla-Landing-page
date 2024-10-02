@@ -165,7 +165,7 @@ const Form = () => {
               );
             } else {
               navigate(
-                `/niro-apply?aff_id=${affId}&utm_source=${utmSource}&source=${source}`,
+                `/fb-apply?aff_id=${affId}&utm_source=${utmSource}&source=${source}`,
                 { state: result.data }
               );
             }
