@@ -20,10 +20,9 @@
 }
 .react-datepicker__input-container input {
   font-size: 12px; 
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: normal;
-  color: #111 !important;
-  font-family: "Montserrat", sans-serif !important;
+ 
  }
 
 .react-date{
@@ -33,6 +32,10 @@
   border-left: none;
   padding: 1.6em 0.8em;
   
+}
+.react-date::placeholder{
+  font-family: inherit !important;
+  color: black;
 }
 .dot-pulse {
   position: relative;
