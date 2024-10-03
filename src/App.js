@@ -89,7 +89,6 @@ function App() {
         <Route path={"/"} element={<Homepage />} />
         <Route path={"/lenders"} element={<LenderPage />} />
         <Route path={"/personal-loan"} element={<PersonalLoan />} />
-        <Route path={"/fb-apply"} element={<NiroPersonalDetails />} />
         <Route path={"/apply"} element={<PersonalDetails />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
         <Route path={"/offers"} element={<OffersPage />} />
@@ -106,7 +105,7 @@ function App() {
           element={<New pages={pages} setPages={setPages} />}
         />
         <Route path="/preapproved-offers" element={<PreapprovedOffer />} />
-        <Route path="/niro-offer" element={<OfferDetailsSegmentNiro />} />
+        <Route path="/fb-offer" element={<OfferDetailsSegmentNiro />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
       </Routes>
     </>

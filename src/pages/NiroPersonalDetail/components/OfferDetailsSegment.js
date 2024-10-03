@@ -19,7 +19,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 
-const OfferDetailsSegment = () => {
+const OfferDetailsSegment = ({ personalData }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { state } = location;
@@ -61,7 +61,7 @@ const OfferDetailsSegment = () => {
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        contact_name: state?.contact_name,
+        contact_name: personalData?.contact_name,
         ...lead,
         ...user,
       });
@@ -151,7 +151,9 @@ const OfferDetailsSegment = () => {
 
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
-            <span className="text-2xl font-normal">{lead.name}!!</span>{" "}
+            <span className="text-2xl font-normal">
+              {personalData?.contact_name?.split(" ")[0]}!!
+            </span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
 

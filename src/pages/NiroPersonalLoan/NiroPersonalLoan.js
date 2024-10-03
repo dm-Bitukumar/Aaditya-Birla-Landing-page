@@ -5,8 +5,8 @@ import HeadBar from "../../components/Static/HeadBar";
 
 const PersonalLoan = () => {
   return (
-    <div className={"personal-loan-container"}>
-      <HeadBar />
+    <div className={"personal-loan-container2"}>
+      {/* <HeadBar /> */}
       <Form />
     </div>
   );
