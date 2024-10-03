@@ -6,11 +6,14 @@ import FormInputNewNiro from "../../../components/Form/FormInputNewNiro";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
 import callApi from "../../../utility/apiCaller";
+import HeadBar from "../../../components/Static/HeadBar";
 import { useDispatch } from "react-redux";
 import { login, setLead } from "../../../store/app/appReducer";
 import { toast } from "react-toastify";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
+import PersonalDetails from "../../NiroPersonalDetail/PersonalDetails";
+import OfferDetailsSegmentNiro from "../../NiroPersonalDetail/components/OfferDetailsSegmentNiro";
 
 const Form = () => {
   const [otp, setOtp] = useState("");
@@ -19,20 +22,29 @@ const Form = () => {
   const [mobile, setMobile] = useState("");
   const [userName, setUserName] = useState("");
   const [ipAddress, setIpAddress] = useState("");
-  const [source, setSource] = useState("");
+  const [personalData, setPersonalData] = useState("");
   const [utmSource, setUtmSource] = useState("");
   const [affId, setAffId] = useState("");
   const [isUserNameValid, setIsUserNameValid] = useState(true);
+  const [stepper, setStepper] = useState("0");
 
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
+  const [sources, setSources] = useState("");
+  const [amount, setAmount] = useState("");
+  const [contactName, setContactName] = useState("");
+
   useEffect(() => {
-    if (params.get("source")) setSource(params.get("source"));
-    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
-    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("app_url")) setSources(params.get("app_url"));
+    if (params.get("amount")) setAmount(params.get("amount"));
+    if (params.get("contact_name")) setContactName(params.get("contact_name"));
+    if (params.get("step")) setStepper(params.get("step"));
+    // if (params.get("source")) setSource(params.get("source"));
+    // if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    // if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
 
   async function fetchIp() {
@@ -159,19 +171,26 @@ const Form = () => {
           );
           if (result?.status === "Success") {
             if (result?.data?.status === true) {
-              dispatch(setLead({ ...result.data }));
-              navigate(
-                `/niro-offer?contact_name=${result.data?.contact_name}&amount=${result?.data?.offers?.[0]?.credit_limit}&app_url=${result?.data?.app_url}`
-              );
+              setStepper("2");
+              setContactName(result.data?.contact_name);
+              setAmount(result?.data?.offers?.[0]?.credit_limit);
+              setSources(result?.data?.app_url);
+              // navigate(
+              //   `/fb/lp01?step=${"2"}&contact_name=${
+              //     result.data?.contact_name
+              //   }&amount=${result?.data?.offers?.[0]?.credit_limit}&app_url=${
+              //     result?.data?.app_url
+              //   }`
+              // );
             } else {
-              navigate(
-                `/fb-apply?aff_id=${affId}&utm_source=${utmSource}&source=${source}`,
-                { state: result.data }
-              );
+              // navigate(
+              //   `/fb/lp01?step=${"3"}&aff_id=${affId}&utm_source=${utmSource}`
+              // );
+              // navigate({ state: result.data });
+              setStepper("3");
+              setPersonalData(result.data);
             }
           }
-          // if (result?.status === "Error") {
-          // }
         } catch (err) {}
       }
     } catch (err) {
@@ -183,132 +202,145 @@ const Form = () => {
   };
 
   return (
-    <div
-      className={"personal-loan-form"}
-      style={{
-        height: "30dvh",
-      }}
-    >
-      {" "}
-      <img
-        className="mt-3 mb-1 img logo-img"
-        src="/assets/img/logo.png"
-        alt=""
-      />
-      {isOtpGenerated ? null : (
-        <>
-          {" "}
+    <>
+      {stepper === "0" ? (
+        <div
+          className={"personal-loan-form"}
+          style={{
+            height: "30dvh",
+            padding: "15px 20px",
+          }}
+        >
+          <HeadBar />{" "}
           <img
-            className="mt-3 img header-img"
-            src="/assets/img/header.png"
+            className="mt-3 mb-1 img logo-img"
+            src="/assets/img/logo.png"
             alt=""
           />
-          <h1
-            className="mb-3 text-center h3 fw-normal"
-            style={{ fontSize: "20px", marginTop: "3em" }}
-          >
-            Get Instant Personal Loan
-            <br />
-            {/* <strong>Upto 25 Lacs</strong> */}
-          </h1>
-          <p className="mb-3 text-center" style={{ fontSize: "14px" }}>
-            • Instant Approvals • Complete Digital Process •
-            <span className="bullet">•</span>Quick Disbursal
-          </p>{" "}
-        </>
-      )}
-      {isOtpGenerated ? (
-        <div style={{ marginTop: "13em" }}>
-          <OtpInputForm
-            otpValue={otp}
-            setIsOtpGenerated={setIsOtpGenerated}
-            setOtpValue={setOtp}
-            handleResendOtp={handleResendOtp}
-            phone_number={mobile}
-            handleSubmitOtp={handleSubmitOtp}
-          />
-        </div>
-      ) : (
-        <>
-          {/* <h1
+          {isOtpGenerated ? null : (
+            <>
+              {" "}
+              <img
+                className="mt-3 img header-img"
+                src="/assets/img/header.png"
+                alt=""
+              />
+              <h1
+                className="mb-3 text-center h3 fw-normal"
+                style={{ fontSize: "20px", marginTop: "3em" }}
+              >
+                Get Instant Personal Loan
+                <br />
+                {/* <strong>Upto 25 Lacs</strong> */}
+              </h1>
+              <p className="mb-3 text-center" style={{ fontSize: "14px" }}>
+                • Instant Approvals • Complete Digital Process •
+                <span className="bullet">•</span>Quick Disbursal
+              </p>{" "}
+            </>
+          )}
+          {isOtpGenerated ? (
+            <div style={{ marginTop: "13em" }}>
+              <OtpInputForm
+                otpValue={otp}
+                setIsOtpGenerated={setIsOtpGenerated}
+                setOtpValue={setOtp}
+                handleResendOtp={handleResendOtp}
+                phone_number={mobile}
+                handleSubmitOtp={handleSubmitOtp}
+              />
+            </div>
+          ) : (
+            <>
+              {/* <h1
             className="mb-2 h3 fw-normal"
             align="left"
             style={{ fontSize: "18px", fontWeight: "bold" }}
           >
             Let's connect
           </h1> */}
-          <input type="hidden" name="utm_campaign" value="" />
-          <input type="hidden" name="utm_source" value="" />
-          <input type="hidden" name="utm_medium" value="" />
-          <input type="hidden" name="utm_content" value="" />
-          <input type="hidden" name="click_id" value="" />
-          <input type="hidden" name="aff_id" value="" />
-          <input type="hidden" name="src" value="" />
-          <FormInputNewNiro
-            icon={
-              <img
-                src="/assets/icons/male.png"
-                height="25"
-                style={{ maxHeight: "25px" }}
-                alt="icon 2.png"
+              <input type="hidden" name="utm_campaign" value="" />
+              <input type="hidden" name="utm_source" value="" />
+              <input type="hidden" name="utm_medium" value="" />
+              <input type="hidden" name="utm_content" value="" />
+              <input type="hidden" name="click_id" value="" />
+              <input type="hidden" name="aff_id" value="" />
+              <input type="hidden" name="src" value="" />
+              <FormInputNewNiro
+                icon={
+                  <img
+                    src="/assets/icons/male.png"
+                    height="25"
+                    style={{ maxHeight: "25px" }}
+                    alt="icon 2.png"
+                  />
+                }
+                type="text"
+                name="userName"
+                isValid={isUserNameValid}
+                id="userName"
+                aria-describedby="name"
+                placeholder="Full Name"
+                value={userName}
+                onChange={handleUserNameChange}
+                required
+                label={"Full Name"}
+                errorMessage={"Please enter a valid user name"}
               />
-            }
-            type="text"
-            name="userName"
-            isValid={isUserNameValid}
-            id="userName"
-            aria-describedby="name"
-            placeholder="Full Name"
-            value={userName}
-            onChange={handleUserNameChange}
-            required
-            label={"Full Name"}
-            errorMessage={"Please enter a valid user name"}
-          />
 
-          <FormInputNewNiro
-            icon={
-              <img
-                src="/assets/icons/phone-call.png"
-                height="25"
-                alt="Phone Icon"
+              <FormInputNewNiro
+                icon={
+                  <img
+                    src="/assets/icons/phone-call.png"
+                    height="25"
+                    alt="Phone Icon"
+                  />
+                }
+                type="number"
+                name="mobile"
+                isValid={isMobileValid}
+                id="mobile"
+                aria-describedby="name"
+                placeholder="Mobile"
+                minLength="10"
+                maxLength="10"
+                pattern="[0-9]{10}"
+                value={mobile}
+                onChange={handleMobileChange}
+                required
+                label={"Mobile Number"}
+                errorMessage={"Please enter a valid Mobile Number"}
               />
-            }
-            type="number"
-            name="mobile"
-            isValid={isMobileValid}
-            id="mobile"
-            aria-describedby="name"
-            placeholder="Mobile"
-            minLength="10"
-            maxLength="10"
-            pattern="[0-9]{10}"
-            value={mobile}
-            onChange={handleMobileChange}
-            required
-            label={"Mobile Number"}
-            errorMessage={"Please enter a valid Mobile Number"}
-          />
-          <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
-          <div
-            className="preApprovebutton"
-            style={{
-              background: "#fff",
-            }}
-          >
-            <FormButton
-              style={{ marginTop: "30px" }}
-              className="w-100 btn btn-lg btn-primary btn-get-otp"
-              type="submit"
-              onClick={handleSubmit}
-              id="myBtn"
-            >
-              GET OTP
-            </FormButton>
-          </div>
-        </>
-      )}
-    </div>
+              <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
+              <div
+                className="preApprovebutton"
+                style={{
+                  background: "#fff",
+                }}
+              >
+                <FormButton
+                  style={{ marginTop: "30px" }}
+                  className="w-100 btn btn-lg btn-primary btn-get-otp"
+                  type="submit"
+                  onClick={handleSubmit}
+                  id="myBtn"
+                >
+                  GET OTP
+                </FormButton>
+              </div>
+            </>
+          )}
+        </div>
+      ) : null}
+      {stepper === "2" ? (
+        <OfferDetailsSegmentNiro
+          source={sources}
+          amount={amount}
+          contactName={contactName}
+        />
+      ) : null}
+      {stepper === "3" ? <PersonalDetails personalData={personalData} /> : null}
+    </>
   );
 };
 

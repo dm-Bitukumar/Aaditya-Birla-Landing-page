@@ -14,7 +14,7 @@ let noTransitions = {
   exitLeft: "",
 };
 
-const PersonalDetails = () => {
+const PersonalDetails = ({ personalData }) => {
   const user = useSelector((state) => state.app.user);
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ const PersonalDetails = () => {
       >
         <PersonalDetailsForm />
         <WorkDetailsForm />
-        <OfferDetailsSegment />
+        <OfferDetailsSegment personalData={personalData} />
       </StepWizard>
     </div>
   );
