@@ -5,6 +5,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
 import { Link } from "react-router-dom";
+import niroLogo from "../../../components/Static/images/niro.png";
 import NiroFormButton from "../../../components/Buttons/NiroFormButton";
 
 const OfferTile = ({ amount, small, source, contactName }) => {
@@ -67,7 +68,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
             boxShadow: "0 0 5px 0.5pt #d3d3d3",
           }}
         >
-          <img width={small ? 100 : 200} src={"assets/bank_img/niro.png"} />
+          <img width={small ? 100 : 200} src={niroLogo} />
         </div>
         {/* <img width={small ? 100 : 200} src={offer?.logo_image_url} />
         <h2

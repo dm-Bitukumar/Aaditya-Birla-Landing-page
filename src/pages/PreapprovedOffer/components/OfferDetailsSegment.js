@@ -19,9 +19,7 @@ const OfferDetailsSegment = () => {
   useEffect(() => {
     if (params.get("phone")) fetchOffers(params.get("phone"));
   }, [params]);
-  useEffect(() => {
-    fetchOffers();
-  }, []);
+
   const fetchOffers = async (phone) => {
     try {
       const res = await callApi(
