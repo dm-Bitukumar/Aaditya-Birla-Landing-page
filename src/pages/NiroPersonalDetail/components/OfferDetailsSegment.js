@@ -61,7 +61,7 @@ const OfferDetailsSegment = ({ personalData }) => {
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        contact_name: personalData?.contact_name,
+        contact_name: personalData,
         ...lead,
         ...user,
       });

@@ -190,7 +190,7 @@ const Form = () => {
               // );
               // navigate({ state: result.data });
               setStepper("3");
-              setPersonalData(userName);
+              setPersonalData(result.data);
             }
           }
         } catch (err) {}

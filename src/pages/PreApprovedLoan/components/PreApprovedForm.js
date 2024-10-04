@@ -187,6 +187,7 @@ const PreApprovedForm = ({ data }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -225,6 +226,7 @@ const PreApprovedForm = ({ data }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
