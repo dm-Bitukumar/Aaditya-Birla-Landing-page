@@ -24,9 +24,12 @@ import New from "./pages/PreApprovedLoan/components/New/New";
 import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
 import PreApprove from "./pages/PreApprove/PreApprove";
 import NiroPersonalLoan from "./pages/NiroPersonalLoan/NiroPersonalLoan";
-import NiroPersonalDetails from "./pages/NiroPersonalDetail/PersonalDetails";
 import PreapprovedOffer from "./pages/PreapprovedOffer/PreapprovedOffer";
 import OfferDetailsSegmentNiro from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro";
+import LtPersonalLoan from "./pages/L&TPersonalLoan/L&TPersonalLoan";
+import AdityaBirlaPersonalLoan from "./pages/AdityaBirlaPersonalLoan/AdityaBirlaPersonalLoan";
+import OfferDetailsSegment from "./pages/AdityaBirlaPersonalLoan/components/OfferDetailsSegment";
+import CheckOffers from "./pages/CheckOffer/PreApprovedLoan";
 
 function App() {
   const location = useLocation();
@@ -100,12 +103,16 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/preapprove" element={<PreApprove />} />
         <Route path="/fb/lp01" element={<NiroPersonalLoan />} />
+        <Route path="/pa-lt" element={<LtPersonalLoan />} />
+        <Route path="/pa-ab" element={<AdityaBirlaPersonalLoan />} />
         <Route
           path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
         />
+        <Route path={"/check-offers"} element={<CheckOffers />} />
         <Route path="/preapproved-offers" element={<PreapprovedOffer />} />
         <Route path="/fb-offer" element={<OfferDetailsSegmentNiro />} />
+        <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
       </Routes>
     </>

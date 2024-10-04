@@ -81,6 +81,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -109,6 +110,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -173,8 +175,8 @@ const Form = ({ formData, setFormData, ...props }) => {
           <OtpInputForm
             buttonStyle={{ marginTop: "200px", marginBottom: "50px" }}
             otpValue={otp}
-            setOtpValue={setOtp}
             setIsOtpGenerated={setIsOtpGenerated}
+            setOtpValue={setOtp}
             handleResendOtp={handleResendOtp}
             phone_number={mobile}
             handleSubmitOtp={handleSubmitOtp}
@@ -182,19 +184,24 @@ const Form = ({ formData, setFormData, ...props }) => {
         </div>
       ) : (
         <>
+          {" "}
           <img
-            className="my-5 mb-3 img header-img"
-            src="/assets/icons/header.png"
+            className="mt-3 img header-img"
+            src="/assets/img/header.png"
             alt=""
           />
           <h1
             className="mb-3 text-center h3 fw-normal"
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "20px", marginTop: "3em" }}
           >
-            Unlock Your Pre-approved
+            Get Instant Personal Loan
             <br />
-            <strong>Personal Loan Offer</strong>
+            {/* <strong>Upto 25 Lacs</strong> */}
           </h1>
+          <p className="mb-3 text-center" style={{ fontSize: "14px" }}>
+            • Instant Approvals • Complete Digital Process •
+            <span className="bullet">•</span>Quick Disbursal
+          </p>{" "}
           <input type="hidden" name="utm_campaign" value="" />
           <input type="hidden" name="utm_source" value="" />
           <input type="hidden" name="utm_medium" value="" />
