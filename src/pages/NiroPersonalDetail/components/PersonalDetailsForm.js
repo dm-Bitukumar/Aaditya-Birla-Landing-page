@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import CustomCheckboxGroupNew from "./CustomCheckboxGroupNew";
+import FormDobNiro from "../../../components/Form/FormDobNiro";
 import FormInputNewNiro from "../../../components/Form/FormInputNewNiro";
 import FormDob from "../../../components/Form/FormDob";
 import FormSelect from "../../../components/Form/FormSelect";
@@ -15,6 +16,9 @@ import moment, { localeData } from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const PersonalDetailsForm = ({ nextStep }) => {
   const dispatch = useDispatch();
@@ -55,13 +59,15 @@ const PersonalDetailsForm = ({ nextStep }) => {
     }
   };
   const handleDobChange = (event) => {
-    const { value } = event.target;
+    //const { value } = event.target;
 
     setIsDobValid(true);
-    setDob(value);
+    if (event) {
+      setDob(moment(event).format("YYYY-MM-DD"));
+    }
     setInputType("date");
   };
-  console.log(dob);
+
   const handleValidate = () => {
     let isValid = true;
     setErrors("");
@@ -131,9 +137,16 @@ const PersonalDetailsForm = ({ nextStep }) => {
       dispatch(setLead({ ...localData, stepDone: 1 }));
     }
   };
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
-    <div className={"form-signin-apply "} style={{ height: "100dvh" }}>
+    <div className={"form-signin-apply "}>
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
@@ -163,10 +176,29 @@ const PersonalDetailsForm = ({ nextStep }) => {
         icon={<img src="/assets/icons/male.png" style={{ height: "25px" }} />}
         label={"Full Name as per Pan Card"}
       /> */}
-      <FormInputNewNiro
+      {/* <div>
+        <img
+          src="/assets/icons/dob.png"
+          height="25"
+          style={{ maxHeight: "25px" }}
+          alt="icon 5.png"
+        />
+        <DatePicker
+          selected={user?.dob}
+          scrollableYearDropdown
+          dateFormat="dd/MM/yyyy"
+          peekNextMonth
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+          placeholderText="Date of birth"
+          onChange={(e) => handleDobChange("dob", e)}
+        />
+      </div> */}
+      <FormDobNiro
         icon={
           <img
-            src="/assets/img/Icon 5.png"
+            src="/assets/icons/dob.png"
             height="25"
             style={{ maxHeight: "25px" }}
             alt="icon 5.png"
@@ -266,7 +298,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
         }
         label={"Home Pin Code"}
       />
-      <div className="preApprovebutton">
+      <div className="preApprovebutton" style={{ background: "#fff" }}>
         <ContinueBtn className="!py-4 !px-6" onClick={handleSubmit}>
           Continue
         </ContinueBtn>

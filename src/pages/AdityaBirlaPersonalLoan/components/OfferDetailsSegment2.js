@@ -3,8 +3,8 @@ import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
-import SalariedForm from "./SalariedForm";
-import NiroOfferTile from "./NiroOfferTile";
+
+import OfferTile from "./AdityaOfferTile";
 
 const OfferDetailsSegment = ({ source, contactName, amount }) => {
   useEffect(() => {
@@ -41,7 +41,7 @@ const OfferDetailsSegment = ({ source, contactName, amount }) => {
           </div> */}
         {/* ) : null */}
         <div className="my-4">
-          <NiroOfferTile
+          <OfferTile
             small={false}
             amount={amount}
             source={source}

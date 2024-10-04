@@ -22,32 +22,25 @@ const OfferTile = ({ offer, small, source }) => {
     setShow(false);
     setUserClickData({ event_name: "offer-continue-button" });
 
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
+    var win = window.open(`${offer.redirection_link}${source}`, "_blank");
     win.focus();
   };
 
   const handleClick = () => {
-    if (offer.lender_name === "Prefr") {
-      setShow(true);
-      return;
-    }
-    if (offer.lender_name === "CashE") {
-      setOfferLink(`${offer.app_url}${source}`);
-      setShowModel(true);
-      return;
-    }
+    // if (offer.lender_name === "Prefr") {
+    //   setShow(true);
+    //   return;
+    // }
+    // if (offer.lender_name === "CashE") {
+    //   setOfferLink(`${offer.redirection_link}${source}`);
+    //   setShowModel(true);
+    //   return;
+    // }
 
     setUserClickData({ event_name: "offer-apply-button" });
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
+    var win = window.open(`${offer.redirection_link}${source}`, "_blank");
     win.focus();
   };
-  useEffect(() => {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -62,18 +55,18 @@ const OfferTile = ({ offer, small, source }) => {
             small ? "text-sm" : "text-3xl"
           } font-semibold text-[#00c0ff]`}
         >
-          {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
+          {convertNumberToIndianFormat(offer.loan_amount ?? 0)}
         </h2>
         {!small && (
           <div>
             <h5 className="mt-6 text-xs font-semibold">
-              Amount: {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
+              Amount: {convertNumberToIndianFormat(offer.loan_amount ?? 0)}
             </h5>
             <h5 className="my-2 text-xs font-semibold">
-              Tenure: {offer.tenure} Months
+              Tenure: {offer.loan_tenure} Months
             </h5>
             <h5 className="text-xs font-semibold">
-              EMI: {convertNumberToIndianFormat(offer.emi ?? 0)}
+              EMI: {convertNumberToIndianFormat(offer.loan_emi ?? 0)}
             </h5>
           </div>
         )}

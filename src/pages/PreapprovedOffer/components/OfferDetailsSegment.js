@@ -1,114 +1,44 @@
 import React, { useEffect, useState } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
-import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
-import SalariedForm from "./SalariedForm";
-import SelfEmployedForm from "./SelfEmployedForm";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
-import OfferTile from "./OfferTile";
+import OfferTile from "../../PreapprovedOffer/components/OfferTile";
 import { toast } from "react-toastify";
-import {
-  getAllianceLeadFromMoneyTapInput,
-  sourceConvert,
-} from "../../../utility/commonUtils";
-import { setUserClickData } from "../../../utility/setUserClickData";
-import { TRACK_ID } from "../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
+import FormButton from "../../../components/Buttons/FormButton";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
-const OfferDetailsSegment = ({ personalData }) => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const { state } = location;
-  const lead = useSelector((state) => state.app.lead);
-  const user = useSelector((state) => state.app.user);
-  const offers = useSelector((state) => state.app.offers);
-  const [isFinished, setIsFinished] = useState(false);
+const OfferDetailsSegment = () => {
+  const [lead, setLead] = useState();
+  const [offers, setOffers] = useState();
   const [show, setShow] = useState(false);
   const [source, setSource] = useState("");
-  const [utmSource, setUtmSource] = useState("");
-  const [affId, setAffId] = useState("");
-  const [leadId, setLeadId] = useState();
   const [params] = useSearchParams();
 
   useEffect(() => {
-    if (params.get("source")) setSource(params.get("source"));
-    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
-    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("phone")) fetchOffers(params.get("phone"));
   }, [params]);
 
-  useEffect(() => {
-    if (lead.stepDone === 2 && !leadId) {
-      submitLead();
-    }
-  }, [lead]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (leadId) fetchOffers();
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, [leadId]);
-
-  const submitLead = async () => {
-    setUserClickData({
-      event_name: "personal-detail-api",
-    });
+  const fetchOffers = async (phone) => {
     try {
-      const trackId = localStorage.getItem(TRACK_ID);
-      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        contact_name: personalData,
-        ...lead,
-        ...user,
-      });
-
       const res = await callApi(
-        "v1/lead/website-lead",
+        `v1/preapproved_lead/list`,
         "post",
         {
-          lead: {
-            ...processedLead,
-            tracking_id: trackId,
-            aff_id: affId,
-            utm_source: utmSource,
-            utm_medium: sourceConvert(source),
-          },
+          filters: { contact_phone: phone },
         },
-        "core",
-        user.token
-      );
-
-      if (res.status === "Success" && res.data.lead) {
-        setLeadId(res.data.lead._id);
-      }
-    } catch (err) {
-      toast("Some error occurred", { hideProgressBar: true, type: "error" });
-      console.log(err);
-    }
-  };
-
-  const fetchOffers = async () => {
-    if (isFinished) return;
-    try {
-      const res = await callApi(
-        `v1/loan_offer/lead_id/${leadId}`,
-        "get",
-        {},
-        "core",
-        user.token
+        "core"
       );
 
       if (res.status === "Success") {
-        dispatch(setOffers(res.data.offers ?? []));
-        if (res.data.lead?.all_responses) {
-          setIsFinished(
-            res.data.lead?.all_responses === res.data.lead?.total_response
-          );
-        }
+        let localOffers = res.data.preapproved_leadList ?? [];
+        // localOffers = localOffers.filter((e) =>
+        //   activeLenders.map((e) => e._id).includes(e.lender_id)
+        // );
+
+        setOffers(localOffers);
+        setLead(res.data.preapproved_leadList?.[0]?.contact_name);
       }
     } catch (err) {
       console.log(err);
@@ -119,13 +49,6 @@ const OfferDetailsSegment = ({ personalData }) => {
     setShow(true);
     setUserClickData({ event_name: "view-more" });
   };
-  useEffect(() => {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  }, []);
 
   return (
     <div className={"form-signin-apply form-signin"}>
@@ -134,25 +57,25 @@ const OfferDetailsSegment = ({ personalData }) => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       />
-      {!isFinished && offers?.length === 0 && (
+      {!offers && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span class="ml-2 dot-pulse"></span>
         </div>
       )}
-      {isFinished && offers?.length === 0 && (
+      {offers && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           There is no offer for you currently.
         </div>
       )}
-      {offers?.length > 0 && (
+      {offers && offers.length > 0 && (
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
             <span className="text-2xl font-normal">
-              {personalData?.contact_name?.split(" ")[0]}!!
+              {lead?.split(" ")[0]}!!
             </span>{" "}
           </h3>
           <h3 className="text-lg">Your pre-approved offers </h3>
@@ -174,7 +97,7 @@ const OfferDetailsSegment = ({ personalData }) => {
             className={
               "grid gap-4" +
               (offers.length === 2
-                ? " grid-cols-1"
+                ? "flex justify-center"
                 : offers.length === 3
                 ? " grid-cols-2"
                 : " grid-cols-3")
@@ -189,7 +112,6 @@ const OfferDetailsSegment = ({ personalData }) => {
                 </div>
               ))}
           </div>
-
           {offers.length > 4 && !show && (
             <div>
               <FormButton
@@ -201,14 +123,6 @@ const OfferDetailsSegment = ({ personalData }) => {
               </FormButton>
             </div>
           )}
-
-          {!isFinished && (
-            <div className="mt-4 font-normal text-center">
-              Please wait while we are searching best offers for you
-              <span class="ml-2 dot-pulse"></span>
-            </div>
-          )}
-
           <h4 className="mt-4 text-xs text-center">
             *These pre-approved offers are subject to change at discretion of
             Bank / NBFC after receiving all your documents and details. Final

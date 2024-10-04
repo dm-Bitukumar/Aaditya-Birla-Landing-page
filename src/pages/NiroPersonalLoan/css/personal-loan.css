@@ -1,7 +1,7 @@
-.personal-loan-container {
+.personal-loan-container2 {
   width: 100%;
   max-width: 390px;
-  padding: 15px 20px;
+ 
   margin: auto;
   background: #fff;
   font-family: "Montserrat", sans-serif;
@@ -15,7 +15,8 @@
 }
 
 .header-img {
-  height: 8em;
+  height: 10.5em;
+  width: 13em;
 }
 
 
@@ -129,6 +130,7 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 390px ){
   .header-img{
-    height: 7em;
+    height: 10em;
+  width: 13em;
   }
 }

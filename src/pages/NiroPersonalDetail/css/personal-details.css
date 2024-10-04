@@ -15,7 +15,28 @@
   /* border: 1px solid #e1e1e1; */
   border-radius: 5px;
 }
+.heightwrap{
+  min-height: 100vh;
+}
+.react-datepicker__input-container input {
+  font-size: 12px; 
+  font-weight: 400;
+  letter-spacing: normal;
+ 
+ }
 
+.react-date{
+  width: 25em;
+  border-radius: 0 0.6em 0.6em 0;
+  box-shadow: 2px 0px 4px -0.2pt #d3d3d3;
+  border-left: none;
+  padding: 1.6em 0.8em;
+  
+}
+.react-date::placeholder{
+  font-family: inherit !important;
+  color: black;
+}
 .dot-pulse {
   position: relative;
   left: -9978px;
@@ -286,4 +307,24 @@ select {
 
 .gender-image {
   height: 25px;
+}
+
+
+.custom-selected {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+}
+
+
+@media (max-width : 600px){
+  .heightwrap{
+    min-height: 110 vh;
+  }
+}
+@media (max-width : 388px){
+  .heightwrap{
+    height: 110 vh;
+  }
 }

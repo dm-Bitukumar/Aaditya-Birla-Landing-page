@@ -24,8 +24,12 @@ import New from "./pages/PreApprovedLoan/components/New/New";
 import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
 import PreApprove from "./pages/PreApprove/PreApprove";
 import NiroPersonalLoan from "./pages/NiroPersonalLoan/NiroPersonalLoan";
-import NiroPersonalDetails from "./pages/NiroPersonalDetail/PersonalDetails";
-import OfferDetailsSegmentNiro from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro";
+import PreapprovedOffer from "./pages/PreapprovedOffer/PreapprovedOffer";
+import OfferDetailsSegmentNiro2 from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro2";
+import LtPersonalLoan from "./pages/L&TPersonalLoan/L&TPersonalLoan";
+import AdityaBirlaPersonalLoan from "./pages/AdityaBirlaPersonalLoan/AdityaBirlaPersonalLoan";
+import OfferDetailsSegment from "./pages/AdityaBirlaPersonalLoan/components/OfferDetailsSegment";
+import CheckOffers from "./pages/CheckOffer/PreApprovedLoan";
 
 function App() {
   const location = useLocation();
@@ -88,7 +92,6 @@ function App() {
         <Route path={"/"} element={<Homepage />} />
         <Route path={"/lenders"} element={<LenderPage />} />
         <Route path={"/personal-loan"} element={<PersonalLoan />} />
-        <Route path={"niro-apply"} element={<NiroPersonalDetails />} />
         <Route path={"/apply"} element={<PersonalDetails />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
         <Route path={"/offers"} element={<OffersPage />} />
@@ -99,12 +102,17 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/preapprove" element={<PreApprove />} />
-        <Route path="/niro-pre" element={<NiroPersonalLoan />} />
+        <Route path="/fb/lp01" element={<NiroPersonalLoan />} />
+        <Route path="/pa-lt" element={<LtPersonalLoan />} />
+        <Route path="/pa-ab" element={<AdityaBirlaPersonalLoan />} />
         <Route
           path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
         />
-        <Route path="/niro-offer" element={<OfferDetailsSegmentNiro />} />
+        <Route path={"/check-offers"} element={<CheckOffers />} />
+        <Route path="/preapproved-offers" element={<PreapprovedOffer />} />
+        <Route path="/fb-offer" element={<OfferDetailsSegmentNiro2 />} />
+        <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
       </Routes>
     </>

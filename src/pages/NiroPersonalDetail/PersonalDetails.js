@@ -14,15 +14,22 @@ let noTransitions = {
   exitLeft: "",
 };
 
-const PersonalDetails = () => {
+const PersonalDetails = ({ personalData }) => {
   const user = useSelector((state) => state.app.user);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
-      navigate("/niro-pre", { replace: true });
+      navigate("/fb/lp01", { replace: true });
     }
   }, [user]);
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   const [step, setStep] = useState(1);
 
@@ -35,7 +42,7 @@ const PersonalDetails = () => {
       >
         <PersonalDetailsForm />
         <WorkDetailsForm />
-        <OfferDetailsSegment />
+        <OfferDetailsSegment personalData={personalData} />
       </StepWizard>
     </div>
   );

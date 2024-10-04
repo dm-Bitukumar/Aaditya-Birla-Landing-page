@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
-import Model from "./OfferModel";
-import NewOfferModel from "./NewOfferModel";
+
 import { Link } from "react-router-dom";
-import niroLogo from "../../../components/Static/images/niro.png";
+import adityaLogo from "../../../components/Static/images/aditya_bank.png";
 import NiroFormButton from "../../../components/Buttons/NiroFormButton";
 
 const OfferTile = ({ amount, small, source, contactName }) => {
@@ -68,7 +67,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
             boxShadow: "0 0 5px 0.5pt #d3d3d3",
           }}
         >
-          <img width={small ? 100 : 200} src={niroLogo} />
+          <img width={small ? 100 : 200} src={adityaLogo} />
         </div>
         {/* <img width={small ? 100 : 200} src={offer?.logo_image_url} />
         <h2
@@ -139,14 +138,6 @@ const OfferTile = ({ amount, small, source, contactName }) => {
           ACCEPT AND CONTINUE
         </NiroFormButton>
       </Link>
-
-      {showModel && (
-        <NewOfferModel
-          show={showModel}
-          setShow={setShowModel}
-          offerLink={offerLink}
-        />
-      )}
     </div>
   );
 };

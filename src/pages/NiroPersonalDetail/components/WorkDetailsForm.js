@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
@@ -138,14 +138,16 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     });
     previousStep();
   };
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
-    <div
-      className={"form-signin-apply"}
-      style={{
-        height: "100dvh",
-      }}
-    >
+    <div className={"form-signin-apply "}>
       <HeadBar />
       <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
@@ -168,8 +170,9 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         handleDataChange={handleDataChange}
       />
       <div
-        className={"d-flex gap-3"}
-        style={{ position: "absolute", bottom: "10px" }}
+        // className=""
+        className={"d-flex gap-3 preApprovebutton"}
+        style={{ background: "#fff" }}
       >
         <ContinueBtn
           className="!py-4 !px-6"

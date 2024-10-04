@@ -11,6 +11,7 @@ const OtpInputForm = ({
   phone_number,
   handleResendOtp,
   handleSubmitOtp,
+  setIsOtpGenerated,
   style,
   buttonStyle,
   handleChange: handleKycChecked,
@@ -68,7 +69,7 @@ const OtpInputForm = ({
   return (
     <div style={style}>
       <h1
-        className="my-4  h3 fw-normal"
+        className="my-4 h3 fw-normal"
         align="left"
         style={{
           fontSize: "18px !important",
@@ -89,6 +90,15 @@ const OtpInputForm = ({
             </span>
           </u>
         </span>
+        <Link
+          className="text-blue-700"
+          style={{ fontSize: "12px", marginLeft: "10px" }}
+          onClick={() => {
+            setIsOtpGenerated(false);
+          }}
+        >
+          Edit
+        </Link>
         <br />
         Please enter the OTP below
       </p>
@@ -186,6 +196,7 @@ const OtpInputForm = ({
       <div className="">
         <div className="preApprovebutton">
           <FormButton
+            className="!py-4 !px-6"
             // style={buttonStyle}
             onClick={handleSubmit}
             id="myBtn"

@@ -3,10 +3,25 @@ import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
+import { useSearchParams } from "react-router-dom";
 import SalariedForm from "./SalariedForm";
 import NiroOfferTile from "./NiroOfferTile";
 
-const OfferDetailsSegment = ({ source, contactName, amount }) => {
+const OfferDetailsSegment = () => {
+  const [sources, setSources] = useState("");
+  const [amount, setAmount] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("app_url")) setSources(params.get("app_url"));
+    if (params.get("amount")) setAmount(params.get("amount"));
+    if (params.get("contact_name")) setContactName(params.get("contact_name"));
+
+    // if (params.get("source")) setSource(params.get("source"));
+    // if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    // if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
   useEffect(() => {
     window.scroll({
       top: 0,
@@ -44,7 +59,7 @@ const OfferDetailsSegment = ({ source, contactName, amount }) => {
           <NiroOfferTile
             small={false}
             amount={amount}
-            source={source}
+            source={sources}
             contactName={contactName}
           />
         </div>
