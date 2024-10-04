@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useSearchParams } from "react";
+import React, { useEffect, useState } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
-
+import { useSearchParams } from "react-router-dom";
 import AdityaOfferTile from "./AdityaOfferTile";
 
 const OfferDetailsSegment = () => {
