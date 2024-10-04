@@ -80,6 +80,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -103,6 +104,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -173,6 +175,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         <OtpInputForm
           otpValue={otp}
           setOtpValue={setOtp}
+          setIsOtpGenerated={setIsOtpGenerated}
           handleResendOtp={handleResendOtp}
           phone_number={mobile}
           handleSubmitOtp={handleSubmitOtp}

@@ -81,6 +81,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -109,6 +110,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );

@@ -1,26 +1,12 @@
-import React, { useEffect, useState, useSearchParams } from "react";
+import React, { useEffect, useState } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
 
-import AdityaOfferTile from "./AdityaOfferTile";
+import OfferTile from "./AdityaOfferTile";
 
-const OfferDetailsSegment = () => {
-  const [sources, setSources] = useState("");
-  const [amount, setAmount] = useState("");
-  const [contactName, setContactName] = useState("");
-  const [params] = useSearchParams();
-
-  useEffect(() => {
-    if (params.get("app_url")) setSources(params.get("app_url"));
-    if (params.get("amount")) setAmount(params.get("amount"));
-    if (params.get("contact_name")) setContactName(params.get("contact_name"));
-
-    // if (params.get("source")) setSource(params.get("source"));
-    // if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
-    // if (params.get("aff_id")) setAffId(params.get("aff_id"));
-  }, [params]);
+const OfferDetailsSegment = ({ source, contactName, amount }) => {
   useEffect(() => {
     window.scroll({
       top: 0,
@@ -55,10 +41,10 @@ const OfferDetailsSegment = () => {
           </div> */}
         {/* ) : null */}
         <div className="my-4">
-          <AdityaOfferTile
+          <OfferTile
             small={false}
             amount={amount}
-            source={sources}
+            source={source}
             contactName={contactName}
           />
         </div>

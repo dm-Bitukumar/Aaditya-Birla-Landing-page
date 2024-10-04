@@ -3,8 +3,8 @@ import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
-
-import AdityaOfferTile from "./AdityaOfferTile";
+import SalariedForm from "./SalariedForm";
+import NiroOfferTile from "./NiroOfferTile";
 
 const OfferDetailsSegment = () => {
   const [sources, setSources] = useState("");
@@ -55,7 +55,7 @@ const OfferDetailsSegment = () => {
           </div> */}
         {/* ) : null */}
         <div className="my-4">
-          <AdityaOfferTile
+          <NiroOfferTile
             small={false}
             amount={amount}
             source={sources}

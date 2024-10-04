@@ -25,7 +25,7 @@ import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
 import PreApprove from "./pages/PreApprove/PreApprove";
 import NiroPersonalLoan from "./pages/NiroPersonalLoan/NiroPersonalLoan";
 import PreapprovedOffer from "./pages/PreapprovedOffer/PreapprovedOffer";
-import OfferDetailsSegmentNiro from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro";
+import OfferDetailsSegmentNiro2 from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro2";
 import LtPersonalLoan from "./pages/L&TPersonalLoan/L&TPersonalLoan";
 import AdityaBirlaPersonalLoan from "./pages/AdityaBirlaPersonalLoan/AdityaBirlaPersonalLoan";
 import OfferDetailsSegment from "./pages/AdityaBirlaPersonalLoan/components/OfferDetailsSegment";
@@ -111,7 +111,7 @@ function App() {
         />
         <Route path={"/check-offers"} element={<CheckOffers />} />
         <Route path="/preapproved-offers" element={<PreapprovedOffer />} />
-        <Route path="/fb-offer" element={<OfferDetailsSegmentNiro />} />
+        <Route path="/fb-offer" element={<OfferDetailsSegmentNiro2 />} />
         <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
       </Routes>

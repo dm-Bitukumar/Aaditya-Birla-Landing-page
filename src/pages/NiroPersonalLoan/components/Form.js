@@ -99,6 +99,7 @@ const Form = () => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -129,6 +130,7 @@ const Form = () => {
         "post",
         {
           contact_phone: mobile,
+          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -188,7 +190,7 @@ const Form = () => {
               // );
               // navigate({ state: result.data });
               setStepper("3");
-              setPersonalData(result.data);
+              setPersonalData(userName);
             }
           }
         } catch (err) {}

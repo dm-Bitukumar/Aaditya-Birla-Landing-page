@@ -13,7 +13,8 @@ import { toast } from "react-toastify";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 import PersonalDetails from "../../NiroPersonalDetail/PersonalDetails";
-import OfferDetailsSegment from "../../AdityaBirlaPersonalLoan/components/OfferDetailsSegment";
+import OfferDetailsSegment2 from "../../AdityaBirlaPersonalLoan/components/OfferDetailsSegment2";
+import { sourceConvert } from "../../../utility/commonUtils";
 
 const Form = () => {
   const [otp, setOtp] = useState("");
@@ -43,8 +44,8 @@ const Form = () => {
     if (params.get("contact_name")) setContactName(params.get("contact_name"));
     if (params.get("step")) setStepper(params.get("step"));
     // if (params.get("source")) setSource(params.get("source"));
-    // if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
-    // if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
 
   async function fetchIp() {
@@ -161,22 +162,23 @@ const Form = () => {
         dispatch(login({ ...res.data.customer, token: res.data.token }));
         try {
           const result = await callApi(
-            "v1/lender/fb-niro-first-check",
+            "v1/preapproved_lead/abfl-pa-remarketing",
             "post",
 
             {
-              contact_name: userName,
               contact_phone: mobile,
-              ip_address: ipAddress,
+              kyc_consent: isTncChecked,
+              utm_medium: sourceConvert(utmSource),
+              aff_id: affId,
             },
-            "loan"
+            "core"
           );
           if (result?.status === "Success") {
-            if (result?.data?.status === true) {
+            if (result?.data?.offers?.status === true) {
               setStepper("2");
-              setContactName(result.data?.contact_name);
-              setAmount(result?.data?.offers?.[0]?.credit_limit);
-              setSources(result?.data?.app_url);
+              setContactName(userName);
+              setAmount(result?.data?.offers?.credit_limit);
+              setSources(result?.data?.offers?.app_url);
               // navigate(
               //   `/fb/lp01?step=${"2"}&contact_name=${
               //     result.data?.contact_name
@@ -190,7 +192,7 @@ const Form = () => {
               // );
               // navigate({ state: result.data });
               setStepper("3");
-              setPersonalData(result.data);
+              setPersonalData(userName);
             }
           }
         } catch (err) {}
@@ -335,7 +337,7 @@ const Form = () => {
         </div>
       ) : null}
       {stepper === "2" ? (
-        <OfferDetailsSegment
+        <OfferDetailsSegment2
           source={sources}
           amount={amount}
           contactName={contactName}
