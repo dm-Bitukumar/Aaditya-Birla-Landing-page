@@ -72,9 +72,6 @@ const PersonalDetailsForm = ({ nextStep, lender }) => {
       isValid = false;
       setErrors("gender");
       setErrorMessage("Please select your gender");
-    } else if (_.isEmpty(userName)) {
-      isValid = false;
-      setIsUserNameValid(false);
     } else if (!moment(dob, "DD/MM/YYYY").isValid()) {
       isValid = false;
       setErrors("dob");
@@ -103,6 +100,12 @@ const PersonalDetailsForm = ({ nextStep, lender }) => {
     if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
       isValid = false;
       setIsPancardValid(false);
+    }
+    if (lender !== "niro") {
+      if (_.isEmpty(userName)) {
+        isValid = false;
+        setIsUserNameValid(false);
+      }
     }
 
     return isValid;
