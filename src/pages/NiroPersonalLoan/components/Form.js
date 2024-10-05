@@ -341,7 +341,9 @@ const Form = () => {
           contactName={contactName}
         />
       ) : null}
-      {stepper === "3" ? <PersonalDetails personalData={personalData} /> : null}
+      {stepper === "3" ? (
+        <PersonalDetails personalData={personalData} lender={"niro"} />
+      ) : null}
     </>
   );
 };

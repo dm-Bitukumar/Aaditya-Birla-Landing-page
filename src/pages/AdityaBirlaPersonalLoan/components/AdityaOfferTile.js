@@ -120,9 +120,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
           style={{
             marginTop: "10px",
           }}
-        >
-          Powered by the Niro
-        </h5>
+        ></h5>
       </div>
       <Link
         to={`${source}&vendorName=digitmoney`}
