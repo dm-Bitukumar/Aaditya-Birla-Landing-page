@@ -21,7 +21,6 @@ const Form = () => {
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [mobile, setMobile] = useState("");
-  const [personalData, setPersonalData] = useState("");
   const [utmSource, setUtmSource] = useState("");
   const [affId, setAffId] = useState("");
   const [stepper, setStepper] = useState("0");
@@ -36,29 +35,9 @@ const Form = () => {
   const [contactName, setContactName] = useState("");
 
   useEffect(() => {
-    if (params.get("app_url")) setSources(params.get("app_url"));
-    if (params.get("amount")) setAmount(params.get("amount"));
-    if (params.get("contact_name")) setContactName(params.get("contact_name"));
-    if (params.get("step")) setStepper(params.get("step"));
-    // if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
-
-  async function fetchIp() {
-    await fetch("https://api.ipify.org?format=json")
-      .then((response) => response.json())
-      .then((data) => {
-        // ipAddress = data?.ip;
-        setIpAddress(data?.ip);
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
-  }
-  useEffect(() => {
-    fetchIp();
-  }, []);
 
   const handleValidation = () => {
     let isValid = true;
@@ -300,9 +279,7 @@ const Form = () => {
           contactName={contactName}
         />
       ) : null}
-      {stepper === "3" ? (
-        <PersonalDetails personalData={personalData} lender={"abfl"} />
-      ) : null}
+      {stepper === "3" ? <PersonalDetails lender={"abfl"} /> : null}
     </>
   );
 };
