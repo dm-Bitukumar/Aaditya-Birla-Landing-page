@@ -175,7 +175,7 @@ const Form = () => {
           );
           if (result?.status === "Success") {
             if (result?.data?.offers?.status === true) {
-              setStepper("2");
+              setStepper("3");
               setContactName(userName);
               setAmount(result?.data?.offers?.credit_limit);
               setSources(result?.data?.offers?.app_url);
@@ -270,7 +270,7 @@ const Form = () => {
               <input type="hidden" name="click_id" value="" />
               <input type="hidden" name="aff_id" value="" />
               <input type="hidden" name="src" value="" />
-              <FormInputNewNiro
+              {/* <FormInputNewNiro
                 icon={
                   <img
                     src="/assets/icons/male.png"
@@ -290,7 +290,7 @@ const Form = () => {
                 required
                 label={"Full Name"}
                 errorMessage={"Please enter a valid user name"}
-              />
+              /> */}
 
               <FormInputNewNiro
                 icon={
@@ -343,7 +343,9 @@ const Form = () => {
           contactName={contactName}
         />
       ) : null}
-      {stepper === "3" ? <PersonalDetails personalData={personalData} /> : null}
+      {stepper === "3" ? (
+        <PersonalDetails personalData={personalData} lender={"abfl"} />
+      ) : null}
     </>
   );
 };

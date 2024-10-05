@@ -14,7 +14,7 @@ let noTransitions = {
   exitLeft: "",
 };
 
-const PersonalDetails = ({ personalData }) => {
+const PersonalDetails = ({ personalData, lender }) => {
   const user = useSelector((state) => state.app.user);
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ const PersonalDetails = ({ personalData }) => {
         initialStep={step}
         onStepChange={({ activeStep }) => setStep(activeStep)}
       >
-        <PersonalDetailsForm />
+        <PersonalDetailsForm lender={lender} />
         <WorkDetailsForm />
         <OfferDetailsSegment personalData={personalData} />
       </StepWizard>
