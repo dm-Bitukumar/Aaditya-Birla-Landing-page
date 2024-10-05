@@ -4,7 +4,7 @@ import Stepper from "../../../components/Form/Stepper";
 import CustomCheckboxGroupNew from "./CustomCheckboxGroupNew";
 import FormDobNiro from "../../../components/Form/FormDobNiro";
 import FormInputNewNiro from "../../../components/Form/FormInputNewNiro";
-import FormDob from "../../../components/Form/FormDob";
+import FormDobInput from "../../../components/Form/FormDobInput";
 import FormSelect from "../../../components/Form/FormSelect";
 import FormButton from "../../../components/Buttons/FormButton";
 import ContinueBtn from "../../../components/Buttons/ContinueBtn";
@@ -20,17 +20,19 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const PersonalDetailsForm = ({ nextStep }) => {
+const PersonalDetailsForm = ({ nextStep, lender }) => {
   const dispatch = useDispatch();
 
   const [inputType, setInputType] = useState("text");
   const [pancard, setPancard] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isDobValid, setIsDobValid] = useState(true);
-  const [dob, setDob] = useState("");
+  const [userName, setUserName] = useState("");
+  const [isUserNameValid, setIsUserNameValid] = useState(true);
+
   const [data, setData] = useState({
     gender: "",
-
+    dob: "",
     email: "",
     pincode: "",
     home_address1: "",
@@ -49,23 +51,12 @@ const PersonalDetailsForm = ({ nextStep }) => {
     setIsPancardValid(true);
     setPancard(value);
   };
-  const handleFocus = () => {
-    setInputType("date");
-  };
 
-  const handleBlur = (event) => {
-    if (!event.target.value) {
-      setInputType("text");
-    }
-  };
-  const handleDobChange = (event) => {
-    //const { value } = event.target;
-
-    setIsDobValid(true);
-    if (event) {
-      setDob(moment(event).format("YYYY-MM-DD"));
-    }
-    setInputType("date");
+  const handleUserNameChange = (event) => {
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^A-Za-z" "]/g, "");
+    setIsUserNameValid(true);
+    setUserName(inputValue);
   };
 
   const handleValidate = () => {
@@ -75,24 +66,19 @@ const PersonalDetailsForm = ({ nextStep }) => {
       /[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/
     );
 
-    const { gender, email, pincode, profession } = data;
+    const { gender, email, pincode, dob, profession } = data;
 
     if (_.isEmpty(gender)) {
       isValid = false;
       setErrors("gender");
       setErrorMessage("Please select your gender");
-      // } else if (_.isEmpty(name)) {
-      //   isValid = false;
-      //   setErrors("name");
-      //   setErrorMessage("Please enter your name");
-    } else if (_.isEmpty(dob)) {
+    } else if (_.isEmpty(userName)) {
       isValid = false;
-      setIsDobValid(false);
-
-      // } else if (!moment(dob, "DD/MM/YYYY").isValid()) {
-      //   isValid = false;
-      //   setErrors("dob");
-      //   setErrorMessage("Please enter valid DOB");
+      setIsUserNameValid(false);
+    } else if (!moment(dob, "DD/MM/YYYY").isValid()) {
+      isValid = false;
+      setErrors("dob");
+      setErrorMessage("Please enter valid DOB");
     } else if (_.isEmpty(email)) {
       isValid = false;
       setErrors("email");
@@ -131,9 +117,13 @@ const PersonalDetailsForm = ({ nextStep }) => {
       nextStep();
       const localData = {
         ...data,
+
         pancard: pancard,
-        dob: dob,
+        dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
       };
+      if (lender !== "niro") {
+        localData.contact_name = userName;
+      }
       dispatch(setLead({ ...localData, stepDone: 1 }));
     }
   };
@@ -159,64 +149,45 @@ const PersonalDetailsForm = ({ nextStep }) => {
         Personal Details
         {/* <strong>Upto 25 Lacs</strong> */}
       </h1>
+      {lender !== "niro" ? (
+        <FormInputNewNiro
+          icon={
+            <img
+              src="/assets/icons/male.png"
+              height="25"
+              style={{ maxHeight: "25px" }}
+              alt="icon 2.png"
+            />
+          }
+          type="text"
+          name="userName"
+          isValid={isUserNameValid}
+          id="userName"
+          aria-describedby="name"
+          placeholder="Full Name"
+          value={userName}
+          onChange={handleUserNameChange}
+          required
+          label={"Full Name"}
+          errorMessage={"Please enter a valid user name"}
+        />
+      ) : null}
       <CustomCheckboxGroupNew
         isValid={errors !== "gender"}
         errorMessage={errorMessage}
         activeGender={data.gender}
         setActiveGender={(value) => handleDataChange("gender", value)}
       />
-      {/* <FormInputNewNiro
-        placeholder="Full Name as per Pan Card"
+      <FormDobInput
+        placeholder="dob"
         required
-        id="name"
-        value={data.name}
-        onChange={(e) => handleDataChange("name", e.target.value)}
-        errorMessage={errorMessage}
-        isValid={errors !== "name"}
-        icon={<img src="/assets/icons/male.png" style={{ height: "25px" }} />}
-        label={"Full Name as per Pan Card"}
-      /> */}
-      {/* <div>
-        <img
-          src="/assets/icons/dob.png"
-          height="25"
-          style={{ maxHeight: "25px" }}
-          alt="icon 5.png"
-        />
-        <DatePicker
-          selected={user?.dob}
-          scrollableYearDropdown
-          dateFormat="dd/MM/yyyy"
-          peekNextMonth
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-          placeholderText="Date of birth"
-          onChange={(e) => handleDobChange("dob", e)}
-        />
-      </div> */}
-      <FormDobNiro
-        icon={
-          <img
-            src="/assets/icons/dob.png"
-            height="25"
-            style={{ maxHeight: "25px" }}
-            alt="icon 5.png"
-          />
-        }
-        type={inputType}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        name="dob"
-        isValid={isDobValid}
         id="dob"
-        aria-describedby="name"
-        placeholder="Date Of Birth (DD| MM | YYYY)"
-        value={dob}
-        onChange={handleDobChange}
-        required
-        label={"Date Of Birth (DD| MM | YYYY)"}
-        errorMessage={"Please enter a valid Dob"}
+        value={data.dob}
+        onChange={(dob) => handleDataChange("dob", dob)}
+        errorMessage={errorMessage}
+        isValid={errors !== "dob"}
+        icon={<img src="/assets/icons/dob.png" style={{ height: "25px" }} />}
+        label={"Date Of Birth (DD | MM | YYYY)"}
       />
       <FormInputNewNiro
         icon={
