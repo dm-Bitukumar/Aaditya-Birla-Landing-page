@@ -74,10 +74,10 @@ const Form = () => {
       isValid = false;
       setIsMobileValid(false);
     }
-    if (_.isEmpty(userName)) {
-      isValid = false;
-      setIsUserNameValid(false);
-    }
+    // if (_.isEmpty(userName)) {
+    //   isValid = false;
+    //   setIsUserNameValid(false);
+    // }
 
     return isValid;
   };
