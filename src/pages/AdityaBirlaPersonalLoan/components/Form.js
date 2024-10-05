@@ -175,7 +175,7 @@ const Form = () => {
           );
           if (result?.status === "Success") {
             if (result?.data?.offers?.status === true) {
-              setStepper("3");
+              setStepper("2");
               setContactName(userName);
               setAmount(result?.data?.offers?.credit_limit);
               setSources(result?.data?.offers?.app_url);
