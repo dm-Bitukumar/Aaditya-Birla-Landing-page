@@ -19,7 +19,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 
-const OfferDetailsSegment = ({ personalData }) => {
+const OfferDetailsSegment = ({ personalData, utmMedium }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { state } = location;
@@ -75,7 +75,7 @@ const OfferDetailsSegment = ({ personalData }) => {
             tracking_id: trackId,
             aff_id: affId,
             utm_source: utmSource,
-            utm_medium: sourceConvert(source),
+            utm_medium: utmMedium ? utmMedium : "",
           },
         },
         "core",
