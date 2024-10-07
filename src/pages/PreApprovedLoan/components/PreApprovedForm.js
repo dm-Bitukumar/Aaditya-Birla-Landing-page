@@ -187,7 +187,6 @@ const PreApprovedForm = ({ data }) => {
         "post",
         {
           contact_phone: mobile,
-          kyc_consent: isTncChecked,
         },
         "messaging"
       );
@@ -200,6 +199,7 @@ const PreApprovedForm = ({ data }) => {
             name: userName,
             company_name: companyName,
             kyc_consent: isKYCConcent,
+            website_kyc_consent: isTncChecked,
             salary_mode: "online/neft",
             pincode,
             lender_id,
@@ -226,7 +226,6 @@ const PreApprovedForm = ({ data }) => {
         "post",
         {
           contact_phone: mobile,
-          kyc_consent: isTncChecked,
         },
         "messaging"
       );

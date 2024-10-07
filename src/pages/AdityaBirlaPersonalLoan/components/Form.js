@@ -21,12 +21,8 @@ const Form = () => {
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [mobile, setMobile] = useState("");
-  const [userName, setUserName] = useState("");
-  const [ipAddress, setIpAddress] = useState("");
-  const [personalData, setPersonalData] = useState("");
   const [utmSource, setUtmSource] = useState("");
   const [affId, setAffId] = useState("");
-  const [isUserNameValid, setIsUserNameValid] = useState(true);
   const [stepper, setStepper] = useState("0");
 
   const [isMobileValid, setIsMobileValid] = useState(true);
@@ -39,29 +35,9 @@ const Form = () => {
   const [contactName, setContactName] = useState("");
 
   useEffect(() => {
-    if (params.get("app_url")) setSources(params.get("app_url"));
-    if (params.get("amount")) setAmount(params.get("amount"));
-    if (params.get("contact_name")) setContactName(params.get("contact_name"));
-    if (params.get("step")) setStepper(params.get("step"));
-    // if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
-
-  async function fetchIp() {
-    await fetch("https://api.ipify.org?format=json")
-      .then((response) => response.json())
-      .then((data) => {
-        // ipAddress = data?.ip;
-        setIpAddress(data?.ip);
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
-  }
-  useEffect(() => {
-    fetchIp();
-  }, []);
 
   const handleValidation = () => {
     let isValid = true;
@@ -74,10 +50,10 @@ const Form = () => {
       isValid = false;
       setIsMobileValid(false);
     }
-    if (_.isEmpty(userName)) {
-      isValid = false;
-      setIsUserNameValid(false);
-    }
+    // if (_.isEmpty(userName)) {
+    //   isValid = false;
+    //   setIsUserNameValid(false);
+    // }
 
     return isValid;
   };
@@ -112,13 +88,6 @@ const Form = () => {
 
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
-  };
-
-  const handleUserNameChange = (event) => {
-    let inputValue = event.target.value;
-    inputValue = inputValue.replace(/[^A-Za-z" "]/g, "");
-    setIsUserNameValid(true);
-    setUserName(inputValue);
   };
 
   const handleResendOtp = async () => {
@@ -159,7 +128,13 @@ const Form = () => {
       );
 
       if (res["status"] === "Success") {
-        dispatch(login({ ...res.data.customer, token: res.data.token }));
+        dispatch(
+          login({
+            ...res.data.customer,
+            token: res.data.token,
+            website_kyc_consent: isTncChecked,
+          })
+        );
         try {
           const result = await callApi(
             "v1/preapproved_lead/abfl-pa-remarketing",
@@ -176,23 +151,11 @@ const Form = () => {
           if (result?.status === "Success") {
             if (result?.data?.offers?.status === true) {
               setStepper("2");
-              setContactName(userName);
+              setContactName(result?.data?.offers?.contact_name);
               setAmount(result?.data?.offers?.credit_limit);
               setSources(result?.data?.offers?.app_url);
-              // navigate(
-              //   `/fb/lp01?step=${"2"}&contact_name=${
-              //     result.data?.contact_name
-              //   }&amount=${result?.data?.offers?.[0]?.credit_limit}&app_url=${
-              //     result?.data?.app_url
-              //   }`
-              // );
             } else {
-              // navigate(
-              //   `/fb/lp01?step=${"3"}&aff_id=${affId}&utm_source=${utmSource}`
-              // );
-              // navigate({ state: result.data });
               setStepper("3");
-              setPersonalData(userName);
             }
           }
         } catch (err) {}
@@ -270,27 +233,6 @@ const Form = () => {
               <input type="hidden" name="click_id" value="" />
               <input type="hidden" name="aff_id" value="" />
               <input type="hidden" name="src" value="" />
-              <FormInputNewNiro
-                icon={
-                  <img
-                    src="/assets/icons/male.png"
-                    height="25"
-                    style={{ maxHeight: "25px" }}
-                    alt="icon 2.png"
-                  />
-                }
-                type="text"
-                name="userName"
-                isValid={isUserNameValid}
-                id="userName"
-                aria-describedby="name"
-                placeholder="Full Name"
-                value={userName}
-                onChange={handleUserNameChange}
-                required
-                label={"Full Name"}
-                errorMessage={"Please enter a valid user name"}
-              />
 
               <FormInputNewNiro
                 icon={
@@ -343,7 +285,9 @@ const Form = () => {
           contactName={contactName}
         />
       ) : null}
-      {stepper === "3" ? <PersonalDetails personalData={personalData} /> : null}
+      {stepper === "3" ? (
+        <PersonalDetails lender={"abfl"} utmMedium={"abfl-remarketing-pa"} />
+      ) : null}
     </>
   );
 };

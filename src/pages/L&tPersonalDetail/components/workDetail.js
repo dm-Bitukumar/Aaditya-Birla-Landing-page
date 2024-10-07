@@ -1,0 +1,115 @@
+import FormInputNewNiro from "../../../components/Form/FormInputNewNiro";
+import FormSelectNewNiro from "../../../components/Form/FormSelectNewNiro";
+import {
+  company_type_options,
+  salary_mode_options,
+} from "../../../constants/formData";
+import CustomSquareCheckBoxGroup from "../../../components/Form/CustomSquareCheckBoxGroup";
+import { numberToWordIncome } from "../../../utility/numberUtility";
+import numberToWords from "../../../utility/numberToWords";
+import { useEffect } from "react";
+
+const WorkDetail = ({
+  data,
+  errors,
+  words,
+  errorMessage,
+  handleDataChange,
+  handleMonthlyIncome,
+  monthlyIncome,
+}) => {
+  const profession_options = [
+    { label: "Salaried", value: "Salaried" },
+    { label: "Self Employed", value: "self employed" },
+    { label: "Business Owner", value: "business owner" },
+  ];
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
+  return (
+    <>
+      <div>
+        <FormSelectNewNiro
+          options={profession_options}
+          placeholder="profession"
+          required
+          id="profession"
+          value={data.profession}
+          onChange={(value) => handleDataChange("profession", value)}
+          errorMessage={errorMessage}
+          isValid={errors !== "profession"}
+          icon={
+            <img
+              src="/assets/icons/profession.png"
+              style={{ height: "25px" }}
+            />
+          }
+          label={"Profession"}
+        />
+        <FormInputNewNiro
+          placeholder="Company Name"
+          required
+          id="company_name"
+          value={data.company_name}
+          onChange={(e) => handleDataChange("company_name", e.target.value)}
+          errorMessage={errorMessage}
+          isValid={errors !== "company_name"}
+          icon={
+            <img src="/assets/icons/cname.png" style={{ height: "25px" }} />
+          }
+          label={"Company Name"}
+        />
+        <FormSelectNewNiro
+          options={company_type_options}
+          placeholder="company_type"
+          required
+          id="company_type"
+          value={data.company_type}
+          onChange={(value) => handleDataChange("company_type", value)}
+          errorMessage={errorMessage}
+          isValid={errors !== "company_type"}
+          icon={
+            <img src="/assets/icons/cname.png" style={{ height: "25px" }} />
+          }
+          label={"Company Type"}
+        />
+        <FormInputNewNiro
+          type={"email"}
+          placeholder="Work Email ID"
+          required
+          id="workemail"
+          value={data.work_email}
+          onChange={(e) => handleDataChange("work_email", e.target.value)}
+          errorMessage={errorMessage}
+          isValid={errors !== "work_email"}
+          icon={
+            <img src="/assets/icons/email.png" style={{ height: "25px" }} />
+          }
+          label={"Work Email"}
+        />
+        <FormInputNewNiro
+          type={"text"}
+          placeholder="monthly_income"
+          required
+          id="monthly_income"
+          value={monthlyIncome}
+          onChange={(e) => handleMonthlyIncome(e)}
+          errorMessage={errorMessage}
+          isValid={errors !== "monthly_income"}
+          icon={
+            <img src="/assets/icons/income.png" style={{ height: "25px" }} />
+          }
+          label={"Monthly Income"}
+        />
+        {words && <p className={"my-2"}>{words}</p>}
+      </div>
+    </>
+  );
+};
+
+export default WorkDetail;

@@ -4,10 +4,10 @@ import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 
 import { Link } from "react-router-dom";
-import adityaLogo from "../../../components/Static/images/aditya_bank.png";
+import ltLogo from "../../../components/Static/images/bank_lnt.png";
 import NiroFormButton from "../../../components/Buttons/NiroFormButton";
 
-const OfferTile = ({ amount, small, source, contactName }) => {
+const OfferTile = ({ small, offer, name }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
@@ -67,7 +67,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
             boxShadow: "0 0 5px 0.5pt #d3d3d3",
           }}
         >
-          <img width={small ? 100 : 200} src={adityaLogo} />
+          <img width={small ? 100 : 200} src={ltLogo} />
         </div>
         {/* <img width={small ? 100 : 200} src={offer?.logo_image_url} />
         <h2
@@ -90,7 +90,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
               fontSize: "1em",
             }}
           >
-            {contactName}
+            {name}
           </h5>
           <h1
             className="mt-3 font-bold "
@@ -101,7 +101,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
               padding: "1em 0",
             }}
           >
-            Amount : {convertNumberToIndianFormat(amount ?? 0)}
+            Amount : {convertNumberToIndianFormat(offer?.credit_limit ?? 0)}
           </h1>
 
           {/* <h5 className="text-xs font-semibold">
@@ -123,7 +123,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
         ></h5>
       </div>
       <Link
-        to={`${source}&vendorName=digitmoney`}
+        to={`${offer?.app_url}`}
         style={{
           display: "flex",
           justifyContent: "center",

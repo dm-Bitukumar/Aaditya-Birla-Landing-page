@@ -158,7 +158,13 @@ const Form = () => {
       );
 
       if (res["status"] === "Success") {
-        dispatch(login({ ...res.data.customer, token: res.data.token }));
+        dispatch(
+          login({
+            ...res.data.customer,
+            token: res.data.token,
+            website_kyc_consent: isTncChecked,
+          })
+        );
         try {
           const result = await callApi(
             "v1/lender/fb-niro-first-check",
@@ -341,7 +347,9 @@ const Form = () => {
           contactName={contactName}
         />
       ) : null}
-      {stepper === "3" ? <PersonalDetails personalData={personalData} /> : null}
+      {stepper === "3" ? (
+        <PersonalDetails personalData={personalData} lender={"niro"} />
+      ) : null}
     </>
   );
 };
