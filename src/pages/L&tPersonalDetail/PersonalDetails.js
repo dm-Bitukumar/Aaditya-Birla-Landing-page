@@ -1,4 +1,3 @@
-import "./css/personal-details.css";
 import WorkDetailsForm from "./components/WorkDetailsForm";
 import { useEffect, useState } from "react";
 import StepWizard from "react-step-wizard";
@@ -14,7 +13,7 @@ let noTransitions = {
   exitLeft: "",
 };
 
-const PersonalDetails = ({ personalData, lender, utmMedium }) => {
+const PersonalDetails = ({ utmMedium }) => {
   const user = useSelector((state) => state.app.user);
   const navigate = useNavigate();
 
@@ -40,12 +39,9 @@ const PersonalDetails = ({ personalData, lender, utmMedium }) => {
         initialStep={step}
         onStepChange={({ activeStep }) => setStep(activeStep)}
       >
-        <PersonalDetailsForm lender={lender} />
+        <PersonalDetailsForm />
         <WorkDetailsForm />
-        <OfferDetailsSegment
-          personalData={personalData}
-          utmMedium={utmMedium}
-        />
+        <OfferDetailsSegment utmMedium={utmMedium} />
       </StepWizard>
     </div>
   );

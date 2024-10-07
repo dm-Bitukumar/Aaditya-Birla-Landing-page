@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const OtpInputForm = ({
   otpValue,
   setOtpValue,
+  checkOffer,
   phone_number,
   handleResendOtp,
   handleSubmitOtp,
@@ -52,7 +53,8 @@ const OtpInputForm = ({
 
   const handleSubmit = () => {
     setUserClickData({
-      event_name: "otp-input-form",
+      event_name:
+        checkOffer === "check-offer" ? `${checkOffer}-otp` : "otp-input-form",
     });
     if (otpValue.length === 4) {
       handleSubmitOtp();

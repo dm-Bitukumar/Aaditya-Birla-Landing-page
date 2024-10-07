@@ -128,7 +128,13 @@ const Form = () => {
       );
 
       if (res["status"] === "Success") {
-        dispatch(login({ ...res.data.customer, token: res.data.token }));
+        dispatch(
+          login({
+            ...res.data.customer,
+            token: res.data.token,
+            website_kyc_consent: isTncChecked,
+          })
+        );
         try {
           const result = await callApi(
             "v1/preapproved_lead/abfl-pa-remarketing",
@@ -279,7 +285,9 @@ const Form = () => {
           contactName={contactName}
         />
       ) : null}
-      {stepper === "3" ? <PersonalDetails lender={"abfl"} /> : null}
+      {stepper === "3" ? (
+        <PersonalDetails lender={"abfl"} utmMedium={"abfl-remarketing-pa"} />
+      ) : null}
     </>
   );
 };

@@ -67,7 +67,7 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handleSubmit = async (event) => {
     setUserClickData({
-      event_name: "otp-button-pre-approved-loan-page",
+      event_name: "otp-button-check-offer-loan-page",
     });
     event.preventDefault();
     // let isValid = handleValidation();
@@ -94,7 +94,7 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handleChange = () => {
     setUserClickData({
-      event_name: "check-tick-pre-approved-loan-page",
+      event_name: "check-offer-loan-page",
     });
     setIsTncChecked((prev) => !prev);
   };
@@ -102,7 +102,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   const handleResendOtp = async () => {
     // todo resend login with timer
     setUserClickData({
-      event_name: "resend-otp-form-for-personal-loan",
+      event_name: "resend-otp-form-for-check-offer",
     });
     try {
       const res = await callApi(
@@ -173,6 +173,7 @@ const Form = ({ formData, setFormData, ...props }) => {
       {isOtpGenerated ? (
         <div style={{ marginTop: "180px" }}>
           <OtpInputForm
+            checkOffer={"check-offer"}
             buttonStyle={{ marginTop: "200px", marginBottom: "50px" }}
             otpValue={otp}
             setIsOtpGenerated={setIsOtpGenerated}
