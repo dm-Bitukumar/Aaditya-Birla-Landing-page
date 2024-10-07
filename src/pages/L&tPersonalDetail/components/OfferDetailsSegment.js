@@ -20,6 +20,7 @@ const OfferDetailsSegment = ({ utmMedium }) => {
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
+  const [leadName, setLeadName] = useState("");
   const [show, setShow] = useState(false);
   const [leadOffers, setLeadOffers] = useState(null);
   const [source, setSource] = useState("");
@@ -101,8 +102,10 @@ const OfferDetailsSegment = ({ utmMedium }) => {
       if (res.status === "Success") {
         if (res.data.offers?.[0]?.lender_id === "662752eb65fdba1a48d6e482") {
           setLeadOffers(res.data.offers?.[0]);
+          setLeadName(res.data.lead.contact_name);
         } else {
           dispatch(setOffers(res.data.offers ?? []));
+          setLeadName(res.data.lead.contact_name);
           if (res.data.lead?.all_responses) {
             setIsFinished(
               res.data.lead?.all_responses === res.data.lead?.total_response
@@ -128,7 +131,7 @@ const OfferDetailsSegment = ({ utmMedium }) => {
 
   return (
     <>
-      {leadOffers === null ? (
+      {leadOffers !== null ? (
         <div
           className={"form-signin-apply "}
           style={{
@@ -143,9 +146,7 @@ const OfferDetailsSegment = ({ utmMedium }) => {
 
             <h3 className="mt-8 text-lg text-center">
               Congratulations{" "}
-              <span className="text-2xl font-normal">
-                {lead.contact_name?.split(" ")[0]}!!
-              </span>{" "}
+              <span className="text-2xl font-normal">{leadName}!!</span>{" "}
             </h3>
             <h3 className="text-lg">Your pre-approved offers </h3>
             {/* {of.length > 1 ? (
@@ -193,9 +194,7 @@ const OfferDetailsSegment = ({ utmMedium }) => {
 
               <h3 className="mt-8 text-lg text-center">
                 Congratulations{" "}
-                <span className="text-2xl font-normal">
-                  {lead.contact_name?.split(" ")[0]}!!
-                </span>{" "}
+                <span className="text-2xl font-normal">{leadName}!!</span>{" "}
               </h3>
               <h3 className="text-lg">Your pre-approved offers </h3>
 
