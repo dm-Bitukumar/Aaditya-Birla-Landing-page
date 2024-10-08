@@ -148,6 +148,7 @@ const Form = ({ formData, setFormData, ...props }) => {
           "post",
           {
             phone: mobile,
+            website_kyc_consent: isTncChecked,
           },
           "core",
           res.data.token
