@@ -23,7 +23,7 @@ const OfferDetailsSegment = () => {
   const fetchOffers = async (phone) => {
     try {
       const res = await callApi(
-        `v1/preapproved_lead/list`,
+        `v1/preapproved_lead/fb-lead-form-list`,
         "post",
         {
           filters: { contact_phone: phone },
