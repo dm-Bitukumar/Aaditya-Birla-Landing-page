@@ -48,7 +48,18 @@ const OfferDetailsSegment = ({ source, contactName, amount }) => {
             contactName={contactName}
           />
         </div>
-
+        <div
+          className="mt-5 text-center"
+          style={{
+            fontSize: "14px",
+          }}
+        >
+          Give us a call on our toll-free number
+          <div>
+            <b>1800-209-3997 </b>
+            for any queries
+          </div>
+        </div>
         <h4 className="mt-20 text-xs text-center">
           *These pre-approved offers are subject to change at discretion of Bank
           / NBFC after receiving all your documents and details. Final offer
