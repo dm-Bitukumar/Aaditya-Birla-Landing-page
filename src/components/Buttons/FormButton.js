@@ -1,4 +1,4 @@
-const FormButton = ({ className, type, ...props }) => {
+const FormButton = ({ className, type, id, ...props }) => {
   const handleCalculateStyles = () => {
     switch (type) {
       case "primary":
@@ -17,6 +17,7 @@ const FormButton = ({ className, type, ...props }) => {
       style={{ minWidth: props.small ? "60px" : "164px", whiteSpace: "nowrap" }}
       className={`w-100 btn btn-lg ${handleCalculateStyles(type)} ${className}`}
       type="submit"
+      id={id}
       {...props}
     >
       {props.children}

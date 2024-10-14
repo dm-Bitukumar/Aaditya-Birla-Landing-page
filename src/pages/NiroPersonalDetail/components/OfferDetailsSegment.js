@@ -185,7 +185,7 @@ const OfferDetailsSegment = ({ personalData, utmMedium }) => {
               .slice(1, show ? 1000 : 4)
               .map((e, i) => (
                 <div key={e._id} className="">
-                  <OfferTile small offer={e} source={source} />
+                  <OfferTile small offer={e} source={source} i={i} />
                 </div>
               ))}
           </div>
@@ -194,6 +194,7 @@ const OfferDetailsSegment = ({ personalData, utmMedium }) => {
             <div>
               <FormButton
                 // small={small}
+                id={"niro_btn_view_more"}
                 onClick={handelShow}
                 className="!mt-12 !w-40"
               >

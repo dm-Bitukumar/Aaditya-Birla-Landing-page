@@ -135,6 +135,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
         <NiroFormButton
           // onClick={handleContinueClick}
           className="!mt-4 !min-w-72 !py-4 !px-6"
+          id={"accept_continue_btn"}
         >
           ACCEPT AND CONTINUE
         </NiroFormButton>
