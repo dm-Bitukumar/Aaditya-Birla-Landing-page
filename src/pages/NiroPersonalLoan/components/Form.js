@@ -305,7 +305,7 @@ const Form = () => {
                     alt="Phone Icon"
                   />
                 }
-                type="number"
+                type="text"
                 name="mobile"
                 isValid={isMobileValid}
                 id="mobile"
