@@ -4,6 +4,7 @@ import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
 import _ from "lodash";
 import WorkDetail from "./workDetail";
+import { Link } from "react-router-dom";
 import SelfEmployedForm from "./SelfEmployedForm";
 import ContinueBtn from "../../../components/Buttons/ContinueBtn";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,20 +14,18 @@ import numberToWords from "../../../utility/numberToWords";
 import { formatAmount } from "../../../utility/amountFormat";
 import { toast } from "react-toastify";
 
-const WorkDetailsForm = ({ setStep }) => {
+const WorkDetailsForm = ({
+  setStep,
+  datas,
+  setDatas,
+  monthlyIncome,
+  setMonthlyIncome,
+  words,
+  setWords,
+}) => {
+  let data = datas;
   const dispatch = useDispatch();
   const lead = useSelector((state) => state.app.lead);
-  const [monthlyIncome, setMonthlyIncome] = useState("");
-  const [words, setWords] = useState("");
-  const [data, setData] = useState({
-    profession: "",
-    company_name: "",
-    company_type: "",
-    work_email: "",
-    work_pincode: "",
-    work_address1: "",
-    work_address2: "",
-  });
 
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState("");
@@ -48,7 +47,7 @@ const WorkDetailsForm = ({ setStep }) => {
   const handleDataChange = (key, value) => {
     setErrors("");
 
-    setData((prevData) => ({ ...prevData, [key]: value }));
+    setDatas((prevData) => ({ ...prevData, [key]: value }));
   };
 
   const handleValidate = () => {
@@ -151,10 +150,10 @@ const WorkDetailsForm = ({ setStep }) => {
   return (
     <div className={"form-signin-apply "}>
       <HeadBar />
-      <Stepper
+      {/* <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={1}
-      />
+      /> */}
       <h1
         className="mb-3 h3 fw-normal"
         style={{ fontSize: "20px", marginTop: "3em" }}
@@ -176,14 +175,35 @@ const WorkDetailsForm = ({ setStep }) => {
         className={"d-flex gap-3 preApprovebutton"}
         style={{ background: "#fff" }}
       >
-        <ContinueBtn
-          className="!py-4 !px-6"
-          type={"secondary"}
+        <Link
+          style={{
+            minWidth: "164px",
+            whiteSpace: "nowrap",
+            background: "linear-gradient(3deg, darkgrey 0%, lightgray 100%)",
+
+            color: "#fff",
+
+            borderRadius: "5px",
+            backgroundImage:
+              "linear-gradient(3deg, darkgrey 0%, lightgray 100%)",
+
+            fontSize: "14px",
+            letterSpacing: "3px",
+            textTransform: "uppercase",
+
+            fontWeight: "400",
+            textAlign: "center",
+            border: 0,
+            padding: "1rem 1.5rem",
+
+            margin: "2rem auto 0 auto",
+          }}
+          // className="!py-4 !px-6"
           onClick={handleBack}
           id={"work_detail_btn1"}
         >
           Back
-        </ContinueBtn>
+        </Link>
         <ContinueBtn
           className="!py-4 !px-6"
           onClick={handleSubmit}
