@@ -130,10 +130,10 @@ const OfferDetailsSegment = ({ personalData, utmMedium }) => {
   return (
     <div className={"form-signin-apply form-signin"}>
       <HeadBar />
-      {/* <Stepper
+      <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
-      /> */}
+      />
       {!isFinished && offers?.length === 0 && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
