@@ -1,4 +1,4 @@
-const FormButton = ({ className, type, ...props }) => {
+const FormButton = ({ className, type, id, ...props }) => {
   const handleCalculateStyles = () => {
     switch (type) {
       case "primary":
@@ -41,6 +41,7 @@ const FormButton = ({ className, type, ...props }) => {
       }}
       className={`w-100 btn btn-lg ${className}`}
       type="submit"
+      id={id}
       {...props}
     >
       {props.children}

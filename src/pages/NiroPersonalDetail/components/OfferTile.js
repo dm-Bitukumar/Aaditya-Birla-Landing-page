@@ -5,7 +5,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
 
-const OfferTile = ({ offer, small, source }) => {
+const OfferTile = ({ offer, small, source, i }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
@@ -82,6 +82,7 @@ const OfferTile = ({ offer, small, source }) => {
             small={small}
             onClick={handleClick}
             className="!mt-2 !w-40"
+            id={"niro_appy_btn1"}
           >
             APPLY NOW
           </FormButton>
@@ -98,7 +99,12 @@ const OfferTile = ({ offer, small, source }) => {
         </div>
       </div>
       {small && (
-        <FormButton small={small} onClick={handleClick} className="!mt-2">
+        <FormButton
+          small={small}
+          onClick={handleClick}
+          className="!mt-2"
+          id={`niro-btn-${i}`}
+        >
           APPLY NOW
         </FormButton>
       )}

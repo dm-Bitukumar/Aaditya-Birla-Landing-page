@@ -178,10 +178,15 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
           className="!py-4 !px-6"
           type={"secondary"}
           onClick={handleBack}
+          id={"work_detail_btn1"}
         >
           Back
         </ContinueBtn>
-        <ContinueBtn className="!py-4 !px-6" onClick={handleSubmit}>
+        <ContinueBtn
+          className="!py-4 !px-6"
+          onClick={handleSubmit}
+          id={"work_detail_btn2"}
+        >
           Continue
         </ContinueBtn>
       </div>

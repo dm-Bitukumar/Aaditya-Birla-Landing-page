@@ -273,7 +273,11 @@ const PersonalDetailsForm = ({ nextStep, lender }) => {
         label={"Home Pin Code"}
       />
       <div className="preApprovebutton" style={{ background: "#fff" }}>
-        <ContinueBtn className="!py-4 !px-6" onClick={handleSubmit}>
+        <ContinueBtn
+          className="!py-4 !px-6"
+          onClick={handleSubmit}
+          id={"personaal_btn"}
+        >
           Continue
         </ContinueBtn>
       </div>
