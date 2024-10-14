@@ -20,24 +20,23 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const PersonalDetailsForm = ({ nextStep, lender, setStep }) => {
+const PersonalDetailsForm = ({
+  nextStep,
+  data,
+  setData,
+  lender,
+  setStep,
+  pancard,
+  setPancard,
+}) => {
   const dispatch = useDispatch();
 
   const [inputType, setInputType] = useState("text");
-  const [pancard, setPancard] = useState("");
+
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isDobValid, setIsDobValid] = useState(true);
   const [userName, setUserName] = useState("");
   const [isUserNameValid, setIsUserNameValid] = useState(true);
-
-  const [data, setData] = useState({
-    gender: "",
-    dob: "",
-    email: "",
-    pincode: "",
-    home_address1: "",
-    home_address2: "",
-  });
 
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState("");
@@ -117,8 +116,6 @@ const PersonalDetailsForm = ({ nextStep, lender, setStep }) => {
     });
     const isValid = handleValidate();
     if (isValid) {
-      setStep(2);
-
       const localData = {
         ...data,
 
@@ -129,6 +126,7 @@ const PersonalDetailsForm = ({ nextStep, lender, setStep }) => {
         localData.contact_name = userName;
       }
       dispatch(setLead({ ...localData, stepDone: 1 }));
+      setStep(2);
     }
   };
   useEffect(() => {
@@ -142,10 +140,10 @@ const PersonalDetailsForm = ({ nextStep, lender, setStep }) => {
   return (
     <div className={"form-signin-apply "}>
       <HeadBar />
-      <Stepper
+      {/* <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={0}
-      />
+      /> */}
       <h1
         className="mb-3 h3 fw-normal"
         style={{ fontSize: "20px", marginTop: "3em" }}
