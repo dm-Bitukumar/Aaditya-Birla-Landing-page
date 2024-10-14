@@ -150,10 +150,10 @@ const WorkDetailsForm = ({
   return (
     <div className={"form-signin-apply "}>
       <HeadBar />
-      {/* <Stepper
+      <Stepper
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={1}
-      /> */}
+      />
       <h1
         className="mb-3 h3 fw-normal"
         style={{ fontSize: "20px", marginTop: "3em" }}
