@@ -35,18 +35,22 @@ const PersonalDetails = ({ personalData, lender, utmMedium }) => {
 
   return (
     <div className={"form-signin-container pt-0"}>
-      <StepWizard
+      {/* <StepWizard
         transitions={noTransitions}
         initialStep={step}
         onStepChange={({ activeStep }) => setStep(activeStep)}
-      >
-        <PersonalDetailsForm lender={lender} />
-        <WorkDetailsForm />
+      > */}
+      {step === 1 ? (
+        <PersonalDetailsForm lender={lender} setStep={setStep} />
+      ) : step === 2 ? (
+        <WorkDetailsForm setStep={setStep} />
+      ) : (
         <OfferDetailsSegment
           personalData={personalData}
           utmMedium={utmMedium}
         />
-      </StepWizard>
+      )}
+      {/* </StepWizard> */}
     </div>
   );
 };
