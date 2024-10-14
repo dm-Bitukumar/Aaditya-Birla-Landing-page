@@ -13,7 +13,7 @@ import numberToWords from "../../../utility/numberToWords";
 import { formatAmount } from "../../../utility/amountFormat";
 import { toast } from "react-toastify";
 
-const WorkDetailsForm = ({ nextStep, previousStep }) => {
+const WorkDetailsForm = ({ setStep }) => {
   const dispatch = useDispatch();
   const lead = useSelector((state) => state.app.lead);
   const [monthlyIncome, setMonthlyIncome] = useState("");
@@ -128,7 +128,8 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
         })
       );
       dispatch(setOffers([]));
-      nextStep();
+      setStep(3);
+      // nextStep();
     }
   };
 
@@ -136,7 +137,8 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
     setUserClickData({
       event_name: "work-detail-back-button",
     });
-    previousStep();
+    setStep(1);
+    // previousStep();
   };
   useEffect(() => {
     window.scroll({

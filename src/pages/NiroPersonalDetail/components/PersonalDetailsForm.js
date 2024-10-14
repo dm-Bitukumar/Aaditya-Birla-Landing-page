@@ -20,7 +20,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const PersonalDetailsForm = ({ nextStep, lender }) => {
+const PersonalDetailsForm = ({ nextStep, lender, setStep }) => {
   const dispatch = useDispatch();
 
   const [inputType, setInputType] = useState("text");
@@ -117,7 +117,8 @@ const PersonalDetailsForm = ({ nextStep, lender }) => {
     });
     const isValid = handleValidate();
     if (isValid) {
-      nextStep();
+      setStep(2);
+
       const localData = {
         ...data,
 
