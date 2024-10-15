@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # First, configure updates for npm dependencies in the Create React App project
+  - package-ecosystem: "npm"    # Specifies npm as the ecosystem for the project
+    directory: "/"              # The root directory where package.json and package-lock.json are located
+    schedule:
+      interval: "weekly"        # Check for updates on a weekly basis
+      day: "monday"             # Specify the day of the week for updates (optional)
+      time: "08:00"             # Specify the time for update checks (UTC)
+    open-pull-requests-limit: 5 # Limit the number of open Dependabot PRs
+    commit-message:
+      prefix: "deps"            # Prefix for Dependabot commit messages (optional)
+    labels:
+      - "dependencies"          # Label added to Dependabot pull requests
+    assignees:
+      - "kmk-ritwik"              # Automatically assign Dependabot PRs to a specific user (optional)
+    reviewers:
+      - "kmk-ritwik"              # Optionally, assign reviewers for Dependabot PRs
+    ignore:
+      - dependency-name: "react-scripts"   # Example of ignoring specific dependencies
+        versions: ["4.x"]                  # Ignore specific version ranges of a dependency
+    rebase-strategy: "auto"       # Automatically rebase when there are merge conflicts
