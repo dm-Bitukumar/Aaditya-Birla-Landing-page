@@ -130,7 +130,11 @@ const OfferTile = ({ amount, small, source, contactName }) => {
         }}
       >
         <NiroFormButton
-          // onClick={handleContinueClick}
+          onClick={() => {
+            setUserClickData({
+              event_name: "abfl-offer-btn",
+            });
+          }}
           className="!mt-4 !min-w-72 !py-4 !px-6"
         >
           ACCEPT AND CONTINUE
