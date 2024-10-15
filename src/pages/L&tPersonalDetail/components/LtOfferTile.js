@@ -130,7 +130,11 @@ const OfferTile = ({ small, offer, name }) => {
         }}
       >
         <NiroFormButton
-          // onClick={handleContinueClick}
+          onClick={() => {
+            setUserClickData({
+              event_name: "l&t-offer-btn",
+            });
+          }}
           className="!mt-4 !min-w-72 !py-4 !px-6"
         >
           ACCEPT AND CONTINUE
