@@ -6,6 +6,7 @@ import PersonalDetailsForm from "./components/PersonalDetailsForm";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import OfferDetailsSegment from "./components/OfferDetailsSegment";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 let noTransitions = {
   enterRight: "",
@@ -43,6 +44,7 @@ const PersonalDetails = ({ personalData, lender, utmMedium }) => {
       navigate("/fb/lp01", { replace: true });
     }
   }, [user]);
+
   useEffect(() => {
     window.scroll({
       top: 0,
@@ -52,6 +54,39 @@ const PersonalDetails = ({ personalData, lender, utmMedium }) => {
   }, []);
 
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    const event = getEventName(lender, step);
+
+    if (event) {
+      setUserClickData({
+        event_name: event,
+      });
+    }
+  }, [step]);
+
+  const getEventName = (lender, step) => {
+    if (lender === "niro") {
+      return step === 1
+        ? "fb-lp-basic"
+        : step === 2
+        ? "fb-lp-work"
+        : "fb-lp-offer2";
+    } else if (lender === "abfl") {
+      return step === 1
+        ? "abfl-lp-basic"
+        : step === 2
+        ? "abfl-lp-work"
+        : "abfl-lp-offer2";
+    } else if (lender === "l&t") {
+      return step === 1
+        ? "l&t-lp-basic"
+        : step === 2
+        ? "l&t-lp-work"
+        : "l&t-lp-offer2";
+    }
+    return null;
+  };
 
   return (
     <div className={"form-signin-container pt-0"}>

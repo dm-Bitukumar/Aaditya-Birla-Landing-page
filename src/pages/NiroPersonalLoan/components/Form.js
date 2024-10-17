@@ -180,6 +180,9 @@ const Form = () => {
           );
           if (result?.status === "Success") {
             if (result?.data?.status === true) {
+              setUserClickData({
+                event_name: "fb-lp-offer",
+              });
               setStepper("2");
               setContactName(result.data?.contact_name);
               setAmount(result?.data?.offers?.[0]?.credit_limit);
