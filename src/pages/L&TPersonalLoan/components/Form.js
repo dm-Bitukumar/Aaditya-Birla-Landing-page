@@ -146,6 +146,9 @@ const Form = () => {
           );
           if (result?.status === "Success") {
             if (result?.data?.offers?.status === true) {
+              setUserClickData({
+                event_name: "l&t-lp-offer",
+              });
               setStepper("2");
             } else {
               setStepper("3");
