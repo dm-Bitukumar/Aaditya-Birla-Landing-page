@@ -170,7 +170,6 @@ const Form = () => {
           const result = await callApi(
             "v1/lender/fb-niro-first-check",
             "post",
-
             {
               contact_name: userName,
               contact_phone: mobile,
