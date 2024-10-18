@@ -82,14 +82,15 @@ const Form = () => {
   };
 
   const handleMobileChange = (event) => {
-    const { value } = event.target;
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/[^0-9" "]/g, "");
     setIsMobileValid(true);
-    setMobile(value);
+    setMobile(inputValue);
   };
 
   const handleSubmit = async (event) => {
     setUserClickData({
-      event_name: "form-for-personal-loan",
+      event_name: "fb-lp-login",
     });
     event.preventDefault();
     let isValid = handleValidation();
@@ -122,7 +123,7 @@ const Form = () => {
 
   const handleResendOtp = async () => {
     setUserClickData({
-      event_name: "resend-otp-form-for-personal-loan",
+      event_name: "fb-lp-resend-otp",
     });
     try {
       const res = await callApi(
@@ -144,7 +145,7 @@ const Form = () => {
 
   const handleSubmitOtp = async () => {
     setUserClickData({
-      event_name: "otp-form-for-personal-loan",
+      event_name: "fb-lp-otp",
     });
     try {
       const res = await callApi(
@@ -169,7 +170,6 @@ const Form = () => {
           const result = await callApi(
             "v1/lender/fb-niro-first-check",
             "post",
-
             {
               contact_name: userName,
               contact_phone: mobile,
@@ -179,6 +179,9 @@ const Form = () => {
           );
           if (result?.status === "Success") {
             if (result?.data?.status === true) {
+              setUserClickData({
+                event_name: "fb-lp-offer",
+              });
               setStepper("2");
               setContactName(result.data?.contact_name);
               setAmount(result?.data?.offers?.[0]?.credit_limit);
@@ -304,7 +307,7 @@ const Form = () => {
                     alt="Phone Icon"
                   />
                 }
-                type="number"
+                type="text"
                 name="mobile"
                 isValid={isMobileValid}
                 id="mobile"

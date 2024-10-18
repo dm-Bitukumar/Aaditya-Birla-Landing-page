@@ -57,7 +57,7 @@ const OfferDetailsSegment = ({ utmMedium }) => {
     });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
-      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
+      const processedLead = getAllianceLeadFromMoneyTapInput("pre", {
         ...lead,
         ...user,
       });

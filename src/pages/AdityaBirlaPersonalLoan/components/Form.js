@@ -66,7 +66,7 @@ const Form = () => {
 
   const handleSubmit = async (event) => {
     setUserClickData({
-      event_name: "form-for-personal-loan",
+      event_name: "abfl-lp-login-btn",
     });
     event.preventDefault();
     let isValid = handleValidation();
@@ -92,7 +92,7 @@ const Form = () => {
 
   const handleResendOtp = async () => {
     setUserClickData({
-      event_name: "resend-otp-form-for-personal-loan",
+      event_name: "abfl-lp-resend-otp",
     });
     try {
       const res = await callApi(
@@ -114,7 +114,7 @@ const Form = () => {
 
   const handleSubmitOtp = async () => {
     setUserClickData({
-      event_name: "otp-form-for-personal-loan",
+      event_name: "abfl-lp-otp",
     });
     try {
       const res = await callApi(
@@ -139,7 +139,6 @@ const Form = () => {
           const result = await callApi(
             "v1/preapproved_lead/abfl-pa-remarketing",
             "post",
-
             {
               contact_phone: mobile,
               kyc_consent: isTncChecked,
@@ -150,6 +149,9 @@ const Form = () => {
           );
           if (result?.status === "Success") {
             if (result?.data?.offers?.status === true) {
+              setUserClickData({
+                event_name: "abfl-lp-offer",
+              });
               setStepper("2");
               setContactName(result?.data?.offers?.contact_name);
               setAmount(result?.data?.offers?.credit_limit);

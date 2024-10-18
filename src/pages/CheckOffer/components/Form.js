@@ -124,6 +124,9 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handleSubmitOtp = async () => {
     // todo submit logic
+    setUserClickData({
+      event_name: "verify-otp-check-offer-loan-page",
+    });
     try {
       const res = await callApi(
         "v1/sms/validate-otp",
@@ -174,7 +177,6 @@ const Form = ({ formData, setFormData, ...props }) => {
       {isOtpGenerated ? (
         <div style={{ marginTop: "180px" }}>
           <OtpInputForm
-            checkOffer={"check-offer"}
             buttonStyle={{ marginTop: "200px", marginBottom: "50px" }}
             otpValue={otp}
             setIsOtpGenerated={setIsOtpGenerated}
