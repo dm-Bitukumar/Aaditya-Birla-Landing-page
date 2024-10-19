@@ -131,18 +131,23 @@ const OfferTile = ({ amount, small, source, contactName }) => {
           display: "flex",
           justifyContent: "center",
         }}
+        onClick={() => {
+          setUserClickData({
+            event_name: "fb-offer-btn",
+          });
+        }}
       >
-        <NiroFormButton
-          onClick={() => {
-            setUserClickData({
-              event_name: "fb-offer-btn",
-            });
+        <div
+          style={{
+            whiteSpace: "nowrap",
+            fontSize: "0.85em",
+            fontWeight: "600",
           }}
-          className="!mt-4 !min-w-72 !py-4 !px-6"
+          className="!mt-4 !min-w-72 !py-4 !px-6 btn btn-lg continue-button"
           id={"accept_continue_btn"}
         >
           ACCEPT AND CONTINUE
-        </NiroFormButton>
+        </div>
       </Link>
 
       {showModel && (
