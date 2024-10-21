@@ -83,7 +83,7 @@ const Form = () => {
 
   const handleMobileChange = (event) => {
     let inputValue = event.target.value;
-    inputValue = inputValue.replace(/[^0-9" "]/g, "");
+    inputValue = inputValue.replace(/[^0-9]/g, "");
     setIsMobileValid(true);
     setMobile(inputValue);
   };
