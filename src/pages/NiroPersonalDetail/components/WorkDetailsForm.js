@@ -204,13 +204,36 @@ const WorkDetailsForm = ({
         >
           Back
         </Link>
-        <ContinueBtn
-          className="!py-4 !px-6"
+        <button
+          style={{
+            minWidth: "164px",
+            whiteSpace: "nowrap",
+            background:
+              "linear-gradient(3deg, rgb(0, 139, 174) 0%, rgb(0, 192, 255) 100%)",
+
+            color: "#fff",
+
+            borderRadius: "5px",
+            backgroundImage:
+              "linear-gradient(3deg, rgb(0, 139, 174) 0%, rgb(0, 192, 255) 100%)",
+
+            fontSize: "14px",
+            letterSpacing: "3px",
+            textTransform: "uppercase",
+
+            fontWeight: "400",
+            textAlign: "center",
+            border: 0,
+            padding: "1rem 1.5rem",
+
+            margin: "2rem auto 0 auto",
+          }}
+          // className="!py-4 !px-6"
           onClick={handleSubmit}
           id={"work_detail_btn2"}
         >
-          Continue
-        </ContinueBtn>
+          Submit
+        </button>
       </div>
     </div>
   );

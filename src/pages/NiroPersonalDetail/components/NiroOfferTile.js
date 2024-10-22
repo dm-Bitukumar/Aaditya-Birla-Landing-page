@@ -4,7 +4,7 @@ import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import niroLogo from "../../../components/Static/images/niro.png";
 import NiroFormButton from "../../../components/Buttons/NiroFormButton";
 
@@ -12,6 +12,8 @@ const OfferTile = ({ amount, small, source, contactName }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
+
+  const navigate = useNavigate();
 
   // const handleContinueClick = () => {
   //   setUserClickData({ event_name: "offer-continue-button" });
@@ -125,30 +127,31 @@ const OfferTile = ({ amount, small, source, contactName }) => {
           Powered by the Niro
         </h5>
       </div>
-      <Link
-        to={`${source}&vendorName=digitmoney`}
+      <div
+        // to={`${source}&vendorName=digitmoney`}
         style={{
           display: "flex",
           justifyContent: "center",
         }}
-        onClick={() => {
-          setUserClickData({
-            event_name: "fb-offer-btn",
-          });
-        }}
       >
-        <div
+        <button
           style={{
             whiteSpace: "nowrap",
             fontSize: "0.85em",
             fontWeight: "600",
           }}
           className="!mt-4 !min-w-72 !py-4 !px-6 btn btn-lg continue-button"
+          onClick={() => {
+            window.location.href = `${source}`;
+            setUserClickData({
+              event_name: "fb-offer-btn",
+            });
+          }}
           id={"accept_continue_btn"}
         >
           ACCEPT AND CONTINUE
-        </div>
-      </Link>
+        </button>
+      </div>
 
       {showModel && (
         <NewOfferModel
