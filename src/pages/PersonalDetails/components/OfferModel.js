@@ -3,7 +3,14 @@ import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import FormButton from "../../../components/Buttons/FormButton";
 
-const Model = ({ show, setShow, offer, handleClick }) => {
+const Model = ({
+  show,
+  setShow,
+  offer,
+  handleClick,
+  handleChange,
+  isTncChecked,
+}) => {
   return (
     <>
       <Transition.Root show={show} as={Fragment}>
@@ -41,20 +48,32 @@ const Model = ({ show, setShow, offer, handleClick }) => {
                 <Dialog.Panel className="w-full transition-all transform rounded-lg shadow-xl md:my-8 md:max-w-xl">
                   <div className="w-full h-full px-4 py-3 rounded bg-[#fff]">
                     <p>
-                      Your Privacy is important to us, and we safeguard your
-                      personal information. To process your personal loan
-                      application today, we required verification of your credit
-                      information <br /> please click
-                      <b> "Agree" </b> on the following screen to speed up the
-                      loan process and receive Funds today.
+                      To process your personal loan application today, we
+                      required verification of your credit information Click "I
+                      agree" to speed up the loan process and receive Funds
+                      today.
                     </p>
+                    <label>
+                      <input
+                        onChange={handleChange}
+                        checked={isTncChecked}
+                        className="form-check-input"
+                        type="checkbox"
+                        name="is_consent"
+                        value="Yes"
+                        style={{ fontSize: "15px", marginRight: "4px" }}
+                      />
+                      I hereby appoint Prefr & its Lending Partners as
+                      authorized representatives to receive my credit
+                      information from CIBIL/CRIF Highmark(bureau).
+                    </label>
                     <div className="flex items-center justify-center">
                       <FormButton
                         className={"!w-24"}
                         small
                         onClick={handleClick}
                       >
-                        continue
+                        I agree
                       </FormButton>
                     </div>
                   </div>
