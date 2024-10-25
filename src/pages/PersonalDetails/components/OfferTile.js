@@ -9,6 +9,10 @@ const OfferTile = ({ offer, small, source }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
+  const [isTncChecked, setIsTncChecked] = useState(false);
+  const handleChange = () => {
+    setIsTncChecked((prev) => !prev);
+  };
 
   useEffect(() => {
     if (show) {
@@ -17,13 +21,15 @@ const OfferTile = ({ offer, small, source }) => {
       document.body.classList.remove("overflow-hidden");
     }
   }, [show]);
-
-  const handleContinueClick = () => {
-    setShow(false);
-    setUserClickData({ event_name: "offer-continue-button" });
-
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
-    win.focus();
+  const handlePrefrContinueClick = () => {
+    if (isTncChecked) {
+      setShow(false);
+      setUserClickData({ event_name: "offer-continue-button" });
+      var win = window.open(`${offer.app_url}${source}`, "_blank");
+      win.focus();
+    } else {
+      alert("Please accept terms and conditions");
+    }
   };
 
   const handleClick = () => {
@@ -83,7 +89,9 @@ const OfferTile = ({ offer, small, source }) => {
           {show == true && (
             <Model
               show={show}
-              handleClick={handleContinueClick}
+              handleClick={handlePrefrContinueClick}
+              isTncChecked={isTncChecked}
+              handleChange={handleChange}
               setShow={setShow}
               offer={offer}
             />
