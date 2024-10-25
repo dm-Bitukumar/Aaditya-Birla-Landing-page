@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 import PersonalDetails from "../../NiroPersonalDetail/PersonalDetails";
+import ReactPixel from "react-facebook-pixel";
 import OfferDetailsSegmentNiro from "../../NiroPersonalDetail/components/OfferDetailsSegmentNiro";
 
 const Form = () => {
