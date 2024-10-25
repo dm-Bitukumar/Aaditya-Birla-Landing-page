@@ -4,8 +4,9 @@ import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
+import ReactPixel from "react-facebook-pixel";
 
-const OfferTile = ({ offer, small, source, i }) => {
+const OfferTile = ({ offer, small, source, i, lender }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
@@ -27,6 +28,10 @@ const OfferTile = ({ offer, small, source, i }) => {
   };
 
   const handleClick = () => {
+    if (lender === "niro") {
+      ReactPixel.track("Lead");
+    }
+
     if (offer.lender_name === "Prefr") {
       setShow(true);
       return;

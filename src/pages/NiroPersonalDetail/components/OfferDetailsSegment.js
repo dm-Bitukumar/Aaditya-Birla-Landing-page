@@ -19,7 +19,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 
-const OfferDetailsSegment = ({ personalData, utmMedium }) => {
+const OfferDetailsSegment = ({ personalData, utmMedium, lender }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { state } = location;
@@ -167,7 +167,12 @@ const OfferDetailsSegment = ({ personalData, utmMedium }) => {
             .slice(0, 1)
             .map((e, i) => (
               <div key={e._id} className="my-4">
-                <OfferTile small={false} offer={e} source={source} />
+                <OfferTile
+                  small={false}
+                  offer={e}
+                  source={source}
+                  lender={lender}
+                />
               </div>
             ))}
           <div
@@ -185,7 +190,13 @@ const OfferDetailsSegment = ({ personalData, utmMedium }) => {
               .slice(1, show ? 1000 : 4)
               .map((e, i) => (
                 <div key={e._id} className="">
-                  <OfferTile small offer={e} source={source} i={i} />
+                  <OfferTile
+                    small
+                    offer={e}
+                    source={source}
+                    i={i}
+                    lender={lender}
+                  />
                 </div>
               ))}
           </div>
