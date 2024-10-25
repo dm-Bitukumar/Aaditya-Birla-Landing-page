@@ -13,7 +13,6 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import numberToWords from "../../../utility/numberToWords";
 import { formatAmount } from "../../../utility/amountFormat";
 import { toast } from "react-toastify";
-import ReactPixel from "react-facebook-pixel";
 
 const WorkDetailsForm = ({
   lender,
@@ -120,7 +119,9 @@ const WorkDetailsForm = ({
       event_name: "work-detail-form-button",
     });
     if (lender === "niro") {
-      ReactPixel.track("Work_Details");
+      if (window.fbq) {
+        window.fbq("track", "Work_Details");
+      }
     }
     const isValid = handleValidate();
     if (isValid) {

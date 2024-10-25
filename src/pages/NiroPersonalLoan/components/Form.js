@@ -92,10 +92,10 @@ const Form = () => {
     setUserClickData({
       event_name: "fb-lp-login",
     });
-    // if (window.fbq) {
-    //   window.fbq("track", "Get_OTP");
-    // }
-    ReactPixel.track("Get_OTP");
+    if (window.fbq) {
+      window.fbq("track", "Get_OTP");
+    }
+
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
@@ -129,7 +129,10 @@ const Form = () => {
     setUserClickData({
       event_name: "fb-lp-resend-otp",
     });
-    ReactPixel.track("Get_OTP");
+    if (window.fbq) {
+      window.fbq("track", "Get_OTP");
+    }
+
     try {
       const res = await callApi(
         "v1/sms/send-otp",
@@ -152,7 +155,10 @@ const Form = () => {
     setUserClickData({
       event_name: "fb-lp-otp",
     });
-    ReactPixel.track("OTP_Verified");
+    if (window.fbq) {
+      window.fbq("track", "OTP_Verified");
+    }
+
     try {
       const res = await callApi(
         "v1/sms/validate-otp",

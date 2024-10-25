@@ -16,7 +16,6 @@ import moment, { localeData } from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
-import ReactPixel from "react-facebook-pixel";
 
 const PersonalDetailsForm = ({
   nextStep,
@@ -113,7 +112,9 @@ const PersonalDetailsForm = ({
       event_name: "personal-detail-form-button",
     });
     if (lender === "niro") {
-      ReactPixel.track("PI_Details");
+      if (window.fbq) {
+        window.fbq("track", "PI_Details");
+      }
     }
 
     const isValid = handleValidate();
