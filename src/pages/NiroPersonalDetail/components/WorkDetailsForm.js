@@ -13,8 +13,10 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import numberToWords from "../../../utility/numberToWords";
 import { formatAmount } from "../../../utility/amountFormat";
 import { toast } from "react-toastify";
+import ReactPixel from "react-facebook-pixel";
 
 const WorkDetailsForm = ({
+  lender,
   setStep,
   datas,
   setDatas,
@@ -117,6 +119,9 @@ const WorkDetailsForm = ({
     setUserClickData({
       event_name: "work-detail-form-button",
     });
+    if (lender === "niro") {
+      ReactPixel.track("Work_Details");
+    }
     const isValid = handleValidate();
     if (isValid) {
       dispatch(
