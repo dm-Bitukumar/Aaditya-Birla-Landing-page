@@ -7,6 +7,7 @@ import NewOfferModel from "./NewOfferModel";
 import { Link, useNavigate } from "react-router-dom";
 import niroLogo from "../../../components/Static/images/niro.png";
 import NiroFormButton from "../../../components/Buttons/NiroFormButton";
+import ReactPixel from "react-facebook-pixel";
 
 const OfferTile = ({ amount, small, source, contactName }) => {
   const [show, setShow] = useState(false);
@@ -146,6 +147,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
             setUserClickData({
               event_name: "fb-offer-btn",
             });
+            ReactPixel.track("Lead");
           }}
           id={"accept_continue_btn"}
         >

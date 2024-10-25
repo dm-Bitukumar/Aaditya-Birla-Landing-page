@@ -107,6 +107,7 @@ const PersonalDetails = ({ personalData, lender, utmMedium }) => {
       ) : step === 2 ? (
         <WorkDetailsForm
           setStep={setStep}
+          lender={lender}
           datas={datas}
           setDatas={setDatas}
           setMonthlyIncome={setMonthlyIncome}
@@ -118,6 +119,7 @@ const PersonalDetails = ({ personalData, lender, utmMedium }) => {
         <OfferDetailsSegment
           personalData={personalData}
           utmMedium={utmMedium}
+          lender={lender}
         />
       )}
       {/* </StepWizard> */}

@@ -16,9 +16,7 @@ import moment, { localeData } from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
-import DatePicker from "react-datepicker";
-
-import "react-datepicker/dist/react-datepicker.css";
+import ReactPixel from "react-facebook-pixel";
 
 const PersonalDetailsForm = ({
   nextStep,
@@ -114,6 +112,10 @@ const PersonalDetailsForm = ({
     setUserClickData({
       event_name: "personal-detail-form-button",
     });
+    if (lender === "niro") {
+      ReactPixel.track("PI_Details");
+    }
+
     const isValid = handleValidate();
     if (isValid) {
       const localData = {
