@@ -18,6 +18,14 @@ const OfferTile = ({ offer, small, source, i, lender }) => {
     }
   }, [show]);
 
+  // Track lead event
+  function trackFbqEvent(event) {
+    if (window.fbq && window.fbq.callMethod) {
+      window.fbq("track", event);
+    } else {
+      setTimeout(() => trackFbqEvent(event), 100);
+    }
+  }
   const handleContinueClick = () => {
     setShow(false);
     setUserClickData({ event_name: "offer-continue-button" });
@@ -28,9 +36,7 @@ const OfferTile = ({ offer, small, source, i, lender }) => {
 
   const handleClick = () => {
     if (lender === "niro") {
-      if (window.fbq) {
-        window.fbq("track", "Lead");
-      }
+      trackFbqEvent("offer-apply-button");
     }
 
     if (offer.lender_name === "Prefr") {
@@ -44,8 +50,10 @@ const OfferTile = ({ offer, small, source, i, lender }) => {
     }
 
     setUserClickData({ event_name: "offer-apply-button" });
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
-    win.focus();
+    setTimeout(() => {
+      var win = window.open(`${offer.app_url}${source}`, "_blank");
+      win.focus();
+    }, 1000);
   };
   useEffect(() => {
     window.scroll({
