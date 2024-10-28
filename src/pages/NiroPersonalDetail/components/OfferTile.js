@@ -5,7 +5,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
 
-const OfferTile = ({ offer, small, source, i }) => {
+const OfferTile = ({ offer, small, source, i, lender }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
@@ -18,6 +18,14 @@ const OfferTile = ({ offer, small, source, i }) => {
     }
   }, [show]);
 
+  // Track lead event
+  function trackFbqEvent(event) {
+    if (window.fbq && window.fbq.callMethod) {
+      window.fbq("track", event);
+    } else {
+      setTimeout(() => trackFbqEvent(event), 100);
+    }
+  }
   const handleContinueClick = () => {
     setShow(false);
     setUserClickData({ event_name: "offer-continue-button" });
@@ -27,6 +35,10 @@ const OfferTile = ({ offer, small, source, i }) => {
   };
 
   const handleClick = () => {
+    if (lender === "niro") {
+      trackFbqEvent("offer-apply-button");
+    }
+
     if (offer.lender_name === "Prefr") {
       setShow(true);
       return;
@@ -38,8 +50,10 @@ const OfferTile = ({ offer, small, source, i }) => {
     }
 
     setUserClickData({ event_name: "offer-apply-button" });
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
-    win.focus();
+    setTimeout(() => {
+      var win = window.open(`${offer.app_url}${source}`, "_blank");
+      win.focus();
+    }, 1000);
   };
   useEffect(() => {
     window.scroll({

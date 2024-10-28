@@ -15,6 +15,7 @@ import { formatAmount } from "../../../utility/amountFormat";
 import { toast } from "react-toastify";
 
 const WorkDetailsForm = ({
+  lender,
   setStep,
   datas,
   setDatas,
@@ -117,6 +118,11 @@ const WorkDetailsForm = ({
     setUserClickData({
       event_name: "work-detail-form-button",
     });
+    if (lender === "niro") {
+      if (window.fbq) {
+        window.fbq("track", "Work_Details");
+      }
+    }
     const isValid = handleValidate();
     if (isValid) {
       dispatch(
