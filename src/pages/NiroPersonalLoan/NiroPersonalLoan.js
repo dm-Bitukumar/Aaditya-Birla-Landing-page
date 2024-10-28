@@ -8,12 +8,16 @@ import { GoogleAnalytics } from "../../utility/googleAnalitic";
 import { FacebookPixelTracker } from "../../utility/facebookPixelTracker";
 
 const PersonalLoan = () => {
+  const [id] = useState({ pixelId: "1354731888554618" });
   useEffect(() => {
     initializeHotjar(5179138, 6);
     GoogleAnalytics({ trackingId: "G-MYL42F1SJ1" });
-
-    FacebookPixelTracker({ pixelId: "1354731888554618" });
   }, []);
+  useEffect(() => {
+    if (id) {
+      FacebookPixelTracker({ pixelId: id.pixelId });
+    }
+  }, [id]);
 
   return (
     <div className={"personal-loan-container2"}>
