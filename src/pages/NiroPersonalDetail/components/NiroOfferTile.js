@@ -143,7 +143,7 @@ const OfferTile = ({ amount, small, source, contactName }) => {
           className="!mt-4 !min-w-72 !py-4 !px-6 btn btn-lg continue-button"
           onClick={() => {
             if (window.fbq) {
-              window.fbq("track", "offer_accept");
+              window.fbq("track", "offer_apply_button");
             }
             setTimeout(() => {
               window.location.href = `${source}`;
