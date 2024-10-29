@@ -92,13 +92,12 @@ const Form = () => {
     setUserClickData({
       event_name: "fb-lp-login",
     });
-    if (window.fbq) {
-      window.fbq("track", "Get_OTP");
-    }
-
     event.preventDefault();
     let isValid = handleValidation();
     if (isValid) {
+      if (window.fbq) {
+        window.fbq("track", "Get_OTP");
+      }
       const res = await callApi(
         "v1/sms/send-otp",
         "post",
