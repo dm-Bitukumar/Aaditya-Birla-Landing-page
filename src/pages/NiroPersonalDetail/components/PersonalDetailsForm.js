@@ -111,14 +111,13 @@ const PersonalDetailsForm = ({
     setUserClickData({
       event_name: "personal-detail-form-button",
     });
-    if (lender === "niro") {
-      if (window.fbq) {
-        window.fbq("track", "PI_Details");
-      }
-    }
-
     const isValid = handleValidate();
     if (isValid) {
+      if (lender === "niro") {
+        if (window.fbq) {
+          window.fbq("track", "PI_Details");
+        }
+      }
       const localData = {
         ...data,
 

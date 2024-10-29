@@ -118,13 +118,14 @@ const WorkDetailsForm = ({
     setUserClickData({
       event_name: "work-detail-form-button",
     });
-    if (lender === "niro") {
-      if (window.fbq) {
-        window.fbq("track", "Work_Details");
-      }
-    }
+    
     const isValid = handleValidate();
     if (isValid) {
+      if (lender === "niro") {
+        if (window.fbq) {
+          window.fbq("track", "Work_Details");
+        }
+      }
       dispatch(
         setLead({
           ...data,
