@@ -30,6 +30,7 @@ import LtPersonalLoan from "./pages/L&TPersonalLoan/L&TPersonalLoan";
 import AdityaBirlaPersonalLoan from "./pages/AdityaBirlaPersonalLoan/AdityaBirlaPersonalLoan";
 import OfferDetailsSegment from "./pages/AdityaBirlaPersonalLoan/components/OfferDetailsSegment";
 import CheckOffers from "./pages/CheckOffer/PreApprovedLoan";
+import PreapprovedOfferAbfl from "./pages/PreapprovedOfferAbfl/PreapprovedOfferAbfl";
 
 function App() {
   const location = useLocation();
@@ -105,6 +106,7 @@ function App() {
         <Route path="/fb/lp01" element={<NiroPersonalLoan />} />
         <Route path="/pa-lt" element={<LtPersonalLoan />} />
         <Route path="/pa-ab" element={<AdityaBirlaPersonalLoan />} />
+        <Route path="/abfl-offer" element={<PreapprovedOfferAbfl />} />
         <Route
           path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
