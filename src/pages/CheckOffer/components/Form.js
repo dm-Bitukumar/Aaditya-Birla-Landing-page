@@ -86,6 +86,9 @@ const Form = ({ formData, setFormData, ...props }) => {
         "messaging"
       );
       if (res["status"] === "Success") {
+        setUserClickData({
+          event_name: "otp-page-for-check-offer",
+        });
         setIsOtpGenerated(true);
       }
     }
