@@ -9,7 +9,7 @@ const BajajFinservPage = () => {
           height: '15px',
           borderRadius: '5px',
           backgroundColor: '#13c1fb',
-          margin: '-3px auto',
+          margin: '-3.5px auto',
           marginBottom: '20px',
         }}
       ></div>
