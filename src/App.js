@@ -31,6 +31,7 @@ import AdityaBirlaPersonalLoan from "./pages/AdityaBirlaPersonalLoan/AdityaBirla
 import OfferDetailsSegment from "./pages/AdityaBirlaPersonalLoan/components/OfferDetailsSegment";
 import CheckOffers from "./pages/CheckOffer/PreApprovedLoan";
 import PreapprovedOfferAbfl from "./pages/PreapprovedOfferAbfl/PreapprovedOfferAbfl";
+import BajajFinserv from "./pages/BajajFinserv";
 
 function App() {
   const location = useLocation();
@@ -116,6 +117,9 @@ function App() {
         <Route path="/fb-offer" element={<OfferDetailsSegmentNiro2 />} />
         <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
+
+
+        <Route path="/bajaj-finserv" element={<BajajFinserv />} />    {/* Remove when added to its respective page */}
       </Routes>
     </>
   );
