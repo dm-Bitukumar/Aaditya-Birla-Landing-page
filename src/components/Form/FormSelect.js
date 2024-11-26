@@ -31,7 +31,7 @@ const FormSelect = ({
       </span>
       <div className="form-floating flex-grow-1">
         <select
-          style={{ maxWidth: "300px" }}
+          style={{ maxWidth: "400px" }}
           {...props}
           className={`form-control ${isValid ? "" : "is-invalid"} text-xs pt-3`}
           value={value}
