@@ -1,39 +1,40 @@
 .personal-loan-container {
-    display: flex;
-    flex-direction: column; 
-    min-height: 90vh;
-  }
+  display: flex;
+  flex-direction: column; 
+  min-height: 90vh;
+}
 
-  .personal-loan-form {
-    max-width: 370px !important; 
-    margin: 0 auto; 
-  }
-  
-  .logo-container {
-    display: flex;
-    justify-content: center; 
-    padding: 1rem 0;
-  }
-  
-  .content-container {
-    display: flex;
-    flex: 1;
-    justify-content: center; 
-    align-items: center; 
-  }
-  
+.personal-loan-form {
+  max-width: 370px !important; 
+  margin: 0 auto; 
+  padding: 15px 20px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center; 
+  padding: 1rem 0;
+}
+
+.content-container {
+  display: flex;
+  flex: 1;
+  justify-content: center; 
+  align-items: center; 
+}
+
 
 /* Work Detail Page*/
 .form-container {
   max-width: 370px;
   margin: 0 auto;
+  padding: 15px 20px;
 }
   
 .button-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  gap: 10px;
 }
 
 /*Offer Serach Page*/

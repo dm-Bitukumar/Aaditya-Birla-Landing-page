@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
+import HeadBar from "../../../components/Static/HeadBar";
+import "./PreApproved.css";
 
 const MobileVerification = ({ setStep, setUserData, userData }) => {
   const [mobile, setMobile] = useState(userData.mobile || "");
@@ -165,6 +167,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
 
   return (
     <div className="personal-loan-form">
+      <HeadBar />
       <img
         className="mt-3 mb-1 img logo-img"
         src="/assets/img/logo.png"
@@ -224,14 +227,16 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
             handleChange={handleConsentChange}
           />
 
-          <FormButton
-            onClick={handleSendOtp}
-            className="btn-get-otp"
-            style={{ marginTop: "20px" }}
-            disabled={!isMobileValid || isLoading}
-          >
-            {isLoading ? "Sending..." : "Get OTP"}
-          </FormButton>
+          <div className="preApprovebutton">
+            <FormButton
+              onClick={handleSendOtp}
+              // className="btn-get-otp"
+              className="!py-4 !px-6"
+              disabled={!isMobileValid || isLoading}
+            >
+              {isLoading ? "Sending..." : "Get OTP"}
+            </FormButton>
+          </div>
         </>
       ) : (
         <>
