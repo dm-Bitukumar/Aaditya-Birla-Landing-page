@@ -20,9 +20,11 @@ const PANVerification = ({ setStep, setUserData = () => {} }) => {
   };
 
   const handlePanChange = (e) => {
-    const value = e.target.value.toUpperCase(); 
+    const value = e.target.value; 
+    const isValid = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value);
     setPan(value);
-    setIsPanValid(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)); 
+    setIsPanValid(isValid);
+
   };
 
   const handlePanSubmit = async () => {
@@ -32,14 +34,14 @@ const PANVerification = ({ setStep, setUserData = () => {} }) => {
     }
 
     if (DUMMY_PAN_DATA[pan]) {
-      toast.success("PAN validated successfully. Redirecting to details page...");
-      setUserData((prev) => ({
-        ...prev,
-        ...DUMMY_PAN_DATA[pan],
-      }));
+      toast.info("Dummy PAN detected. Sending OTP...");
+      
+      setUserData((prev) => ({ ...prev, pan }));
       setStep(4); 
-      return;
+      return; 
     }
+    
+
     toast.info("PAN not found locally. Attempting API verification...");
     try {
       setIsLoading(true);
@@ -54,7 +56,7 @@ const PANVerification = ({ setStep, setUserData = () => {} }) => {
 
       if (response.status === "Success") {
         toast.success("OTP sent to the mobile number linked with PAN.");
-         setUserData((prev) => ({ ...prev, pan })); 
+        setUserData((prev) => ({ ...prev, pan })); 
         setLocalStep(2);
       } else {
         toast.error("Failed to send OTP. Please try again.");
@@ -77,32 +79,39 @@ const PANVerification = ({ setStep, setUserData = () => {} }) => {
       return;
     }
 
-  //   toast.success("Simulated: OTP verified successfully. Moving to the next step.");
-  //   setStep(5);
+    if (DUMMY_PAN_DATA[pan]) {
+      if (otp === "1111") {
+        toast.success("OTP verified successfully. Moving to next step...");
+        setStep(4); 
+      } else {
+        toast.error("Invalid OTP. Please try again.");
+      }
+      return;
+    }
 
-  //   // try {
-  //   //   setIsLoading(true);
-  //   //   const response = await callApi(
-  //   //     "v1/pan/validate-otp",
-  //   //     "post",
-  //   //     { 
-  //   //       pan, 
-  //   //       otp 
-  //   //     },
-  //   //     "verification"
-  //   //   );
-  //   //   if (response.status === "Success") {
-  //   //     toast.success("PAN verified successfully.");
-  //   //     setStep(5); 
-  //   //   } else {
-  //   //     toast.error("Invalid OTP. Please try again.");
-  //   //   }
-  //   // } catch (error) {
-  //   //   console.error("PAN OTP Validation API Error:", error.response || error);
-  //   //   toast.error("An error occurred while verifying OTP.");
-  //   // } finally {
-  //   //   setIsLoading(false);
-  //   // }
+    try {
+      setIsLoading(true);
+      const response = await callApi(
+        "v1/pan/validate-otp",
+        "post",
+        { 
+          pan, 
+          otp 
+        },
+        "verification"
+      );
+      if (response.status === "Success") {
+        toast.success("PAN verified successfully.");
+        setStep(4); 
+      } else {
+        toast.error("Invalid OTP. Please try again.");
+      }
+    } catch (error) {
+      console.error("PAN OTP Validation API Error:", error.response || error);
+      toast.error("An error occurred while verifying OTP.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

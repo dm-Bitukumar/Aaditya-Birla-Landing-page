@@ -28,13 +28,13 @@
 .form-container {
   max-width: 370px;
   margin: 0 auto;
+  padding: 15px 20px;
 }
   
 .button-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  gap: 10px;
 }
 
 /*Offer Serach Page*/
