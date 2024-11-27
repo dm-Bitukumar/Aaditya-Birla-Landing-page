@@ -9,7 +9,7 @@ const BajajFinservPage = () => {
           height: '15px',
           borderRadius: '5px',
           backgroundColor: '#13c1fb',
-          margin: '-3px auto',
+          margin: '-3.5px auto',
           marginBottom: '20px',
         }}
       ></div>
@@ -17,21 +17,12 @@ const BajajFinservPage = () => {
       <div className="flex flex-col items-center text-center w-full max-w-sm p-4">
         <img class="mb-1" src="assets/img/logo.png" alt="" height="30" />
 
-        <div className="mt-24 bg-blue-500 p-2 rounded-full mb-4 flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
+        <div className="mt-24 mb-4 flex items-center justify-center">
+          <img
+            className="mb-1 h-12 w-12"
+            src="assets/img/check-mark.png"
+            alt="Check Mark"
+          />
         </div>
 
         <h2 className="text-md font-semibold mb-4">Thank you</h2>

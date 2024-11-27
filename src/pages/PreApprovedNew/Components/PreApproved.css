@@ -1,0 +1,66 @@
+.personal-loan-container {
+    display: flex;
+    flex-direction: column; 
+    min-height: 90vh;
+  }
+
+  .personal-loan-form {
+    max-width: 370px !important; 
+    margin: 0 auto; 
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center; 
+    padding: 1rem 0;
+  }
+  
+  .content-container {
+    display: flex;
+    flex: 1;
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+
+/* Work Detail Page*/
+.form-container {
+  max-width: 370px;
+  margin: 0 auto;
+}
+  
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+/*Offer Serach Page*/
+.offer-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  max-width: 370px;
+  margin: 0 auto;
+}
+
+.offer-search-wrapper {
+  text-align: center;
+}
+
+.offer-search-image {
+  max-width: 1000%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.offer-search-text {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+}

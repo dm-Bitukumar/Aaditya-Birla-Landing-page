@@ -25,6 +25,7 @@ import NewForm from "./pages/PreApprovedLoan/components/New/NewForm";
 import PreApprove from "./pages/PreApprove/PreApprove";
 import NiroPersonalLoan from "./pages/NiroPersonalLoan/NiroPersonalLoan";
 import PreapprovedOffer from "./pages/PreapprovedOffer/PreapprovedOffer";
+import PreApprovedNew from "./pages/PreApprovedNew/PreApprovedNew";
 import OfferDetailsSegmentNiro2 from "./pages/NiroPersonalDetail/components/OfferDetailsSegmentNiro2";
 import LtPersonalLoan from "./pages/L&TPersonalLoan/L&TPersonalLoan";
 import AdityaBirlaPersonalLoan from "./pages/AdityaBirlaPersonalLoan/AdityaBirlaPersonalLoan";
@@ -104,6 +105,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/preapprove" element={<PreApprove />} />
+        <Route path="/preapprovenew" element={<PreApprovedNew />} />    {/* Add to its respective page */}
         <Route path="/fb/lp01" element={<NiroPersonalLoan />} />
         <Route path="/pa-lt" element={<LtPersonalLoan />} />
         <Route path="/pa-ab" element={<AdityaBirlaPersonalLoan />} />
