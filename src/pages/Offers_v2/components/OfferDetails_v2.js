@@ -20,6 +20,7 @@ const OfferDetails_v2 = () => {
   const [source, setSource] = useState("");
   const [affId, setAffId] = useState("");
   const [hasSubmittedLead, setHasSubmittedLead] = useState(false);
+  const [isConsentChecked, setIsConsentChecked] = useState(true);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -32,40 +33,51 @@ const OfferDetails_v2 = () => {
       setHasSubmittedLead(true);
     }
   }, [lead, leadId]);
-  
+
   useEffect(() => {
     if (leadId) {
-        console.log("Calling fetchOffers immediately for leadId:", leadId);
         fetchOffers();
     
         const timer = setInterval(() => {
           if (!isFinished) {
-            console.log("Polling: Calling fetchOffers for leadId:", leadId);
             fetchOffers(); 
           }
         }, 5000);
-    
         return () => {
-          console.log("Clearing polling mechanism");
           clearInterval(timer);
         };
       }
   }, [leadId, isFinished]);
 
+  const handleConsentChange = () => {
+    setIsConsentChecked((prev) => !prev);
+  };
+
+  const fetchIpAddress = async () => {
+    try {
+      const response = await fetch("https://api.ipify.org?format=json");
+      const data = await response.json();
+      return data.ip;
+    } catch (err) {
+      return "";
+    }
+  };
+  
   const submitLead = async () => {
     setUserClickData({
       event_name: "personal-detail-api",
     });
 
     try {
+      const ipAddress = await fetchIpAddress();
 
       const res = await callApi(
         "v1/lead/process-lead-for-loan-v2",
         "post",
         {
           contact_phone: user.phone_number, 
-          kyc_consent: true, 
-          ip_address: "",
+          kyc_consent: isConsentChecked, 
+          ip_address: ipAddress,
         },
         "core",
         user.token 
@@ -76,7 +88,6 @@ const OfferDetails_v2 = () => {
         dispatch(setLead(res.data.lead)); 
       }
     } catch (err) {
-        console.error("Error in process-lead-for-loan-v2 API:", err);
         toast("Failed to process lead. Please try again.", {
             hideProgressBar: true,
             type: "error",
@@ -104,7 +115,6 @@ const OfferDetails_v2 = () => {
             const allFetched = res.data.lead.all_responses === res.data.lead.total_response;
             setIsFinished(allFetched); 
         } else if (res.data.offers?.length === 0) {
-            console.log("No offers available for this leadId. Stopping polling.");
             setIsFinished(true); 
           }
       }

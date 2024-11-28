@@ -54,10 +54,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
       event_name: "otp-button-check-offer-loan-page",
     });
     event.preventDefault();
-    // let isValid = handleValidation();
-    // if (isValid) {
-    //   setIsOtpGenerated(true);
-    // }
+
     let isValid = handleValidation();
     if (isValid) {
       const res = await callApi(
@@ -76,7 +73,6 @@ const Verification = ({ formData, setFormData, ...props }) => {
         setIsOtpGenerated(true);
       }
     }
-    // Handle form submission
   };
 
   const handleChange = () => {
@@ -110,7 +106,6 @@ const Verification = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
-    // todo submit logic
     setUserClickData({
       event_name: "verify-otp-check-offer-loan-page",
     });
@@ -139,13 +134,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
           .then((response) => {
             if (response["status"] === "Success") {
               if (response.data.lead)
-                console.log("Dispatching lead to Redux:", response.data.lead);
               dispatch(setLead(response.data.lead));
-
-              console.log("Dispatching user to Redux:", {
-                phone_number: mobile,
-                token: res.data.token,
-              });
               dispatch(
                 login({
                   phone_number: mobile,
