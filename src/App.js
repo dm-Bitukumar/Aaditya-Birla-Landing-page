@@ -33,6 +33,8 @@ import OfferDetailsSegment from "./pages/AdityaBirlaPersonalLoan/components/Offe
 import CheckOffers from "./pages/CheckOffer/PreApprovedLoan";
 import PreapprovedOfferAbfl from "./pages/PreapprovedOfferAbfl/PreapprovedOfferAbfl";
 import BajajFinserv from "./pages/BajajFinserv";
+import CheckOffers_v2 from "./pages/CheckOffer_v2/CheckOffers_v2";
+import OffersPage_v2 from "./pages/Offers_v2/Offerspage_v2";
 
 function App() {
   const location = useLocation();
@@ -98,6 +100,9 @@ function App() {
         <Route path={"/apply"} element={<PersonalDetails />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
         <Route path={"/offers"} element={<OffersPage />} />
+
+        <Route path={"/offers-v2"} element={<OffersPage_v2 />} />
+
         <Route path={"/rtg"} element={<PreLoan />} />
         <Route path={"/business-loan"} element={<BusinessLoan />} />
         <Route path={"/business-loan/apply"} element={<BusinessLoanApply />} />
@@ -121,7 +126,9 @@ function App() {
         {/* <Route path="/newform" element={<NewForm />} /> */}
 
 
-        <Route path="/bajaj-finserv" element={<BajajFinserv />} />    {/* Remove when added to its respective page */}
+        <Route path="/bajaj-finserv" element={<BajajFinserv />} />  
+        <Route path="/check-offers-v2" element={<CheckOffers_v2 />} />
+
       </Routes>
     </>
   );
