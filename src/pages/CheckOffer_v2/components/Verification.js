@@ -51,7 +51,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
 
   const handleSubmit = async (event) => {
     setUserClickData({
-      event_name: "otp-button-check-offer-loan-page",
+      event_name: "generate-otp-button-click-check-offers-v2",
     });
     event.preventDefault();
 
@@ -68,7 +68,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
       );
       if (res["status"] === "Success") {
         setUserClickData({
-          event_name: "otp-page-for-check-offer",
+          event_name: "otp-page-loaded-check-offers-v2",
         });
         setIsOtpGenerated(true);
       }
@@ -77,7 +77,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
 
   const handleChange = () => {
     setUserClickData({
-      event_name: "check-offer-loan-page",
+      event_name: "tnc-checkbox-toggled-check-offers-v2 ",
     });
     setIsTncChecked((prev) => !prev);
   };
@@ -85,7 +85,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
   const handleResendOtp = async () => {
     // todo resend login with timer
     setUserClickData({
-      event_name: "resend-otp-form-for-check-offer",
+      event_name: "resend-otp-form-for-check-offer-v2",
     });
     try {
       const res = await callApi(
@@ -107,7 +107,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
 
   const handleSubmitOtp = async () => {
     setUserClickData({
-      event_name: "verify-otp-check-offer-loan-page",
+      event_name: "verify-otp-check-offer-v2",
     });
     try {
       const res = await callApi(
