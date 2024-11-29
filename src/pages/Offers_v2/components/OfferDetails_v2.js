@@ -65,7 +65,7 @@ const OfferDetails_v2 = () => {
   
   const submitLead = async () => {
     setUserClickData({
-      event_name: "personal-detail-api",
+      event_name: "personal-detail-api-check-offers-v2",
     });
 
     try {
@@ -129,7 +129,9 @@ const OfferDetails_v2 = () => {
   };
 
   const handleShowMore = () => {
-    setUserClickData({ event_name: "view-more" });
+    setUserClickData({ 
+      event_name: "view-more-check-offers-v2" 
+    });
   };
 
   return (
