@@ -1,0 +1,45 @@
+.personal-loan-container {
+    display: flex;
+    flex-direction: column; 
+    min-height: 90vh;
+  }
+  
+  .personal-loan-form {
+    max-width: 370px !important; 
+    margin: 0 auto; 
+    padding: 15px 20px;
+  }
+
+  .checkOfferButton {
+    position: fixed; 
+    z-index: 6;
+    width: 100%;
+    max-width: 22.5em;
+    bottom: 1em;
+    left: 50%; 
+    transform: translateX(-50%); 
+    padding: 1rem 0.6em; 
+  }
+  
+  @media (max-width: 600px) {
+    .checkOfferButton {
+      width: calc(100% - 1.2em);
+      max-width: 100%; 
+      bottom: 0rem;
+      padding: 1rem 0.6em;
+      left: 0;
+      transform: none; 
+    }
+  }
+  
+  @media (max-width: 398px) {
+    .checkOfferButton {
+      width: calc(100% - 1.2em);
+      max-width: 100%;
+      bottom: 0em;
+      padding: 0.5rem 0.6em;
+      left: 0;
+      transform: none;
+    }
+  }
+  

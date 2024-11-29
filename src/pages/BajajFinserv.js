@@ -27,7 +27,7 @@ const BajajFinservPage = () => {
 
         <h2 className="text-md font-semibold mb-4">Thank you</h2>
         <p className="text-black font-medium mb-4 text-sm px-4">
-          You will shortly receive a call from Bajaj Finserv Loan Advisor who
+          You will shortly receive a call from Bajaj Finance Loan Advisor who
           will quickly help you with your application & initiate disbursal.
         </p>
         <p className="text-black mb-4 text-sm px-4">

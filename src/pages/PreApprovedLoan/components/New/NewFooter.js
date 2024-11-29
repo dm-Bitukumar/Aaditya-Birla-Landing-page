@@ -77,6 +77,8 @@ const NewFooter = () => {
                   Ammy Pinheiro
                   <br />
                   grievance@digitmoney.in
+                  <br />
+                <a href="tel:08065323927">08065323927</a>
                 </a>
               </div>
             </div>
