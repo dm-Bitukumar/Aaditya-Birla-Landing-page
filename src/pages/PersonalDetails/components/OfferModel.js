@@ -1,7 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 // import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import FormButton from "../../../components/Buttons/FormButton";
+import FormInput from "../../../components/Form/FormInput";
+import numberToWords from "../../../utility/numberToWords";
+import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 
 const Model = ({
   show,
@@ -11,6 +14,40 @@ const Model = ({
   handleChange,
   isTncChecked,
 }) => {
+  const [monthlySalary, setMonthlySalary] = useState("");
+  const [salaryInWords, setSalaryInWords] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState("");
+
+  const handleMonthlyIncome = (e) => {
+    const value = e.target.value.replace(/[^\d]/g, ""); 
+    setMonthlySalary(value ? convertNumberToIndianFormat(value) : "");
+
+    if (value) {
+      const words = numberToWords(Number(value)); 
+      setSalaryInWords(words.trim());
+      setErrors(""); 
+      setErrorMessage("");
+    } else {
+      setSalaryInWords("");
+    }
+  };
+
+  const validateInput = () => {
+    if (!monthlySalary || Number(monthlySalary.replace(/[^0-9]/g, "")) === 0) {
+      setErrors("monthly_income");
+      setErrorMessage("Please enter your Monthly Income");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = () => {
+    if (validateInput()) {
+      handleClick();
+    }
+  };
+
   return (
     <>
       <Transition.Root show={show} as={Fragment}>
@@ -47,11 +84,30 @@ const Model = ({
               >
                 <Dialog.Panel className="w-full transition-all transform rounded-lg shadow-xl md:my-8 md:max-w-xl">
                   <div className="w-full h-full px-4 py-3 rounded bg-[#fff]">
-                    <p>
-                      To process your personal loan application today, we
-                      required verification of your credit information Click "I
-                      agree" to speed up the loan process and receive Funds
-                      today.
+                    <div className="mb-4">
+                      <FormInput
+                        type="text"
+                        placeholder="Enter your salary"
+                        value={monthlySalary}
+                        onChange={handleMonthlyIncome}
+                        errorMessage={errorMessage}
+                        isValid={errors !== "monthly_income"}
+                        icon={
+                          <img
+                            src="/assets/icons/income.png"
+                            style={{ height: "25px" }}
+                          />
+                          }
+                          label="Monthly Income"
+                        />
+                        {salaryInWords && (
+                          <p className="text-sm text-gray-600">
+                            <span className="font-medium">{salaryInWords}</span>
+                          </p>
+                        )}
+                    </div>  
+                    <p className="mb-2">  
+                      To process your personal loan application today, we required verification of your credit information Click "I agree" to speed up the loan process and receive Funds today.
                     </p>
                     <label>
                       <input
@@ -63,15 +119,13 @@ const Model = ({
                         value="Yes"
                         style={{ fontSize: "15px", marginRight: "4px" }}
                       />
-                      I hereby appoint Prefr & its Lending Partners as
-                      authorized representatives to receive my credit
-                      information from CIBIL/CRIF Highmark(bureau).
+                      I hereby appoint Prefr & its Lending Partners as authorized representatives to receive my credit information from CIBIL/CRIF Highmark(bureau).
                     </label>
                     <div className="flex items-center justify-center">
                       <FormButton
                         className={"!w-24"}
                         small
-                        onClick={handleClick}
+                        onClick={handleSubmit}
                       >
                         I agree
                       </FormButton>
