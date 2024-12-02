@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import Stepper from "../../../components/Form/Stepper";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import _ from "lodash";
@@ -35,23 +35,38 @@ const turnoverOptions = [
   { label: "25 Lacs+", value: "25 Lacs+" },
 ];
 
-const WorkDetailsPage = ({ setStep, setUserData, data }) => {
-  const [workDetails, setWorkDetails] = useState(data ||{
-    profession: "",
-    companyName: "",
-    companyType: "",
-    income: "",
-    workEmail: "",
-    workAddress1: "",
-    workAddress2: "",
-    workPinCode: "",
+const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) => {
+  const [data, setData] = useState({
+    profession: initialData.profession || "",
+    companyName: initialData.companyName || "",
+    companyType: initialData.companyType || "",
+    income: initialData.income || "",
+    workEmail: initialData.workEmail || "",
+    workAddress1: initialData.workAddress1 || "",
+    workAddress2: initialData.workAddress2 || "",
+    workPinCode: initialData.workPinCode || "",
   });
 
+  const workDetails = initialData;
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    setData({
+      profession: initialData.profession || "",
+      companyName: initialData.companyName || "",
+      companyType: initialData.companyType || "",
+      income: initialData.income || "",
+      workEmail: initialData.workEmail || "",
+      workAddress1: initialData.workAddress1 || "",
+      workAddress2: initialData.workAddress2 || "",
+      workPinCode: initialData.workPinCode || "",
+    });
+  }, [initialData]);
+
   const handleChange = (key, value) => {
-    setWorkDetails((prev) => ({ ...prev, [key]: value }));
-    setErrors((prev) => ({ ...prev, [key]: "" }));
+    setData((prev) => ({ ...prev, [key]: value }));
+    setErrors((prev) => ({ ...prev, [key]: "" })); 
+    handleDataChange(key, value); 
   };
 
   const validateInputs = () => {
@@ -83,12 +98,10 @@ const WorkDetailsPage = ({ setStep, setUserData, data }) => {
     });
 
     if (validateInputs()) {
-      setUserData((prev) => {
-        const updatedData = { ...prev, workDetails }; 
-        console.log("Form Data:", updatedData); 
-        return updatedData;
-      });
-  
+      // Object.keys(data).forEach((key) => {
+      //   handleDataChange(key, data[key]);
+      // });
+      handleDataChange("workDetails", data); 
       setStep(6); 
     }
   };
@@ -239,15 +252,10 @@ const WorkDetailsPage = ({ setStep, setUserData, data }) => {
         className="button-container"
         style={{ display: "flex", justifyContent: "space-between", width: "100%" }}
       >
-        <FormButton 
-          type={"secondary"} 
-          onClick={() => {
-            setUserData((prev) => ({ ...prev, workDetails })); 
-            setStep(4); 
-          }}
-        >
+        <FormButton type={"secondary"} onClick={() => setStep(4)}>
           Back
         </FormButton>
+
         <FormButton onClick={handleSubmit}>Submit</FormButton>
       </div>
     </div>
