@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
-import FormDob from "../../../components/Form/FormDob";
 import { useDispatch } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import moment from "moment";
 import GenderBox from "./GenderBox";
-import FormInput from "../../../components/Form/FormInput";
-import FormButton from "../../../components/Buttons/FormButton";
+import FormInput from "./FormInputBtn";
+import FormDob from "./FormDobBtn";
+import FormButton from "./FormBtnNew";
 
 const PersonalDetailsForm = ({ setStep, data: initialData = {}, handleDataChange }) => {
   const [data, setData] = useState(() => ({

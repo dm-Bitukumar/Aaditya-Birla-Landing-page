@@ -3,9 +3,9 @@ import Stepper from "../../../components/Form/Stepper";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import _ from "lodash";
 import "./PreApproved.css";
-import FormSelect from "../../../components/Form/FormSelect";
-import FormInput from "../../../components/Form/FormInput";
-import FormButton from "../../../components/Buttons/FormButton";
+import FormSelect from "./FormSelectBtn";
+import FormInput from "./FormInputBtn";
+import FormButton from "./FormBtnNew";
 import HeadBar from "../../../components/Static/HeadBar";
 
 const profession_options = [
@@ -112,7 +112,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
       <Stepper steps={["Personal Details", "Work Details", "Offer Page"]} currentStep={1} />
       <FormSelect
         options={profession_options}
-        placeholder="profession"
+        placeholder="Select Profession"
         required
         id="profession"
         value={workDetails.profession}
@@ -157,7 +157,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
         name="companyType"
         value={workDetails.companyType}
         onChange={(selectedOption) => handleChange("companyType", selectedOption?.value || selectedOption)}
-        placeholder="Company Type"
+        placeholder="Select Company Type"
         label="Company Type"
         isValid={!errors.companyType}
         errorMessage={errors.companyType}
@@ -175,7 +175,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
         name="income"
         value={workDetails.income}
         onChange={(selectedOption) => handleChange("income", selectedOption?.value || selectedOption)}
-        placeholder="Monthly Income"
+        placeholder="Select Monthly Income Slab"
         label="Monthly Income"
         isValid={!errors.income}
         errorMessage={errors.income}
@@ -250,7 +250,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
 
       <div
         className="button-container"
-        style={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+        style={{ display: "flex", justifyContent: "center", width: "100%", gap: "10px" }}
       >
         <FormButton type={"secondary"} onClick={() => setStep(4)}>
           Back
