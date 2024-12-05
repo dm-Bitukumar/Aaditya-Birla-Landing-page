@@ -6,7 +6,7 @@ import CheckboxTnC from "../../PersonalLoan/components/CheckboxTnC";
 import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
@@ -24,16 +24,20 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const [utmSource, setUtmSource] = useState("");
   const [affId, setAffId] = useState("");
   const [offers, setOffers] = useState([]);
-  // const [step, setStep] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  const { lenderName, lenderId } = useSelector((state) => state.app.lead);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
+
+  useEffect(() => {
+    console.log(`MobileVerification: Current Lender - ${lenderName} (${lenderId})`);
+  }, [lenderName, lenderId]);
 
   const handleValidation = () => {
     let isValid = true;
@@ -84,7 +88,8 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
         "post",
         { 
           contact_phone: mobile, 
-          kyc_consent: isConsentChecked 
+          kyc_consent: isConsentChecked,
+          lender_id: lenderId,
         },
         "messaging"
       );
@@ -110,7 +115,11 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
       const response = await callApi(
         "v1/sms/send-otp",
         "post",
-        { contact_phone: mobile, kyc_consent: isConsentChecked },
+        { 
+          contact_phone: mobile, 
+          kyc_consent: isConsentChecked,
+          lender_id: lenderId,
+        },
         "messaging"
       );
       if (response.status === "Success") {
@@ -141,22 +150,20 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
         "post",
         { 
           contact_phone: mobile, 
-          otp 
+          otp,
+          lender_id: lenderId,
         },
         "messaging"
       );
       if (response.status === "Success") {
         toast.success("OTP Verified Successfully");
-        
-        const fetchedOffers = []; 
-        setOffers(fetchedOffers);
-
-        if (fetchedOffers.length > 0) {
-          setStep(2); 
-        } else {
-          setStep(3); 
-        }
-        dispatch(login({ ...response.data.customer, token: response.data.token }));
+        dispatch(
+          login({
+            ...response.data.customer,
+            token: response.data.token,
+          })
+        );
+        setStep(2); 
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
