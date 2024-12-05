@@ -8,9 +8,13 @@ import FormInput from "./FormInputBtn";
 import FormDob from "./FormDobBtn";
 import FormButton from "./FormBtnNew";
 import { useSelector } from "react-redux";
+import callApi from "../../../utility/apiCaller";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setPersonalDetails } from "../../../store/app/appReducer";
 
-const PersonalDetailsForm = ({ setStep, handleDataChange }) => {
-  const personalDetails = useSelector((state) => state.app.personalDetails);
+const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
+  const panDetails = useSelector((state) => state.app.panDetails);
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
 
   useEffect(() => {
@@ -18,10 +22,10 @@ const PersonalDetailsForm = ({ setStep, handleDataChange }) => {
   }, [lenderName, lenderId]);
 
   const [data, setData] = useState({
-    firstName: personalDetails.firstName || "",
-    lastName: personalDetails.lastName || "",
-    gender: personalDetails.gender || "",
-    dob: personalDetails.dob || "",
+    firstName: panDetails.firstName || "",
+    lastName: panDetails.lastName || "",
+    gender: panDetails.gender || "",
+    dob: panDetails.dob || "",
     email: "",
     address1: "",
     address2: "",
@@ -29,14 +33,18 @@ const PersonalDetailsForm = ({ setStep, handleDataChange }) => {
   });
 
   const [errors, setErrors] = React.useState({});
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setData((prev) => ({
       ...prev,
-      ...personalDetails, 
+      firstName: panDetails.firstName || "",
+      lastName: panDetails.lastName || "",
+      gender: panDetails.gender || "",
+      dob: panDetails.dob || "", 
     }));
-  }, [personalDetails]);
+  }, [panDetails]);
 
   const handleChange = (key, value) => {
     setErrors((prev) => ({ ...prev, [key]: "" }));
@@ -74,17 +82,66 @@ const PersonalDetailsForm = ({ setStep, handleDataChange }) => {
     return Object.keys(validationErrors).length === 0;
   };
 
-  const handleSubmit = () => {
-    setUserClickData({ 
-      event_name: "personal-detail-form-button" 
+  const handleSubmit = async() => {
+    setUserClickData({
+      event_name: "personal-detail-form-button",
     });
+    if (!leadId) {
+      console.error("No lead ID provided.");
+      return;
+    }
+    const id = "66d873e515025eb9a2a890ac"
 
+    console.log(`Fetching offer details for Lead ID: ${id}`);
     if (validateInputs()) {
       console.log("Form data submitted:", data);
-
+  
       setIsLoading(true);
-      handleDataChange("personalDetails", data); 
-      setStep(5); 
+
+      try {
+        dispatch(
+          setPersonalDetails({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            gender: data.gender,
+            dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"), // Store in standard format
+            email: data.email,
+            pincode: data.pincode,
+          })
+        );
+
+        const response = await callApi(
+          `v1/preapproved_lead/${id}/update`, 
+          "post",
+          {
+            preapproved_lead: {
+              gender: data.gender,
+              dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"), // Convert to required format
+              email: data.email,
+              pincode: data.pincode,
+              address1: data.address1,
+              address2: data.address2,
+              is_personal_info_completed: true, // Set to true as per the API requirements
+            },
+          },
+          "core" // Assuming "core" is the correct API service
+        );
+  
+        if (response.status === "Success") {
+          console.log("Personal details updated successfully:", response.data);
+          handleDataChange("personalDetails", data); // Update the parent state
+          toast.success("Personal details updated successfully.");
+          setStep(5); // Proceed to the next step
+        } else {
+          console.error("Failed to update personal details:", response.message);
+          toast.error("Failed to update personal details. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error while updating personal details:", error);
+        toast.error("An error occurred while updating personal details.");
+      } finally {
+        setIsLoading(false);
+      }
     } else {
       console.error("Validation failed. Please correct the errors and try again."); // Log validation errors if any
     }
