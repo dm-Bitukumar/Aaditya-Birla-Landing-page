@@ -1,127 +1,227 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch  } from "react-redux";
 import FormInput from "../../../components/Form/FormInput";
 import FormButton from "../../../components/Buttons/FormButton";
 import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
 import "./PreApproved.css";
+import PanOtpInputForm from "../../../components/Form/PanOtpInputForm";
+import { setPersonalDetails } from "../../../store/app/appReducer";
 
-const PANVerification = ({ setStep, setUserData = () => {} }) => {
-  const [step, setLocalStep] = useState(1); 
+const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
+  const [step, setLocalStep] = useState(1);
   const [pan, setPan] = useState("");
   const [otp, setOtp] = useState("");
   const [isPanValid, setIsPanValid] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const DUMMY_PAN_DATA = {
-    QQQQQ1234Q: {
-      name: "John Doe",
-      pan: "QQQQQ1234Q",
-      status: "verified",
-    },
-  };
+  const [isOtpLoading, setIsOtpLoading] = useState(false);
+  const [isPanLoading, setIsPanLoading] = useState(false);
+  const [isOtpGenerated, setIsOtpGenerated] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.app.user);
+  const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
+  const { lenderName, lenderId } = useSelector((state) => state.app.lead);
+
+  useEffect(() => {
+    console.log(`PANVerification: Current Lender - ${lenderName} (${lenderId}), Lead ID - ${leadId}`);
+  }, [lenderName, lenderId, leadId]);
 
   const handlePanChange = (e) => {
-    const value = e.target.value; 
-    const isValid = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value);
+    const value = e.target.value.toUpperCase();
     setPan(value);
+    const isValid = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value);
     setIsPanValid(isValid);
-
+    setIsButtonDisabled(!isValid);
   };
 
-  const handlePanSubmit = async () => {
-    if (!isPanValid) {
-      toast.error("Please enter a valid PAN.");
+  const sendOtp = async () => {
+    if (!mobileNumber) {
+      toast.error("Mobile number is missing. Please try again.");
       return;
     }
 
-    if (DUMMY_PAN_DATA[pan]) {
-      toast.info("Dummy PAN detected. Sending OTP...");
-      
-      setUserData((prev) => ({ ...prev, pan }));
-      setStep(4); 
-      return; 
-    }
-    
-
-    toast.info("PAN not found locally. Attempting API verification...");
     try {
-      setIsLoading(true);
+      setIsOtpLoading(true);
       const response = await callApi(
-        "v1/pan/send-otp", 
-        "post", 
+        "v1/sms/send-pan-otp",
+        "post",
         { 
-          pan 
-        }, 
+          contact_phone: mobileNumber,
+          ref_name: "PAN-OTP",
+          red_id: leadId,
+        },
         "messaging"
       );
-
       if (response.status === "Success") {
-        toast.success("OTP sent to the mobile number linked with PAN.");
-        setUserData((prev) => ({ ...prev, pan })); 
-        setLocalStep(2);
+        toast.success("OTP sent to your registered mobile number.");
+        setIsOtpGenerated(true);
       } else {
         toast.error("Failed to send OTP. Please try again.");
       }
     } catch (error) {
-      console.error("PAN OTP API Error:", error.response || error);
       toast.error("An error occurred while sending OTP.");
     } finally {
-      setIsLoading(false);
+      setIsOtpLoading(false);
     }
   };
 
-  const handleOtpChange = (e) => {
-    setOtp(e.target.value);
+  const handleResendOtp = async () => {
+    try {
+      setIsOtpLoading(true);
+      const response = await callApi(
+        "v1/sms/send-pan-otp",
+        "post",
+        { 
+          contact_phone: mobileNumber,
+          ref_name: "PAN-OTP",
+          red_id: leadId,
+        },
+        "messaging"
+      );
+      if (response.status === "Success") {
+        toast.success("OTP resent successfully.");
+      } else {
+        toast.error("Failed to resend OTP. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while resending OTP.");
+    } finally {
+      setIsOtpLoading(false);
+    }
   };
 
   const handleOtpSubmit = async () => {
-    if (otp.length !== 4) {
+    if (!/^\d{4}$/.test(otp)) {
       toast.error("Please enter a valid 4-digit OTP.");
       return;
     }
 
-    if (DUMMY_PAN_DATA[pan]) {
-      if (otp === "1111") {
-        toast.success("OTP verified successfully. Moving to next step...");
-        setStep(4); 
-      } else {
-        toast.error("Invalid OTP. Please try again.");
-      }
-      return;
-    }
-
     try {
-      setIsLoading(true);
+      setIsOtpLoading(true);
       const response = await callApi(
-        "v1/pan/validate-otp",
+        "v1/sms/validate-otp",
         "post",
         { 
-          pan, 
+          contact_phone: mobileNumber, 
           otp 
         },
-        "verification"
+        "messaging"
       );
       if (response.status === "Success") {
-        toast.success("PAN verified successfully.");
-        setStep(4); 
+        toast.success("OTP verified successfully.");
+        await fetchPanData(); 
+        await updatePanVerification();
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
     } catch (error) {
-      console.error("PAN OTP Validation API Error:", error.response || error);
       toast.error("An error occurred while verifying OTP.");
     } finally {
-      setIsLoading(false);
+      setIsOtpLoading(false);
     }
+  };
+
+  const fetchPanData = async () => {
+    if (!isPanValid) {
+      toast.error("Please enter a valid PAN.");
+      return;
+    }
+  
+    try {
+      setIsPanLoading(true);
+  
+      const res = await callApi(
+        "v1/M2P_data/get-data-from-pan", 
+        "post", 
+        { 
+          pancard: pan 
+        },
+        "core", 
+        user.token 
+      );
+  
+      if (res.status === "Success") {
+        const { first_name, last_name, gender, dob } = res.data || {};
+  
+        // setUserData((prev) => ({
+        //   ...prev,
+        //   personalDetails: {
+        //     firstName: first_name || "",
+        //     lastName: last_name || "",
+        //     gender: gender || "",
+        //     dob: dob || "",
+        //   },
+        // }));
+
+        dispatch(
+          setPersonalDetails({
+            firstName: first_name,
+            lastName: last_name,
+            gender,
+            dob,
+          })
+        );
+  
+        toast.success("PAN verified and data fetched successfully.");
+        setStep(4);
+      } else {
+        console.error("PAN API returned an error:", res.message);
+        toast.error("Failed to fetch data from PAN. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error during PAN API call:", err);
+      toast.error("An error occurred while fetching data from PAN.");
+    } finally {
+      setIsPanLoading(false);
+    }
+  };
+  
+  const updatePanVerification = async () => {
+    if (!leadId) {
+      toast.error("Lead ID is missing. Cannot update PAN verification.");
+      return;
+    }
+
+    try {
+      const res = await callApi(
+        `v1/preapproved_lead/${leadId}/update`,
+        "post",
+        {
+          preapproved_lead: {
+            is_pan_verified: true,
+          },
+        },
+        "core",
+        user.token
+      );
+
+      if (res.status === "Success") {
+        toast.success("PAN verification status updated successfully.");
+      } else {
+        console.error("PAN verification API returned an error:", res.message);
+        toast.error("Failed to update PAN verification. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error during PAN verification update:", err);
+      toast.error("An error occurred while updating PAN verification.");
+    }
+  };
+
+  const handlePanSubmit = () => {
+    if (!isPanValid) {
+      toast.error("Please enter a valid PAN.");
+      return;
+    }
+    setLocalStep(2);
+    setIsButtonDisabled(true);
+    sendOtp();
   };
 
   return (
     <div className="personal-loan-container">
       <div className="logo-container">
-        <img 
-          className="logo-img" 
-          src="/assets/img/logo.png" 
-          alt="DigitMoney Logo" 
-        />
+        <img className="logo-img" src="/assets/img/logo.png" alt="DigitMoney Logo" />
       </div>
       <div className="content-container">
         <div className="personal-loan-form">
@@ -129,19 +229,10 @@ const PANVerification = ({ setStep, setUserData = () => {} }) => {
             <>
               <h1 className="h4 text-start">Verify PAN Number</h1>
               <p className="mb-3 text-start text-xs">
-                We need your PAN card to match your identity.<br />
-                Initiate soft bureau pull; this won't impact your credit score.
+                We need your PAN card to match your identity. This verification will not impact your credit score.
               </p>
-
               <FormInput
-                icon={
-                  <img
-                    src="/assets/icons/pancard.png"
-                    height="25"
-                    style={{ maxHeight: "25px" }}
-                    alt="PAN Card Icon"
-                  />
-                }
+                icon={<img src="/assets/icons/pancard.png" height="25" alt="PAN Card Icon" />}
                 value={pan}
                 isValid={isPanValid}
                 placeholder="Enter PAN"
@@ -149,59 +240,33 @@ const PANVerification = ({ setStep, setUserData = () => {} }) => {
                 type="text"
                 name="pancard"
                 id="pancard"
-                aria-describedby="name"
                 minLength="10"
                 maxLength="10"
-                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
-                title="Please enter a valid PAN number. E.g. AAAAA9999A"
+                pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
                 required
                 style={{ textTransform: "uppercase" }}
-                label={"Pancard"}
-                errorMessage={"Please enter a valid PAN number"}
+                label="Pancard"
+                errorMessage="Please enter a valid PAN number"
               />
-
               <FormButton
                 onClick={handlePanSubmit}
                 className="btn-get-otp"
-                style={{
-                  marginTop: "20px",
-                  cursor: isPanValid && !isLoading ? "pointer" : "not-allowed",
-                }}
-                disabled={!isPanValid || isLoading}
+                disabled={isButtonDisabled  || isPanLoading}
               >
-                {isLoading ? "Verifying..." : "Verify PAN"}
+                {isPanLoading ? "Processing..." : "Verify PAN"}
               </FormButton>
             </>
           ) : (
-            <>
-              <h1 className="h4 text-center fw-bold">Verify OTP</h1>
-              <p className="mb-3 text-center text-sm">
-                Enter the OTP sent to your registered mobile number.
-              </p>
-
-              <FormInput
-                type="number"
-                name="otp"
-                value={otp}
-                isValid={otp.length === 4}
-                placeholder="Enter OTP"
-                onChange={handleOtpChange}
-                label={"OTP"}
-                errorMessage={"Please enter a valid 4-digit OTP."}
-              />
-
-              <FormButton
-                onClick={handleOtpSubmit}
-                className="btn-get-otp"
-                style={{
-                  marginTop: "20px",
-                  cursor: otp.length === 4 && !isLoading ? "pointer" : "not-allowed",
-                }}
-                disabled={otp.length !== 4 || isLoading}
-              >
-                {isLoading ? "Submitting..." : "Submit OTP"}
-              </FormButton>
-            </>
+            <PanOtpInputForm
+              otpValue={otp}
+              setOtpValue={setOtp}
+              setIsOtpGenerated={setIsOtpGenerated}
+              handleResendOtp={handleResendOtp}
+              phone_number={mobileNumber}
+              handleSubmitOtp={handleOtpSubmit}
+              pan={pan} // Pass PAN to the OTP page
+              goToPanVerification={() => setLocalStep(1)}
+            />
           )}
         </div>
       </div>

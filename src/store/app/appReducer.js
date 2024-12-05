@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: undefined,
+  personalDetails: {},
   offers: [],
   lead: {},
 };
@@ -10,6 +11,9 @@ const stateSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
+    setPersonalDetails: (state, action) => {
+      state.personalDetails = action.payload;
+    },
     login(state, action) {
       state.user = action.payload;
     },
@@ -22,5 +26,5 @@ const stateSlice = createSlice({
   },
 });
 
-export const { login, setLead, setOffers } = stateSlice.actions;
+export const { login, setLead, setOffers, setPersonalDetails } = stateSlice.actions;
 export default stateSlice.reducer;
