@@ -7,6 +7,10 @@ import FormSelect from "./FormSelectBtn";
 import FormInput from "./FormInputBtn";
 import FormButton from "./FormBtnNew";
 import HeadBar from "../../../components/Static/HeadBar";
+import callApi from "../../../utility/apiCaller";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setWorkDetails } from "../../../store/app/appReducer";
 
 const profession_options = [
   { label: "Salaried", value: "Salaried" },
@@ -35,7 +39,7 @@ const turnoverOptions = [
   { label: "25 Lacs+", value: "25 Lacs+" },
 ];
 
-const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) => {
+const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, leadId }) => {
   const [data, setData] = useState({
     profession: initialData.profession || "",
     companyName: initialData.companyName || "",
@@ -48,6 +52,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
   });
 
   const workDetails = initialData;
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -92,20 +97,66 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
     return Object.keys(validationErrors).length === 0;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setUserClickData({
       event_name: "work-detail-form-submit",
     });
+  
+    if (!leadId) {
+      console.error("No lead ID provided.");
+      return;
+    }
+    const id = "66d873e515025eb9a2a890ac";
 
     if (validateInputs()) {
       console.log("Form data submitted:", data);
-      // Object.keys(data).forEach((key) => {
-      //   handleDataChange(key, data[key]);
-      // });
-      handleDataChange("workDetails", data); 
-      setStep(6); 
+  
+      try {
+        dispatch(
+          setWorkDetails({
+            monthlyIncome: data.income,
+            professionType: data.profession,
+            companyName: data.companyName,
+          })
+        );
+
+        const response = await callApi(
+          `v1/preapproved_lead/${id}/update`, 
+          "post",
+          {
+            preapproved_lead: {
+              company_name: data.companyName,
+              company_type: data.companyType,
+              monthly_income: data.income,
+              profession: data.profession,
+              work_address1: data.workAddress1,
+              work_address2: data.workAddress2,
+              if_professional_info_completed: true,
+              work_contact_email: data.workEmail || "", 
+              work_pincode: data.workPinCode || "", 
+            },
+          },
+          "core" 
+        );
+  
+        if (response.status === "Success") {
+          console.log("Work details updated successfully:", response.data);
+          handleDataChange("workDetails", data); 
+          toast.success("Work details updated successfully.");
+          setStep(6);
+        } else {
+          console.error("Failed to update work details:", response.message);
+          toast.error("Failed to update work details. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error while updating work details:", error);
+        toast.error("An error occurred while updating work details.");
+      } 
+    } else {
+      console.error("Validation failed. Please correct the errors and try again.");
     }
   };
+  
 
   return (
     <div className="form-container">
@@ -164,19 +215,18 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
         errorMessage={errors.companyType}
       />
 
-      <FormSelect
-        options={turnoverOptions}
+      <FormInput
         icon={
           <img 
-            src="/assets/icons/income.png" 
+            src="/assets/icons/email.png" 
             style={{ height: "25px" }} 
           />
         }
         type="number"
         name="income"
         value={workDetails.income}
-        onChange={(selectedOption) => handleChange("income", selectedOption?.value || selectedOption)}
-        placeholder="Select Monthly Income Slab"
+        onChange={(e) => handleChange("income", e.target.value)}
+        placeholder="Enter Monthly Income"
         label="Monthly Income"
         isValid={!errors.income}
         errorMessage={errors.income}
@@ -257,7 +307,11 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
           Back
         </FormButton>
 
-        <FormButton onClick={handleSubmit}>Submit</FormButton>
+        <FormButton 
+          onClick={handleSubmit}
+        >
+          Submit
+        </FormButton>
       </div>
     </div>
   );

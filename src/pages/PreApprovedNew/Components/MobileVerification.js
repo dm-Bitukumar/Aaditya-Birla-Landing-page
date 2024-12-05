@@ -20,8 +20,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [source, setSource] = useState("");
-  const [utmSource, setUtmSource] = useState("");
+  const [utm_medium, setUtmMedium] = useState("");
   const [affId, setAffId] = useState("");
   const [offers, setOffers] = useState([]);
   const dispatch = useDispatch();
@@ -30,8 +29,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
 
   useEffect(() => {
-    if (params.get("source")) setSource(params.get("source"));
-    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    if (params.get("utm_medium")) setUtmMedium(params.get("utm_medium"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
 
