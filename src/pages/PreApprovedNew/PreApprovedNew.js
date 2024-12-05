@@ -24,7 +24,6 @@ const PreApprovedNew = () => {
   const [searchParams] = useSearchParams();
   const [leadId, setLeadId] = React.useState(null);
 
-
   useEffect(() => {
     const ldr = searchParams.get("ldr");
 
@@ -42,6 +41,7 @@ const PreApprovedNew = () => {
       console.log("No valid lender ID found in the URL.");
     }
   }, [dispatch, searchParams]);
+  
 
   const handleDataChange = (section, key, value) => {
     dispatch(
@@ -53,6 +53,15 @@ const PreApprovedNew = () => {
         },
       })
     );
+  };
+
+  const offerSearchData = {
+    lead_id: leadId,
+    // lead_id: "67519dc48d6dff000e8246c9",
+    lender_id: userData?.lenderId || "",
+    lender_name: userData?.lenderName || "",
+    utm_medium: "", 
+    aff_id: "45", 
   };
 
   const steps = [
@@ -112,6 +121,7 @@ const PreApprovedNew = () => {
           handleDataChange={(key, value) =>
             handleDataChange("workDetails", key, value)
           }
+          leadId={leadId}
         />
       ),
     },
@@ -121,6 +131,7 @@ const PreApprovedNew = () => {
         <OfferSearchPage 
           {...props} 
           leadId={leadId}
+          offerSearchData={offerSearchData}
         />
       ),
     },
