@@ -98,6 +98,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange }) 
     });
 
     if (validateInputs()) {
+      console.log("Form data submitted:", data);
       // Object.keys(data).forEach((key) => {
       //   handleDataChange(key, data[key]);
       // });
