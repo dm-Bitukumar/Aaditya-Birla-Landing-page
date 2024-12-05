@@ -6,7 +6,7 @@ import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
 import "./PreApproved.css";
 import PanOtpInputForm from "../../../components/Form/PanOtpInputForm";
-import { setPersonalDetails } from "../../../store/app/appReducer";
+import { setpanDetails } from "../../../store/app/appReducer";
 
 const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   const [step, setLocalStep] = useState(1);
@@ -155,13 +155,18 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
         // }));
 
         dispatch(
-          setPersonalDetails({
+          setpanDetails({
             firstName: first_name,
             lastName: last_name,
             gender,
             dob,
+            pancard: pan,
           })
         );
+
+
+        setUserData("pancard", pan); 
+        console.log("PANVerification: Verified PAN passed to userData:", pan);
   
         toast.success("PAN verified and data fetched successfully.");
         setStep(4);

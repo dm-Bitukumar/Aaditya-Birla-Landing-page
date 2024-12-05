@@ -11,8 +11,8 @@ const OffersPage = ({ setStep, setLeadId  }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const lead = useSelector((state) => state.app.lead);
-  // const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
-  const mobileNumber = "9922187005";
+  const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
+  // const mobileNumber = "9922187005";
 
   useEffect(() => {
     console.log(`OffersPage: Current Lender - ${lead.lenderName} (${lead.lenderId})`);
