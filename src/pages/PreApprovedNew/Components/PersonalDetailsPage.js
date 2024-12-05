@@ -1,43 +1,42 @@
 import React, { useState, useEffect, useRef } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
-import { useDispatch } from "react-redux";
-import { setLead } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import moment from "moment";
 import GenderBox from "./GenderBox";
 import FormInput from "./FormInputBtn";
 import FormDob from "./FormDobBtn";
 import FormButton from "./FormBtnNew";
+import { useSelector } from "react-redux";
 
-const PersonalDetailsForm = ({ setStep, data: initialData = {}, handleDataChange }) => {
-  const [data, setData] = useState(() => ({
-    firstName: initialData.firstName || "",
-    lastName: initialData.lastName || "",
-    gender: initialData.gender || "", 
-    dob: initialData.dob || "",
-    email: initialData.email || "",
-    address1: initialData.address1 || "",
-    address2: initialData.address2 || "",
-    pincode: initialData.pincode || "",
-  }));
+const PersonalDetailsForm = ({ setStep, handleDataChange }) => {
+  const personalDetails = useSelector((state) => state.app.personalDetails);
+  const { lenderName, lenderId } = useSelector((state) => state.app.lead);
+
+  useEffect(() => {
+    console.log(`PersonalDetails: Current Lender - ${lenderName} (${lenderId})`);
+  }, [lenderName, lenderId]);
+
+  const [data, setData] = useState({
+    firstName: personalDetails.firstName || "",
+    lastName: personalDetails.lastName || "",
+    gender: personalDetails.gender || "",
+    dob: personalDetails.dob || "",
+    email: "",
+    address1: "",
+    address2: "",
+    pincode: "",
+  });
 
   const [errors, setErrors] = React.useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    setData({
-      firstName: initialData.firstName || "",
-      lastName: initialData.lastName || "",
-      gender: initialData.gender || "", 
-      dob: initialData.dob || "",
-      email: initialData.email || "",
-      address1: initialData.address1 || "",
-      address2: initialData.address2 || "",
-      pincode: initialData.pincode || "",
-    });
-  }, [initialData]);
+    setData((prev) => ({
+      ...prev,
+      ...personalDetails, 
+    }));
+  }, [personalDetails]);
 
   const handleChange = (key, value) => {
     setErrors((prev) => ({ ...prev, [key]: "" }));
@@ -81,10 +80,13 @@ const PersonalDetailsForm = ({ setStep, data: initialData = {}, handleDataChange
     });
 
     if (validateInputs()) {
+      console.log("Form data submitted:", data);
+
       setIsLoading(true);
       handleDataChange("personalDetails", data); 
       setStep(5); 
-
+    } else {
+      console.error("Validation failed. Please correct the errors and try again."); // Log validation errors if any
     }
   };
 

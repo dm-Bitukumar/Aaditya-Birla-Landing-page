@@ -13,9 +13,14 @@ const PreApprovedLoan = () => {
   const [preLoans, setPreLoans] = useState(null);
   const [contactName, setContactName] = useState("");
 
+  // useEffect(() => {
+  //   if (params.get("id")) fetchPreApprovedLoan(params.get("id"));
+  // }, [params]);
+
   useEffect(() => {
-    if (params.get("id")) fetchPreApprovedLoan(params.get("id"));
-  }, [params]);
+    const id = "6707cdd32a96647a80aa2474";
+    fetchPreApprovedLoan(id);
+  }, [])
 
   const fetchPreApprovedLoan = async (id) => {
     try {
