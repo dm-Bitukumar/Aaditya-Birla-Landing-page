@@ -57,9 +57,6 @@ const OfferTileRedirect = ({ offer, small, redirectionLink }) => {
                 <h5 className="text-xs font-semibold">
                     EMI: {convertNumberToIndianFormat(offer?.emi ?? 0)}
                 </h5>
-                <h5 className="mt-2 text-xs font-semibold">
-                    Interest: {offer?.interest ?? "N/A"}% 
-                </h5>
             </div>
         )}
         {!small && (
