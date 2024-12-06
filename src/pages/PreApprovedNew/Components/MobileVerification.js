@@ -9,7 +9,6 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
-import { useSearchParams } from "react-router-dom";
 import HeadBar from "../../../components/Static/HeadBar";
 import "./PreApproved.css";
 
@@ -20,22 +19,10 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [utm_medium, setUtmMedium] = useState("");
-  const [affId, setAffId] = useState("");
   const [offers, setOffers] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [params] = useSearchParams();
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
-
-  useEffect(() => {
-    if (params.get("utm_medium")) setUtmMedium(params.get("utm_medium"));
-    if (params.get("aff_id")) setAffId(params.get("aff_id"));
-  }, [params]);
-
-  useEffect(() => {
-    console.log(`MobileVerification: Current Lender - ${lenderName} (${lenderId})`);
-  }, [lenderName, lenderId]);
 
   const handleValidation = () => {
     let isValid = true;

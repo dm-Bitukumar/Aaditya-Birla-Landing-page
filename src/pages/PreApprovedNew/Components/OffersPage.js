@@ -15,8 +15,6 @@ const OffersPage = ({ setStep, setLeadId  }) => {
   // const mobileNumber = "9922187005";
 
   useEffect(() => {
-    console.log(`OffersPage: Current Lender - ${lead.lenderName} (${lead.lenderId})`);
-
     if (lead?.lenderId) {
       fetchListApiDetails(lead.lenderId, mobileNumber);
     } else {
