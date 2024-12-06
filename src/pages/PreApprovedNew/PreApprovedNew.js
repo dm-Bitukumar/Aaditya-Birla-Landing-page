@@ -72,6 +72,16 @@ const PreApprovedNew = () => {
     [leadId, userData, utmMedium, affId]
   );
 
+  const offerSearchDatanew = React.useMemo(
+    () => ({
+      lender_id: userData?.lenderId || "",
+      lender_name: userData?.lenderName || "",
+      utm_medium: utmMedium || "",
+      aff_id: affId || "",
+    }),
+    [ userData, utmMedium, affId]
+  );
+
   const steps = [
     {
       id: 1,

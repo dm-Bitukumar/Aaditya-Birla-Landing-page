@@ -79,22 +79,30 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
     const validationErrors = {};
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-    if (!workDetails.profession.trim())
+    if ((!workDetails.profession ?? "").trim()) {
       validationErrors.profession = "Please enter your profession.";
-    if (!workDetails.companyName.trim())
+    }
+    if ((!workDetails.companyName ?? "").trim()) {
       validationErrors.companyName = "Please enter your company name.";
-    if (!workDetails.companyType.trim())
+    }
+    if ((!workDetails.companyType ?? "").trim()) {
       validationErrors.companyType = "Please enter your company type.";
-    if (!workDetails.income.trim())
+    }
+    if ((!workDetails.income ?? "").trim()) {
       validationErrors.income = "Please enter a valid monthly income.";
-    if (!workDetails.workEmail || !emailRegex.test(workDetails.workEmail))
-      validationErrors.workEmail = "Please enter a valid work email.";
-    if (!workDetails.workAddress1.trim())
+    }
+    if (!workDetails.workEmail || !emailRegex.test(workDetails.workEmail)) {
+      validationErrors.workEmail = "Please enter a valid email.";
+    }
+    if (!(workDetails.workAddress1 ?? "").trim()) {
       validationErrors.workAddress1 = "Work Address Line 1 is required.";
-    if (!workDetails.workPinCode || workDetails.workPinCode.length !== 6)
+    }
+    if (!workDetails.workPinCode || workDetails.workPinCode.length !== 6) {
       validationErrors.workPinCode = "Please enter a valid 6-digit Work PIN code.";
-    if (lenderId === "662752eb65fdba1a48d6e478" && !isTnCAgreed)
-      validationErrors.tnc = "You must agree to the Terms and Conditions.";    
+    }
+    if (lenderId === "662752eb65fdba1a48d6e478" && !isTnCAgreed) {
+      validationErrors.tnc = "You must agree to the Terms and Conditions.";
+    }    
 
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
