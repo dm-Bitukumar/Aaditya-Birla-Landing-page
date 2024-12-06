@@ -9,7 +9,7 @@ import FormButton from "./FormBtnNew";
 import HeadBar from "../../../components/Static/HeadBar";
 import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setWorkDetails } from "../../../store/app/appReducer";
 
 const profession_options = [
@@ -31,14 +31,6 @@ const company_type_options = [
   { label: "One Person Company", value: "One Person Company" },
 ];
 
-const turnoverOptions = [
-  { label: "0-25K", value: "0-25K" },
-  { label: "25K-1 Lac", value: "25K-1 Lac" },
-  { label: "1-5 Lacs", value: "1-5 Lacs" },
-  { label: "5-25 Lacs", value: "5-25 Lacs" },
-  { label: "25 Lacs+", value: "25 Lacs+" },
-];
-
 const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, leadId }) => {
   const [data, setData] = useState({
     profession: initialData.profession || "",
@@ -52,8 +44,17 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   });
 
   const workDetails = initialData;
+  const { lenderId } = useSelector((state) => state.app.lead);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
+  const [isTnCAgreed, setIsTnCAgreed] = useState(true);
+
+  const lenderTerms = {
+    name: "Prefr",
+    tnc: "https://prefr.com/terms_and_conditions",
+    privacy: "https://prefr.com/privacy_policy",
+    consent: "https://prefr.com/bureau_consent",
+  };
 
   useEffect(() => {
     setData({
@@ -92,6 +93,8 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
       validationErrors.workAddress1 = "Work Address Line 1 is required.";
     if (!workDetails.workPinCode || workDetails.workPinCode.length !== 6)
       validationErrors.workPinCode = "Please enter a valid 6-digit Work PIN code.";
+    if (lenderId === "662752eb65fdba1a48d6e478" && !isTnCAgreed)
+      validationErrors.tnc = "You must agree to the Terms and Conditions.";    
 
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
@@ -106,11 +109,13 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
       console.error("No lead ID provided.");
       return;
     }
-    const id = "66d873e515025eb9a2a890ac";
+
+    if (!isTnCAgreed && lenderId === "662752eb65fdba1a48d6e478") {
+      toast.error("Please accept the Terms and Conditions to proceed.");
+      return;
+    }
 
     if (validateInputs()) {
-      console.log("Form data submitted:", data);
-  
       try {
         dispatch(
           setWorkDetails({
@@ -121,7 +126,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         );
 
         const response = await callApi(
-          `v1/preapproved_lead/${id}/update`, 
+          `v1/preapproved_lead/${leadId}/update`, 
           "post",
           {
             preapproved_lead: {
@@ -134,13 +139,13 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
               if_professional_info_completed: true,
               work_contact_email: data.workEmail || "", 
               work_pincode: data.workPinCode || "", 
+              is_tnc_agreed: isTnCAgreed,
             },
           },
           "core" 
         );
   
         if (response.status === "Success") {
-          console.log("Work details updated successfully:", response.data);
           handleDataChange("workDetails", data); 
           toast.success("Work details updated successfully.");
           setStep(6);
@@ -298,6 +303,43 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         isValid={!errors.workPinCode}
         errorMessage={errors.workPinCode}
       />
+
+      {lenderId === "662752eb65fdba1a48d6e478" && (
+        <div className="mb-3 checkbox pull-left">
+          <label className="tnc">
+            <input
+              onChange={(e) => setIsTnCAgreed(e.target.checked)}
+              checked={isTnCAgreed}
+              className="form-check-input"
+              type="checkbox"
+              name="is_tnc_agreed"
+              value="Yes"
+              style={{ fontSize: "10px", marginRight: "4px" }}
+            />
+            I have agreed to {lenderTerms.name}{" "}
+            <a target="_blank" href={lenderTerms.tnc} style={{ color: "#00A9DD", fontSize: "10px" }}>
+              <b>T&C</b>
+            </a>{" "}
+            and{" "}
+            <a
+              target="_blank"
+              href={lenderTerms.privacy}
+              style={{ color: "#00A9DD", fontSize: "10px" }}
+            >
+              <b>Privacy Policy</b>
+            </a>{" "}
+            consent to CKYC and{" "}
+            <a
+              target="_blank"
+              href={lenderTerms.consent}
+              style={{ color: "#00A9DD", fontSize: "10px" }}
+            >
+              <b>Authorized</b>
+            </a>{" "}
+            Prefr to retrieve my credit report.
+          </label>
+        </div>
+      )}  
 
       <div
         className="button-container"
