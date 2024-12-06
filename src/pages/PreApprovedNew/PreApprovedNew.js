@@ -23,13 +23,14 @@ const PreApprovedNew = () => {
   const [step, setStep] = React.useState(1);
   const [searchParams] = useSearchParams();
   const [leadId, setLeadId] = React.useState(null);
+  const [utmMedium, setUtmMedium] = React.useState("");
+  const [affId, setAffId] = React.useState("");
 
   useEffect(() => {
     const ldr = searchParams.get("ldr");
 
     if (ldr && lenderMappings[ldr]) {
       const lenderDetails = lenderMappings[ldr];
-      // console.log(`Lender detected: ${lenderDetails.name}`);
 
       dispatch(
         setLead({
@@ -40,8 +41,13 @@ const PreApprovedNew = () => {
     } else {
       console.log("No valid lender ID found in the URL.");
     }
+
+    const utmMediumParam = searchParams.get("utm_medium");
+    const affIdParam = searchParams.get("aff_id");
+
+    if (utmMediumParam) setUtmMedium(utmMediumParam);
+    if (affIdParam) setAffId(affIdParam);
   }, [dispatch, searchParams]);
-  
 
   const handleDataChange = (section, key, value) => {
     dispatch(
@@ -55,14 +61,16 @@ const PreApprovedNew = () => {
     );
   };
 
-  const offerSearchData = {
-    lead_id: leadId,
-    // lead_id: "67519dc48d6dff000e8246c9",
-    lender_id: userData?.lenderId || "",
-    lender_name: userData?.lenderName || "",
-    utm_medium: "", 
-    aff_id: "45", 
-  };
+  const offerSearchData = React.useMemo(
+    () => ({
+      lead_id: leadId,
+      lender_id: userData?.lenderId || "",
+      lender_name: userData?.lenderName || "",
+      utm_medium: utmMedium || "",
+      aff_id: affId || "",
+    }),
+    [leadId, userData, utmMedium, affId]
+  );
 
   const steps = [
     {

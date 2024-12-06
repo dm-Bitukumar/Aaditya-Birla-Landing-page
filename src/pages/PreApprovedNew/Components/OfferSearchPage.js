@@ -3,15 +3,14 @@ import HeadBar from "../../../components/Static/HeadBar";
 import OfferTileRedirect from "./OfferTileRedirect"; 
 import "./PreApproved.css";
 import callApi from "../../../utility/apiCaller";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import axios from "axios";
-
+import { TRACK_ID } from "../../../utility/enum";
 
 const OfferSearchPage = ({ pancard, leadId, offerSearchData  }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [offerDetails, setOfferDetails] = useState(null); 
   const [redirectionLink, setRedirectionLink] = useState(""); 
+  const [isFinished, setIsFinished] = useState(false);
 
   const user = useSelector((state) => state.app.user);
   const personalDetails = useSelector((state) => state.app.personalDetails);
@@ -36,13 +35,12 @@ const OfferSearchPage = ({ pancard, leadId, offerSearchData  }) => {
         profession_type: workDetails?.professionType || "",
         gender: personalDetails?.gender || "", 
         dob: personalDetails?.dob || "",
-        pincode: workDetails?.workCode || "",
+        pincode: personalDetails?.pincode || "",
         company_name: workDetails?.companyName || "",
         monthly_income: workDetails?.monthlyIncome || "",
-        contact_email: workDetails?.workContactEmail || "",
+        contact_email: personalDetails?.email || "",
         loan_type: "business_loan",
       };
-      console.log("Payload being sent to API:", payload);
 
       try {
         setIsLoading(true);
@@ -57,16 +55,13 @@ const OfferSearchPage = ({ pancard, leadId, offerSearchData  }) => {
           const offer = response.data; 
           setOfferDetails(offer);
           setRedirectionLink(offer.app_url || ""); 
-
-          console.log("Offer details fetched successfully:", offer); 
-          console.log("Redirection link stored:", offer.app_url);
         } else {
           console.error("No valid offers found:", response.data?.message || "Unknown error");
-          setOfferDetails(null);
+          await handleFallback(payload);
         }
       } catch (error) {
         console.error("Error fetching offer details:", error);
-        setOfferDetails(null);
+        await handleFallback(payload);
       } finally {
         setIsLoading(false);
       }
@@ -74,6 +69,67 @@ const OfferSearchPage = ({ pancard, leadId, offerSearchData  }) => {
 
     fetchOfferDetails();
   }, [leadId, offerSearchData]);
+
+  const handleFallback = async (payload) => {
+    try {
+      const trackId = localStorage.getItem(TRACK_ID);
+
+      const processedPayload = {
+        ...payload,
+        tracking_id: trackId,
+        lead_id: undefined, 
+      };
+
+      const leadResponse = await callApi(
+        "v1/lead/website-lead",
+        "post",
+        { lead: processedPayload },
+        "core",
+        user.token
+      );
+
+      if (leadResponse.status === "Success" && leadResponse.data?.lead) {
+        const newLeadId = leadResponse.data.lead._id;
+
+        await fetchOffers(newLeadId);
+      } else {
+        console.error("Error generating new lead ID.");
+        setOfferDetails(null);
+      }
+    } catch (error) {
+      console.error("Error in fallback handleFallback:", error);
+      setOfferDetails(null);
+    }
+  };
+
+  const fetchOffers = async (leadId) => {
+    if (!leadId) {
+      console.error("No lead ID available for fetching offers.");
+      return;
+    }
+
+    try {
+      const res = await callApi(
+        `v1/loan_offer/lead_id/${leadId}`,
+        "get",
+        {},
+        "core",
+        user.token
+      );
+
+      if (res.status === "Success" && res.data?.offers?.length > 0) {
+        setOfferDetails(res.data.offers[0]); 
+        setRedirectionLink(res.data.offers[0]?.app_url || "");
+        setIsFinished(true);
+      } else {
+        console.error("No offers found in fallback.");
+        setOfferDetails(null);
+      }
+    } catch (err) {
+      console.error("Error in fallback fetchOffers:", err);
+      setOfferDetails(null);
+    }
+  };
 
   return (
     <div className={"form-signin-apply form-signin"}>
@@ -115,7 +171,13 @@ const OfferSearchPage = ({ pancard, leadId, offerSearchData  }) => {
           <div key={offerDetails.customer_id} className="my-4">
             <OfferTileRedirect
               small={false}
-              offer={offerDetails}
+              offer={{
+                credit_limit: offerDetails?.offers?.[0]?.credit_limit ?? 0,
+                emi: offerDetails?.offers?.[0]?.emi ?? 0,
+                tenure: offerDetails?.offers?.[0]?.tenure ?? "N/A",
+                interest: offerDetails?.offers?.[0]?.interest ?? "N/A",
+                app_url: redirectionLink,
+              }}
               redirectionLink={redirectionLink} 
             />
           </div>

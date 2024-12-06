@@ -19,8 +19,8 @@ const OfferTileRedirect = ({ offer, small, redirectionLink }) => {
         event_name: "offer-apply-button-updated" 
     });
 
-    if (redirectionLink) {
-      window.location.href = redirectionLink; 
+    if (offer?.app_url) {
+      window.location.href = offer.app_url; 
     } else {
       console.error("Redirection link is missing."); 
     }
@@ -33,24 +33,32 @@ const OfferTileRedirect = ({ offer, small, redirectionLink }) => {
             small ? "px-0 pb-2" : "px-20 pb-6"
           } text-center`}
         >
-        <img width={small ? 100 : 200} src={offer?.logo_image_url} alt="Lender Logo" />
+        <img
+          width={small ? 100 : 200}
+          src={offer?.logo_image_url || "/assets/img/Dm LOGO.png"} 
+          alt="Lender Logo"
+          className="mt-4 mb-4"
+        />
         <h2
           className={`${
             small ? "text-sm" : "text-3xl"
           } font-semibold text-[#00c0ff]`}
         >
-          {convertNumberToIndianFormat(offer.loan_amount ?? 0)}
+          {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
         </h2>
         {!small && (
             <div>
                 <h5 className="mt-6 text-xs font-semibold">
-                    Amount: ₹{convertNumberToIndianFormat(offer.loan_amount ?? 0)}
+                    Amount: {convertNumberToIndianFormat(offer.credit_limit ?? 0)}
                 </h5>
                 <h5 className="my-2 text-xs font-semibold">
-                    Tenure: {offer.loan_tenure} Months
+                    Tenure: {offer.tenure} Months
                 </h5>
                 <h5 className="text-xs font-semibold">
-                    EMI: ₹{convertNumberToIndianFormat(offer.loan_emi ?? 0)}
+                    EMI: {convertNumberToIndianFormat(offer?.emi ?? 0)}
+                </h5>
+                <h5 className="mt-2 text-xs font-semibold">
+                    Interest: {offer?.interest ?? "N/A"}% 
                 </h5>
             </div>
         )}

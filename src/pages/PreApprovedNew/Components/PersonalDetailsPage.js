@@ -17,10 +17,6 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
   const panDetails = useSelector((state) => state.app.panDetails);
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
 
-  useEffect(() => {
-    console.log(`PersonalDetails: Current Lender - ${lenderName} (${lenderId})`);
-  }, [lenderName, lenderId]);
-
   const [data, setData] = useState({
     firstName: panDetails.firstName || "",
     lastName: panDetails.lastName || "",
@@ -92,10 +88,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
     }
     const id = "66d873e515025eb9a2a890ac"
 
-    console.log(`Fetching offer details for Lead ID: ${id}`);
     if (validateInputs()) {
-      console.log("Form data submitted:", data);
-  
       setIsLoading(true);
 
       try {
@@ -104,34 +97,33 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
             firstName: data.firstName,
             lastName: data.lastName,
             gender: data.gender,
-            dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"), // Store in standard format
+            dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"), 
             email: data.email,
             pincode: data.pincode,
           })
         );
 
         const response = await callApi(
-          `v1/preapproved_lead/${id}/update`, 
+          `v1/preapproved_lead/${leadId}/update`, 
           "post",
           {
             preapproved_lead: {
               gender: data.gender,
-              dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"), // Convert to required format
+              dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"), 
               email: data.email,
               pincode: data.pincode,
               address1: data.address1,
               address2: data.address2,
-              is_personal_info_completed: true, // Set to true as per the API requirements
+              is_personal_info_completed: true, 
             },
           },
-          "core" // Assuming "core" is the correct API service
+          "core" 
         );
   
         if (response.status === "Success") {
-          console.log("Personal details updated successfully:", response.data);
-          handleDataChange("personalDetails", data); // Update the parent state
+          handleDataChange("personalDetails", data);
           toast.success("Personal details updated successfully.");
-          setStep(5); // Proceed to the next step
+          setStep(5); 
         } else {
           console.error("Failed to update personal details:", response.message);
           toast.error("Failed to update personal details. Please try again.");
@@ -143,7 +135,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         setIsLoading(false);
       }
     } else {
-      console.error("Validation failed. Please correct the errors and try again."); // Log validation errors if any
+      console.error("Validation failed. Please correct the errors and try again."); 
     }
   };
 
