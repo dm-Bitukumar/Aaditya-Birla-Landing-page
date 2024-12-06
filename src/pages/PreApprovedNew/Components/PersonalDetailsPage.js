@@ -97,7 +97,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
             firstName: data.firstName,
             lastName: data.lastName,
             gender: data.gender,
-            dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"), 
+            dob: data.dob,  
             email: data.email,
             pincode: data.pincode,
           })
