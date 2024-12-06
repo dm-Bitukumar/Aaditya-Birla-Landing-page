@@ -23,10 +23,6 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
 
-  useEffect(() => {
-    console.log(`PANVerification: Current Lender - ${lenderName} (${lenderId}), Lead ID - ${leadId}`);
-  }, [lenderName, lenderId, leadId]);
-
   const handlePanChange = (e) => {
     const value = e.target.value.toUpperCase();
     setPan(value);
@@ -166,8 +162,6 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
 
         setUserData("pancard", pan); 
-        console.log("PANVerification: Verified PAN passed to userData:", pan);
-  
         toast.success("PAN verified and data fetched successfully.");
         setStep(4);
       } else {
@@ -202,7 +196,7 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
       );
 
       if (res.status === "Success") {
-        toast.success("PAN verification status updated successfully.");
+
       } else {
         console.error("PAN verification API returned an error:", res.message);
         toast.error("Failed to update PAN verification. Please try again.");
