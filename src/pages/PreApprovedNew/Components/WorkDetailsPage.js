@@ -11,6 +11,8 @@ import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setWorkDetails } from "../../../store/app/appReducer";
+import numberToWords from "../../../utility/numberToWords";
+import { formatAmount } from "../../../utility/amountFormat";
 
 const profession_options = [
   { label: "Salaried", value: "Salaried" },
@@ -42,12 +44,13 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
     workAddress2: initialData.workAddress2 || "",
     workPinCode: initialData.workPinCode || "",
   });
-
+  
   const workDetails = initialData;
   const { lenderId } = useSelector((state) => state.app.lead);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [isTnCAgreed, setIsTnCAgreed] = useState(true);
+  const [incomeWords, setIncomeWords] = useState(""); 
 
   const lenderTerms = {
     name: "Prefr",
@@ -57,28 +60,51 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   };
 
   useEffect(() => {
-    setData({
-      profession: initialData.profession || "",
-      companyName: initialData.companyName || "",
-      companyType: initialData.companyType || "",
-      income: initialData.income || "",
-      workEmail: initialData.workEmail || "",
-      workAddress1: initialData.workAddress1 || "",
-      workAddress2: initialData.workAddress2 || "",
-      workPinCode: initialData.workPinCode || "",
-    });
+    if (Object.keys(initialData).length > 0) {
+      setData((prev) => ({
+        ...prev, 
+        profession: initialData.profession || prev.profession || "",
+        companyName: initialData.companyName || prev.companyName || "",
+        companyType: initialData.companyType || prev.companyType || "",
+        income: initialData.income || prev.income || "",
+        workEmail: initialData.workEmail || prev.workEmail || "",
+        workAddress1: initialData.workAddress1 || prev.workAddress1 || "",
+        workAddress2: initialData.workAddress2 || prev.workAddress2 || "",
+        workPinCode: initialData.workPinCode || prev.workPinCode || "",
+      }));
+    }
   }, [initialData]);
-
+  
   const handleChange = (key, value) => {
     setData((prev) => ({ ...prev, [key]: value }));
     setErrors((prev) => ({ ...prev, [key]: "" })); 
     handleDataChange(key, value); 
   };
-
+  
+  const handleSalaryChange = (e) => {
+    setErrors((prev) => ({ ...prev, income: "" })); // Clear errors for income
+  
+    const inputValue = e.target.value;
+  
+    // Extract numeric value by removing non-numeric characters
+    const rawValue = inputValue.replace(/[^\d]/g, ""); // Only digits
+  
+    // Update the raw numeric value in `data`
+    setData((prev) => ({
+      ...prev,
+      income: rawValue, // Store raw numeric value without commas
+    }));
+  
+    // Update words for feedback only
+    setIncomeWords(
+      rawValue ? _.startCase(numberToWords(Number(rawValue))) : ""
+    );
+  };
+  
+  
   const validateInputs = () => {
     const validationErrors = {};
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
     if (!(workDetails.profession ?? "").trim()) {
       validationErrors.profession = "Please enter your profession.";
       toast.error("Please enter your profession.");
@@ -91,8 +117,8 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
       validationErrors.companyType = "Please enter your company type.";
       toast.error("Please enter your company type.");
     }
-    if (!(workDetails.income ?? "").trim()) {
-      validationErrors.income = "Please enter a valid monthly income.";
+    if (!(data.income ?? "").trim()) {
+      validationErrors.income = "Income is required.";
       toast.error("Please enter a valid monthly income.");
     }
     if (!workDetails.workEmail || !emailRegex.test(workDetails.workEmail)) {
@@ -243,15 +269,16 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
             style={{ height: "25px" }} 
           />
         }
-        type="number"
+        type="text"
         name="income"
-        value={workDetails.income}
-        onChange={(e) => handleChange("income", e.target.value)}
+        value={formatAmount(data.income)}
+        onChange={handleSalaryChange}
         placeholder="Enter Monthly Income"
         label="Monthly Income"
         isValid={!errors.income}
         // errorMessage={errors.income}
       />
+      {incomeWords && <p className="my-3">{incomeWords}</p>}
 
       <FormInput
         icon={
