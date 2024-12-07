@@ -75,7 +75,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
 
     try {
       setIsLoading(true);
-      console.log("Payload for lender-first-check:", payload);
 
       const response = await callApi(
         `v1/lender/lender-first-check`,
@@ -99,7 +98,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         setOffers([normalizedOffer]);
         setIsFinished(true);
         setIsLoading(false);
-        console.log("Offers from lender-first-check:", normalizedOffer);
       } else {
         console.error("No valid offers found from lender-first-check.");
         submitLead();
@@ -124,8 +122,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       //   tracking_id: trackId,
       // };
 
-      console.log("Payload for website-lead:", payload);
-
       const res = await callApi(
         "v1/lead/website-lead",
         "post",
@@ -135,8 +131,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         "core",
         user.token
       );
-
-      console.log("Response from website-lead:", res);
 
       if (res.status === "Success" && res.data.lead) {
         setLeadId(res.data.lead._id);
@@ -161,8 +155,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
 
     try {
       setIsFetching(true);
-      console.log("Fetching offers for lead ID:", leadId);
-
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
         "get",
@@ -192,14 +184,14 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       <HeadBar />
       <Stepper steps={["Personal Details", "Work Details", "Offer Page"]} currentStep={2} />
 
-      {!isLoading && offers?.length === 0 && (
+      {!isLoading && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span class="ml-2 dot-pulse"></span>
         </div>
       )}
 
-      {!isFinished && offers.length === 0 && (
+      {!isLoading && isFinished && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           No offers found for your profile at the moment.
         </div>

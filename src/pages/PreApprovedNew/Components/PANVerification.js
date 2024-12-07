@@ -231,17 +231,25 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
                 We need your PAN card to match your identity. This verification will not impact your credit score.
               </p>
               <FormInput
-                icon={<img src="/assets/icons/pancard.png" height="25" alt="PAN Card Icon" />}
+                icon={
+                  <img 
+                    src="/assets/icons/pancard.png" 
+                    height="25" 
+                    alt="PAN Card Icon" 
+                  />
+                }
                 value={pan}
                 isValid={isPanValid}
                 placeholder="Enter PAN"
                 onChange={handlePanChange}
+                aria-describedby="name"
                 type="text"
                 name="pancard"
                 id="pancard"
                 minLength="10"
                 maxLength="10"
-                pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+                pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
+                title="Please enter a valid PAN number. E.g. AAAAA9999A"
                 required
                 style={{ textTransform: "uppercase" }}
                 label="Pancard"
