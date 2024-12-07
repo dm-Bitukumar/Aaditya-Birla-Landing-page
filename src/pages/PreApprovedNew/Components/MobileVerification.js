@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import FormButton from "../../../components/Buttons/FormButton";
+// import FormButton from "./FormBtnNew";
 import FormInput from "../../../components/Form/FormInput";
 import CheckboxTnC from "../../PersonalLoan/components/CheckboxTnC";
 import callApi from "../../../utility/apiCaller";
@@ -188,7 +189,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
                 alt="Phone Icon"
               />
             }
-            type="number"
+            type="text"
             name="mobile"
             isValid={isMobileValid}
             id="mobile"
@@ -200,6 +201,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
             onChange={handleMobileChange}
             required
             label={"Mobile Number"}
+            inputMode="numeric"
             errorMessage={"Please enter a valid Mobile Number"}
           />
 
@@ -219,7 +221,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
             handleChange={handleConsentChange}
           />
 
-          <div className="preApprovebutton">
+          <div className="preApprovebutton_new">
             <FormButton
               onClick={handleSendOtp}
               // className="btn-get-otp"

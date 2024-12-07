@@ -54,24 +54,31 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
 
     if (!(data.firstName ?? "").trim()) {
       validationErrors.firstName = "Please enter your first name.";
+      toast.error("Please enter your first name.");
     }
     if (!(data.lastName ?? "").trim()) {
       validationErrors.lastName = "Please enter your last name.";
+      toast.error("Please enter your last name.");
     }
     if (!data.gender) {
       validationErrors.gender = "Please select your gender.";
+      toast.error("Please select your gender.");
     }
     if (!moment(data.dob, "DD/MM/YYYY", true).isValid()) {
       validationErrors.dob = "Please enter a valid Date of Birth.";
+      toast.error("Please enter a valid Date of Birth.");
     }
     if (!data.email || !emailRegex.test(data.email)) {
       validationErrors.email = "Please enter a valid email.";
+      toast.error("Please enter a valid email.");
     }
     if (!(data.address1 ?? "").trim()) {
       validationErrors.address1 = "Address Line 1 is required.";
+      toast.error("Please enter proper address.");
     }
     if (!data.pincode || data.pincode.length !== 6) {
       validationErrors.pincode = "Please enter a valid 6-digit PIN code.";
+      toast.error("Please enter a valid 6-digit PIN code.");
     }
 
     setErrors(validationErrors);
@@ -149,7 +156,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
 
       <GenderBox
         isValid={!errors.gender}
-        errorMessage={errors.gender}
+        // errorMessage={errors.gender}
         activeGender={data.gender}
         setActiveGender={(value) => handleChange("gender", value)}
       />
@@ -169,7 +176,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         placeholder="First Name"
         required
         label="First Name as per PAN Card"
-        errorMessage={errors.firstName}
+        // errorMessage={errors.firstName}
       />
 
       <FormInput
@@ -187,7 +194,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         placeholder="Last Name"
         required
         label="Last Name as per PAN Card"
-        errorMessage={errors.lastName}
+        // errorMessage={errors.lastName}
       />
 
       <FormDob
@@ -195,7 +202,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         id="dob"
         value={data.dob}
         onChange={(dob) => handleChange("dob", dob)}
-        errorMessage={errors.dob}
+        // errorMessage={errors.dob}
         isValid={!errors.dob}
         icon={
           <img 
@@ -221,7 +228,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         onChange={(e) => handleChange("email", e.target.value)}
         placeholder="Email ID"
         isValid={!errors.email}
-        errorMessage={errors.email}
+        // errorMessage={errors.email}
         label="Personal Email ID"
       />
 
@@ -239,7 +246,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         onChange={(e) => handleChange("address1", e.target.value)}
         placeholder="Address Line 1"
         isValid={!errors.address1}
-        errorMessage={errors.address1}
+        // errorMessage={errors.address1}
         label="Home Address Line 1"
       />
 
@@ -273,7 +280,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         onChange={(e) => handleChange("pincode", e.target.value)}
         placeholder="PIN Code"
         isValid={!errors.pincode}
-        errorMessage={errors.pincode}
+        // errorMessage={errors.pincode}
         label="Home PIN Code"
       />
 

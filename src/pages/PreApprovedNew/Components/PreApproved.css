@@ -65,3 +65,30 @@
   margin-top: 10px;
   font-family: Arial, sans-serif;
 }
+
+/** Pre Approved Button New */
+.preApprovebutton_new {
+  position: fixed;
+  z-index: 6;
+  width: 370px; 
+  max-width: 100%; 
+  padding: 0.8rem 0.5em;  
+  bottom: 1em; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .preApprovebutton_new {
+    padding: 1rem 0.6em; 
+    bottom: 1.5em;
+  }
+}
+
+@media (max-width: 398px) {
+  .preApprovebutton_new {
+    padding: 0.8rem 0.5em;
+    bottom: 1em; 
+  }
+}
