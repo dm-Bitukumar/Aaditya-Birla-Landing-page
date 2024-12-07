@@ -14,12 +14,7 @@ const FormButton = ({ className, type, id, ...props }) => {
 
   return (
     <button
-      style={{
-        minWidth: props.small ? "60px" : "164px",
-        padding: props.small ? "10px 16px" : "20px 24px", 
-        margin: "0",
-        whiteSpace: "nowrap",
-      }}
+      style={{ minWidth: props.small ? "60px" : "164px", whiteSpace: "nowrap" }}
       className={`w-100 btn btn-lg ${handleCalculateStyles(type)} ${className}`}
       type="submit"
       id={id}
@@ -27,6 +22,20 @@ const FormButton = ({ className, type, id, ...props }) => {
     >
       {props.children}
     </button>
+    // <button
+    //   style={{
+    //     minWidth: props.small ? "60px" : "164px",
+    //     padding: props.small ? "10px 16px" : "20px 24px", 
+    //     margin: "0",
+    //     whiteSpace: "nowrap",
+    //   }}
+    //   className={`w-100 btn btn-lg ${handleCalculateStyles(type)} ${className}`}
+    //   type="submit"
+    //   id={id}
+    //   {...props}
+    // >
+    //   {props.children}
+    // </button>
   );
 };
 

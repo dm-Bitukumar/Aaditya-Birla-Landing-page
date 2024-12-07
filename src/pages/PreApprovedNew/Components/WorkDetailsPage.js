@@ -79,29 +79,37 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
     const validationErrors = {};
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-    if ((!workDetails.profession ?? "").trim()) {
+    if (!(workDetails.profession ?? "").trim()) {
       validationErrors.profession = "Please enter your profession.";
+      toast.error("Please enter your profession.");
     }
-    if ((!workDetails.companyName ?? "").trim()) {
+    if (!(workDetails.companyName ?? "").trim()) {
       validationErrors.companyName = "Please enter your company name.";
+      toast.error("Please enter your company name.");
     }
-    if ((!workDetails.companyType ?? "").trim()) {
+    if (!(workDetails.companyType ?? "").trim()) {
       validationErrors.companyType = "Please enter your company type.";
+      toast.error("Please enter your company type.");
     }
-    if ((!workDetails.income ?? "").trim()) {
+    if (!(workDetails.income ?? "").trim()) {
       validationErrors.income = "Please enter a valid monthly income.";
+      toast.error("Please enter a valid monthly income.");
     }
     if (!workDetails.workEmail || !emailRegex.test(workDetails.workEmail)) {
       validationErrors.workEmail = "Please enter a valid email.";
+      toast.error("Please enter a valid email.");
     }
     if (!(workDetails.workAddress1 ?? "").trim()) {
       validationErrors.workAddress1 = "Work Address Line 1 is required.";
+      toast.error("Please enter proper work address.");
     }
     if (!workDetails.workPinCode || workDetails.workPinCode.length !== 6) {
       validationErrors.workPinCode = "Please enter a valid 6-digit Work PIN code.";
+      toast.error("Please enter a valid 6-digit Work PIN code.");
     }
     if (lenderId === "662752eb65fdba1a48d6e478" && !isTnCAgreed) {
       validationErrors.tnc = "You must agree to the Terms and Conditions.";
+      toast.error("You must agree to the Terms and Conditions.");
     }    
 
     setErrors(validationErrors);
@@ -182,7 +190,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         id="profession"
         value={workDetails.profession}
         onChange={(selectedOption) => handleChange("profession", selectedOption?.value || selectedOption)}
-        errorMessage={errors.profession}
+        // errorMessage={errors.profession}
         isValid={!errors.profession}
         icon={
           <img 
@@ -207,7 +215,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         placeholder="Company Name"
         label="Company Name"
         isValid={!errors.companyName}
-        errorMessage={errors.companyName}
+        // errorMessage={errors.companyName}
       />
 
       <FormSelect
@@ -225,13 +233,13 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         placeholder="Select Company Type"
         label="Company Type"
         isValid={!errors.companyType}
-        errorMessage={errors.companyType}
+        // errorMessage={errors.companyType}
       />
 
       <FormInput
         icon={
           <img 
-            src="/assets/icons/email.png" 
+            src="/assets/icons/income.png" 
             style={{ height: "25px" }} 
           />
         }
@@ -242,7 +250,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         placeholder="Enter Monthly Income"
         label="Monthly Income"
         isValid={!errors.income}
-        errorMessage={errors.income}
+        // errorMessage={errors.income}
       />
 
       <FormInput
@@ -259,7 +267,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         placeholder="Work Email"
         label="Work Email"
         isValid={!errors.workEmail}
-        errorMessage={errors.workEmail}
+        // errorMessage={errors.workEmail}
       />
 
       <FormInput
@@ -276,7 +284,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         placeholder="Work Address Line 1"
         label="Work Address Line 1"
         isValid={!errors.workAddress1}
-        errorMessage={errors.workAddress1}
+        // errorMessage={errors.workAddress1}
       />
 
       <FormInput
@@ -309,7 +317,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         placeholder="Work PIN Code"
         label="Work PIN Code"
         isValid={!errors.workPinCode}
-        errorMessage={errors.workPinCode}
+        // errorMessage={errors.workPinCode}
       />
 
       {lenderId === "662752eb65fdba1a48d6e478" && (

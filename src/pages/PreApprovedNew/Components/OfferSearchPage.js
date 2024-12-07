@@ -192,14 +192,14 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       <HeadBar />
       <Stepper steps={["Personal Details", "Work Details", "Offer Page"]} currentStep={2} />
 
-      {!isLoading && offers?.length === 0 && (
+      {!isLoading && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span class="ml-2 dot-pulse"></span>
         </div>
       )}
 
-      {!isFinished && offers.length === 0 && (
+      {!isLoading && isFinished && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           No offers found for your profile at the moment.
         </div>
