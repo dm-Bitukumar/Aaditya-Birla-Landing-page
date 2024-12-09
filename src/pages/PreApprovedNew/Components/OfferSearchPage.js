@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import Stepper from "../../../components/Form/Stepper";
 import FormButton from "../../../components/Buttons/FormButton";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { TRACK_ID } from "../../../utility/enum";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import moment from "moment";
+import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
 
 const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,19 +23,23 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const personalDetails = useSelector((state) => state.app.personalDetails);
   const workDetails = useSelector((state) => state.app.workDetails);
   const panDetails = useSelector((state) => state.app.panDetails);
+  const isLenderCheckCalled = useRef(false); 
+  const isSubmitLeadCalled = useRef(false); 
 
   useEffect(() => {
-    fetchLenderFirstCheck();
+    if (!isLenderCheckCalled.current) {
+      fetchLenderFirstCheck();
+    }
   }, []);
 
   useEffect(() => {
-    if (leadId && !isFetching) {
+    if (leadId) {
       const timer = setInterval(() => {
         fetchOffers(leadId);
       }, 5000);
       return () => clearInterval(timer);
     }
-  }, [leadId, isFetching]);
+  }, [leadId]);
 
   const createLenderFirstCheckPayload = () => ({
     ...offerSearchData,
@@ -42,7 +47,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       personalDetails?.lastName || ""
     }`.trim(),
     contact_phone: user?.contact_phone || "",
-    // contact_phone: "9820956927",
     pancard: panDetails?.pancard || pancard || "",
     profession_type: workDetails?.professionType || "",
     gender: personalDetails?.gender || "",
@@ -51,26 +55,12 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     company_name: workDetails?.companyName || "",
     monthly_income: workDetails?.monthlyIncome || "",
     contact_email: personalDetails?.email || "",
-  });
-
-  // Create payload for submitLead API
-  const createSubmitLeadPayload = (trackingId) => ({
-    contact_name: `${personalDetails?.firstName || ""} ${
-      personalDetails?.lastName || ""
-    }`.trim(),
-    contact_phone: user?.contact_phone || "",
-    pancard: panDetails?.pancard || pancard || "",
-    profession_type: workDetails?.professionType || "",
-    gender: personalDetails?.gender || "",
-    dob: moment(personalDetails?.dob, "DD/MM/YYYY").toISOString(),
-    pincode: personalDetails?.pincode || "",
-    company_name: workDetails?.companyName || "",
-    monthly_income: workDetails?.monthlyIncome || "",
-    contact_email: personalDetails?.email || "",
-    tracking_id: trackingId,
   });
 
   const fetchLenderFirstCheck = async () => {
+    if (isLenderCheckCalled.current) return;
+    isLenderCheckCalled.current = true;
+
     const payload = createLenderFirstCheckPayload();
 
     try {
@@ -89,12 +79,10 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         const normalizedOffer = {
           contact_name: lenderOffer.contact_name,
           app_url: lenderOffer.app_url,
-          credit_limit: lenderOffer.offers[0]?.credit_limit,  
+          credit_limit: lenderOffer.offers[0]?.credit_limit,
           emi: lenderOffer.offers[0]?.emi,
           tenure: lenderOffer.offers[0]?.tenure,
-          // ...lenderOffer,
         };
-        
         setOffers([normalizedOffer]);
         setIsFinished(true);
         setIsLoading(false);
@@ -109,25 +97,40 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   };
 
   const submitLead = async () => {
+    if (isSubmitLeadCalled.current) return;
+    isSubmitLeadCalled.current = true;
+
     setUserClickData({
       event_name: "personal-detail-api",
     });
 
     try {
       const trackId = localStorage.getItem(TRACK_ID);
-      const payload = createSubmitLeadPayload(trackId);
+      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
+        ...user,
+        ...personalDetails,
+        ...workDetails,
+        pancard: panDetails?.pancard || pancard || "",
+        dob: moment(personalDetails?.dob, "DD/MM/YYYY").toISOString(),
+        profession: workDetails.professionType,
+      });
+      processedLead.contact_phone = "9861670786";
+      console.log("Processed Lead Payload:", processedLead);
 
-      // const leadPayload = {
-      //   ...payload,
-      //   tracking_id: trackId,
-      // };
+      const payload = {
+        lead: {
+          ...processedLead,
+          tracking_id: trackId,
+          aff_id: "",
+          utm_source: "",
+          utm_medium: "",
+        },
+      };
 
       const res = await callApi(
         "v1/lead/website-lead",
         "post",
-        {
-          lead: payload,
-        },
+        payload,
         "core",
         user.token
       );
@@ -151,7 +154,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   };
 
   const fetchOffers = async (leadId) => {
-    if (isFinished || !leadId) return;
+    if (!leadId) return;
 
     try {
       setIsFetching(true);
@@ -182,12 +185,15 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   return (
     <div className={"form-signin-apply form-signin"}>
       <HeadBar />
-      <Stepper steps={["Personal Details", "Work Details", "Offer Page"]} currentStep={2} />
+      <Stepper
+        steps={["Personal Details", "Work Details", "Offer Page"]}
+        currentStep={2}
+      />
 
       {!isLoading && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
-          <span class="ml-2 dot-pulse"></span>
+          <span className="ml-2 dot-pulse"></span>
         </div>
       )}
 
@@ -201,7 +207,9 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         <div className="flex flex-col items-center justify-center">
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
-            <span className="text-2xl font-normal">{personalDetails?.firstName || "Dear Customer"}!!</span>
+            <span className="text-2xl font-normal">
+              {personalDetails?.firstName || "Dear Customer"}!!
+            </span>
           </h3>
           <h3 className="text-lg text-center">Your pre-approved offers</h3>
 
