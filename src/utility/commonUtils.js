@@ -67,11 +67,11 @@ function getGenderFromEntry(gender) {
 
 export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   let alliance_lead = {};
-  alliance_lead.contact_name = lead.name || lead.contact_name;
+  alliance_lead.contact_name = lead.name || lead.contact_name || `${lead.firstName || ""} ${lead.lastName || ""}`.trim();
   alliance_lead.contact_phone = lead.contact_phone;
   alliance_lead.country_code = INDIAN_COUNTRY_CODE;
   alliance_lead.contact_email = lead.email;
-  alliance_lead.work_contact_email = lead.work_email;
+  alliance_lead.work_contact_email = lead.work_email || lead.workEmail || "";
   alliance_lead.dob = moment(lead.dob).add("hours", 6).toISOString();
   alliance_lead.gender = getGenderFromEntry(lead.gender);
   alliance_lead.loan_type = PERSONAL_LOAN;
@@ -84,15 +84,15 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.city = "";
   alliance_lead.state = "";
   alliance_lead.company_type = lead.company_type?.toLowerCase() ?? "";
-  alliance_lead.gst = lead.gst_no;
+  alliance_lead.gst = lead.gst_no || "";;
   alliance_lead.turnover = getBusinessTurnoverFromEntry(lead.turnover);
   alliance_lead.business_vintage = getBusinessVintageFromEntry(
     lead.company_age
   );
   alliance_lead.pincode = lead.pincode;
-  alliance_lead.work_pincode = lead.work_pincode;
-  alliance_lead.profession_type = getProfessionTypeFromEntry(lead.profession);
-  alliance_lead.monthly_income = lead.monthly_income;
+  alliance_lead.work_pincode = lead.work_pincode || lead.workPinCode || "";
+  alliance_lead.profession_type = getProfessionTypeFromEntry(lead.profession || lead.professionType || "");
+  alliance_lead.monthly_income = lead.monthly_income || lead.monthlyIncome || "";
   alliance_lead.annual_income = 0;
   alliance_lead.pancard = lead.pancard?.toUpperCase() ?? "";
   alliance_lead.salary_mode =

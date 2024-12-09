@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import { useSelector } from "react-redux";
 import callApi from "../../../utility/apiCaller";
@@ -13,13 +13,12 @@ const OffersPage = ({ setStep, setLeadId  }) => {
   const lead = useSelector((state) => state.app.lead);
   const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
   // const mobileNumber = "9922187005";
+  const apiCallInProgress = useRef(false); 
 
   useEffect(() => {
-    if (lead?.lenderId) {
-      fetchListApiDetails(lead.lenderId, mobileNumber);
-    } else {
-      setIsLoading(false);
-    }
+    if (!lead?.lenderId || apiCallInProgress.current) return;
+    apiCallInProgress.current = true; 
+    fetchListApiDetails(lead.lenderId, mobileNumber);
   }, [lead]);
 
   const fetchListApiDetails = async (lenderId, contactPhone) => {
@@ -61,6 +60,8 @@ const OffersPage = ({ setStep, setLeadId  }) => {
       console.error("Error in fetchListApiDetails:", err);
       toast.error("Failed to fetch preapproved loans. Please try again.");
       setIsLoading(false);
+    } finally {
+      apiCallInProgress.current = false; 
     }
   };
 
