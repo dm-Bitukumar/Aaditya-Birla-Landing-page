@@ -164,6 +164,11 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
             monthlyIncome: data.income,
             professionType: data.profession,
             companyName: data.companyName,
+            companyType: data.companyType,
+            workEmail: data.workEmail,
+            workAddress1: data.workAddress1,
+            workAddress2: data.workAddress2,
+            workPinCode: data.workPinCode,
           })
         );
 
