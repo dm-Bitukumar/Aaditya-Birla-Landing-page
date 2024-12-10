@@ -1,151 +1,106 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import FormButton from "../../../components/Buttons/FormButton";
 import { useDispatch, useSelector } from "react-redux";
 import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
 import OfferTile from "../../PersonalDetails/components/OfferTile";
-import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import { setUserClickData } from "../../../utility/setUserClickData";
 
 const OfferDetails_v2 = () => {
-  const dispatch = useDispatch();   
-  const lead = useSelector((state) => state.app.lead); 
-  const user = useSelector((state) => state.app.user); 
-  const offers = useSelector((state) => state.app.offers); 
-  const [isFinished, setIsFinished] = useState(false); 
-  const [leadId, setLeadId] = useState(null); 
-  const [params] = useSearchParams(); 
+  const lead = useSelector((state) => state.app.lead);
+  const user = useSelector((state) => state.app.user);
+  const offers = useSelector((state) => state.app.offers);
+  const pollingInterval = useRef(null);
+  const [lid, setLid] = useState(null);
+  const [activeLenders, setActiveLenders] = useState([]); 
+  const [isSearching, setIsSearching] = useState(true); 
+  const [params] = useSearchParams();
   const [source, setSource] = useState("");
-  const [affId, setAffId] = useState("");
-  const [hasSubmittedLead, setHasSubmittedLead] = useState(false);
-  const [isConsentChecked, setIsConsentChecked] = useState(true);
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (params.get("source")) setSource(params.get("source"));
-    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    const lidFromParams = params.get("lid");
+    const sourceFromParams = params.get("source");
+  
+    if (lidFromParams) {
+      setLid(lidFromParams);
+      setSource(sourceFromParams || "");
+  
+      fetchActiveLenders();
+      fetchOffers(lidFromParams);
+  
+      pollingInterval.current = setInterval(() => {
+        fetchOffers(lidFromParams);
+      }, 5000);
+    }
+
+    return () => clearInterval(pollingInterval.current);
   }, [params]);
 
-  useEffect(() => {
-    if (!leadId && lead?._id && !hasSubmittedLead) {
-      submitLead();
-      setHasSubmittedLead(true);
-    }
-  }, [lead, leadId]);
-
-  useEffect(() => {
-    if (leadId) {
-        fetchOffers();
-    
-        const timer = setInterval(() => {
-          if (!isFinished) {
-            fetchOffers(); 
-          }
-        }, 5000);
-        return () => {
-          clearInterval(timer);
-        };
-      }
-  }, [leadId, isFinished]);
-
-  const handleConsentChange = () => {
-    setIsConsentChecked((prev) => !prev);
-  };
-
-  const fetchIpAddress = async () => {
+  const fetchActiveLenders = async () => {
     try {
-      const response = await fetch("https://api.ipify.org?format=json");
-      const data = await response.json();
-      return data.ip;
-    } catch (err) {
-      return "";
-    }
-  };
-  
-  const submitLead = async () => {
-    setUserClickData({
-      event_name: "personal-detail-api-check-offers-v2",
-    });
-
-    try {
-      const ipAddress = await fetchIpAddress();
-
       const res = await callApi(
-        "v1/lead/process-lead-for-loan-v2",
-        "post",
-        {
-          contact_phone: user.phone_number, 
-          kyc_consent: isConsentChecked, 
-          ip_address: ipAddress,
-        },
-        "core",
-        user.token 
+        `v1/lender/active-lenders`, 
+        "get", 
+        {}, 
+        "loan"
       );
-
-      if (res.status === "Success" && res.data.lead) {
-        setLeadId(res.data.lead._id); 
-        dispatch(setLead(res.data.lead)); 
+      if (res.status === "Success") {
+        setActiveLenders(res.data.lenderList ?? []);
       }
     } catch (err) {
-        toast("Failed to process lead. Please try again.", {
-            hideProgressBar: true,
-            type: "error",
-      });
       console.error(err);
     }
   };
 
-  const fetchOffers = async () => {
-    if (isFinished) return;
-
+  const fetchOffers = async (lid) => {
     try {
       const res = await callApi(
-        `v1/loan_offer/lead_id/${leadId}`,
+        `v1/loan_offer/lead_id/${lid}`,
         "get",
         {},
         "core",
-        user.token 
       );
 
       if (res.status === "Success") {
-        dispatch(setOffers(res.data.offers ?? [])); 
+        let localOffers = res.data.offers ?? [];
 
-        if (res.data.lead?.all_responses && res.data.lead?.total_response) {
-            const allFetched = res.data.lead.all_responses === res.data.lead.total_response;
-            setIsFinished(allFetched); 
-        } else if (res.data.offers?.length === 0) {
-            setIsFinished(true); 
-          }
+        localOffers = localOffers.filter((e) =>
+          activeLenders.map((lender) => lender._id).includes(e.lender_id)
+        );
+
+        if (localOffers.length > 0) {
+          dispatch(setOffers(localOffers)); 
+          dispatch(setLead(res.data.lead)); 
+        }
       }
     } catch (err) {
-        console.error("Error in loan_offer API:", err);
-      toast("Failed to fetch offers. Please try again.", {
-        hideProgressBar: true,
-        type: "error",
-      });
       console.error(err);
+    } finally {
+        setIsSearching(true); 
     }
   };
 
   const handleShowMore = () => {
-    setUserClickData({ 
-      event_name: "view-more-check-offers-v2" 
-    });
+    setShow(true);
+    setUserClickData({ event_name: "view-more-check-offers-v2" });
   };
 
   return (
     <div className={"form-signin-apply form-signin"}>
       <HeadBar />
-
-      {!isFinished && offers?.length === 0 && (
+  
+      {isSearching && offers?.length === 0 && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span className="ml-2 dot-pulse"></span>
         </div>
       )}
-
-      {isFinished && offers?.length === 0 && (
+  
+      {!isSearching && offers?.length === 0 && (
         <div className="mb-4 font-normal text-center">
           There is no offer for you currently.
         </div>
@@ -154,24 +109,24 @@ const OfferDetails_v2 = () => {
       {offers?.length > 0 && (
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
-
+  
           <h3 className="mt-8 text-lg text-center">
             Congratulations{" "}
             <span className="text-2xl font-normal">{lead?.contact_name || "Dear Customer"}!!</span>
           </h3>
-          <h3 className="text-lg">Your pre-approved offers </h3>
-
-          {offers.length > 1 && (
+          <h3 className="text-lg">Your pre-approved offers</h3>
+  
+          {offers.length > 1 ? (
             <div className="px-10 py-1 mt-4 text-xs font-semibold bg-gray-300 rounded">
               RECOMMENDED
             </div>
-          )}
+          ) : null}
           {[...offers]
             .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
             .slice(0, 1)
             .map((e) => (
               <div key={e._id} className="my-4">
-                <OfferTile small={false} offer={e} />
+                <OfferTile small={false} offer={e} source={source} />
               </div>
             ))}
           <div
@@ -186,22 +141,25 @@ const OfferDetails_v2 = () => {
           >
             {[...offers]
               .sort((a, b) => parseInt(a.priority) - parseInt(b.priority))
-              .slice(1, 4)
-              .map((e) => (
-                <div key={e._id}>
-                  <OfferTile small offer={e} />
+              .slice(1, show ? 1000 : 4)
+              .map((e, i) => (
+                <div key={e._id} className="">
+                  <OfferTile small offer={e} source={source} />
                 </div>
               ))}
           </div>
-
-          {offers.length > 4 && (
+  
+          {offers.length > 4 && !show && (
             <div>
-              <FormButton onClick={handleShowMore} className="!mt-12 !w-40">
+              <FormButton
+                onClick={handleShowMore}
+                className="!mt-12 !w-40"
+              >
                 View more
               </FormButton>
             </div>
           )}
-
+  
           <h4 className="mt-4 text-xs text-center">
             *These pre-approved offers are subject to change at discretion of Bank / NBFC after
             receiving all your documents and details. Final offer will be based on risk policy of
@@ -211,6 +169,8 @@ const OfferDetails_v2 = () => {
       )}
     </div>
   );
+  
+  
 };
 
 export default OfferDetails_v2;

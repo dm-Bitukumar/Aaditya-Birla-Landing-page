@@ -28,6 +28,16 @@ const Verification = ({ formData, setFormData, ...props }) => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
+  const fetchIpAddress = async () => {
+    try {
+      const response = await fetch("https://api.ipify.org?format=json");
+      const data = await response.json();
+      return data.ip;
+    } catch (err) {
+      return "";
+    }
+  };
+
   const handleValidation = () => {
     let isValid = true;
 
@@ -83,7 +93,6 @@ const Verification = ({ formData, setFormData, ...props }) => {
   };
 
   const handleResendOtp = async () => {
-    // todo resend login with timer
     setUserClickData({
       event_name: "resend-otp-form-for-check-offer-v2",
     });
@@ -110,6 +119,8 @@ const Verification = ({ formData, setFormData, ...props }) => {
       event_name: "verify-otp-check-offer-v2",
     });
     try {
+      const ipAddress = await fetchIpAddress();
+
       const res = await callApi(
         "v1/sms/validate-otp",
         "post",
@@ -121,36 +132,35 @@ const Verification = ({ formData, setFormData, ...props }) => {
       );
 
       if (res["status"] === "Success") {
-        await callApi(
-          "v1/lead/lead-from-phone",
+        const processLeadResponse = await callApi(
+          "v1/lead/process-lead-for-loan-v2",
           "post",
           {
-            phone: mobile,
-            website_kyc_consent: isTncChecked,
+            contact_phone: mobile,
+            // contact_phone: "9634109349",
+            kyc_consent: isTncChecked,
+            ip_address: ipAddress,
           },
           "core",
           res.data.token
         )
-          .then((response) => {
-            if (response["status"] === "Success") {
-              if (response.data.lead)
-              dispatch(setLead(response.data.lead));
-              dispatch(
-                login({
-                  phone_number: mobile,
-                  token: res.data.token,
-                })
-              );
 
-                navigate(
-                  `/offers-v2?lid=${response.data.lead._id}&source=${source}`
-                );
-            }
-          })
-          .catch((e) => navigate(`/personal-loan?source=${source}`));
+        if (processLeadResponse["status"] === "Success" && processLeadResponse.data.lead) {
+          dispatch(setLead(processLeadResponse.data.lead));
+          dispatch(
+            login({
+              phone_number: mobile,
+              token: res.data.token,
+            })
+          );
+
+          navigate(
+            `/offers-v2?lid=${processLeadResponse.data.lead._id}&source=${source}`
+          );          
+        }
       }
     } catch (err) {
-      if (err.response.data.data.message === "Invalid OTP") {
+      if (err.response?.data?.data?.message === "Invalid OTP") {
         toast("Wrong OTP", { hideProgressBar: true, type: "error" });
       }
       console.log(err);
@@ -238,7 +248,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
           </p>
 
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
-          <div className="checkOfferButton">
+          <div className="">
             <FormButton
               onClick={handleSubmit}
               className="!py-4 !px-6"
