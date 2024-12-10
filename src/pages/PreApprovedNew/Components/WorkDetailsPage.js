@@ -53,7 +53,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   const [isTnCAgreed, setIsTnCAgreed] = useState(true);
   const [incomeWords, setIncomeWords] = useState(""); 
 
-  console.log("Lender id", lenderId);
+  // console.log("Lender id", lenderId);
   
   const lenderTerms = {
     name: "Prefr",
@@ -167,6 +167,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
             workAddress1: data.workAddress1,
             workAddress2: data.workAddress2,
             workPinCode: data.workPinCode,
+            ckyc_consent: isTnCAgreed,
           })
         );
 
@@ -184,7 +185,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
               if_professional_info_completed: true,
               work_contact_email: data.workEmail || "", 
               work_pincode: data.workPinCode || "", 
-              is_tnc_agreed: isTnCAgreed,
+              ckyc_consent: isTnCAgreed,
             },
           },
           "core" 
