@@ -55,6 +55,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     company_name: workDetails?.companyName || "",
     monthly_income: workDetails?.monthlyIncome || "",
     contact_email: personalDetails?.email || "",
+    ckyc_consent: workDetails?.ckyc_consent || "",
   });
 
   const fetchLenderFirstCheck = async () => {
@@ -114,8 +115,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         dob: moment(personalDetails?.dob, "DD/MM/YYYY").toISOString(),
         profession: workDetails.professionType,
       });
-      processedLead.contact_phone = "9861670786";
-      console.log("Processed Lead Payload:", processedLead);
 
       const payload = {
         lead: {
