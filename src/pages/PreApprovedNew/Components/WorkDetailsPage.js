@@ -6,6 +6,7 @@ import "./PreApproved.css";
 import FormSelect from "./FormSelectBtn";
 import FormInput from "./FormInputBtn";
 import FormButton from "./FormBtnNew";
+import FormInputIncome from "./FormInputIncome";
 import HeadBar from "../../../components/Static/HeadBar";
 import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
@@ -264,7 +265,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         // errorMessage={errors.companyType}
       />
 
-      <FormInput
+      <FormInputIncome
         icon={
           <img 
             src="/assets/icons/income.png" 
@@ -281,7 +282,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         // errorMessage={errors.income}
       />
       {incomeWords && (
-        <p className="mb-1 text-sm">{incomeWords}</p>
+        <p className="mb-1 text-xs">{incomeWords}</p>
       )}
 
       <FormInput
