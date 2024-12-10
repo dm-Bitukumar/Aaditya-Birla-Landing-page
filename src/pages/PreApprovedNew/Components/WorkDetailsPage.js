@@ -52,6 +52,8 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   const [isTnCAgreed, setIsTnCAgreed] = useState(true);
   const [incomeWords, setIncomeWords] = useState(""); 
 
+  console.log("Lender id", lenderId);
+  
   const lenderTerms = {
     name: "Prefr",
     tnc: "https://prefr.com/terms_and_conditions",
@@ -82,25 +84,20 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   };
   
   const handleSalaryChange = (e) => {
-    setErrors((prev) => ({ ...prev, income: "" })); // Clear errors for income
+    setErrors((prev) => ({ ...prev, income: "" })); 
   
     const inputValue = e.target.value;
+    const rawValue = inputValue.replace(/[^\d]/g, ""); 
   
-    // Extract numeric value by removing non-numeric characters
-    const rawValue = inputValue.replace(/[^\d]/g, ""); // Only digits
-  
-    // Update the raw numeric value in `data`
     setData((prev) => ({
       ...prev,
-      income: rawValue, // Store raw numeric value without commas
+      income: rawValue, 
     }));
   
-    // Update words for feedback only
     setIncomeWords(
       rawValue ? _.startCase(numberToWords(Number(rawValue))) : ""
     );
   };
-  
   
   const validateInputs = () => {
     const validationErrors = {};
@@ -283,7 +280,9 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         isValid={!errors.income}
         // errorMessage={errors.income}
       />
-      {incomeWords && <p className="my-3">{incomeWords}</p>}
+      {incomeWords && (
+        <p className="mb-1 text-sm">{incomeWords}</p>
+      )}
 
       <FormInput
         icon={
