@@ -52,6 +52,13 @@ const Form = ({ formData, setFormData, ...props }) => {
       isValid = false;
       setIsMobileValid(false);
     }
+    if (!isTncChecked) {
+      isValid = false;
+      toast("Please accept the Terms and Conditions", {
+        hideProgressBar: true,
+        type: "error",
+      });
+    }
 
     return isValid;
   };
