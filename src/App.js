@@ -110,7 +110,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/preapprove" element={<PreApprove />} />
-        <Route path="/preapprovenew" element={<PreApprovedNew />} />    {/* Add to its respective page */}
+        <Route path="/loan-offers" element={<PreApprovedNew />} />   
         <Route path="/fb/lp01" element={<NiroPersonalLoan />} />
         <Route path="/pa-lt" element={<LtPersonalLoan />} />
         <Route path="/pa-ab" element={<AdityaBirlaPersonalLoan />} />
