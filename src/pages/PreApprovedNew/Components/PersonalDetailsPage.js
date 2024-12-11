@@ -86,9 +86,6 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
   };
 
   const handleSubmit = async() => {
-    setUserClickData({
-      event_name: "personal-detail-form-button",
-    });
     if (!leadId) {
       console.error("No lead ID provided.");
       return;
@@ -128,6 +125,9 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         );
   
         if (response.status === "Success") {
+          setUserClickData({
+            event_name: `personal-detail-submit-for-lender-${lenderName || "unknown"}`,
+          });
           handleDataChange("personalDetails", data);
           toast.success("Personal details updated successfully.");
           setStep(5); 
