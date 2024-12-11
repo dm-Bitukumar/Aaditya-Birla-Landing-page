@@ -95,7 +95,13 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
           credit_limit: lenderOffer.offers[0]?.credit_limit,
           emi: lenderOffer.offers[0]?.emi,
           tenure: lenderOffer.offers[0]?.tenure,
+          logo_image_url: lenderOffer.offers[0]?.logo_image_url || "",
         };
+
+        if (lenderOffer.offers[0]?.lender_id === "662752eb65fdba1a48d6e478") {
+          normalizedOffer.logo_image_url = "https://digitmoney.in/image/prefr.png";
+        }
+
         console.log("Normalized Offer:", normalizedOffer);
         setOffers([normalizedOffer]);
         setIsFinished(true);
@@ -182,7 +188,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   };
 
   const fetchOffers = async (leadId) => {
-    if (!leadId) return;
+    if (isFinished) return;
 
     try {
       setIsFetching(true);
