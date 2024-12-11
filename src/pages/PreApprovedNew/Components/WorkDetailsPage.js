@@ -47,7 +47,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   });
   
   const workDetails = initialData;
-  const { lenderId } = useSelector((state) => state.app.lead);
+  const { lenderName, lenderId } = useSelector((state) => state.app.lead);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [isTnCAgreed, setIsTnCAgreed] = useState(true);
@@ -141,9 +141,6 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   };
 
   const handleSubmit = async () => {
-    setUserClickData({
-      event_name: "work-detail-form-submit",
-    });
   
     if (!leadId) {
       console.error("No lead ID provided.");
@@ -192,6 +189,9 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         );
   
         if (response.status === "Success") {
+          setUserClickData({
+            event_name: `professional-detail-submit-for-lender-${lenderName || "unknown"}`
+          });
           handleDataChange("workDetails", data); 
           toast.success("Work details updated successfully.");
           setStep(6);

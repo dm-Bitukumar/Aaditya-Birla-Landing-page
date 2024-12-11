@@ -137,7 +137,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
           "post",
           {
             contact_phone: mobile,
-            // contact_phone: "9634109349",
+            // contact_phone: "9861670786",
             kyc_consent: isTncChecked,
             ip_address: ipAddress,
           },
