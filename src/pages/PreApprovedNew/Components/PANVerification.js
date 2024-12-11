@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import "./PreApproved.css";
 import PanOtpInputForm from "../../../components/Form/PanOtpInputForm";
 import { setpanDetails } from "../../../store/app/appReducer";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   const [step, setLocalStep] = useState(1);
@@ -32,6 +33,9 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   };
 
   const sendOtp = async () => {
+    setUserClickData({
+      event_name: `pan-otp-send-for-preapp-lender-${lenderName || "unknown"}`,
+    });
     if (!mobileNumber) {
       toast.error("Mobile number is missing. Please try again.");
       return;
@@ -63,6 +67,9 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   };
 
   const handleResendOtp = async () => {
+    setUserClickData({
+      event_name: `resend-pan-otp-for-preapp-lender-${lenderName || "unknown"}`,
+    });
     try {
       setIsOtpLoading(true);
       const response = await callApi(
@@ -88,6 +95,10 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   };
 
   const handleOtpSubmit = async () => {
+    setUserClickData({
+      event_name: `pan-otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
+    });
+
     if (!/^\d{4}$/.test(otp)) {
       toast.error("Please enter a valid 4-digit OTP.");
       return;
@@ -119,6 +130,9 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   };
 
   const fetchPanData = async () => {
+    setUserClickData({
+      event_name: `details-fetched-for-preapp-lender-${lenderName || "unknown"}-pan-${pan || "unknown"}`,
+    });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");
       return;
@@ -208,6 +222,9 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   };
 
   const handlePanSubmit = () => {
+    setUserClickData({
+      event_name: `pan-submit-check-for-preapp-lender-${lenderName || "unknown"}`,
+    });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");
       return;
