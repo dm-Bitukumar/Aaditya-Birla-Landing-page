@@ -211,12 +211,20 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
               offer.logo_image_url = matchingLender.logo_image_url || "";
             }
           }
-          console.log("Processed Offer:", offer);
+          // console.log("Processed Offer:", offer);
           return offer;
         });
 
-        setOffers(filteredOffers);
-        // setOffers(res.data.offers);
+        const uniqueOffers = filteredOffers.reduce((acc, offer) => {
+          if (!acc.some((o) => o.lender_id === offer.lender_id)) {
+            acc.push(offer);
+          }
+          return acc;
+        }, []);
+  
+        setOffers(uniqueOffers);
+        // console.log("Unique Offers:", uniqueOffers);
+
         setIsFinished(
           res.data.lead?.all_responses === res.data.lead?.total_response
         );
