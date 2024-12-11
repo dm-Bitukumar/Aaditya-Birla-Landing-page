@@ -23,6 +23,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const [affId, setAffId] = useState("");
   const [source, setSource] = useState("");
   const [params] = useSearchParams();
+  const [activeLenders, setActiveLenders] = useState([]);
 
   const user = useSelector((state) => state.app.user);
   const personalDetails = useSelector((state) => state.app.personalDetails);
@@ -163,6 +164,22 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     }
   };
 
+  const fetchActiveLenders = async () => {
+    try {
+      const res = await callApi(
+        `v1/lender/active-lenders`,
+        "get",
+        {},
+        "loan"
+      );
+      if (res.status === "Success") {
+        setActiveLenders(res.data.lenderList ?? []);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const fetchOffers = async (leadId) => {
     if (!leadId) return;
 
@@ -177,7 +194,29 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       );
 
       if (res.status === "Success" && res.data?.offers?.length > 0) {
-        setOffers(res.data.offers);
+        let filteredOffers = res.data.offers;
+
+        filteredOffers = activeLenders.length
+        ? filteredOffers.filter((offer) =>
+            activeLenders.some((lender) => lender._id === offer.lender_id)
+          )
+        : filteredOffers;
+
+        filteredOffers = filteredOffers.map((offer) => {
+          if (!offer.logo_image_url) {
+            const matchingLender = activeLenders.find(
+              (lender) => lender._id === offer.lender_id
+            );
+            if (matchingLender) {
+              offer.logo_image_url = matchingLender.logo_image_url || "";
+            }
+          }
+          console.log("Processed Offer:", offer);
+          return offer;
+        });
+
+        setOffers(filteredOffers);
+        // setOffers(res.data.offers);
         setIsFinished(
           res.data.lead?.all_responses === res.data.lead?.total_response
         );
@@ -191,6 +230,16 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       setIsFetching(false);
     }
   };
+
+  useEffect(() => {
+    fetchActiveLenders();
+  }, []);
+
+  useEffect(() => {
+    if (activeLenders.length > 0 && leadId) {
+      fetchOffers(leadId);
+    }
+  }, [activeLenders, leadId]);
 
   const handleShowMore = () => {
     setShow(true);
