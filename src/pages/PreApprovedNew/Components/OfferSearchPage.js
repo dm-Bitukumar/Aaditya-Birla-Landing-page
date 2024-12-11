@@ -96,6 +96,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
           emi: lenderOffer.offers[0]?.emi,
           tenure: lenderOffer.offers[0]?.tenure,
         };
+        console.log("Normalized Offer:", normalizedOffer);
         setOffers([normalizedOffer]);
         setIsFinished(true);
         setIsLoading(false);
@@ -193,38 +194,47 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         user.token
       );
 
-      if (res.status === "Success" && res.data?.offers?.length > 0) {
-        let filteredOffers = res.data.offers;
+      if (res.status === "Success") {
+        const { offers, lead } = res.data;
 
-        filteredOffers = activeLenders.length
-        ? filteredOffers.filter((offer) =>
-            activeLenders.some((lender) => lender._id === offer.lender_id)
-          )
-        : filteredOffers;
+        if (offers?.length > 0) {
+          let filteredOffers = offers;
 
-        filteredOffers = filteredOffers.map((offer) => {
-          if (!offer.logo_image_url) {
-            const matchingLender = activeLenders.find(
-              (lender) => lender._id === offer.lender_id
-            );
-            if (matchingLender) {
-              offer.logo_image_url = matchingLender.logo_image_url || "";
+          filteredOffers = activeLenders.length
+          ? filteredOffers.filter((offer) =>
+              activeLenders.some((lender) => lender._id === offer.lender_id)
+            )
+          : filteredOffers;
+
+          filteredOffers = filteredOffers.map((offer) => {
+            if (!offer.logo_image_url) {
+              const matchingLender = activeLenders.find(
+                (lender) => lender._id === offer.lender_id
+              );
+              if (matchingLender) {
+                offer.logo_image_url = matchingLender.logo_image_url || "";
+              }
             }
-          }
-          // console.log("Processed Offer:", offer);
-          return offer;
-        });
+            // console.log("Processed Offer:", offer);
+            if (offer.lender_id === "662752eb65fdba1a48d6e478") {
+              offer.logo_image_url = "https://digitmoney.in/image/prefr.png";
+            }
 
-        const uniqueOffers = filteredOffers.reduce((acc, offer) => {
-          if (!acc.some((o) => o.lender_id === offer.lender_id)) {
-            acc.push(offer);
-          }
-          return acc;
-        }, []);
-  
-        setOffers(uniqueOffers);
-        // console.log("Unique Offers:", uniqueOffers);
+            return offer;
+          });
 
+          const uniqueOffers = filteredOffers.reduce((acc, offer) => {
+            if (!acc.some((o) => o.lender_id === offer.lender_id)) {
+              acc.push(offer);
+            }
+            return acc;
+          }, []);
+          // console.log("Unique Offers:", uniqueOffers);
+          setOffers(uniqueOffers);
+        } else {
+          console.log("No offers found for this lead.");
+          setOffers([]);
+        }
         setIsFinished(
           res.data.lead?.all_responses === res.data.lead?.total_response
         );
@@ -262,7 +272,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         currentStep={2}
       />
 
-      {!isLoading && offers.length === 0 && (
+      {!isFinished && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span className="ml-2 dot-pulse"></span>
@@ -276,7 +286,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         </div>
       )}
 
-      {!isLoading && isFinished && offers.length === 0 && (
+      {isFinished && offers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           No offers found for your profile at the moment.
         </div>
