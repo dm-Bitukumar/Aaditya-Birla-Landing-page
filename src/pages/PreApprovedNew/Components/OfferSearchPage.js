@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 import { TRACK_ID } from "../../../utility/enum";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import moment from "moment";
-import { getAllianceLeadFromMoneyTapInput } from "../../../utility/commonUtils";
+import { useSearchParams } from "react-router-dom";
+import { getAllianceLeadFromMoneyTapInput, sourceConvert } from "../../../utility/commonUtils";
 
 const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,10 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const [offers, setOffers] = useState([]);
   const [leadId, setLeadId] = useState();
   const [isFetching, setIsFetching] = useState(false);
+  const [utmSource, setUtmSource] = useState("");
+  const [affId, setAffId] = useState("");
+  const [source, setSource] = useState("");
+  const [params] = useSearchParams();
 
   const user = useSelector((state) => state.app.user);
   const personalDetails = useSelector((state) => state.app.personalDetails);
@@ -25,6 +30,12 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const panDetails = useSelector((state) => state.app.panDetails);
   const isLenderCheckCalled = useRef(false); 
   const isSubmitLeadCalled = useRef(false); 
+
+  useEffect(() => {
+    if (params.get("source")) setSource(params.get("source"));
+    if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
 
   useEffect(() => {
     if (!isLenderCheckCalled.current) {
@@ -102,7 +113,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     isSubmitLeadCalled.current = true;
 
     setUserClickData({
-      event_name: "personal-detail-api",
+      event_name: "preapprove-website-lead-api-call",
     });
 
     try {
@@ -120,9 +131,9 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         lead: {
           ...processedLead,
           tracking_id: trackId,
-          aff_id: "",
-          utm_source: "",
-          utm_medium: "",
+          aff_id: affId,
+          utm_source: utmSource,
+          utm_medium: sourceConvert(source),
         },
       };
 
@@ -167,7 +178,9 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
 
       if (res.status === "Success" && res.data?.offers?.length > 0) {
         setOffers(res.data.offers);
-        setIsFinished(true);
+        setIsFinished(
+          res.data.lead?.all_responses === res.data.lead?.total_response
+        );
       } else {
         console.error("No offers found in loan-offer API.");
         setOffers([]);
@@ -179,7 +192,10 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     }
   };
 
-  const handleShowMore = () => setShow(true);
+  const handleShowMore = () => {
+    setShow(true);
+    setUserClickData({ event_name: "view-more" });
+  };
 
   return (
     <div className={"form-signin-apply form-signin"}>
@@ -193,6 +209,13 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
         <div className="mb-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span className="ml-2 dot-pulse"></span>
+          <div className="flex justify-center items-center">
+            <img
+              className="mt-20 img logo-img w-50 h-50"
+              src="/assets/img/Design_last_page.png"
+              alt="Loading Logo"
+            />
+          </div>
         </div>
       )}
 
