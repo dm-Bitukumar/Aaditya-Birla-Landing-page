@@ -127,7 +127,8 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
   
         if (response.status === "Success") {
           setUserClickData({
-            event_name: `personal-detail-submit-for-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
+            event_name: `personal-detail-submit-for-lender-${lenderName || "unknown"}`,
+            user_id: mobileNumber || "unknown",
           });
           handleDataChange("personalDetails", data);
           toast.success("Personal details updated successfully.");

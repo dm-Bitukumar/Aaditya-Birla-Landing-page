@@ -35,7 +35,8 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const sendOtp = async () => {
     setUserClickData({
-      event_name: `pan-otp-send-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
+      event_name: `pan-otp-send-for-preapp-lender-${lenderName || "unknown"}`,
+      user_id: mobileNumber || "unknown", 
     });
     if (!mobileNumber) {
       toast.error("Mobile number is missing. Please try again.");
@@ -69,7 +70,8 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const handleResendOtp = async () => {
     setUserClickData({
-      event_name: `resend-pan-otp-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
+      event_name: `resend-pan-otp-for-preapp-lender-${lenderName || "unknown"}`,
+      user_id: mobileNumber || "unknown",
     });
     try {
       setIsOtpLoading(true);
@@ -97,7 +99,8 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const handleOtpSubmit = async () => {
     setUserClickData({
-      event_name: `pan-otp-submit-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
+      event_name: `pan-otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
+      user_id: mobileNumber || "unknown",
     });
 
     if (!/^\d{4}$/.test(otp)) {
@@ -132,7 +135,8 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const fetchPanData = async () => {
     setUserClickData({
-      event_name: `details-fetched-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}-pan-${pan || "unknown"}`,
+      event_name: `details-fetched-for-preapp-lender-${lenderName || "unknown"}-pan-${pan || "unknown"}`,
+      user_id: mobileNumber || "unknown",
     });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");
@@ -214,7 +218,8 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const handlePanSubmit = () => {
     setUserClickData({
-      event_name: `pan-submit-check-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
+      event_name: `pan-submit-check-for-preapp-lender-${lenderName || "unknown"}`,
+      user_id: mobileNumber || "unknown",
     });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");

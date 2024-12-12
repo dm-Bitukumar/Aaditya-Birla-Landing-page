@@ -122,7 +122,8 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     isSubmitLeadCalled.current = true;
 
     setUserClickData({
-      event_name: `preapprove-website-lead-api-call-for-${mobileNumber || "unknown"}`,
+      event_name: `preapprove-website-lead-api-call`,
+      user_id: mobileNumber || "unknown", 
     });
 
     try {
