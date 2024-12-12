@@ -17,7 +17,8 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber }) => {
 
   const handleClick = () => {
     setUserClickData({ 
-      event_name: `preapp-offer-apply-button-lender-${offer?.lender_name || "unknown"}-${mobile || "unknown"}`,
+      event_name: `preapp-offer-apply-button-lender-${offer?.lender_name || "unknown"}`,
+      user_id: mobile || "unknown", 
     });
     setStep(3);
   };
