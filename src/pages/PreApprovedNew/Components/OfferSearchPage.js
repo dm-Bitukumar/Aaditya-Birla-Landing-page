@@ -31,6 +31,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const panDetails = useSelector((state) => state.app.panDetails);
   const isLenderCheckCalled = useRef(false); 
   const isSubmitLeadCalled = useRef(false); 
+  const mobileNumber = user?.contact_phone || "unknown";
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -121,7 +122,8 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     isSubmitLeadCalled.current = true;
 
     setUserClickData({
-      event_name: "preapprove-website-lead-api-call",
+      event_name: `preapprove-website-lead-api-call`,
+      user_id: mobileNumber || "unknown", 
     });
 
     try {

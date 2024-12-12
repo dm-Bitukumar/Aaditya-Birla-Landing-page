@@ -48,6 +48,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   
   const workDetails = initialData;
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
+  const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [isTnCAgreed, setIsTnCAgreed] = useState(true);
@@ -190,7 +191,8 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   
         if (response.status === "Success") {
           setUserClickData({
-            event_name: `professional-detail-submit-for-lender-${lenderName || "unknown"}`
+            event_name: `professional-detail-submit-for-lender-${lenderName || "unknown"}`,
+            user_id: mobileNumber || "unknown",
           });
           handleDataChange("workDetails", data); 
           toast.success("Work details updated successfully.");

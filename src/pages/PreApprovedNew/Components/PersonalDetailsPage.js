@@ -15,6 +15,7 @@ import { setPersonalDetails } from "../../../store/app/appReducer";
 
 const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
   const panDetails = useSelector((state) => state.app.panDetails);
+  const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
 
   const [data, setData] = useState({
@@ -127,6 +128,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         if (response.status === "Success") {
           setUserClickData({
             event_name: `personal-detail-submit-for-lender-${lenderName || "unknown"}`,
+            user_id: mobileNumber || "unknown",
           });
           handleDataChange("personalDetails", data);
           toast.success("Personal details updated successfully.");

@@ -22,14 +22,22 @@ const OtpInputForm = ({
   goToPanVerification,
 }) => {
   const [isOtpValid, setIsOtpValid] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [tnc, setTnc] = useState("");
   const [privacy, setPrivacy] = useState("");
   const [concent, setConcent] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (otpValue.length === 4) {
-      handleSubmitOtp();
+      setIsLoading(true); // Start loading
+      try {
+        await handleSubmitOtp(); // Await OTP submission logic
+      } catch (error) {
+        console.error("Error during OTP submission:", error);
+      } finally {
+        setIsLoading(false); // End loading
+      }
     } else {
       setIsOtpValid(false);
     }
@@ -60,7 +68,6 @@ const OtpInputForm = ({
         <span id="mobileno">
           {phone_number ? " " + phone_number : ""}
         </span>
-        {/* <br /> */}
         {" "} associated with PAN Card:{" "}
         <span className="text-blue-700 text-decoration-underline" style={{ cursor: "pointer" }} onClick={goToPanVerification}>
           {pan}
@@ -164,8 +171,9 @@ const OtpInputForm = ({
             // style={buttonStyle}
             onClick={handleSubmit}
             id="myBtn"
+            disabled={isLoading || otpValue.length !== 4}
           >
-            Verify
+            {isLoading ? "Processing..." : "Verify"}
           </FormButton>
         </div>
       </div>

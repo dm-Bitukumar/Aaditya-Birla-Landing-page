@@ -3,8 +3,9 @@ import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 
-const OfferTileNew = ({ offer, small, setStep }) => {
+const OfferTileNew = ({ offer, small, setStep, mobileNumber }) => {
   const [show, setShow] = useState(false);
+  const mobile = mobileNumber; 
 
   useEffect(() => {
     if (show) {
@@ -17,6 +18,7 @@ const OfferTileNew = ({ offer, small, setStep }) => {
   const handleClick = () => {
     setUserClickData({ 
       event_name: `preapp-offer-apply-button-lender-${offer?.lender_name || "unknown"}`,
+      user_id: mobile || "unknown", 
     });
     setStep(3);
   };
