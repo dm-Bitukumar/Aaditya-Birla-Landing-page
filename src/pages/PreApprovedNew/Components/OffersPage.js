@@ -127,7 +127,8 @@ const OffersPage = ({ setStep, setLeadId  }) => {
             <OfferTile 
               small={false} 
               offer={preLoans} 
-              setStep={setStep} 
+              setStep={setStep}
+              mobileNumber={mobileNumber} 
             />
           </div>
 

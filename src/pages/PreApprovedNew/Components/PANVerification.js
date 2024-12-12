@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch  } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import FormInput from "../../../components/Form/FormInput";
 import FormButton from "../../../components/Buttons/FormButton";
 import callApi from "../../../utility/apiCaller";
@@ -30,11 +30,12 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
     const isValid = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value);
     setIsPanValid(isValid);
     setIsButtonDisabled(!isValid);
+    console.log("PAN:", value, "Valid:", isValid, "Disabled:", !isValid);
   };
 
   const sendOtp = async () => {
     setUserClickData({
-      event_name: `pan-otp-send-for-preapp-lender-${lenderName || "unknown"}`,
+      event_name: `pan-otp-send-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
     });
     if (!mobileNumber) {
       toast.error("Mobile number is missing. Please try again.");
@@ -68,7 +69,7 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const handleResendOtp = async () => {
     setUserClickData({
-      event_name: `resend-pan-otp-for-preapp-lender-${lenderName || "unknown"}`,
+      event_name: `resend-pan-otp-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
     });
     try {
       setIsOtpLoading(true);
@@ -96,7 +97,7 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const handleOtpSubmit = async () => {
     setUserClickData({
-      event_name: `pan-otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
+      event_name: `pan-otp-submit-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
     });
 
     if (!/^\d{4}$/.test(otp)) {
@@ -131,7 +132,7 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const fetchPanData = async () => {
     setUserClickData({
-      event_name: `details-fetched-for-preapp-lender-${lenderName || "unknown"}-pan-${pan || "unknown"}`,
+      event_name: `details-fetched-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}-pan-${pan || "unknown"}`,
     });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");
@@ -153,16 +154,6 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   
       if (res.status === "Success") {
         const { first_name, last_name, gender, dob } = res.data || {};
-  
-        // setUserData((prev) => ({
-        //   ...prev,
-        //   personalDetails: {
-        //     firstName: first_name || "",
-        //     lastName: last_name || "",
-        //     gender: gender || "",
-        //     dob: dob || "",
-        //   },
-        // }));
 
         dispatch(
           setpanDetails({
@@ -223,13 +214,14 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
   const handlePanSubmit = () => {
     setUserClickData({
-      event_name: `pan-submit-check-for-preapp-lender-${lenderName || "unknown"}`,
+      event_name: `pan-submit-check-for-preapp-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
     });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");
       return;
     }
     setLocalStep(2);
+    setIsPanLoading(true);
     setIsButtonDisabled(true);
     sendOtp();
   };
@@ -288,7 +280,7 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
               handleResendOtp={handleResendOtp}
               phone_number={mobileNumber}
               handleSubmitOtp={handleOtpSubmit}
-              pan={pan} // Pass PAN to the OTP page
+              pan={pan}
               goToPanVerification={() => setLocalStep(1)}
             />
           )}
