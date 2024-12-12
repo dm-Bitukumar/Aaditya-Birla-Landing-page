@@ -75,6 +75,7 @@ export async function setUserClickData(data) {
         tracking_id: trackId,
         session_id: sessionId,
         event_name: data?.event_name,
+        user_id: data?.user_id,
       },
     },
     "jasoos"

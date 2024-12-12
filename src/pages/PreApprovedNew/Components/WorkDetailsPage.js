@@ -191,7 +191,8 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
   
         if (response.status === "Success") {
           setUserClickData({
-            event_name: `professional-detail-submit-for-lender-${lenderName || "unknown"}-${mobileNumber || "unknown"}`,
+            event_name: `professional-detail-submit-for-lender-${lenderName || "unknown"}`,
+            user_id: mobileNumber || "unknown",
           });
           handleDataChange("workDetails", data); 
           toast.success("Work details updated successfully.");
