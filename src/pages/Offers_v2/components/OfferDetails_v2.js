@@ -100,7 +100,7 @@ const OfferDetailsSegment = () => {
 
   const handelShow = () => {
     setShow(true);
-    setUserClickData({ event_name: "view-more" });
+    setUserClickData({ event_name: "view-more-check-offers-v2" });
   };
 
   return (
