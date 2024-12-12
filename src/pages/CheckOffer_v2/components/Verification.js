@@ -60,12 +60,18 @@ const Verification = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = async (event) => {
-    setUserClickData({
-      event_name: "generate-otp-button-click-check-offers-v2",
-    });
     event.preventDefault();
 
     let isValid = handleValidation();
+
+    if (!isTncChecked) {
+      toast("Please accept the Terms and Conditions to proceed", {
+        hideProgressBar: true,
+        type: "error",
+      });
+      return; 
+    }
+
     if (isValid) {
       const res = await callApi(
         "v1/sms/send-otp",
@@ -78,7 +84,8 @@ const Verification = ({ formData, setFormData, ...props }) => {
       );
       if (res["status"] === "Success") {
         setUserClickData({
-          event_name: "otp-page-loaded-check-offers-v2",
+          event_name: "otp-sent-check-offers-v2",
+          user_id: mobile || "unknown",
         });
         setIsOtpGenerated(true);
       }
@@ -86,15 +93,13 @@ const Verification = ({ formData, setFormData, ...props }) => {
   };
 
   const handleChange = () => {
-    setUserClickData({
-      event_name: "tnc-checkbox-toggled-check-offers-v2 ",
-    });
     setIsTncChecked((prev) => !prev);
   };
 
   const handleResendOtp = async () => {
     setUserClickData({
-      event_name: "resend-otp-form-for-check-offer-v2",
+      event_name: "resend-otp-check-offer-v2",
+      user_id: mobile || "unknown",
     });
     try {
       const res = await callApi(
@@ -115,9 +120,6 @@ const Verification = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
-    setUserClickData({
-      event_name: "verify-otp-check-offer-v2",
-    });
     try {
       const ipAddress = await fetchIpAddress();
 
@@ -132,6 +134,10 @@ const Verification = ({ formData, setFormData, ...props }) => {
       );
 
       if (res["status"] === "Success") {
+        setUserClickData({
+          event_name: "verify-otp-check-offer-v2",
+          user_id: mobile || "unknown",
+        });
         const processLeadResponse = await callApi(
           "v1/lead/process-lead-for-loan-v2",
           "post",
@@ -161,6 +167,10 @@ const Verification = ({ formData, setFormData, ...props }) => {
       }
     } catch (err) {
       if (err.response?.data?.data?.message === "Invalid OTP") {
+        setUserClickData({
+          event_name: "wrong-otp-entered-check-offer-v2",
+          user_id: mobile || "unknown",
+        });
         toast("Wrong OTP", { hideProgressBar: true, type: "error" });
       }
       console.log(err);
