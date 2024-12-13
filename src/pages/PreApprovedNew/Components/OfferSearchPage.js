@@ -88,6 +88,10 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       );
 
       if (response.status === "Success" && response.data?.status === true) {
+        setUserClickData({
+          event_name: `perapp-api-success-offer-click`,
+          user_id: mobileNumber || "unknown", 
+        });
         const lenderOffer = response.data;
 
         const normalizedOffer = {
@@ -121,11 +125,6 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
     if (isSubmitLeadCalled.current) return;
     isSubmitLeadCalled.current = true;
 
-    setUserClickData({
-      event_name: `preapprove-website-lead-api-call`,
-      user_id: mobileNumber || "unknown", 
-    });
-
     try {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
@@ -156,6 +155,10 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
       );
 
       if (res.status === "Success" && res.data.lead) {
+        setUserClickData({
+          event_name: `website-lead-api-call`,
+          user_id: mobileNumber || "unknown", 
+        });
         setLeadId(res.data.lead._id);
         fetchOffers(res.data.lead._id);
       } else {
