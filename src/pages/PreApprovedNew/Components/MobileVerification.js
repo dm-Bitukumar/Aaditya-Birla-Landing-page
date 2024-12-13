@@ -124,10 +124,6 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   };
 
   const handleOtpSubmit = async () => {
-    setUserClickData({
-      event_name: `otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
-      user_id: mobile || "unknown", 
-    });
     if (otp.length !== 4) {
       toast.error("Please enter a valid 4-digit OTP.");
       return;
@@ -145,6 +141,10 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
         "messaging"
       );
       if (response.status === "Success") {
+        setUserClickData({
+          event_name: `otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
+          user_id: mobile || "unknown", 
+        });
         toast.success("OTP Verified Successfully");
         dispatch(
           login({
