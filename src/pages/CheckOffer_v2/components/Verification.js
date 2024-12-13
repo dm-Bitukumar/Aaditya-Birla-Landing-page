@@ -17,6 +17,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [mobile, setMobile] = useState("");
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
@@ -73,24 +74,35 @@ const Verification = ({ formData, setFormData, ...props }) => {
     }
 
     if (isValid) {
-      const res = await callApi(
-        "v1/sms/send-otp",
-        "post",
-        {
-          contact_phone: mobile,
-          kyc_consent: isTncChecked,
-        },
-        "messaging"
-      );
-      if (res["status"] === "Success") {
-        setUserClickData({
-          event_name: "otp-sent-check-offers-v2",
-          user_id: mobile || "unknown",
+      setIsLoading(true);
+      try {
+        const res = await callApi(
+          "v1/sms/send-otp",
+          "post",
+          {
+            contact_phone: mobile,
+            kyc_consent: isTncChecked,
+          },
+          "messaging"
+        );
+        if (res["status"] === "Success") {
+          setUserClickData({
+            event_name: "otp-sent-check-offers-v2",
+            user_id: mobile || "unknown",
+          });
+          setIsOtpGenerated(true);
+        }
+      } catch (error) {
+        toast("Failed to send OTP. Please try again.", {
+          hideProgressBar: true,
+          type: "error",
         });
-        setIsOtpGenerated(true);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
+
 
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
@@ -102,6 +114,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
       user_id: mobile || "unknown",
     });
     try {
+      setIsLoading(false); 
       const res = await callApi(
         "v1/sms/send-otp",
         "post",
@@ -116,10 +129,13 @@ const Verification = ({ formData, setFormData, ...props }) => {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
   const handleSubmitOtp = async () => {
+    setIsLoading(true);
     try {
       const ipAddress = await fetchIpAddress();
 
@@ -174,6 +190,8 @@ const Verification = ({ formData, setFormData, ...props }) => {
         toast("Wrong OTP", { hideProgressBar: true, type: "error" });
       }
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -246,7 +264,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
             errorMessage={"Please enter a valid Mobile Number"}
           />
 
-<p
+          <p
             style={{
               fontSize: "9px",
               color: "#6c757d",
@@ -262,8 +280,9 @@ const Verification = ({ formData, setFormData, ...props }) => {
             <FormButton
               onClick={handleSubmit}
               className="!py-4 !px-6"
+              disabled={!isMobileValid || isLoading}
             >
-              GET OTP
+              {isLoading ? "Sending..." : "Get OTP"}
             </FormButton>
           </div>
         </>
