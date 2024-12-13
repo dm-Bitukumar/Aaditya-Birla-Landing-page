@@ -98,11 +98,6 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
   };
 
   const handleOtpSubmit = async () => {
-    setUserClickData({
-      event_name: `pan-otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
-      user_id: mobileNumber || "unknown",
-    });
-
     if (!/^\d{4}$/.test(otp)) {
       toast.error("Please enter a valid 4-digit OTP.");
       return;
@@ -120,6 +115,10 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
         "messaging"
       );
       if (response.status === "Success") {
+        setUserClickData({
+          event_name: `pan-otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
+          user_id: mobileNumber || "unknown",
+        });    
         toast.success("OTP verified successfully.");
         await fetchPanData(); 
         await updatePanVerification();
