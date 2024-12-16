@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import "../css/Verification.css";
 import { setLead, login } from "../../../store/app/appReducer";
+import moment from "moment/moment";
 
 const Verification = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -90,6 +91,16 @@ const Verification = ({ formData, setFormData, ...props }) => {
             event_name: "otp-sent-check-offers-v2",
             user_id: mobile || "unknown",
           });
+          await callApi(
+            "v1/drip_trigger/track",
+            "post",
+            {
+              drip_trigger: {
+                user_id: mobile,
+              },
+            },
+            "core"
+          );
           setIsOtpGenerated(true);
         }
       } catch (error) {
@@ -154,6 +165,18 @@ const Verification = ({ formData, setFormData, ...props }) => {
           event_name: "verify-otp-check-offer-v2",
           user_id: mobile || "unknown",
         });
+        await callApi(
+          "v1/drip_trigger/track",
+          "post",
+          {
+            drip_trigger: {
+              user_id: mobile,
+              is_verified: true,
+              verified_at: moment().utcOffset(330).toDate(),
+            },
+          },
+          "core"
+        );
         const processLeadResponse = await callApi(
           "v1/lead/process-lead-for-loan-v2",
           "post",

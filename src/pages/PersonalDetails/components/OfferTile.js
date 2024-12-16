@@ -4,6 +4,8 @@ import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
+import moment from "moment";
+import callApi from "../../../utility/apiCaller";
 
 const OfferTile = ({ offer, small, source, eventName, userId }) => {
   const [show, setShow] = useState(false);
@@ -33,7 +35,7 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     console.log("Event Name:", eventName || "offer-apply-button");
     console.log("User ID (Mobile Number):", userId || "unknown");
 
@@ -45,6 +47,25 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
       setOfferLink(`${offer.app_url}${source}`);
       setShowModel(true);
       return;
+    }
+    if (eventName === "offer-apply-button-v2") {
+      try {
+        await callApi(
+          "v1/drip_trigger/track",
+          "post",
+          {
+            drip_trigger: {
+              user_id: userId || "unknown",
+              offer_selected: true,
+              offer_selected_at: moment().utcOffset(330).toDate(),
+            },
+          },
+          "core"
+        );
+        console.log("Drip trigger API called successfully");
+      } catch (err) {
+        console.error("Failed to call drip trigger API:", err);
+      }
     }
 
     setUserClickData({ 
