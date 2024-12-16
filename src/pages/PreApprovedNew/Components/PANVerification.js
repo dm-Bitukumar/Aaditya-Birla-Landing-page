@@ -192,7 +192,7 @@ const PANVerification = ({ leadId, setStep, userData, setUserData }) => {
 
     try {
       const res = await callApi(
-        `v1/preapproved_lead/${leadId}/update`,
+        `v1/preapproved_lead/${leadId}/update_with_no_resp`,
         "post",
         {
           preapproved_lead: {
