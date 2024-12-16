@@ -4,8 +4,10 @@ import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
+import moment from "moment";
+import { triggerDripApi } from "../../../utility/dripApiUtils";
 
-const OfferTile = ({ offer, small, source }) => {
+const OfferTile = ({ offer, small, source, eventName, userId }) => {
   const [show, setShow] = useState(false);
   const [offerLink, setOfferLink] = useState("");
   const [showModel, setShowModel] = useState(false);
@@ -21,6 +23,7 @@ const OfferTile = ({ offer, small, source }) => {
       document.body.classList.remove("overflow-hidden");
     }
   }, [show]);
+
   const handlePrefrContinueClick = () => {
     if (isTncChecked) {
       setShow(false);
@@ -33,6 +36,9 @@ const OfferTile = ({ offer, small, source }) => {
   };
 
   const handleClick = () => {
+    console.log("Event Name:", eventName || "offer-apply-button");
+    console.log("User ID (Mobile Number):", userId || "unknown");
+
     if (offer.lender_name === "Prefr") {
       setShow(true);
       return;
@@ -43,7 +49,18 @@ const OfferTile = ({ offer, small, source }) => {
       return;
     }
 
-    setUserClickData({ event_name: "offer-apply-button" });
+    if (eventName === "offer-apply-button-v2") {
+      triggerDripApi({
+        user_id: userId || "unknown",
+        offer_selected: true,
+        offer_selected_at: moment().utcOffset(330).toDate(),
+      });
+    }
+
+    setUserClickData({ 
+      event_name: eventName || "offer-apply-button", 
+      user_id: userId || "unknown" 
+    });
     var win = window.open(`${offer.app_url}${source}`, "_blank");
     win.focus();
   };
