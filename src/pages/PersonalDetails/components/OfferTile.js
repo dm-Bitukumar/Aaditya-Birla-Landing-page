@@ -5,7 +5,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import Model from "./OfferModel";
 import NewOfferModel from "./NewOfferModel";
 import moment from "moment";
-import callApi from "../../../utility/apiCaller";
+import { triggerDripApi } from "../../../utility/dripApiUtils";
 
 const OfferTile = ({ offer, small, source, eventName, userId }) => {
   const [show, setShow] = useState(false);
@@ -35,22 +35,6 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
     }
   };
 
-  const triggerDripEvent = (userId, offerSelected = false, offerSelectedAt = null) => {
-    callApi(
-      "v1/drip_trigger/track",
-      "post",
-      {
-        drip_trigger: {
-          user_id: userId || "unknown",
-          offer_selected: offerSelected,
-          offer_selected_at: offerSelectedAt,
-        },
-      },
-      "core"
-    )
-      .catch((err) => console.error("Failed to call drip trigger API:", err));
-  };  
-
   const handleClick = () => {
     console.log("Event Name:", eventName || "offer-apply-button");
     console.log("User ID (Mobile Number):", userId || "unknown");
@@ -66,7 +50,11 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
     }
 
     if (eventName === "offer-apply-button-v2") {
-      triggerDripEvent(userId, true, moment().utcOffset(330).toDate());
+      triggerDripApi({
+        user_id: userId || "unknown",
+        offer_selected: true,
+        offer_selected_at: moment().utcOffset(330).toDate(),
+      });
     }
 
     setUserClickData({ 
