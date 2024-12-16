@@ -5,6 +5,7 @@ import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
 import numberToWords from "../../../utility/numberToWords";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
+import { setUserClickData } from "../../../utility/setUserClickData";
 
 const Model = ({
   show,
@@ -44,6 +45,7 @@ const Model = ({
 
   const handleSubmit = () => {
     if (validateInput()) {
+      setUserClickData({ event_name: "agree-btn-pressed-prefr" });
       handleClick();
     }
   };
