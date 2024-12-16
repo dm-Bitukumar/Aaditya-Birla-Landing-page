@@ -20,6 +20,7 @@ const OtpInputForm = ({
   lenderId,
 }) => {
   const [isOtpValid, setIsOtpValid] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [tnc, setTnc] = useState("");
   const [privacy, setPrivacy] = useState("");
@@ -51,9 +52,16 @@ const OtpInputForm = ({
     }
   }, [lenderId]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (otpValue.length === 4) {
-      handleSubmitOtp();
+      setIsLoading(true);
+      try {
+        await handleSubmitOtp();
+      } catch (error) {
+        console.error("Error during OTP submission:", error);
+      } finally {
+        setIsLoading(false);
+      }
     } else {
       setIsOtpValid(false);
     }
@@ -198,8 +206,9 @@ const OtpInputForm = ({
             // style={buttonStyle}
             onClick={handleSubmit}
             id="myBtn"
+            disabled={isLoading}
           >
-            Verify
+            {isLoading ? "Verifying..." : "Verify"}
           </FormButton>
         </div>
       </div>

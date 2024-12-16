@@ -29,6 +29,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
   const personalDetails = useSelector((state) => state.app.personalDetails);
   const workDetails = useSelector((state) => state.app.workDetails);
   const panDetails = useSelector((state) => state.app.panDetails);
+  const { lenderName } = useSelector((state) => state.app.lead);
   const isLenderCheckCalled = useRef(false); 
   const isSubmitLeadCalled = useRef(false); 
   const mobileNumber = user?.contact_phone || "unknown";
@@ -89,7 +90,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
 
       if (response.status === "Success" && response.data?.status === true) {
         setUserClickData({
-          event_name: `perapp-api-success-offer-click`,
+          event_name: `perapp-api-success-offer-click-lender-${lenderName || "unknown"}`,
           user_id: mobileNumber || "unknown", 
         });
         const lenderOffer = response.data;
@@ -156,7 +157,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
 
       if (res.status === "Success" && res.data.lead) {
         setUserClickData({
-          event_name: `website-lead-api-call`,
+          event_name: `website-lead-api-call-lender-${lenderName || "unknown"}`,
           user_id: mobileNumber || "unknown", 
         });
         setLeadId(res.data.lead._id);

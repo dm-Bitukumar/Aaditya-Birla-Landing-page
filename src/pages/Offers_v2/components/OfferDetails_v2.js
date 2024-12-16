@@ -155,7 +155,13 @@ const OfferDetailsSegment = () => {
               .slice(1, show ? 1000 : 4)
               .map((e) => (
                 <div key={e._id} className="">
-                  <OfferTile small offer={e} source={source} />
+                  <OfferTile 
+                    small
+                    offer={e} 
+                    source={source} 
+                    eventName="offer-apply-button-v2" 
+                    userId={user?.phone_number}
+                  />
                 </div>
               ))}
           </div>
