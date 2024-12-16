@@ -170,7 +170,7 @@ const WorkDetailsPage = ({ setStep, data: initialData = {}, handleDataChange, le
         );
 
         const response = await callApi(
-          `v1/preapproved_lead/${leadId}/update`, 
+          `v1/preapproved_lead/${leadId}/update_with_no_resp`, 
           "post",
           {
             preapproved_lead: {

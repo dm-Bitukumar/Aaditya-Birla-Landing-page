@@ -4,16 +4,25 @@ import { useSelector } from "react-redux";
 import callApi from "../../../utility/apiCaller";
 import OfferTile from "./OfferTileNew";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 const OffersPage = ({ setStep, setLeadId  }) => {
   const [preLoans, setPreLoans] = useState(null);
   const [contactName, setContactName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-
+  const [affId, setAffId] = useState(null);
+  const [utmMedium, setUtmMedium] = useState(null);
+  const [searchParams] = useSearchParams();
   const lead = useSelector((state) => state.app.lead);
-  const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
-  // const mobileNumber = "9922187005";
+
+  // const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
+  const mobileNumber = "9922187005";
   const apiCallInProgress = useRef(false); 
+
+  useEffect(() => {
+    setAffId(searchParams.get("aff_id"));
+    setUtmMedium(searchParams.get("utm_medium"));
+  }, [searchParams]);
 
   useEffect(() => {
     if (!lead?.lenderId || apiCallInProgress.current) return;
@@ -81,6 +90,29 @@ const OffersPage = ({ setStep, setLeadId  }) => {
         let str1 = res.data?.preapproved_lead?.contact_name || "Customer";
         let firstName = str1.split(" ")[0];
         setContactName(firstName);
+
+        try {
+          const queryParams = new URLSearchParams(window.location.search);
+          const affId = queryParams.get("aff_id");
+          const utmMedium = queryParams.get("utm_medium");
+  
+          await callApi(
+            `v1/preapproved_lead/${id}/update_with_no_resp`,
+            "post",
+            {
+              preapproved_lead: {
+                aff_id: affId,
+                utm_medium: utmMedium,
+              }
+            },
+            "core"
+          );
+  
+          console.log("aff_id and utm_medium successfully updated.");
+        } catch (updateError) {
+          console.error("Error updating aff_id and utm_medium:", updateError);
+          toast.warn("Offer fetched successfully, but failed to update user details.");
+        }
       } else {
         console.error("Failed to fetch preapproved loan data.");
       }
