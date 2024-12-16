@@ -91,7 +91,8 @@ const Verification = ({ formData, setFormData, ...props }) => {
             event_name: "otp-sent-check-offers-v2",
             user_id: mobile || "unknown",
           });
-          await callApi(
+
+          callApi(
             "v1/drip_trigger/track",
             "post",
             {
@@ -100,7 +101,8 @@ const Verification = ({ formData, setFormData, ...props }) => {
               },
             },
             "core"
-          );
+          ).catch((err) => console.error("Failed to trigger drip API:", err));
+
           setIsOtpGenerated(true);
         }
       } catch (error) {
@@ -165,7 +167,8 @@ const Verification = ({ formData, setFormData, ...props }) => {
           event_name: "verify-otp-check-offer-v2",
           user_id: mobile || "unknown",
         });
-        await callApi(
+
+        callApi(
           "v1/drip_trigger/track",
           "post",
           {
@@ -176,7 +179,8 @@ const Verification = ({ formData, setFormData, ...props }) => {
             },
           },
           "core"
-        );
+        ).catch((err) => console.error("Failed to trigger drip API:", err));
+        
         const processLeadResponse = await callApi(
           "v1/lead/process-lead-for-loan-v2",
           "post",

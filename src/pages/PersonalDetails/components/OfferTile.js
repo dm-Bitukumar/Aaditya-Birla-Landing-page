@@ -35,6 +35,22 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
     }
   };
 
+  const triggerDripEvent = (userId, offerSelected = false, offerSelectedAt = null) => {
+    callApi(
+      "v1/drip_trigger/track",
+      "post",
+      {
+        drip_trigger: {
+          user_id: userId || "unknown",
+          offer_selected: offerSelected,
+          offer_selected_at: offerSelectedAt,
+        },
+      },
+      "core"
+    )
+      .catch((err) => console.error("Failed to call drip trigger API:", err));
+  };  
+
   const handleClick = async () => {
     console.log("Event Name:", eventName || "offer-apply-button");
     console.log("User ID (Mobile Number):", userId || "unknown");
@@ -48,24 +64,9 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
       setShowModel(true);
       return;
     }
+
     if (eventName === "offer-apply-button-v2") {
-      try {
-        await callApi(
-          "v1/drip_trigger/track",
-          "post",
-          {
-            drip_trigger: {
-              user_id: userId || "unknown",
-              offer_selected: true,
-              offer_selected_at: moment().utcOffset(330).toDate(),
-            },
-          },
-          "core"
-        );
-        console.log("Drip trigger API called successfully");
-      } catch (err) {
-        console.error("Failed to call drip trigger API:", err);
-      }
+      triggerDripEvent(userId, true, moment().utcOffset(330).toDate());
     }
 
     setUserClickData({ 
