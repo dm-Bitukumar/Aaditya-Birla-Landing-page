@@ -51,7 +51,7 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
       .catch((err) => console.error("Failed to call drip trigger API:", err));
   };  
 
-  const handleClick = async () => {
+  const handleClick = () => {
     console.log("Event Name:", eventName || "offer-apply-button");
     console.log("User ID (Mobile Number):", userId || "unknown");
 
