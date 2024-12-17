@@ -15,8 +15,8 @@ const OffersPage = ({ setStep, setLeadId  }) => {
   const [searchParams] = useSearchParams();
   const lead = useSelector((state) => state.app.lead);
 
-  // const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
-  const mobileNumber = "9922187005";
+  const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
+  // const mobileNumber = "9922187005";
   const apiCallInProgress = useRef(false); 
 
   useEffect(() => {
