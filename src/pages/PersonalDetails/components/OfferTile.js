@@ -36,8 +36,8 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
   };
 
   const handleClick = () => {
-    console.log("Event Name:", eventName || "offer-apply-button");
-    console.log("User ID (Mobile Number):", userId || "unknown");
+    // console.log("Event Name:", eventName || "offer-apply-button");
+    // console.log("User ID (Mobile Number):", userId || "unknown");
 
     if (offer.lender_name === "Prefr") {
       setShow(true);
