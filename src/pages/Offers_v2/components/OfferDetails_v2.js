@@ -27,11 +27,14 @@ const OfferDetailsSegment = () => {
   }, [params]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (leadId) fetchOffers();
-    }, 5000);
-
-    return () => clearInterval(timer);
+    if(leadId) {
+      fetchOffers();
+      const timer = setInterval(() => {
+        if (leadId) fetchOffers();
+      }, 5000);
+    
+      return () => clearInterval(timer);
+    }
   }, [leadId]);
 
   useEffect(() => {
@@ -55,6 +58,7 @@ const OfferDetailsSegment = () => {
   };
 
   const fetchOffers = async () => {
+    // console.log("Fetch Offers Triggered. isFinished:", isFinished);
     if (isFinished) return;
   
     try {
@@ -84,13 +88,22 @@ const OfferDetailsSegment = () => {
 
         const leadName = res.data.lead?.contact_name;
         setContactName(leadName || "Dear Customer")
+        // console.log("All Response:" , res.data.lead?.all_responses);
+        // console.log("Total Response:" , res.data.lead?.total_response);
 
         if (filteredOffers.length > 0) {
           setIsFinished(true);
-        } else if (res.data.lead?.all_responses) {
-          setIsFinished(
-            res.data.lead?.all_responses === res.data.lead?.total_response
-          );
+        } else if (res.data.lead?.all_responses > 0) {
+          const responseCount = res.data.lead?.all_responses === res.data.lead?.total_response;
+          setIsFinished(responseCount);
+
+          if (responseCount) {
+            setIsFinished(true);
+            setUserClickData({
+              event_name: "no-respone-found-v2",
+              user_id: leadId || "unknown",
+            });
+          }
         }
       }
     } catch (err) {
@@ -137,7 +150,13 @@ const OfferDetailsSegment = () => {
             .slice(0, 1)
             .map((e) => (
               <div key={e._id} className="my-4">
-                <OfferTile small={false} offer={e} source={source} />
+                <OfferTile 
+                  small={false} 
+                  offer={e} 
+                  source={source} 
+                  eventName="offer-apply-button-v2" 
+                  userId={user?.phone_number}
+                />
               </div>
             ))}
           <div

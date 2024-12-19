@@ -90,7 +90,7 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
 
       if (response.status === "Success" && response.data?.status === true) {
         setUserClickData({
-          event_name: `perapp-api-success-offer-click-lender-${lenderName || "unknown"}`,
+          event_name: `perapp-api-success-offer-show-lender-${lenderName || "unknown"}`,
           user_id: mobileNumber || "unknown", 
         });
         const lenderOffer = response.data;
@@ -318,7 +318,12 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
             .slice(0, 1)
             .map((offer) => (
               <div key={offer._id} className="my-4">
-                <OfferTile small={false} offer={offer} />
+                <OfferTile 
+                  small={false} 
+                  offer={offer} 
+                  userId={mobileNumber || "unknown"}
+                  eventName={`offer-apply-btn-press-lender-${offer.lender_name || "unknown"}`}
+                />
               </div>
             ))}
 
@@ -336,7 +341,12 @@ const OfferSearchPage = ({ pancard, offerSearchData }) => {
               .slice(1, show ? offers.length : 4)
               .map((offer) => (
                 <div key={offer._id} className="">
-                  <OfferTile small offer={offer} />
+                  <OfferTile 
+                    small 
+                    offer={offer} 
+                    userId={mobileNumber || "unknown"}
+                    eventName={`offer-apply-btn-press-lender-${offer.lender_name || "unknown"}`}
+                  />
                 </div>
               ))}
           </div>
