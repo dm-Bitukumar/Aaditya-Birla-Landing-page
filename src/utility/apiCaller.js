@@ -24,9 +24,11 @@ export default async function callApi(
   let headers = {
     "content-type": "application/json",
   };
-
+  let trackId = window.localStorage.getItem("track_id");
   if (token) headers.Authorization = `Bearer ${token}`;
-
+  if (trackId) {
+    headers['x-client-id'] = trackId;
+  }
   return await axios({
     url: `${
       service === "core"
