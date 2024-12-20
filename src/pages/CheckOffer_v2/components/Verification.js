@@ -15,7 +15,14 @@ import { setLead, login } from "../../../store/app/appReducer";
 import moment from "moment/moment";
 import { triggerDripApi } from "../../../utility/dripApiUtils";
 
-const Verification = ({ formData, setFormData, ...props }) => {
+const Verification = ({
+  refName,
+  refId,
+  campaignName,
+  formData,
+  setFormData,
+  ...props
+}) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
@@ -56,6 +63,20 @@ const Verification = ({ formData, setFormData, ...props }) => {
     return isValid;
   };
 
+  const getQueryParams = () => {
+    let query = "";
+    if (refName) {
+      query = `${query}ref_name=${refName}`;
+    }
+    if (refId) {
+      query = `${query}ref_id=${refId}`;
+    }
+    if (campaignName) {
+      query = `${query}campaign_name=${campaignName}`;
+    }
+    return `?${query}`;
+  };
+
   const handleMobileChange = (event) => {
     const { value } = event.target;
     setIsMobileValid(true);
@@ -72,14 +93,14 @@ const Verification = ({ formData, setFormData, ...props }) => {
         hideProgressBar: true,
         type: "error",
       });
-      return; 
+      return;
     }
 
     if (isValid) {
       setIsLoading(true);
       try {
         const res = await callApi(
-          "v1/sms/send-otp",
+          `v1/sms/send-otp${getQueryParams()}`,
           "post",
           {
             contact_phone: mobile,
@@ -110,7 +131,6 @@ const Verification = ({ formData, setFormData, ...props }) => {
     }
   };
 
-
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
   };
@@ -121,7 +141,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
       user_id: mobile || "unknown",
     });
     try {
-      setIsLoading(false); 
+      setIsLoading(false);
       const res = await callApi(
         "v1/sms/send-otp",
         "post",
@@ -137,7 +157,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
     } catch (err) {
       console.log(err);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
@@ -167,7 +187,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
           is_verified: true,
           verified_at: moment().utcOffset(330).toDate(),
         });
-        
+
         const processLeadResponse = await callApi(
           "v1/lead/process-lead-for-loan-v2",
           "post",
@@ -179,9 +199,12 @@ const Verification = ({ formData, setFormData, ...props }) => {
           },
           "core",
           res.data.token
-        )
+        );
 
-        if (processLeadResponse["status"] === "Success" && processLeadResponse.data.lead) {
+        if (
+          processLeadResponse["status"] === "Success" &&
+          processLeadResponse.data.lead
+        ) {
           dispatch(setLead(processLeadResponse.data.lead));
           dispatch(
             login({
@@ -192,7 +215,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
 
           navigate(
             `/offers-v2?lid=${processLeadResponse.data.lead._id}&source=${source}`
-          );          
+          );
         }
       }
     } catch (err) {
@@ -277,7 +300,6 @@ const Verification = ({ formData, setFormData, ...props }) => {
             label={"Mobile Number"}
             errorMessage={"Please enter a valid Mobile Number"}
           />
-
           <p
             style={{
               fontSize: "9px",
@@ -288,7 +310,6 @@ const Verification = ({ formData, setFormData, ...props }) => {
           >
             *DigitMoney is associated with RBI-registered Banks & NBFCs only
           </p>
-
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
           <div className="">
             <FormButton
