@@ -63,18 +63,32 @@ const Verification = ({
     return isValid;
   };
 
+  // const getQueryParams = () => {
+  //   let query = "";
+  //   if (refName) {
+  //     query = `${query}ref_name=${refName}`;
+  //   }
+  //   if (refId) {
+  //     query = `${query}ref_id=${refId}`;
+  //   }
+  //   if (campaignName) {
+  //     query = `${query}campaign_name=${campaignName}`;
+  //   }
+  //   return `?${query}`;
+  // };
+
   const getQueryParams = () => {
-    let query = "";
+    const params = [];
     if (refName) {
-      query = `${query}ref_name=${refName}`;
+      params.push(`ref_name=${refName}`);
     }
     if (refId) {
-      query = `${query}ref_id=${refId}`;
+      params.push(`ref_id=${refId}`);
     }
     if (campaignName) {
-      query = `${query}campaign_name=${campaignName}`;
+      params.push(`campaign_name=${campaignName}`);
     }
-    return `?${query}`;
+    return `?${params.join("&")}`;
   };
 
   const handleMobileChange = (event) => {
