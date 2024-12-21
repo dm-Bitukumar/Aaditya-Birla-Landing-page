@@ -157,7 +157,7 @@ const Verification = ({
     try {
       setIsLoading(false);
       const res = await callApi(
-        "v1/sms/send-otp",
+        `v1/sms/send-otp${getQueryParams()}`,
         "post",
         {
           contact_phone: mobile,
