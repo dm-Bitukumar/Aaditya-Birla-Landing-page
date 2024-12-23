@@ -63,20 +63,6 @@ const Verification = ({
     return isValid;
   };
 
-  // const getQueryParams = () => {
-  //   let query = "";
-  //   if (refName) {
-  //     query = `${query}ref_name=${refName}`;
-  //   }
-  //   if (refId) {
-  //     query = `${query}ref_id=${refId}`;
-  //   }
-  //   if (campaignName) {
-  //     query = `${query}campaign_name=${campaignName}`;
-  //   }
-  //   return `?${query}`;
-  // };
-
   const getQueryParams = () => {
     const params = [];
     if (refName) {
