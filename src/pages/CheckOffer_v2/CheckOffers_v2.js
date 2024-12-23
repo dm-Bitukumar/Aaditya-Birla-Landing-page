@@ -19,7 +19,7 @@ const CheckOffers_v2 = () => {
         maxHeight: "100vh",
       }}
     >
-      <Verification refName={"finbud"} refId={"check-offers-v2"} campaignName={"finbud"} formData={formData} setFormData={setFormData} />
+      <Verification formData={formData} setFormData={setFormData} />
     </div>
   );
 };

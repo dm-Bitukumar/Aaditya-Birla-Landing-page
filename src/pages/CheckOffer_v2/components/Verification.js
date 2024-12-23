@@ -15,24 +15,21 @@ import { setLead, login } from "../../../store/app/appReducer";
 import moment from "moment/moment";
 import { triggerDripApi } from "../../../utility/dripApiUtils";
 
-const Verification = ({
-  refName,
-  refId,
-  campaignName,
-  formData,
-  setFormData,
-  ...props
-}) => {
+const Verification = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [mobile, setMobile] = useState("");
   const [isMobileValid, setIsMobileValid] = useState(true);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [source, setSource] = useState("");
   const [params] = useSearchParams();
+  const [refName, setRefName] = useState("");
+  const [refId, setRefId] = useState("");
+  const CAMPAIGN_NAME = "finbud-flow-check-offers-v2";
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -63,21 +60,7 @@ const Verification = ({
     return isValid;
   };
 
-  // const getQueryParams = () => {
-  //   let query = "";
-  //   if (refName) {
-  //     query = `${query}ref_name=${refName}`;
-  //   }
-  //   if (refId) {
-  //     query = `${query}ref_id=${refId}`;
-  //   }
-  //   if (campaignName) {
-  //     query = `${query}campaign_name=${campaignName}`;
-  //   }
-  //   return `?${query}`;
-  // };
-
-  const getQueryParams = () => {
+  const getQueryParams = (refName, refId) => {
     const params = [];
     if (refName) {
       params.push(`ref_name=${refName}`);
@@ -85,9 +68,7 @@ const Verification = ({
     if (refId) {
       params.push(`ref_id=${refId}`);
     }
-    if (campaignName) {
-      params.push(`campaign_name=${campaignName}`);
-    }
+    params.push(`campaign_name=${CAMPAIGN_NAME}`);
     return `?${params.join("&")}`;
   };
 
@@ -99,6 +80,9 @@ const Verification = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const currentRefName = "mobile_verification";
+    const currentRefId = `mobile_${mobile}`;
 
     let isValid = handleValidation();
 
@@ -114,7 +98,7 @@ const Verification = ({
       setIsLoading(true);
       try {
         const res = await callApi(
-          `v1/sms/send-otp${getQueryParams()}`,
+          `v1/sms/send-otp${getQueryParams(currentRefName, currentRefId)}`,
           "post",
           {
             contact_phone: mobile,
@@ -150,6 +134,9 @@ const Verification = ({
   };
 
   const handleResendOtp = async () => {
+    const currentRefName = "mobile_verification_resend";
+    const currentRefId = `mobile_${mobile}`;
+
     setUserClickData({
       event_name: "resend-otp-check-offer-v2",
       user_id: mobile || "unknown",
@@ -157,7 +144,7 @@ const Verification = ({
     try {
       setIsLoading(false);
       const res = await callApi(
-        `v1/sms/send-otp${getQueryParams()}`,
+        `v1/sms/send-otp${getQueryParams(currentRefName, currentRefId)}`,
         "post",
         {
           contact_phone: mobile,
@@ -178,6 +165,9 @@ const Verification = ({
   const handleSubmitOtp = async () => {
     setIsLoading(true);
     try {
+      const currentRefName = "otp_validation";
+      const currentRefId = `mobile_${mobile}`;
+
       const ipAddress = await fetchIpAddress();
 
       const res = await callApi(
@@ -203,7 +193,10 @@ const Verification = ({
         });
 
         const processLeadResponse = await callApi(
-          "v1/lead/process-lead-for-loan-v2",
+          `v1/lead/process-lead-for-loan-v2${getQueryParams(
+            currentRefName,
+            currentRefId
+          )}`,
           "post",
           {
             contact_phone: mobile,
