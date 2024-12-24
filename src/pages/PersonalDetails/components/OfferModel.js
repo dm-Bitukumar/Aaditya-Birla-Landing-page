@@ -6,6 +6,8 @@ import FormInput from "../../../components/Form/FormInput";
 import numberToWords from "../../../utility/numberToWords";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
+import callApi from "../../../utility/apiCaller";
+import { toast } from "react-toastify";
 
 const Model = ({
   show,
@@ -19,15 +21,16 @@ const Model = ({
   const [salaryInWords, setSalaryInWords] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleMonthlyIncome = (e) => {
-    const value = e.target.value.replace(/[^\d]/g, ""); 
+    const value = e.target.value.replace(/[^\d]/g, "");
     setMonthlySalary(value ? convertNumberToIndianFormat(value) : "");
 
     if (value) {
-      const words = numberToWords(Number(value)); 
+      const words = numberToWords(Number(value));
       setSalaryInWords(words.trim());
-      setErrors(""); 
+      setErrors("");
       setErrorMessage("");
     } else {
       setSalaryInWords("");
@@ -43,10 +46,44 @@ const Model = ({
     return true;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateInput()) {
-      setUserClickData({ event_name: "agree-btn-pressed-prefr" });
-      handleClick();
+      setIsProcessing(true);
+
+      try {
+        const payload = {
+          prefr_monthly_income: monthlySalary.replace(/[^0-9]/g, ""),
+          lead_id: offer.lead_id,
+        };
+
+        const response = await callApi(
+          "v1/lead/prefr-redirection-link",
+          "post",
+          payload,
+          "core"
+        );
+
+        if (response.status === "Success") {
+          setUserClickData({
+            event_name: `redirection-link-fetched-successfully`,
+          });
+          const redirectionUrl = response.data.result;
+          window.location.href = redirectionUrl;
+        } else {
+          console.error(
+            "API Error:",
+            response.message || "Unknown error occurred."
+          );
+          toast.error(
+            response.message || "Failed to fetch the redirection link."
+          );
+          setIsProcessing(false);
+        }
+      } catch (error) {
+        console.error("Error in API call:", error);
+        toast.error("Something went wrong. Please try again.");
+        setIsProcessing(false);
+      }
     }
   };
 
@@ -99,17 +136,20 @@ const Model = ({
                             src="/assets/icons/income.png"
                             style={{ height: "25px" }}
                           />
-                          }
-                          label="Monthly Income"
-                        />
-                        {salaryInWords && (
-                          <p className="text-sm text-gray-600">
-                            <span className="font-medium">{salaryInWords}</span>
-                          </p>
-                        )}
-                    </div>  
-                    <p className="mb-2">  
-                      To process your personal loan application today, we required verification of your credit information Click "I agree" to speed up the loan process and receive Funds today.
+                        }
+                        label="Monthly Income"
+                      />
+                      {salaryInWords && (
+                        <p className="text-sm text-gray-600">
+                          <span className="font-medium">{salaryInWords}</span>
+                        </p>
+                      )}
+                    </div>
+                    <p className="mb-2">
+                      To process your personal loan application today, we
+                      required verification of your credit information Click "I
+                      agree" to speed up the loan process and receive Funds
+                      today.
                     </p>
                     <label>
                       <input
@@ -121,15 +161,18 @@ const Model = ({
                         value="Yes"
                         style={{ fontSize: "15px", marginRight: "4px" }}
                       />
-                      I hereby appoint Prefr & its Lending Partners as authorized representatives to receive my credit information from CIBIL/CRIF Highmark(bureau).
+                      I hereby appoint Prefr & its Lending Partners as
+                      authorized representatives to receive my credit
+                      information from CIBIL/CRIF Highmark(bureau).
                     </label>
                     <div className="flex items-center justify-center">
                       <FormButton
                         className={"!w-24"}
                         small
                         onClick={handleSubmit}
+                        disabled={isProcessing}
                       >
-                        I agree
+                        {isProcessing ? "Processing..." : "I agree"}
                       </FormButton>
                     </div>
                   </div>
