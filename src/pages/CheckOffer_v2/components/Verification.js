@@ -81,7 +81,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const currentRefName = "mobile_verification";
+    const currentRefName = "finbud";
     const currentRefId = `mobile_${mobile}`;
 
     let isValid = handleValidation();
@@ -134,7 +134,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
   };
 
   const handleResendOtp = async () => {
-    const currentRefName = "mobile_verification_resend";
+    const currentRefName = "finbud";
     const currentRefId = `mobile_${mobile}`;
 
     setUserClickData({
@@ -165,7 +165,7 @@ const Verification = ({ formData, setFormData, ...props }) => {
   const handleSubmitOtp = async () => {
     setIsLoading(true);
     try {
-      const currentRefName = "otp_validation";
+      const currentRefName = "finbud";
       const currentRefId = `mobile_${mobile}`;
 
       const ipAddress = await fetchIpAddress();
