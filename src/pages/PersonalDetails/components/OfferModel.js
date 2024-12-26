@@ -23,6 +23,16 @@ const Model = ({
   const [errors, setErrors] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
 
+  const fetchIpAddress = async () => {
+    try {
+      const response = await fetch("https://api.ipify.org?format=json");
+      const data = await response.json();
+      return data.ip;
+    } catch (err) {
+      return "";
+    }
+  };
+
   const handleMonthlyIncome = (e) => {
     const value = e.target.value.replace(/[^\d]/g, "");
     setMonthlySalary(value ? convertNumberToIndianFormat(value) : "");
@@ -51,9 +61,12 @@ const Model = ({
       setIsProcessing(true);
 
       try {
+        const ipAddress = await fetchIpAddress();
         const payload = {
           prefr_monthly_income: monthlySalary.replace(/[^0-9]/g, ""),
           lead_id: offer.lead_id,
+          prefr_ip_address: ipAddress,
+          prefr_kyc_consent: isTncChecked,
         };
 
         const response = await callApi(
