@@ -56,12 +56,12 @@ const OffersPage = () => {
             "core"
           );
 
-          const res3 = await callApi(
-            `v1/ican_api/data-send-to-ClearTouch`,
-            "post",
-            { lead: transformedLead },
-            "core"
-          );
+          // const res3 = await callApi(
+          //   `v1/ican_api/data-send-to-ClearTouch`,
+          //   "post",
+          //   { lead: transformedLead },
+          //   "core"
+          // );
 
           // Redirect to the desired page
           navigate(`/offers?lid=${lid}&source=${source}`);
