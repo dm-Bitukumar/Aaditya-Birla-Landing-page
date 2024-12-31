@@ -15,6 +15,7 @@ import Term from "./pages/Term";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import OffersPage from "./pages/Offers/Offerspage";
+import OffersPageNew from "./pages/OffersNew/Offerpagenew";
 import PreLoan from "./pages/PreApprovedLoan/PreApprovedLoan";
 import { v4 as uuidv4 } from "uuid";
 import { SESSION_ID, TRACK_ID } from "./utility/enum";
@@ -100,7 +101,7 @@ function App() {
         <Route path={"/apply"} element={<PersonalDetails />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
         <Route path={"/offers"} element={<OffersPage />} />
-
+        <Route path={"/offersv2"} element={<OffersPageNew />} />
         <Route path={"/offers-v2"} element={<OffersPage_v2 />} />
 
         <Route path={"/rtg"} element={<PreLoan />} />
@@ -110,7 +111,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/preapprove" element={<PreApprove />} />
-        <Route path="/loan-offers" element={<PreApprovedNew />} />   
+        <Route path="/loan-offers" element={<PreApprovedNew />} />
         <Route path="/fb/lp01" element={<NiroPersonalLoan />} />
         <Route path="/pa-lt" element={<LtPersonalLoan />} />
         <Route path="/pa-ab" element={<AdityaBirlaPersonalLoan />} />
@@ -125,10 +126,8 @@ function App() {
         <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
 
-
-        <Route path="/bajaj-finserv" element={<BajajFinserv />} />  
+        <Route path="/bajaj-finserv" element={<BajajFinserv />} />
         <Route path="/check-offers-v2" element={<CheckOffers_v2 />} />
-
       </Routes>
     </>
   );
