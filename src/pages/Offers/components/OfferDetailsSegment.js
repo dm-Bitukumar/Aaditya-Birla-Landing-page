@@ -38,7 +38,15 @@ const OfferDetailsSegment = () => {
         localOffers = localOffers.filter((e) =>
           activeLenders.map((e) => e._id).includes(e.lender_id)
         );
-        setOffers(localOffers);
+        let newObjectMap = {};
+        let newOffers = [];
+        localOffers.forEach(item => {
+          if (!newObjectMap[item.lender_id]) {
+            newOffers.push(item); 
+            newObjectMap[item.lender_id] = 1;  
+          }
+        });
+        setOffers(newOffers);
         setLead(res.data.lead);
       }
     } catch (err) {

@@ -67,17 +67,26 @@ export async function saveMetaData() {
 export async function setUserClickData(data) {
   const trackId = localStorage.getItem(TRACK_ID);
   const sessionId = sessionStorage.getItem(SESSION_ID);
-  await callApi(
-    "v1/clicks/add-custom-event",
-    "post",
-    {
-      click: {
-        tracking_id: trackId,
-        session_id: sessionId,
-        event_name: data?.event_name,
-        user_id: data?.user_id,
+
+  try {
+    await callApi(
+      "v1/clicks/add-custom-event",
+      "post",
+      {
+        click: {
+          tracking_id: trackId,
+          session_id: sessionId,
+          event_name: data?.event_name,
+          user_id: data?.user_id,
+        },
       },
-    },
-    "jasoos"
-  );
+      "jasoos"
+    );
+  } catch (err) {}
+
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", data?.event_name ?? "user_click-event", {
+      user_id: data?.user_id ?? "unknown user",
+    });
+  }
 }
