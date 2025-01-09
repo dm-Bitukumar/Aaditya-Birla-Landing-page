@@ -181,7 +181,7 @@ const Form = ({ formData, setFormData, ...props }) => {
                     },
                     offers: offers,
                   },
-                  "url"
+                  "core"
                 );
                 navigate(
                   `/offers?lid=${response.data.lead._id}&source=${source}`
