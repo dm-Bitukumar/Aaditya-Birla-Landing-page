@@ -178,8 +178,8 @@ const Form = ({ formData, setFormData, ...props }) => {
                       id: leadData._id,
                       contact_name: leadData.contact_name,
                       contact_phone: leadData.contact_phone,
-                      offers: offers,
                     },
+                    offers: offers,
                   },
                   "url"
                 );
