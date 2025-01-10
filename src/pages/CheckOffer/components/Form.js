@@ -157,32 +157,16 @@ const Form = ({ formData, setFormData, ...props }) => {
               const leadData = response.data.lead;
 
               try {
-                const offersRes = await callApi(
-                  `v1/loan_offer/lead_id/${leadData._id}`,
-                  "get",
-                  {},
-                  "core"
-                );
-
-                const offers =
-                  offersRes.status === "Success"
-                    ? offersRes.data.offers ?? []
-                    : [];
-
                 await callApi(
-                  "v1/ican_api/data-send-with-offers-to-ican_with_dynamic_tag",
+                  "v1/ican_api/data-send-with-offers-to-ican_for_priority",
                   "post",
                   {
                     priority: "P1",
-                    lead: {
-                      id: leadData._id,
-                      contact_name: leadData.contact_name,
-                      contact_phone: leadData.contact_phone,
-                    },
-                    offers: offers,
+                    lead_id: leadData._id,
                   },
                   "core"
                 );
+                
                 navigate(
                   `/offers?lid=${response.data.lead._id}&source=${source}`
                 );
