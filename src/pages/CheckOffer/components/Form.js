@@ -29,6 +29,30 @@ const Form = ({ formData, setFormData, ...props }) => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
+  useEffect(() => {
+    const leadId = params.get("lid");
+    const leadPushedKey = "leadPushedForICAN";
+  
+    if (leadId && !localStorage.getItem(leadPushedKey)) {
+      (async () => {
+        try {
+          await callApi(
+            "v1/ican_api/data-send-with-offers-to-ican_for_priority",
+            "post",
+            {
+              priority: "P0",
+              lead_id: leadId,
+            },
+            "core"
+          );
+          localStorage.setItem(leadPushedKey, "true");
+        } catch (error) {
+          console.error("Error in P0 API call:", error);
+        }
+      })();
+    }
+  }, [params]);  
+
   const handleValidation = () => {
     let isValid = true;
 
@@ -166,7 +190,7 @@ const Form = ({ formData, setFormData, ...props }) => {
                   },
                   "core"
                 );
-                
+
                 navigate(
                   `/offers?lid=${response.data.lead._id}&source=${source}`
                 );
