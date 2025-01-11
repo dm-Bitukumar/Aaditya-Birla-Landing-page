@@ -32,12 +32,12 @@ const Form = ({ formData, setFormData, ...props }) => {
   useEffect(() => {
     const leadId = params.get("lid");
     const leadPushedKey = "leadPushedForICAN";
-  
+
     if (leadId && !localStorage.getItem(leadPushedKey)) {
       (async () => {
         try {
           await callApi(
-            "v1/ican_api/data-send-with-offers-to-ican_for_priority",
+            "v1/ican_api/ican_journey_tag_update",
             "post",
             {
               priority: "P0",
@@ -51,7 +51,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         }
       })();
     }
-  }, [params]);  
+  }, [params]);
 
   const handleValidation = () => {
     let isValid = true;
@@ -182,7 +182,17 @@ const Form = ({ formData, setFormData, ...props }) => {
 
               try {
                 await callApi(
-                  "v1/ican_api/data-send-with-offers-to-ican_for_priority",
+                  "v1/ican_api/data-send-with-offers-to-ican_for_update",
+                  "post",
+                  {
+                    priority: "P1",
+                    lead_id: leadData._id,
+                  },
+                  "core"
+                );
+
+                await callApi(
+                  "v1/ican_api/ican_journey_tag_update",
                   "post",
                   {
                     priority: "P1",
