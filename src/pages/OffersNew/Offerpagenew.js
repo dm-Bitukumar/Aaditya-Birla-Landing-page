@@ -65,6 +65,8 @@ const OffersPage = () => {
 
           // Redirect to the desired page
           navigate(`/offers?lid=${lid}&source=${source}`);
+        } else {
+          navigate(`/personal-loan?lid=${lid}&source=${source}`);
         }
       } catch (error) {
         console.error("Error during API calls or navigation:", error);
