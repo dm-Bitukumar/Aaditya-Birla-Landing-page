@@ -29,6 +29,30 @@ const Form = ({ formData, setFormData, ...props }) => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
+  useEffect(() => {
+    const leadId = params.get("lid");
+    const leadPushedKey = "leadPushedForICAN";
+
+    if (leadId && !localStorage.getItem(leadPushedKey)) {
+      (async () => {
+        try {
+          await callApi(
+            "v1/ican_api/ican_journey_tag_update",
+            "post",
+            {
+              priority: "P0",
+              lead_id: leadId,
+            },
+            "core"
+          );
+          localStorage.setItem(leadPushedKey, "true");
+        } catch (error) {
+          console.error("Error in P0 API call:", error);
+        }
+      })();
+    }
+  }, [params]);
+
   const handleValidation = () => {
     let isValid = true;
 
@@ -126,10 +150,10 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
-    // todo submit logic
     setUserClickData({
       event_name: "verify-otp-check-offer-loan-page",
     });
+
     try {
       const res = await callApi(
         "v1/sms/validate-otp",
@@ -142,7 +166,7 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
 
       if (res["status"] === "Success") {
-        await callApi(
+        const leadResponse = await callApi(
           "v1/lead/lead-from-phone",
           "post",
           {
@@ -152,12 +176,38 @@ const Form = ({ formData, setFormData, ...props }) => {
           "core",
           res.data.token
         )
-          .then((response) => {
-            if (response["status"] === "Success") {
-              if (response.data.lead)
+          .then(async (response) => {
+            if (response["status"] === "Success" && response.data.lead) {
+              const leadData = response.data.lead;
+
+              try {
+                await callApi(
+                  "v1/ican_api/data-send-with-offers-to-ican_for_update",
+                  "post",
+                  {
+                    priority: "P1",
+                    lead_id: leadData._id,
+                  },
+                  "core"
+                );
+
+                await callApi(
+                  "v1/ican_api/ican_journey_tag_update",
+                  "post",
+                  {
+                    priority: "P1",
+                    lead_id: leadData._id,
+                  },
+                  "core"
+                );
+
                 navigate(
                   `/offers?lid=${response.data.lead._id}&source=${source}`
                 );
+              } catch (offersError) {
+                console.log("Error fetching offers:", offersError);
+                navigate(`/personal-loan?source=${source}`);
+              }
             }
           })
           .catch((e) => navigate(`/personal-loan?source=${source}`));
