@@ -6,27 +6,29 @@ import OfferTile from "./OfferTileNew";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 
-const OffersPage = ({ setStep, setLeadId  }) => {
+const OffersPage = ({ setStep, setLeadId }) => {
   const [preLoans, setPreLoans] = useState(null);
   const [contactName, setContactName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [affId, setAffId] = useState(null);
   const [utmMedium, setUtmMedium] = useState(null);
+  const [ldr, setldr] = useState(null);
   const [searchParams] = useSearchParams();
   const lead = useSelector((state) => state.app.lead);
 
   const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
   // const mobileNumber = "9922187005";
-  const apiCallInProgress = useRef(false); 
+  const apiCallInProgress = useRef(false);
 
   useEffect(() => {
     setAffId(searchParams.get("aff_id"));
     setUtmMedium(searchParams.get("utm_medium"));
+    setldr(searchParams.get("ldr"));
   }, [searchParams]);
 
   useEffect(() => {
     if (!lead?.lenderId || apiCallInProgress.current) return;
-    apiCallInProgress.current = true; 
+    apiCallInProgress.current = true;
     fetchListApiDetails(lead.lenderId, mobileNumber);
   }, [lead]);
 
@@ -50,12 +52,15 @@ const OffersPage = ({ setStep, setLeadId  }) => {
         "core"
       );
 
-      if (res.status === "Success" && res.data?.preapproved_leadList?.length > 0) {
+      if (
+        res.status === "Success" &&
+        res.data?.preapproved_leadList?.length > 0
+      ) {
         const fetchedLeadId = res.data.preapproved_leadList[0]?._id;
 
         if (fetchedLeadId) {
-          setLeadId(fetchedLeadId); 
-          fetchPreApprovedLoan(fetchedLeadId); 
+          setLeadId(fetchedLeadId);
+          fetchPreApprovedLoan(fetchedLeadId);
         } else {
           console.error("No valid lead ID found in the response.");
           setIsLoading(false);
@@ -70,7 +75,7 @@ const OffersPage = ({ setStep, setLeadId  }) => {
       toast.error("Failed to fetch preapproved loans. Please try again.");
       setIsLoading(false);
     } finally {
-      apiCallInProgress.current = false; 
+      apiCallInProgress.current = false;
     }
   };
 
@@ -103,15 +108,17 @@ const OffersPage = ({ setStep, setLeadId  }) => {
               preapproved_lead: {
                 aff_id: affId,
                 utm_medium: utmMedium,
-              }
+              },
             },
             "core"
           );
-  
+
           console.log("aff_id and utm_medium successfully updated.");
         } catch (updateError) {
           console.error("Error updating aff_id and utm_medium:", updateError);
-          toast.warn("Offer fetched successfully, but failed to update user details.");
+          toast.warn(
+            "Offer fetched successfully, but failed to update user details."
+          );
         }
       } else {
         console.error("Failed to fetch preapproved loan data.");
@@ -151,23 +158,28 @@ const OffersPage = ({ setStep, setLeadId  }) => {
               {contactName || "Dear Customer"}!!
             </span>
           </h3>
-          <h3 className="text-lg text-center">
-            Your pre-approved offers from {lead?.lenderName}
+
+          <h3 className="text-base text-center">
+            {ldr === "1"
+              ? `You are pre-qualified for L&T Finance`
+              : `Your pre-approved offers from ${lead?.lenderName}`}
           </h3>
 
           <div key={preLoans._id} className="my-4">
-            <OfferTile 
-              small={false} 
-              offer={preLoans} 
+            <OfferTile
+              small={false}
+              offer={preLoans}
               setStep={setStep}
-              mobileNumber={mobileNumber} 
+              mobileNumber={mobileNumber}
+              hideData={ldr === "1"}
             />
           </div>
 
           <h4 className="mt-4 text-xs text-center">
-            *These pre-approved offers are subject to change at discretion of Bank / NBFC after
-            receiving all your documents and details. Final offer will be based on risk policy of
-            Bank / NBFC. We do not guarantee that final offer will be same as Pre-approved offer.
+            *These pre-approved offers are subject to change at discretion of
+            Bank / NBFC after receiving all your documents and details. Final
+            offer will be based on risk policy of Bank / NBFC. We do not
+            guarantee that final offer will be same as Pre-approved offer.
           </h4>
         </div>
       )}
