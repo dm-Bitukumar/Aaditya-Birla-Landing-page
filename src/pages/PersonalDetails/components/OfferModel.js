@@ -57,7 +57,7 @@ const Model = ({
   };
 
   const handleSubmit = async () => {
-    console.log("hii");
+    // console.log("hii");
     // if (validateInput()) {
     setIsProcessing(true);
 
