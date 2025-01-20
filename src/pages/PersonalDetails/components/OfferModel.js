@@ -57,47 +57,48 @@ const Model = ({
   };
 
   const handleSubmit = async () => {
-    if (validateInput()) {
-      setIsProcessing(true);
+    // console.log("hii");
+    // if (validateInput()) {
+    setIsProcessing(true);
 
-      try {
-        const ipAddress = await fetchIpAddress();
-        const payload = {
-          prefr_monthly_income: monthlySalary.replace(/[^0-9]/g, ""),
-          lead_id: offer.lead_id,
-          prefr_ip_address: ipAddress,
-          prefr_kyc_consent: isTncChecked,
-        };
+    try {
+      const ipAddress = await fetchIpAddress();
+      const payload = {
+        // prefr_monthly_income: monthlySalary.replace(/[^0-9]/g, ""),
+        lead_id: offer.lead_id,
+        prefr_ip_address: ipAddress,
+        prefr_kyc_consent: isTncChecked,
+      };
 
-        const response = await callApi(
-          "v1/lead/prefr-redirection-link",
-          "post",
-          payload,
-          "core"
+      const response = await callApi(
+        "v1/lead/prefr-redirection-link",
+        "post",
+        payload,
+        "core"
+      );
+
+      if (response.status === "Success") {
+        setUserClickData({
+          event_name: `redirection-link-fetched-successfully`,
+        });
+        const redirectionUrl = response.data.result;
+        window.location.href = redirectionUrl;
+      } else {
+        console.error(
+          "API Error:",
+          response.message || "Unknown error occurred."
         );
-
-        if (response.status === "Success") {
-          setUserClickData({
-            event_name: `redirection-link-fetched-successfully`,
-          });
-          const redirectionUrl = response.data.result;
-          window.location.href = redirectionUrl;
-        } else {
-          console.error(
-            "API Error:",
-            response.message || "Unknown error occurred."
-          );
-          toast.error(
-            response.message || "Failed to fetch the redirection link."
-          );
-          setIsProcessing(false);
-        }
-      } catch (error) {
-        console.error("Error in API call:", error);
-        toast.error("Something went wrong. Please try again.");
+        toast.error(
+          response.message || "Failed to fetch the redirection link."
+        );
         setIsProcessing(false);
       }
+    } catch (error) {
+      console.error("Error in API call:", error);
+      toast.error("Something went wrong. Please try again.");
+      setIsProcessing(false);
     }
+    // }
   };
 
   return (
@@ -137,7 +138,7 @@ const Model = ({
                 <Dialog.Panel className="w-full transition-all transform rounded-lg shadow-xl md:my-8 md:max-w-xl">
                   <div className="w-full h-full px-4 py-3 rounded bg-[#fff]">
                     <div className="mb-4">
-                      <FormInput
+                      {/* <FormInput
                         type="text"
                         placeholder="Enter your salary"
                         value={monthlySalary}
@@ -151,7 +152,7 @@ const Model = ({
                           />
                         }
                         label="Monthly Income"
-                      />
+                      /> */}
                       {salaryInWords && (
                         <p className="text-sm text-gray-600">
                           <span className="font-medium">{salaryInWords}</span>
