@@ -73,8 +73,8 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
       const response = await callApi(
         "v1/sms/send-otp",
         "post",
-        { 
-          contact_phone: mobile, 
+        {
+          contact_phone: mobile,
           kyc_consent: isConsentChecked,
           lender_id: lenderId,
         },
@@ -103,8 +103,8 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
       const response = await callApi(
         "v1/sms/send-otp",
         "post",
-        { 
-          contact_phone: mobile, 
+        {
+          contact_phone: mobile,
           kyc_consent: isConsentChecked,
           lender_id: lenderId,
         },
@@ -130,34 +130,81 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
     }
 
     try {
-      const response = await callApi(
+      const otpResponse = await callApi(
         "v1/sms/validate-otp",
         "post",
-        { 
-          contact_phone: mobile, 
+        {
+          contact_phone: mobile,
           otp,
           lender_id: lenderId,
         },
         "messaging"
       );
-      if (response.status === "Success") {
+
+      if (otpResponse.status === "Success") {
         setUserClickData({
           event_name: `otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
-          user_id: mobile || "unknown", 
+          user_id: mobile || "unknown",
         });
         toast.success("OTP Verified Successfully");
+
         dispatch(
           login({
-            ...response.data.customer,
-            token: response.data.token,
+            ...otpResponse.data.customer,
+            token: otpResponse.data.token,
           })
         );
-        setStep(2); 
+
+        try {
+          const requestBody = {
+            pageNum: 1,
+            pageSize: 1000,
+            filters: {
+              lender_id: lenderId,
+              contact_phone: mobile,
+            },
+          };
+
+          const leadResponse = await callApi(
+            "v1/preapproved_lead/list",
+            "post",
+            requestBody,
+            "core"
+          );
+          if (
+            leadResponse.status === "Success" &&
+            leadResponse?.data?.preapproved_leadList?.length > 0
+          ) {
+            const leadData = leadResponse.data.preapproved_leadList[0];
+
+            try {
+              await callApi(
+                "v1/ican_api/pa-data-send-to-ican",
+                "post",
+                {
+                  lead_id: leadData._id,
+                  lender_id: lenderId,
+                },
+                "core"
+              );
+            } catch (icanError) {
+              console.error("Error sending data to iCan:", icanError);
+            }
+            setStep(2);
+          } else {
+            console.warn("No lead data found:", leadResponse);
+            navigate(`/personal-loan?source=0`);
+          }
+        } catch (leadError) {
+          console.error("Error fetching lead details:", leadError);
+          navigate(`/personal-loan?source=0`);
+        }
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
-    } catch (error) {
-      toast.error("An error occurred while verifying OTP.");
+    } catch (otpError) {
+      console.error("Error occurred while verifying OTP:", otpError);
+      toast.error("An error occurred while verifying OTP. Please try again.");
     }
   };
 
@@ -181,7 +228,8 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
             <br />
           </h1>
           <p className="mb-3 text-center text-sm">
-            • Instant Approvals • Complete Digital Process • Lower Interest Rates
+            • Instant Approvals • Complete Digital Process • Lower Interest
+            Rates
           </p>
 
           <FormInput
