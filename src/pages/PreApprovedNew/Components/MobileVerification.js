@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import FormButton from "../../../components/Buttons/FormButton";
 // import FormButton from "./FormBtnNew";
@@ -24,6 +25,12 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
+
+  const [utmMedium, setUtmMedium] = useState(null);
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    setUtmMedium(searchParams.get("utm_medium"));
+  }, [searchParams]);
 
   const handleValidation = () => {
     let isValid = true;
@@ -184,6 +191,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
                 {
                   lead_id: leadData._id,
                   lender_id: lenderId,
+                  utm_medium: utmMedium,
                 },
                 "core"
               );
