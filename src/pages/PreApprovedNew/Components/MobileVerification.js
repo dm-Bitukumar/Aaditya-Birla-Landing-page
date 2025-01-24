@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import FormButton from "../../../components/Buttons/FormButton";
 // import FormButton from "./FormBtnNew";
@@ -25,16 +26,24 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const navigate = useNavigate();
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
 
+  const [utmMedium, setUtmMedium] = useState(null);
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    setUtmMedium(searchParams.get("utm_medium"));
+  }, [searchParams]);
+
   const handleValidation = () => {
     let isValid = true;
 
-    if (!mobile || mobile.trim() === "") {
+    // if (!mobile || mobile.trim() === "") {
+    //   isValid = false;
+    //   setIsMobileValid(false);
+    // }
+    if (!/^\d{10}$/.test(mobile) || mobile.length !== 10) {
       isValid = false;
       setIsMobileValid(false);
-    }
-    if (!/^\d{10}$/.test(mobile)) {
-      isValid = false;
-      setIsMobileValid(false);
+    } else {
+      setIsMobileValid(true);
     }
 
     return isValid;
@@ -42,12 +51,19 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
 
   const handleMobileChange = (event) => {
     const value = event.target.value;
-    setMobile(value);
-    setUserData((prev) => ({
-      ...prev,
-      mobile: value,
-    }));
-    setIsMobileValid(/^\d{10}$/.test(value));
+
+    if (/^\d*$/.test(value)) {
+      setMobile(value);
+      setUserData((prev) => ({
+        ...prev,
+        mobile: value,
+      }));
+    }
+
+    if (isMobileValid === false) {
+      setIsMobileValid(true);
+    }
+    // setIsMobileValid(/^\d{10}$/.test(value));
   };
 
   const handleConsentChange = () => {
@@ -55,10 +71,6 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   };
 
   const handleSendOtp = async () => {
-    setUserClickData({
-      event_name: `otp-send-for-preapp-lender-${lenderName || "unknown"}`,
-      user_id: mobile || "unknown",
-    });
     if (!handleValidation()) {
       toast.error("Please enter a valid 10-digit mobile number.");
       return;
@@ -81,6 +93,10 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
         "messaging"
       );
       if (response.status === "Success") {
+        setUserClickData({
+          event_name: `otp-send-for-preapp-lender-${lenderName || "unknown"}`,
+          user_id: mobile || "unknown",
+        });
         toast.success("OTP Sent Successfully");
         setIsOtpGenerated(true);
       } else {
@@ -94,10 +110,6 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   };
 
   const handleResendOtp = async () => {
-    setUserClickData({
-      event_name: `resend-otp-for-preapp-lender-${lenderName || "unknown"}`,
-      user_id: mobile || "unknown",
-    });
     try {
       setIsLoading(true);
       const response = await callApi(
@@ -111,6 +123,10 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
         "messaging"
       );
       if (response.status === "Success") {
+        setUserClickData({
+          event_name: `resend-otp-for-preapp-lender-${lenderName || "unknown"}`,
+          user_id: mobile || "unknown",
+        });
         toast.success("OTP Resent Successfully");
       } else {
         toast.error("Failed to resend OTP.");
@@ -184,6 +200,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
                 {
                   lead_id: leadData._id,
                   lender_id: lenderId,
+                  utm_medium: utmMedium,
                 },
                 "core"
               );
