@@ -131,6 +131,13 @@ const PrivacyPolicy = () => {
                 • We might receive information about you from other sources and
                 add it to our account information.
               </p>
+              <p>
+                • The LSP declares strict adherence to privacy by avoiding
+                access to sensitive mobile resources, ensuring borrowers'
+                consent management, refraining from biometric data storage, and
+                maintaining data exclusively on India-based servers in
+                compliance with statutory regulations.
+              </p>
             </div>
 
             <div className="pt-4 font-medium ">
@@ -283,6 +290,11 @@ const PrivacyPolicy = () => {
               telemarketing calling lists within 15 working days. We will make
               every effort to ensure that you do not get any further
               telemarketing calls on such telephone number(s).
+            </p>
+            <p>
+              • Borrowers can view data retention terms, revoke consent for data
+              collection, or request data deletion by emailing
+              grievance@digitmoney.in
             </p>
           </div>
           <div className="pt-4 font-medium ">
