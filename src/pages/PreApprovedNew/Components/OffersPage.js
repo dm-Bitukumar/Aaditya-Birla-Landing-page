@@ -100,20 +100,22 @@ const OffersPage = ({ setStep, setLeadId }) => {
           const queryParams = new URLSearchParams(window.location.search);
           const affId = queryParams.get("aff_id");
           const utmMedium = queryParams.get("utm_medium");
-  
+          const ldr = parseInt(queryParams.get("ldr"), 10);
+
+          const preapprovedLeadData =
+          ldr === 4
+            ? { utm_medium: utmMedium }
+            : { aff_id: affId, utm_medium: utmMedium };
+
           await callApi(
             `v1/preapproved_lead/${id}/update_with_no_resp`,
             "post",
             {
-              preapproved_lead: {
-                aff_id: affId,
-                utm_medium: utmMedium,
-              },
+              preapproved_lead: preapprovedLeadData,
             },
             "core"
           );
 
-          console.log("aff_id and utm_medium successfully updated.");
         } catch (updateError) {
           console.error("Error updating aff_id and utm_medium:", updateError);
           toast.warn(
