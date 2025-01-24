@@ -35,13 +35,15 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const handleValidation = () => {
     let isValid = true;
 
-    if (!mobile || mobile.trim() === "") {
+    // if (!mobile || mobile.trim() === "") {
+    //   isValid = false;
+    //   setIsMobileValid(false);
+    // }
+    if (!/^\d{10}$/.test(mobile) || mobile.length !== 10) {
       isValid = false;
       setIsMobileValid(false);
-    }
-    if (!/^\d{10}$/.test(mobile)) {
-      isValid = false;
-      setIsMobileValid(false);
+    } else {
+      setIsMobileValid(true);
     }
 
     return isValid;
@@ -49,12 +51,19 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
 
   const handleMobileChange = (event) => {
     const value = event.target.value;
-    setMobile(value);
-    setUserData((prev) => ({
-      ...prev,
-      mobile: value,
-    }));
-    setIsMobileValid(/^\d{10}$/.test(value));
+
+    if (/^\d*$/.test(value)) {
+      setMobile(value);
+      setUserData((prev) => ({
+        ...prev,
+        mobile: value,
+      }));
+    }
+
+    if (isMobileValid === false) {
+      setIsMobileValid(true);
+    }
+    // setIsMobileValid(/^\d{10}$/.test(value));
   };
 
   const handleConsentChange = () => {
@@ -62,10 +71,6 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   };
 
   const handleSendOtp = async () => {
-    setUserClickData({
-      event_name: `otp-send-for-preapp-lender-${lenderName || "unknown"}`,
-      user_id: mobile || "unknown",
-    });
     if (!handleValidation()) {
       toast.error("Please enter a valid 10-digit mobile number.");
       return;
@@ -88,6 +93,10 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
         "messaging"
       );
       if (response.status === "Success") {
+        setUserClickData({
+          event_name: `otp-send-for-preapp-lender-${lenderName || "unknown"}`,
+          user_id: mobile || "unknown",
+        });
         toast.success("OTP Sent Successfully");
         setIsOtpGenerated(true);
       } else {
@@ -101,10 +110,6 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   };
 
   const handleResendOtp = async () => {
-    setUserClickData({
-      event_name: `resend-otp-for-preapp-lender-${lenderName || "unknown"}`,
-      user_id: mobile || "unknown",
-    });
     try {
       setIsLoading(true);
       const response = await callApi(
@@ -118,6 +123,10 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
         "messaging"
       );
       if (response.status === "Success") {
+        setUserClickData({
+          event_name: `resend-otp-for-preapp-lender-${lenderName || "unknown"}`,
+          user_id: mobile || "unknown",
+        });
         toast.success("OTP Resent Successfully");
       } else {
         toast.error("Failed to resend OTP.");
