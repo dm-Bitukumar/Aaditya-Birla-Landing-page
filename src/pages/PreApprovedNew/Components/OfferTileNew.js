@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
-
 const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData }) => {
   const [show, setShow] = useState(false);
   const mobile = mobileNumber;
@@ -22,7 +21,11 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData }) => {
       }`,
       user_id: mobile || "unknown",
     });
-    setStep(3);
+    if (offer?.lender_id === "66b76539fadd84ed521dcd2a") {
+      window.location.href = "https://abfl.finbox.in/?partnerCode=AX_ME2SIV";
+    } else {
+      setStep(3);
+    }
   };
 
   return (
