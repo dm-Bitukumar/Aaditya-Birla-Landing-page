@@ -23,10 +23,24 @@ const Form = ({ formData, setFormData, ...props }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [source, setSource] = useState("");
+  const [allianceName, setAllianceName] = useState("");
   const [params] = useSearchParams();
+
+  const allianceMapping = {
+    0: "moneytap",
+    1: "saral",
+    2: "zv2",
+    3: "cashkuber",
+    4: "niro",
+  };
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
+
+    const aValue = params.get("a"); 
+    if (aValue !== null && allianceMapping[aValue]) {
+      setAllianceName(allianceMapping[aValue]);
+    }
   }, [params]);
 
   const handleValidation = () => {
@@ -66,9 +80,6 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = async (event) => {
-    setUserClickData({
-      event_name: "otp-button-pre-approved-loan-page",
-    });
     event.preventDefault();
     // let isValid = handleValidation();
     // if (isValid) {
@@ -86,6 +97,10 @@ const Form = ({ formData, setFormData, ...props }) => {
         "messaging"
       );
       if (res["status"] === "Success") {
+        setUserClickData({
+          event_name: "otp-sent-pao-live-loan-page",
+          user_id: allianceName || 'unknown',
+        });
         setIsOtpGenerated(true);
       }
     }
@@ -94,7 +109,8 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handleChange = () => {
     setUserClickData({
-      event_name: "check-tick-pre-approved-loan-page",
+      event_name: "check-tick-pao-live-loan-page",
+      user_id: allianceName,
     });
     setIsTncChecked((prev) => !prev);
   };
@@ -102,7 +118,8 @@ const Form = ({ formData, setFormData, ...props }) => {
   const handleResendOtp = async () => {
     // todo resend login with timer
     setUserClickData({
-      event_name: "resend-otp-form-for-personal-loan",
+      event_name: "resend-otp-pao-live-loan-page",
+      user_id: allianceName,
     });
     try {
       const res = await callApi(
@@ -136,6 +153,10 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
 
       if (res["status"] === "Success") {
+        setUserClickData({
+          event_name: "otp-verify-pao-live-loan-page",
+          user_id: allianceName,
+        });
         await callApi(
           "v1/lead/lead-from-phone",
           "post",
@@ -189,6 +210,11 @@ const Form = ({ formData, setFormData, ...props }) => {
             className="my-5 mb-3 img header-img"
             src="/assets/icons/header.png"
             alt=""
+            style={{
+              width: "40%",
+              height: "auto",
+              objectFit: "contain",
+            }}
           />
           <h1
             className="mb-3 text-center h3 fw-normal"
