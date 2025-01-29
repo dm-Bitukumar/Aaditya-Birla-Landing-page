@@ -24,7 +24,7 @@ const OffersPage = () => {
     "66b76539fadd84ed521dcd2a",
     "6799b8fada60414f0f195bf9",
     "662752eb65fdba1a48d6e478", // prefr added for testing only
-  ]; 
+  ];
 
   useEffect(() => {
     const fetchedPhone = params.get("phone");
@@ -134,13 +134,13 @@ const OffersPage = () => {
         </div>
       )}
 
-      {!isLoading && !primaryOffer && (
+      {!isLoading && !primaryOffer && !secondaryOffers && (
         <div className="mb-4 font-normal text-center">
           No offers found for your profile at the moment.
         </div>
       )}
 
-      {!isLoading && primaryOffer && (
+      {!isLoading && (primaryOffer || secondaryOffers.length > 0) && (
         <div className="flex flex-col items-center justify-center">
           <img src="/assets/img/Dm LOGO.png" />
 
@@ -151,22 +151,26 @@ const OffersPage = () => {
             </span>
           </h3>
 
-          <h3 className="text-base text-center">
-            {ldr === "1"
-              ? `You are pre-qualified for L&T Finance`
-              : `Your pre-approved offers from ${
-                  lenderMappings[ldr]?.name || "lenders are"
-                }`}
-          </h3>
+          {primaryOffer && (
+            <>
+              <h3 className="text-base text-center">
+                {ldr === "1"
+                  ? `You are pre-qualified for L&T Finance`
+                  : `Your pre-approved offers from ${
+                      lenderMappings[ldr]?.name || "lenders are"
+                    }`}
+              </h3>
 
-          <div key={primaryOffer._id} className="my-4">
-            <OfferTile
-              small={false}
-              offer={primaryOffer}
-              mobileNumber={phone}
-              hideData={ldr === "1"}
-            />
-          </div>
+              <div key={primaryOffer._id} className="my-4">
+                <OfferTile
+                  small={false}
+                  offer={primaryOffer}
+                  mobileNumber={phone}
+                  hideData={ldr === "1"}
+                />
+              </div>
+            </>
+          )}
 
           {secondaryOffers.length > 0 && (
             <>
