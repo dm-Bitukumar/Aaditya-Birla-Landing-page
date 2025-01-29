@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
+
 const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData }) => {
   const [show, setShow] = useState(false);
   const mobile = mobileNumber;

@@ -9,12 +9,13 @@ import WorkDetailsPage from "./Components/WorkDetailsPage";
 import OfferSearchPage from "./Components/OfferSearchPage";
 import { useSearchParams } from "react-router-dom";
 
-const lenderMappings = {
+export const lenderMappings = {
   1: { name: "L&T", lenderId: "662752eb65fdba1a48d6e482" },
   2: { name: "Prefr", lenderId: "662752eb65fdba1a48d6e478" },
   3: { name: "Niro", lenderId: "662752eb65fdba1a48d6e47e" },
   4: { name: "Aditya Birla Finance Limited", lenderId: "66b76539fadd84ed521dcd2a" },
   5: { name: "Olyv", lenderId: "674fed3da1ab07e55d9826ef" },
+  6: { name: "Poonawalla", lenderId: "6799b8fada60414f0f195bf9" },
 };
 
 const PreApprovedNew = () => {
