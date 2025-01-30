@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
-import { useSelector } from "react-redux";
 import callApi from "../../../utility/apiCaller";
-import OfferTile from "../../PreApprovedNew/Components/OfferTileNew";
+import OfferTile from "./OfferTileFBFlow";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import { lenderMappings } from "../../PreApprovedNew/PreApprovedNew";
@@ -21,9 +20,8 @@ const OffersPage = () => {
   const apiCallInProgress = useRef(false);
 
   const showOfferLenderIds = [
-    "66b76539fadd84ed521dcd2a",
-    "6799b8fada60414f0f195bf9",
-    "662752eb65fdba1a48d6e478", // prefr added for testing only
+    "66b76539fadd84ed521dcd2a", // ABFL
+    "6799b8fada60414f0f195bf9", // Poonawalla
   ];
 
   useEffect(() => {
@@ -34,13 +32,13 @@ const OffersPage = () => {
     setLdr(fetchedLdr);
     setUtmSource(params.get("utmsource"));
 
-    if (fetchedPhone && fetchedLdr) {
+    if (fetchedPhone) {
       fetchOffers(fetchedPhone, fetchedLdr);
     }
   }, [params]);
 
   const fetchOffers = async (phone, ldr) => {
-    if (!phone || !ldr || apiCallInProgress.current) return;
+    if (!phone || apiCallInProgress.current) return;
     apiCallInProgress.current = true;
 
     try {
@@ -86,8 +84,9 @@ const OffersPage = () => {
         setPrimaryOffer(primaryOffer || null);
         setSecondaryOffers(secondaryOffers);
 
-        if (primaryOffer?._id) {
-          fetchContactName(primaryOffer._id);
+        const OfferIdNameFetch = primaryOffer?._id || secondaryOffers[0]?._id; 
+        if (OfferIdNameFetch) {
+          fetchContactName(OfferIdNameFetch);
         }
       } else {
         console.error("No preapproved loans found for the provided filters.");
@@ -134,7 +133,7 @@ const OffersPage = () => {
         </div>
       )}
 
-      {!isLoading && !primaryOffer && !secondaryOffers && (
+      {!isLoading && !primaryOffer && secondaryOffers.length === 0 && (
         <div className="mb-4 font-normal text-center">
           No offers found for your profile at the moment.
         </div>
@@ -151,22 +150,17 @@ const OffersPage = () => {
             </span>
           </h3>
 
+          <h3 className="text-base text-center">
+            Your pre-approved offers are
+          </h3>
+
           {primaryOffer && (
             <>
-              <h3 className="text-base text-center">
-                {ldr === "1"
-                  ? `You are pre-qualified for L&T Finance`
-                  : `Your pre-approved offers from ${
-                      lenderMappings[ldr]?.name || "lenders are"
-                    }`}
-              </h3>
-
               <div key={primaryOffer._id} className="my-4">
                 <OfferTile
                   small={false}
                   offer={primaryOffer}
                   mobileNumber={phone}
-                  hideData={ldr === "1"}
                 />
               </div>
             </>
@@ -174,29 +168,20 @@ const OffersPage = () => {
 
           {secondaryOffers.length > 0 && (
             <>
-              <div>
-                <p>You are eligible for more offers</p>
+              <div className="flex flex-col items-center justify-center">
+                {secondaryOffers.map((offer) => (
+                  <div key={offer._id} className="my-4">
+                    <OfferTile
+                      small={false}
+                      offer={offer}
+                      mobileNumber={phone || "unknown"}
+                    />
+                  </div>
+                ))}
               </div>
 
-              {secondaryOffers.length > 0 && (
-                <div className="flex flex-col items-center justify-center">
-                  {secondaryOffers.map((offer) => (
-                    <div key={offer._id} className="my-4">
-                      <OfferTile
-                        small={false}
-                        offer={offer}
-                        userId={phone || "unknown"}
-                        eventName={`offer-apply-btn-press-lender-${
-                          offer.lender_name || "unknown"
-                        }`}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-
               <FormButton
-                onClick={() => (window.location.href = "tel:+911234567890")}
+                onClick={() => (window.location.href = "tel:18002093997")}
                 className="!mt-2 !w-40"
               >
                 Call Us
