@@ -36,6 +36,7 @@ import PreapprovedOfferAbfl from "./pages/PreapprovedOfferAbfl/PreapprovedOfferA
 import BajajFinserv from "./pages/BajajFinserv";
 import CheckOffers_v2 from "./pages/CheckOffer_v2/CheckOffers_v2";
 import OffersPage_v2 from "./pages/Offers_v2/Offerspage_v2";
+import NewPreapproveOffersPage from "./pages/NewPreaaprovedOffersFlow/NewPreapproveOffers";
 
 function App() {
   const location = useLocation();
@@ -128,6 +129,7 @@ function App() {
 
         <Route path="/bajaj-finserv" element={<BajajFinserv />} />
         <Route path="/check-offers-v2" element={<CheckOffers_v2 />} />
+        <Route path={"/preapp-offers"} element={<NewPreapproveOffersPage /> } />
       </Routes>
     </>
   );

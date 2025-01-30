@@ -78,6 +78,7 @@ export async function setUserClickData(data) {
           session_id: sessionId,
           event_name: data?.event_name,
           user_id: data?.user_id,
+          segment_name: data?.segment_name,
         },
       },
       "jasoos"
