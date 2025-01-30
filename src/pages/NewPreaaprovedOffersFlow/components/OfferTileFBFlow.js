@@ -3,7 +3,7 @@ import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 
-const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData }) => {
+const OfferTileNew = ({ offer, small, setStep, mobileNumber }) => {
   const [show, setShow] = useState(false);
   const mobile = mobileNumber;
 
@@ -17,16 +17,13 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData }) => {
 
   const handleClick = () => {
     setUserClickData({
-      event_name: `preapp-offer-apply-button-lender-${
-        offer?.lender_name || "unknown"
-      }`,
+      event_name: `fb-offer-apply-button-press`,
       user_id: mobile || "unknown",
+      segment_name: offer?.lender_name || "unknown",
     });
-    if (offer?.lender_id === "66b76539fadd84ed521dcd2a") {
-      window.location.href = "https://abfl.finbox.in/?partnerCode=AX_ME2SIV";
-    } else {
-      setStep(3);
-    }
+    if (offer?.redirection_link) {
+        window.location.href = offer.redirection_link;
+      }
   };
 
   return (
@@ -38,28 +35,11 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData }) => {
       >
         <img width={small ? 100 : 200} src={offer?.logo_image_url} />
         <h2
-          className={`${
-            hideData
-              ? `${
-                  small ? "text-sm" : "text-xl"
-                } font-semibold text-[#00c0ff] mt-4 mb-4`
-              : `${small ? "text-sm" : "text-3xl"} font-semibold text-[#00c0ff]`
-          }`}
-          style={
-            hideData
-              ? {
-                  whiteSpace: "nowrap",
-                  textAlign: "center",
-                  display: "inline-block",
-                }
-              : {}
-          }
-        >
-          {hideData
-            ? "Upto Rs. 10,00,000"
-            : convertNumberToIndianFormat(offer.loan_amount ?? 0)}
+          className={`${small ? "text-sm" : "text-3xl"} font-semibold text-[#00c0ff]`}
+        >   
+          {convertNumberToIndianFormat(offer.loan_amount ?? 0)}
         </h2>
-        {!small && !hideData && (
+        {!small && (
           <div>
             <h5 className="mt-6 text-xs font-semibold">
               Amount: {convertNumberToIndianFormat(offer.loan_amount ?? 0)}

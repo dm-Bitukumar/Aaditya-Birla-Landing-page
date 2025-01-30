@@ -99,7 +99,8 @@ const Form = ({ formData, setFormData, ...props }) => {
       if (res["status"] === "Success") {
         setUserClickData({
           event_name: "otp-sent-pao-live-loan-page",
-          user_id: allianceName || 'unknown',
+          user_id: mobile || "unknown",
+          segment_name: allianceName || "unknown",
         });
         setIsOtpGenerated(true);
       }
@@ -110,7 +111,8 @@ const Form = ({ formData, setFormData, ...props }) => {
   const handleChange = () => {
     setUserClickData({
       event_name: "check-tick-pao-live-loan-page",
-      user_id: allianceName,
+      user_id: mobile || 'unknown',
+      segment_name: allianceName || "unknown",
     });
     setIsTncChecked((prev) => !prev);
   };
@@ -119,7 +121,8 @@ const Form = ({ formData, setFormData, ...props }) => {
     // todo resend login with timer
     setUserClickData({
       event_name: "resend-otp-pao-live-loan-page",
-      user_id: allianceName,
+      user_id: mobile || 'unknown',
+      segment_name: allianceName || "unknown",
     });
     try {
       const res = await callApi(
@@ -155,7 +158,8 @@ const Form = ({ formData, setFormData, ...props }) => {
       if (res["status"] === "Success") {
         setUserClickData({
           event_name: "otp-verify-pao-live-loan-page",
-          user_id: allianceName,
+          user_id: mobile || 'unknown',
+          segment_name: allianceName || "unknown",
         });
         await callApi(
           "v1/lead/lead-from-phone",
