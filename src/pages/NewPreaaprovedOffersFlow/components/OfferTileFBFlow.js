@@ -21,9 +21,11 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber }) => {
       user_id: mobile || "unknown",
       segment_name: offer?.lender_name || "unknown",
     });
-    if (offer?.redirection_link) {
-        window.location.href = offer.redirection_link;
-      }
+    if (offer?.lender_id === "66b76539fadd84ed521dcd2a") {
+      window.location.href = "https://abfl.finbox.in/?partnerCode=AX_ME2SIV";
+    } else if (offer?.redirection_link) {
+      window.location.href = offer.redirection_link;
+    }
   };
 
   return (
@@ -35,8 +37,10 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber }) => {
       >
         <img width={small ? 100 : 200} src={offer?.logo_image_url} />
         <h2
-          className={`${small ? "text-sm" : "text-3xl"} font-semibold text-[#00c0ff]`}
-        >   
+          className={`${
+            small ? "text-sm" : "text-3xl"
+          } font-semibold text-[#00c0ff]`}
+        >
           {convertNumberToIndianFormat(offer.loan_amount ?? 0)}
         </h2>
         {!small && (
