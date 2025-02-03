@@ -23,6 +23,9 @@ const CheckboxTnC = ({ checked, handleChange }) => {
         I have read and agreed to the{" "}
         <Link to="/terms" style={{ color: "#000", fontSize: "10px" }}>
           <b>Terms of Use</b>
+        </Link>{", "}
+        <Link to="/privacy-policy" style={{ color: "#000", fontSize: "10px" }}>
+          <b>Privacy Policy</b>
         </Link>{" "}
         and hereby give my consent to DigitMoney and its{" "}
         <Link to="/lenders" style={{ color: "#000", fontSize: "10px" }}>
