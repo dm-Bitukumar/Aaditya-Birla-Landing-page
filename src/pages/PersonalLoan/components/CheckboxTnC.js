@@ -35,7 +35,18 @@ const CheckboxTnC = ({ checked, handleChange }) => {
           }}
         >
           <b>Terms of Use</b>
-        </Link>{" "}
+        </Link>{",   "}
+        <Link
+          to="/privacy-policy"
+          style={{ color: "#000", fontSize: "10px" }}
+          onClick={() => {
+            setUserClickData({
+              event_name: "link-to-privacy-policy-page",
+            });
+          }}
+        >
+          <b>Privacy Policy</b>{" "}
+        </Link>
         and hereby give my consent to DigitMoney and its{" "}
         <Link
           to="/lenders"
