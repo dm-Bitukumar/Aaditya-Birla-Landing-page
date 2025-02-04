@@ -534,7 +534,7 @@ const Term = () => {
               of the Services.
             </p>
             <p className="pt-2 font-bold">
-              These terms of use were last updated on 28th April 2022.
+              These terms of use were last updated on October 2023.
             </p>
           </div>
         </div>
