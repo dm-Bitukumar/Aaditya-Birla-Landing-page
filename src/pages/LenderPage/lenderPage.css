@@ -23,7 +23,8 @@
     margin-bottom: 0;
   }
   .lender_row{
-   
+    justify-content: center;
+    margin: 0 auto;
     padding: 0px 80px ;
     padding-top: 0px;
     padding-bottom: 40px;
