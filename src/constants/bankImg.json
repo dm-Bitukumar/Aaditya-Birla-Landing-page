@@ -1,34 +1,40 @@
 [
   {
-    "label": "assets/bank_img/bank_KreditBee.png",
-    "value": "assets/bank_img/bank_KreditBee.png"
+    "label": "assets/bank_img/kreditbee_new.png",
+    "value": "assets/bank_img/kreditbee_new.png"
   },
   {
-    "label": "assets/bank_img/bank_prefr.png",
-    "value": "assets/bank_img/bank_prefr.png"
+    "label": "assets/bank_img/zype_new.png",
+    "value": "assets/bank_img/zype_new.png"
   },
   {
-    "label": "assets/bank_img/respo.png",
-    "value": "assets/bank_img/respo.png"
+    "label": "assets/bank_img/niro_new.png",
+    "value": "assets/bank_img/niro_new.png"
   },
   {
-    "label": "assets/bank_img/niro.png",
-    "value": "assets/bank_img/niro.png"
+    "label": "assets/bank_img/abfl_new.png",
+    "value": "assets/bank_img/abfl_new.png"
   },
   {
-    "label": "assets/bank_img/abc.png",
-    "value": "assets/bank_img/abc.png"
+    "label": "assets/bank_img/olyv_new.png",
+    "value": "assets/bank_img/olyv_new.png"
   },
   {
-    "label": "assets/bank_img/olyv.png",
-    "value": "assets/bank_img/olyv.png"
+    "label": "assets/bank_img/unity_new.png",
+    "value": "assets/bank_img/unity_new.png"
   },
   {
-    "label": "assets/bank_img/unity.png",
-    "value": "assets/bank_img/unity.png"
+    "label": "assets/bank_img/lnt_new.png",
+    "value": "assets/bank_img/lnt_new.png",
+    "url": "https://www.ltfs.com/"
   },
   {
-    "label": "assets/bank_img/ltpartner.png",
-    "value": "assets/bank_img/ltpartner.png"
+    "label": "assets/bank_img/dbs_new.png",
+    "value": "assets/bank_img/dbs_new.png"
+  },
+  {
+    "label": "assets/bank_img/lendingplate_new.png",
+    "value": "assets/bank_img/lendingplate_new.png"
   }
+  
 ]
