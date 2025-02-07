@@ -6,6 +6,8 @@ import ApplyFormStep2 from "./components/ApplyFormStep2";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import OfferDetailsSegment from "./components/OfferDetailsSegment";
+import UploadFiles from "./components/UploadFiles";
+import ConfirmationPage from "./components/ConfirmationPage";
 
 let noTransitions = {
   enterRight: "",
@@ -44,6 +46,8 @@ const BusinessLoanApply = () => {
       >
         <ApplyFormStep1 />
         <ApplyFormStep2 />
+        <UploadFiles />
+        {/* <ConfirmationPage /> */}
         <OfferDetailsSegment />
       </StepWizard>
     </div>
