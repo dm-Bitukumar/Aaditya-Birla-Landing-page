@@ -22,19 +22,27 @@ const LenderPage = () => {
         <div className="container m-auto">
           <div className="lender_row row">
             {banking.map((item, index) => (
-              <div key={index} className="m-auto text-center col-md-3 col-4 ">
-                <img
-                  src={item.label}
-                  alt=""
-                  className="mx-auto my-1"
-                  style={{
-                    maxWidth: "50%",
-                    maxHeight: "75%",
-                    objectFit: "contain",
-                  }}
-                />
-                {/* <p className="mb-0">{item.title1}</p>
-                  <p className="mb-0">{item.title2}</p> */}
+              <div key={index} className="text-center col-md-2 col-4">
+                {item.url ? (
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={item.label}
+                      alt="Bank Logo"
+                      className="mx-auto my-1"
+                    />
+                  </a>
+                ) : (
+                  <img
+                    src={item.label}
+                    alt=""
+                    className="mx-auto my-1"
+                    // style={{
+                    //   maxWidth: "50%",
+                    //   maxHeight: "75%",
+                    //   objectFit: "contain",
+                    // }}
+                  />
+                )}
               </div>
             ))}
           </div>
