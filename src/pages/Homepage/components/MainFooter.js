@@ -87,7 +87,7 @@ const MainFooter = () => {
                   grievance@digitmoney.in
                 </a>
                 <br />
-                <a href="tel:08065323927">08065323927</a>
+                {/* <a href="tel:08065323927">08065323927</a> */}
               </div>
               <div
                 className="social_icons"
@@ -399,7 +399,7 @@ const MainFooter = () => {
                   grievance@digitmoney.in
                 </a>
                 <br />
-                <a href="tel:08065323927">08065323927</a>
+                {/* <a href="tel:08065323927">08065323927</a> */}
               </div>
             </div>
             <div className="text-center col-12">
