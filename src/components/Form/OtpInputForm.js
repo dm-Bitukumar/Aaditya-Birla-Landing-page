@@ -10,6 +10,8 @@ const OtpInputForm = ({
   setOtpValue,
   eventName,
   phone_number,
+  contactName, 
+  setContactName,
   handleResendOtp,
   handleSubmitOtp,
   setIsOtpGenerated,
@@ -200,7 +202,7 @@ const OtpInputForm = ({
         </div>
       )}
       <div className="">
-        <div className="preApprovebutton">
+        <div className="">
           <FormButton
             className="!py-4 !px-6"
             // style={buttonStyle}

@@ -35,11 +35,11 @@ const OfferDetailsSegment = () => {
 
   //   662a73413a05656cf94543c4
 
-  // useEffect(() => {
-  //   if (lead.stepDone === 2 && !leadId) {
-  //     submitLead();
-  //   }
-  // }, [lead]);
+  useEffect(() => {
+    if (lead.stepDone === 2 && !leadId) {
+      submitLead();
+    }
+  }, [lead]);
 
   useEffect(() => {
     const timer = setInterval(() => {

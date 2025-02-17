@@ -5,11 +5,11 @@ import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
 import OtpInputForm from "../../../components/Form/OtpInputForm";
 import { useNavigate } from "react-router";
-import { setUserClickData } from "../../../utility/setUserClickData";
 import callApi from "../../../utility/apiCaller";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { login } from "../../../store/app/appReducer";
+import { login, setLead } from "../../../store/app/appReducer";
+import { useDispatch } from "react-redux";
+import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 
 const Form = ({ formData, setFormData, ...props }) => {
@@ -17,70 +17,29 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [mobile, setMobile] = useState("");
-  const [pancard, setPancard] = useState("");
-  const [isPancardValid, setIsPancardValid] = useState(true);
+  const [source, setSource] = useState("");
   const [isMobileValid, setIsMobileValid] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [source, setSource] = useState("");
   const [params] = useSearchParams();
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
-  useEffect(() => {
-    const leadId = params.get("lid");
-    const leadPushedKey = "leadPushedForICAN";
-
-    if (leadId && !localStorage.getItem(leadPushedKey)) {
-      (async () => {
-        try {
-          await callApi(
-            "v1/ican_api/ican_journey_tag_update",
-            "post",
-            {
-              priority: "P0",
-              lead_id: leadId,
-            },
-            "core"
-          );
-          localStorage.setItem(leadPushedKey, "true");
-        } catch (error) {
-          console.error("Error in P0 API call:", error);
-        }
-      })();
-    }
-  }, [params]);
-
   const handleValidation = () => {
     let isValid = true;
-
-    if (_.isEmpty(pancard)) {
-      isValid = false;
-      setIsPancardValid(false);
-    } else {
-      const isValidPancard = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pancard);
-      isValid = isValidPancard;
-      setIsPancardValid(isValidPancard);
-    }
 
     if (_.isEmpty(mobile)) {
       isValid = false;
       setIsMobileValid(false);
-    } else {
-      const isValidMobile = /^\d{10}$/.test(mobile);
-      isValid = isValidMobile;
-      setIsMobileValid(isValidMobile);
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      isValid = false;
+      setIsMobileValid(false);
     }
 
     return isValid;
-  };
-
-  const handlePancardChange = (event) => {
-    const { value } = event.target;
-    setIsPancardValid(true);
-    setPancard(value);
   };
 
   const handleMobileChange = (event) => {
@@ -90,17 +49,11 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmit = async (event) => {
-    setUserClickData({
-      event_name: "otp-button-check-offer-loan-page",
-      user_id: mobile || "unknown",
-    });
+    setUserClickData({ event_name: "otp-button-business-loan-page" });
     event.preventDefault();
-    // let isValid = handleValidation();
-    // if (isValid) {
-    //   setIsOtpGenerated(true);
-    // }
     let isValid = handleValidation();
     if (isValid) {
+      setIsOtpGenerated(true);
       const res = await callApi(
         "v1/sms/send-otp",
         "post",
@@ -111,29 +64,20 @@ const Form = ({ formData, setFormData, ...props }) => {
         "messaging"
       );
       if (res["status"] === "Success") {
-        setUserClickData({
-          event_name: "otp-page-for-check-offer",
-          user_id: mobile || "unknown",
-        });
         setIsOtpGenerated(true);
       }
     }
-    // Handle form submission
   };
+  // Handle form submission
 
   const handleChange = () => {
-    setUserClickData({
-      event_name: "check-offer-loan-page",
-      user_id: mobile || "unknown",
-    });
     setIsTncChecked((prev) => !prev);
   };
 
   const handleResendOtp = async () => {
     // todo resend login with timer
     setUserClickData({
-      event_name: "resend-otp-form-for-check-offer",
-      user_id: mobile || "unknown",
+      event_name: "resend-otp-form-for-personal-loan",
     });
     try {
       const res = await callApi(
@@ -154,11 +98,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
-    setUserClickData({
-      event_name: "verify-otp-check-offer-loan-page",
-      user_id: mobile || "unknown",
-    });
-
+    setUserClickData({ event_name: "otp-verify-button-business-loan-page" });
     try {
       const res = await callApi(
         "v1/sms/validate-otp",
@@ -171,7 +111,9 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
 
       if (res["status"] === "Success") {
-        const leadResponse = await callApi(
+        dispatch(login({ ...res.data.customer, token: res.data.token }));
+
+        await callApi(
           "v1/lead/lead-from-phone",
           "post",
           {
@@ -181,38 +123,10 @@ const Form = ({ formData, setFormData, ...props }) => {
           "core",
           res.data.token
         )
-          .then(async (response) => {
-            if (response["status"] === "Success" && response.data.lead) {
-              const leadData = response.data.lead;
-
-              try {
-                await callApi(
-                  "v1/ican_api/data-send-with-offers-to-ican_for_update",
-                  "post",
-                  {
-                    priority: "P1",
-                    lead_id: leadData._id,
-                  },
-                  "core"
-                );
-
-                await callApi(
-                  "v1/ican_api/ican_journey_tag_update",
-                  "post",
-                  {
-                    priority: "P1",
-                    lead_id: leadData._id,
-                  },
-                  "core"
-                );
-
-                navigate(
-                  `/offers?lid=${response.data.lead._id}&source=${source}`
-                );
-              } catch (offersError) {
-                console.log("Error fetching offers:", offersError);
-                navigate(`/personal-loan?source=${source}`);
-              }
+          .then((response) => {
+            if (response["status"] === "Success") {
+              dispatch(setLead(response.data.lead));
+              navigate(`/business-loan-old/apply?source=${source}`);
             }
           })
           .catch((e) => navigate(`/personal-loan?source=${source}`));
@@ -224,7 +138,6 @@ const Form = ({ formData, setFormData, ...props }) => {
       console.log(err);
     }
   };
-
   return (
     <div className={"personal-loan-form"}>
       <img
@@ -246,24 +159,19 @@ const Form = ({ formData, setFormData, ...props }) => {
         </div>
       ) : (
         <>
-          {" "}
           <img
-            className="mt-3 img header-img"
-            src="/assets/img/header.png"
+            className="my-5 mb-3 img header-img"
+            src="/assets/img/dm-bs.png"
             alt=""
           />
           <h1
-            className="mb-3 text-center h3 fw-normal"
-            style={{ fontSize: "20px", marginTop: "3em" }}
+            className="mt-5 text-center h3 fw-normal"
+            style={{ fontSize: "20px", letterSpacing: "2pxs" }}
           >
-            Get Instant Personal Loan
+            Lets Check Your
             <br />
-            {/* <strong>Upto 25 Lacs</strong> */}
+            <strong>Eligibility Quicklyr</strong>
           </h1>
-          <p className="mb-3 text-center" style={{ fontSize: "14px" }}>
-            • Instant Approvals • Complete Digital Process •
-            <span className="bullet">•</span>Quick Disbursal
-          </p>{" "}
           <input type="hidden" name="utm_campaign" value="" />
           <input type="hidden" name="utm_source" value="" />
           <input type="hidden" name="utm_medium" value="" />
@@ -272,6 +180,7 @@ const Form = ({ formData, setFormData, ...props }) => {
           <input type="hidden" name="aff_id" value="" />
           <input type="hidden" name="src" value="" />
           <FormInput
+            className={"my-5"}
             icon={
               <img
                 src="/assets/icons/phone-call.png"
@@ -296,7 +205,7 @@ const Form = ({ formData, setFormData, ...props }) => {
           />
           <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
           <FormButton
-            style={{ marginTop: "120px" }}
+            style={{ marginTop: "10px" }}
             className="w-100 btn btn-lg btn-primary btn-get-otp"
             type="submit"
             onClick={handleSubmit}
