@@ -35,6 +35,11 @@ const BusinessLoanApply = () => {
   //   aff_id: "",
   // });
   const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    gst_no: "",
+    udyam_number: "",
+  });
+  
 
   return (
     <div className={"personal-loan-container"} style={{ maxHeight: "100vh" }}>
@@ -44,9 +49,9 @@ const BusinessLoanApply = () => {
         initialStep={step}
         onStepChange={({ activeStep }) => setStep(activeStep)}
       >
-        <ApplyFormStep1 />
-        <ApplyFormStep2 />
-        <UploadFiles />
+        <ApplyFormStep1 formData={formData} setFormData={setFormData}/>
+        <ApplyFormStep2 formData={formData} setFormData={setFormData}/>
+        {/* <UploadFiles /> */}
         {/* <ConfirmationPage /> */}
         <OfferDetailsSegment />
       </StepWizard>

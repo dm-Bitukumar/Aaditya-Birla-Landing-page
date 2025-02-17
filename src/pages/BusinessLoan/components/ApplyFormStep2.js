@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormButton from "../../../components/Buttons/FormButton";
 import FormSelect from "../../PreApprovedNew/Components/FormSelectBtn";
 import FormSelectSearchable from "../../PreApprovedNew/Components/FormSelectSerachableBtn";
@@ -35,11 +35,15 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
   const [data, setData] = useState({
     annual_turnover: "",
     industry: null,
-    // business_address: "ABCD PVT LTD, Loream Ipsum Is,",
     confirm_business_address: "",
     address_type: "",
     ownership: "",
   });
+
+  useEffect(() => {
+    console.log("Received GST Number in Step 2:", formData.gst_no);
+    console.log("Received Udyam Number in Step 2:", formData.udyam_number);
+  }, [formData]);
 
   const handleDataChange = (keyName, keyValue) => {
     setData((prevData) => ({ ...prevData, [keyName]: keyValue }));
@@ -64,7 +68,6 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
   const isFormValid =
     data.annual_turnover &&
     data.industry &&
-    // data.business_address &&
     data.confirm_business_address &&
     data.address_type &&
     data.ownership;
@@ -79,7 +82,6 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
       setErrors({
         annual_turnover: !data.annual_turnover ? "Required" : "",
         industry: !data.industry ? "Required" : "",
-        // business_address: !data.business_address ? "Required" : "",
         confirm_business_address: !data.confirm_business_address
           ? "Required"
           : "",
@@ -131,27 +133,12 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
           errorMessage={errors.industry}
         />
 
-        {/* Business Address */}
-        {/* <FormInput
-          icon={
-            <img
-              src="/assets/icons/pincode.png"
-              className="h-6 px-2"
-              alt="Business Address"
-            />
-          }
-          label="Business Address"
-          name="business_address"
-          value={data.business_address}
-          onChange={(value) => handleDataChange("business_address", value)}
-          onBlur={() => handleBlur("business_address")}
-          isValid={!errors.business_address}
-          errorMessage={errors.business_address}
-        /> */}
-
         {/* Confirm Business Address */}
         <BusinessAddressBox
-          data={formData}
+          data={{
+            ...formData,
+            confirm_business_address: formData.confirm_business_address || "",
+          }}
           handleDataChange={handleDataChange}
         />
 

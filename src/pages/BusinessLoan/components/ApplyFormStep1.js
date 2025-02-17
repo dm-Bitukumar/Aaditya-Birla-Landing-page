@@ -11,6 +11,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import FormInput from "../../PreApprovedNew/Components/FormInputBtn";
 import FormSelect from "../../PreApprovedNew/Components/FormSelectBtn";
 import { toast } from "react-toastify";
+import callApi from "../../../utility/apiCaller";
 
 const residential_type_options = [
   { value: "", label: "Select Residential Type" },
@@ -38,6 +39,8 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   });
   const navigate = useNavigate();
   const udyamRegex = /^UDYAM-[A-Z]{2}-\d{2}-\d{7}$/;
+  const [isFetching, setIsFetching] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleDataChange = (keyName, keyValue) => {
     setData((prevData) => {
@@ -109,32 +112,105 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
     return isValid;
   };
 
-  const handleSubmit = () => {
-    setUserClickData({
-      event_name: "step1-business-loan-page",
-    });
+  const fetchGSTAddress = async (gstNumber) => {
+    try {
+      const response = await callApi(
+        "v1/lender/gst",
+        "post",
+        { gst_no: gstNumber },
+        "loan"
+      );
 
-    const isValid = handleValidation();
-    if (isValid) {
-      nextStep();
-      dispatch(setLead({ ...data, stepDone: 1 }));
+      if (
+        response?.status === "Success" &&
+        response?.data?.raw_response?.gstdetails?.pradr?.addr
+      ) {
+        const addressData = response.data.raw_response.gstdetails.pradr.addr;
+        return `${addressData.bno}, ${addressData.bnm}, ${addressData.flno}, ${addressData.st}, ${addressData.loc}, ${addressData.locality}, ${addressData.dst}, ${addressData.stcd} - ${addressData.pncd}`;
+      }
+
+      return "Unable to fetch address";
+    } catch (error) {
+      console.error("Error fetching GST Address:", error);
+      return "Unable to fetch address";
     }
   };
 
-  const isFormValid =
-    !!data.pan_card &&
-    /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.pan_card) &&
-    !!data.residence_pincode &&
-    data.residence_pincode.length === 6 &&
-    !!data.residential_type &&
-    data.gst_available !== "" &&
-    (data.gst_available === "yes"
-      ? !!data.gst_no &&
-        data.gst_no?.length === 15 &&
-        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{3}$/.test(data.gst_no)
-      : data.udyam_available === "yes"
-      ? !!data.udyam_number && udyamRegex.test(data.udyam_number)
-      : true);
+  const fetchUdyamAddress = async (udyamNumber) => {
+    try {
+      const response = await callApi(
+        "v1/lender/udyam",
+        "post",
+        { udyamno: udyamNumber },
+        "loan"
+      );
+
+      if (
+        response?.status === "Success" &&
+        response?.data?.raw_response?.udyamdetails?.address
+      ) {
+        return response.data.raw_response.udyamdetails.address;
+      }
+
+      return "Unable to fetch address";
+    } catch (error) {
+      console.error("Error fetching Udyam Address:", error);
+      return "Unable to fetch address";
+    }
+  };
+
+  const handleSubmit = async () => {
+    setUserClickData({ event_name: "step1-business-loan-page" });
+
+    const isValid = handleValidation();
+    if (isValid) {
+      console.log("GST Number:", data.gst_no);
+      console.log("Udyam Number:", data.udyam_number);
+
+      setIsFetching(true);
+
+      let fetchedAddress = "";
+      if (data.gst_no) {
+        fetchedAddress = await fetchGSTAddress(data.gst_no);
+        console.log("Fetched GST Address:", fetchedAddress);
+      } else if (data.udyam_number) {
+        fetchedAddress = await fetchUdyamAddress(data.udyam_number);
+        console.log("Fetched Udyam Address:", fetchedAddress);
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        gst_no: data.gst_no,
+        udyam_number: data.udyam_number,
+        confirm_business_address: fetchedAddress,
+      }));
+
+      dispatch(setLead({ ...data, stepDone: 1 }));
+      setIsFetching(false);
+      nextStep();
+    }
+  };
+
+  const isBothNo = data.gst_available === "no" && data.udyam_available === "no";
+  
+  useEffect(() => {
+    setIsFormValid(
+      !!data.pan_card &&
+        /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.pan_card) &&
+        !!data.residence_pincode &&
+        data.residence_pincode.length === 6 &&
+        !!data.residential_type &&
+        data.gst_available !== "" &&
+        !isBothNo &&
+        ((data.gst_available === "yes" &&
+          !!data.gst_no &&
+          data.gst_no.length === 15 &&
+          /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{3}$/.test(data.gst_no)) ||
+          (data.udyam_available === "yes" &&
+            !!data.udyam_number &&
+            udyamRegex.test(data.udyam_number)))
+    );
+  }, [data]);
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-between p-4">
@@ -222,13 +298,22 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
 
       {/* Submit Button at the Bottom */}
       <FormButton
-        className="w-full max-w-md bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg disabled:bg-gray-400"
+        className={`w-full max-w-md text-white font-semibold py-3 rounded-lg 
+    ${
+      isFetching || !isFormValid
+        ? "bg-gray-400 cursor-not-allowed opacity-50"
+        : "bg-blue-500 hover:bg-blue-600 cursor-pointer"
+    }`}
         type="submit"
         onClick={handleSubmit}
-        disabled={!isFormValid}
+        disabled={!isFormValid || isFetching}
         id="myBtn"
       >
-        Next
+        {isBothNo
+          ? "One Document Required"
+          : isFetching
+          ? "Fetching..."
+          : "Next"}
       </FormButton>
     </div>
   );
