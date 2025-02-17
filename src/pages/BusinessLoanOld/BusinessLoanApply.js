@@ -2,12 +2,10 @@ import { useState, useEffect } from "react";
 import HeadBar from "../../components/Static/HeadBar";
 import StepWizard from "react-step-wizard";
 import ApplyFormStep1 from "./components/ApplyFormStep1";
-import ApplyFormStep2 from "./components/ApplyFormStep2";
+import ApplyFormStep2 from "./components/ApplyFormStep2"; 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import OfferDetailsSegment from "./components/OfferDetailsSegment";
-import UploadFiles from "./components/UploadFiles";
-import ConfirmationPage from "./components/ConfirmationPage";
 
 let noTransitions = {
   enterRight: "",
@@ -22,7 +20,7 @@ const BusinessLoanApply = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/business-loan", { replace: true });
+      navigate("/business-loan-old", { replace: true });
     }
   }, [user]);
 
@@ -35,11 +33,6 @@ const BusinessLoanApply = () => {
   //   aff_id: "",
   // });
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    gst_no: "",
-    udyam_number: "",
-  });
-  
 
   return (
     <div className={"personal-loan-container"} style={{ maxHeight: "100vh" }}>
@@ -49,10 +42,8 @@ const BusinessLoanApply = () => {
         initialStep={step}
         onStepChange={({ activeStep }) => setStep(activeStep)}
       >
-        <ApplyFormStep1 formData={formData} setFormData={setFormData}/>
-        <ApplyFormStep2 formData={formData} setFormData={setFormData}/>
-        {/* <UploadFiles /> */}
-        {/* <ConfirmationPage /> */}
+        <ApplyFormStep1 />
+        <ApplyFormStep2 />
         <OfferDetailsSegment />
       </StepWizard>
     </div>

@@ -1,94 +1,121 @@
 import CustomSquareRadioWithIcon from "../../../components/Form/CustomSquareRadioWIthIcon";
-import {
-  company_type_options,
-  companyTypeOptionsMap,
-} from "../../../constants/formData";
-import FormMultiSelect from "../../../components/Form/FormMultiSelect";
-import FormInput from "../../../components/Form/FormInput";
-import FormSelect from "../../../components/Form/FormSelect";
+import FormInput from "../../PreApprovedNew/Components/FormInputBtn";
+import FormSelect from "../../PreApprovedNew/Components/FormSelectBtn";
 
 const GstRegistrationOption = ({
   handleDataChange,
   data,
   errorMessage,
   errors,
+  handleBlur,
 }) => {
   return (
     <div>
+      {/* GST Registration Section */}
       <div className={`input-group mb-3`}>
-        <span className="input-group-text" style={{ height: "58px" }}>
+        <span
+          className="input-group-text"
+          style={{ height: "58px", background: "#fff" }}
+        >
           <img
             src="/assets/icons/gst.png"
             alt={""}
-            style={{ height: "25px" }}
+            style={{ height: "25px", padding: "0 5px" }}
           />
         </span>
         <div className="form-floating flex-grow-1">
           <div
             className={`form-control`}
-            style={{ padding: "1.2rem 0.75rem", fontSize: "12px" }}
+            style={{
+              padding: "1.2rem 0.75rem",
+              fontSize: "12px",
+              borderLeft: "0px",
+            }}
           >
             Do you have GST Registration
           </div>
         </div>
       </div>
+
       <CustomSquareRadioWithIcon
         onChange={(value) => handleDataChange("gst_available", value)}
       />
-      {data.gst_available !== "" &&
-        (data.gst_available === "yes" ? (
-          <div className={"my-3"}>
-            <FormInput
-              maxLength={15}
-              placeholder="GST Number"
-              required
-              id="gst_no"
-              value={data.gst_no}
-              onChange={(e) => handleDataChange("gst_no", e.target.value)}
-              errorMessage={errorMessage}
-              isValid={errors !== "gst_no"}
-              icon={
-                <img src="/assets/icons/gst.png" style={{ height: "25px" }} />
-              }
-              label={"Gst Number"}
-            />
+
+      {/* GST Number Field (Only Shows if User Selects 'Yes') */}
+      {data.gst_available === "yes" && (
+        <div className={"my-3"}>
+          <FormInput
+            maxLength={15}
+            placeholder="GST Number"
+            required
+            id="gst_no"
+            value={data.gst_no}
+            onChange={(e) => handleDataChange("gst_no", e.target.value)}
+            errorMessage={errorMessage}
+            onBlur={() => handleBlur("gst_no")}
+            isValid={errors !== "gst_no"}
+            icon={
+              <img src="/assets/icons/gst.png" style={{ height: "25px" }} />
+            }
+            label={"GST Number"}
+          />
+        </div>
+      )}
+
+      {/* Udyam / MSME Registration Section */}
+      {data.gst_available === "no" && (
+        <div className={"my-3"}>
+          <div className={`input-group mb-3`}>
+            <span
+              className="input-group-text"
+              style={{ height: "58px", background: "#fff" }}
+            >
+              <img
+                src="/assets/icons/gst.png"
+                alt={""}
+                style={{ height: "25px" }}
+              />
+            </span>
+            <div className="form-floating flex-grow-1">
+              <div
+                className={`form-control`}
+                style={{
+                  padding: "1.2rem 0.75rem",
+                  fontSize: "11px",
+                  borderLeft: "0px",
+                }}
+              >
+                Are you registered with Udyam / MSME
+              </div>
+            </div>
           </div>
-        ) : (
-          <div className={"my-3"}>
-            <FormSelect
-              options={company_type_options}
-              placeholder="company_type2"
-              required
-              id="company_type2"
-              value={data.company_type}
-              onChange={(value) => handleDataChange("company_type", value)}
-              errorMessage={errorMessage}
-              isValid={errors !== "company_type"}
-              icon={
-                <img src="/assets/icons/toc.png" style={{ height: "25px" }} />
-              }
-              label={"Company Type"}
-            />
-            <FormMultiSelect
-              options={
-                data.company_type
-                  ? companyTypeOptionsMap[data.company_type]
-                  : []
-              }
-              placeholder="regd_proof"
-              required
-              id="regd_proof"
-              value={data.regd_proof}
-              onChange={(value) => handleDataChange("regd_proof", value)}
-              errorMessage={errorMessage}
-              isValid={errors !== "regd_proof"}
-              icon={
-                <img src="/assets/icons/toc.png" style={{ height: "25px" }} />
-              }
-              label={"Select your Business Registration Proof"}
-            />
-          </div>
-        ))}
+
+          <CustomSquareRadioWithIcon
+            onChange={(value) => handleDataChange("udyam_available", value)}
+          />
+
+          {/* Udyam Number Field (Only Shows if User Selects 'Yes') */}
+          {data.udyam_available === "yes" && (
+            <div className={"my-3"}>
+              <FormInput
+                icon={
+                  <img src="/assets/icons/gst.png" style={{ height: "25px" }} />
+                }
+                placeholder="Udyam Number"
+                required
+                id="udyam_number"
+                value={data.udyam_number}
+                onChange={(e) =>
+                  handleDataChange("udyam_number", e.target.value)
+                }
+                errorMessage={errorMessage}
+                isValid={errors !== "udyam_number"}
+                label={"Udyam Number"}
+              />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

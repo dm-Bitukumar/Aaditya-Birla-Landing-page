@@ -1,160 +1,184 @@
-import React, { useState } from "react";
-import _ from "lodash";
+import React, { useEffect, useState } from "react";
 import FormButton from "../../../components/Buttons/FormButton";
-import OtpInputForm from "../../../components/Form/OtpInputForm";
-import { useNavigate } from "react-router";
-import GstRegistrationOption from "./GstRegistrationOption";
-import FormSelect from "../../../components/Form/FormSelect";
-import { setUserClickData } from "../../../utility/setUserClickData";
-import {
-  business_type_options,
-  company_type_options,
-  turnoverOptions,
-} from "../../../constants/formData";
-import { setLead, setOffers } from "../../../store/app/appReducer";
+import FormSelect from "../../PreApprovedNew/Components/FormSelectBtn";
+import FormSelectSearchable from "../../PreApprovedNew/Components/FormSelectSerachableBtn";
 import { useDispatch } from "react-redux";
-import moment from "moment";
+import { useNavigate } from "react-router";
+import { setLead } from "../../../store/app/appReducer";
+import { setUserClickData } from "../../../utility/setUserClickData";
+import FormInput from "../../PreApprovedNew/Components/FormInputBtn";
+import BusinessAddressBox from "./BusinessAddressBox";
+import industryOptions from "../../../constants/industries.json";
 
-const ApplyFormStep2 = ({
-  formData,
-  setFormData,
-  nextStep,
-  previousStep,
-  ...props
-}) => {
-  const [errors, setErrors] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [data, setData] = useState({
-    business_type: "",
-    turnover: "",
-    company_type: "",
-  });
+const turnoverOptions = [
+  { value: "", label: "Select Annual Turnover" },
+  { value: "10L-50L", label: "10 Lakhs to 50 Lakhs" },
+  { value: "50L-1Cr", label: "50 Lakhs to 1 Crore" },
+  { value: "1Cr-5Cr", label: "1 Crore to 5 Crore" },
+  { value: "5Cr+", label: "Above 5 Crore" },
+];
+
+const ownershipOptions = [
+  { value: "", label: "Select Ownership Type" },
+  { value: "Sole Proprietorship", label: "Sole Proprietorship" },
+  { value: "Partnership", label: "Partnership" },
+  { value: "Private Limited", label: "Private Limited Company (PVT LTD)" },
+  { value: "LLP", label: "Limited Liability Partnership (LLP)" },
+  { value: "Other", label: "Other" },
+];
+
+const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleValidation = () => {
-    let isValid = true;
-    setErrors("");
-    const gstRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
+  const [errors, setErrors] = useState({});
+  const [data, setData] = useState({
+    annual_turnover: "",
+    industry: null,
+    confirm_business_address: "",
+    address_type: "",
+    ownership: "",
+  });
 
-    if (data.gst_available === "") {
-      isValid = false;
-      setErrors("gst_available");
-      setErrorMessage("Please select gst status");
-    } else if (data.gst_available === "yes") {
-      const { gst_no } = data;
-
-      if (_.isEmpty(gst_no)) {
-        isValid = false;
-        setErrors("gst_no");
-        setErrorMessage("Please enter GST Number");
-      } else if (!gstRegex.test(gst_no)) {
-        isValid = false;
-        setErrors("gst_no");
-        setErrorMessage("Please enter valid GST Number");
-      }
-    } else if (data.gst_available === "no") {
-      const { company_type, regd_proof } = data;
-
-      if (_.isEmpty(company_type)) {
-        isValid = false;
-        setErrors("company_type");
-        setErrorMessage("Please select Company Type");
-      } else if (_.isEmpty(regd_proof)) {
-        isValid = false;
-        setErrors("regd_proof");
-        setErrorMessage("Please select a Registration proof");
-      }
-    }
-
-    return isValid;
-  };
-  const handleSubmit = () => {
-    setUserClickData({ event_name: "step2-business-loan-page" });
-    const isValid = handleValidation();
-    if (isValid) {
-      // const localData = {
-      //   ...data,
-      //   dob: moment(data.dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
-      // };
-      dispatch(setLead({ ...data, stepDone: 2 }));
-      dispatch(setOffers([]));
-      nextStep();
-    }
-  };
+  useEffect(() => {
+    console.log("Received GST Number in Step 2:", formData.gst_no);
+    console.log("Received Udyam Number in Step 2:", formData.udyam_number);
+  }, [formData]);
 
   const handleDataChange = (keyName, keyValue) => {
-    let update = { ...data };
-    update[keyName] = keyValue;
-    setData(update);
+    setData((prevData) => ({ ...prevData, [keyName]: keyValue }));
   };
 
-  // const handleSubmit = () => {
-  //   if (handleValidation()) {
-  //   }
-  //   // todo submit logic
-  // };
+  const handleBlur = (keyName) => {
+    if (data[keyName] === "") {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [keyName]: "This field is required.",
+      }));
+    } else {
+      setErrors((prevErrors) => {
+        const newErrors = { ...prevErrors };
+        delete newErrors[keyName];
+        return newErrors;
+      });
+    }
+  };
 
-  const handleBack = () => {
-    previousStep();
+  // Validation
+  const isFormValid =
+    data.annual_turnover &&
+    data.industry &&
+    data.confirm_business_address &&
+    data.address_type &&
+    data.ownership;
+
+  const handleSubmit = () => {
+    setUserClickData({ event_name: "step2-business-loan-page" });
+
+    if (isFormValid) {
+      dispatch(setLead({ ...data, stepDone: 2 }));
+      nextStep();
+    } else {
+      setErrors({
+        annual_turnover: !data.annual_turnover ? "Required" : "",
+        industry: !data.industry ? "Required" : "",
+        confirm_business_address: !data.confirm_business_address
+          ? "Required"
+          : "",
+        address_type: !data.address_type ? "Required" : "",
+        ownership: !data.ownership ? "Required" : "",
+      });
+    }
   };
 
   return (
-    <div className={"personal-loan-form"}>
-      <img
-        className="my-5 mb-1 img logo-img"
-        src="/assets/img/logo.png"
-        alt=""
-      />
-      <div className={"d-flex flex-column justify-content-between"}>
+    <div className="flex flex-col min-h-screen items-center justify-between p-4">
+      <img className="mt-4 w-36" src="/assets/img/logo.png" alt="Logo" />
+
+      <div className="flex flex-col w-full max-w-md flex-grow justify-center">
+        {/* Annual Turnover */}
         <FormSelect
-          className={"my-3"}
-          options={business_type_options}
-          placeholder="Type Of Business"
-          required
-          id="business_type"
-          value={data.business_type}
-          onChange={(value) => handleDataChange("business_type", value)}
-          errorMessage={errorMessage}
-          isValid={errors !== "business_type"}
           icon={
-            <img src="/assets/icons/ctype.png" style={{ height: "25px" }} />
+            <img
+              src="/assets/icons/income.png"
+              className="h-6 px-2"
+              alt="Annual Income"
+            />
           }
-          label={"Type Of Business"}
-        />
-        <FormSelect
-          className={"my-3"}
+          label="Annual Turnover"
+          name="annual_turnover"
           options={turnoverOptions}
-          placeholder="turnover"
-          required
-          id="turnover"
-          value={data.turnover}
-          onChange={(value) => handleDataChange("turnover", value)}
-          errorMessage={errorMessage}
-          isValid={errors !== "turnover"}
+          value={data.annual_turnover}
+          onChange={(value) => handleDataChange("annual_turnover", value)}
+          onBlur={() => handleBlur("annual_turnover")}
+          isValid={!errors.annual_turnover}
+          errorMessage={errors.annual_turnover}
+        />
+
+        {/* Industry */}
+        <FormSelectSearchable
           icon={
-            <img src="/assets/icons/startup.png" style={{ height: "25px" }} />
+            <img
+              src="/assets/icons/profession.png"
+              className="h-6 px-2"
+              alt="Industry"
+            />
           }
-          label={"Average Monthly Sales"}
+          label="Industry"
+          name="industry"
+          options={industryOptions}
+          value={data.industry}
+          onChange={(value) => handleDataChange("industry", value)}
+          isValid={!errors.industry}
+          errorMessage={errors.industry}
         />
+
+        {/* Confirm Business Address */}
+        <BusinessAddressBox
+          data={{
+            ...formData,
+            confirm_business_address: formData.confirm_business_address || "",
+          }}
+          handleDataChange={handleDataChange}
+        />
+
+        {/* Ownership */}
         <FormSelect
-          options={company_type_options}
-          placeholder="Type Of Industry"
-          required
-          id="company_type"
-          value={data.company_type}
-          onChange={(value) => handleDataChange("company_type", value)}
-          errorMessage={errorMessage}
-          isValid={errors !== "company_type"}
-          icon={<img src="/assets/icons/toc.png" style={{ height: "25px" }} />}
-          label={"Select Your Industry"}
+          icon={
+            <img
+              src="/assets/icons/Icon C Type.png"
+              className="h-6 px-2"
+              alt="Ownership"
+            />
+          }
+          label="Ownership"
+          name="ownership"
+          options={ownershipOptions}
+          value={data.ownership}
+          onChange={(value) => handleDataChange("ownership", value)}
+          onBlur={() => handleBlur("ownership")}
+          isValid={!errors.ownership}
+          errorMessage={errors.ownership}
         />
-        <div className={"d-flex gap-3"}>
-          <FormButton type={"secondary"} onClick={handleBack}>
-            Back
-          </FormButton>
-          <FormButton onClick={handleSubmit}>Continue</FormButton>
-        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="flex w-full max-w-md gap-1">
+        <FormButton
+          className="w-1/2 bg-gray-300 hover:bg-gray-400 text-black font-semibold py-3 rounded-lg"
+          style={{ minWidth: "140px" }}
+          onClick={previousStep}
+        >
+          Back
+        </FormButton>
+        <FormButton
+          className="w-1/2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg disabled:bg-gray-400"
+          style={{ minWidth: "140px" }}
+          onClick={handleSubmit}
+          disabled={!isFormValid}
+        >
+          Submit
+        </FormButton>
       </div>
     </div>
   );

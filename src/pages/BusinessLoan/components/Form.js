@@ -16,9 +16,14 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
+  const [contactName, setContactName] = useState("");
   const [mobile, setMobile] = useState("");
   const [source, setSource] = useState("");
   const [isMobileValid, setIsMobileValid] = useState(true);
+  const [isNameValid, setIsNameValid] = useState(true);
+  const [nameTouched, setNameTouched] = useState(false);
+  const [mobileTouched, setMobileTouched] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
@@ -27,32 +32,42 @@ const Form = ({ formData, setFormData, ...props }) => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
-  const handleValidation = () => {
-    let isValid = true;
+  const handleNameChange = (event) => {
+    const { value } = event.target;
+    setContactName(value);
+  };
 
-    if (_.isEmpty(mobile)) {
-      isValid = false;
-      setIsMobileValid(false);
+  const handleNameBlur = () => {
+    setNameTouched(true);
+    if (contactName.length === 0) {
+      setIsNameValid(true);
+    } else {
+      setIsNameValid(/^[A-Za-z ]+$/.test(contactName));
     }
-    if (!/^\d{10}$/.test(mobile)) {
-      isValid = false;
-      setIsMobileValid(false);
-    }
-
-    return isValid;
   };
 
   const handleMobileChange = (event) => {
     const { value } = event.target;
-    setIsMobileValid(true);
-    setMobile(value);
+    if (/^\d{0,10}$/.test(value)) {
+      setMobile(value);
+    }
   };
 
-  const handleSubmit = async (event) => {
-    setUserClickData({ event_name: "otp-button-business-loan-page" });
+  const handleMobileBlur = () => {
+    setMobileTouched(true);
+    if (mobile.length === 0) {
+      setIsMobileValid(true);
+    } else {
+      setIsMobileValid(mobile.length === 10);
+    }
+  };
+
+  const isFormValid =
+    isNameValid && !_.isEmpty(contactName) && isMobileValid && mobile.length === 10;
+
+  const handleSendOtp = async (event) => {
     event.preventDefault();
-    let isValid = handleValidation();
-    if (isValid) {
+    if (isFormValid) {
       setIsOtpGenerated(true);
       const res = await callApi(
         "v1/sms/send-otp",
@@ -65,20 +80,19 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
       if (res["status"] === "Success") {
         setIsOtpGenerated(true);
+        setUserClickData({
+          event_name: `otp-send-business-loan-page`,
+          user_id: mobile || "unknown",
+        });
       }
     }
   };
-  // Handle form submission
 
   const handleChange = () => {
     setIsTncChecked((prev) => !prev);
   };
 
   const handleResendOtp = async () => {
-    // todo resend login with timer
-    setUserClickData({
-      event_name: "resend-otp-form-for-personal-loan",
-    });
     try {
       const res = await callApi(
         "v1/sms/send-otp",
@@ -90,6 +104,10 @@ const Form = ({ formData, setFormData, ...props }) => {
         "messaging"
       );
       if (res["status"] === "Success") {
+        setUserClickData({
+          event_name: `resend-otp-business-loan-page`,
+          user_id: mobile || "unknown",
+        });
         toast("Otp sent", { hideProgressBar: true, type: "success" });
       }
     } catch (err) {
@@ -98,7 +116,6 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
-    setUserClickData({ event_name: "otp-verify-button-business-loan-page" });
     try {
       const res = await callApi(
         "v1/sms/validate-otp",
@@ -112,7 +129,10 @@ const Form = ({ formData, setFormData, ...props }) => {
 
       if (res["status"] === "Success") {
         dispatch(login({ ...res.data.customer, token: res.data.token }));
-
+        setUserClickData({
+          event_name: `otp-verify-business-loan-page`,
+          user_id: mobile || "unknown",
+        });
         await callApi(
           "v1/lead/lead-from-phone",
           "post",
@@ -154,65 +174,98 @@ const Form = ({ formData, setFormData, ...props }) => {
             setOtpValue={setOtp}
             handleResendOtp={handleResendOtp}
             phone_number={mobile}
+            contactName={contactName}
+            setContactName={setContactName}
             handleSubmitOtp={handleSubmitOtp}
           />
         </div>
       ) : (
         <>
-          <img
-            className="my-5 mb-3 img header-img"
-            src="/assets/img/dm-bs.png"
-            alt=""
-          />
-          <h1
-            className="mt-5 text-center h3 fw-normal"
-            style={{ fontSize: "20px", letterSpacing: "2pxs" }}
-          >
-            Lets Check Your
-            <br />
-            <strong>Eligibility Quicklyr</strong>
-          </h1>
-          <input type="hidden" name="utm_campaign" value="" />
-          <input type="hidden" name="utm_source" value="" />
-          <input type="hidden" name="utm_medium" value="" />
-          <input type="hidden" name="utm_content" value="" />
-          <input type="hidden" name="click_id" value="" />
-          <input type="hidden" name="aff_id" value="" />
-          <input type="hidden" name="src" value="" />
-          <FormInput
-            className={"my-5"}
-            icon={
-              <img
-                src="/assets/icons/phone-call.png"
-                height="25"
-                alt="Phone Icon"
-              />
-            }
-            type="number"
-            name="mobile"
-            isValid={isMobileValid}
-            id="mobile"
-            aria-describedby="name"
-            placeholder="Mobile"
-            minLength="10"
-            maxLength="10"
-            pattern="[0-9]{10}"
-            value={mobile}
-            onChange={handleMobileChange}
-            required
-            label={"Mobile Number"}
-            errorMessage={"Please enter a valid Mobile Number"}
-          />
-          <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
-          <FormButton
-            style={{ marginTop: "10px" }}
-            className="w-100 btn btn-lg btn-primary btn-get-otp"
-            type="submit"
-            onClick={handleSubmit}
-            id="myBtn"
-          >
-            GET OTP
-          </FormButton>
+          <div className="">
+            <h2 className="text-center mt-28 text-xl mb-8">
+              Fuel Your Business Growth with Instant,{" "}
+              <span style={{ color: "#007bff", fontWeight: "600" }}>
+                Unsecured Business Loans.
+              </span>
+            </h2>
+            <p className="mt-2 text-center text-base">
+              • Fast Approvals • Quick Disbursal
+            </p>
+            <p className="mt-1 text-center text-base">• Zero Collateral</p>
+            <input type="hidden" name="utm_campaign" value="" />
+            <input type="hidden" name="utm_source" value="" />
+            <input type="hidden" name="utm_medium" value="" />
+            <input type="hidden" name="utm_content" value="" />
+            <input type="hidden" name="click_id" value="" />
+            <input type="hidden" name="aff_id" value="" />
+            <input type="hidden" name="src" value="" />
+            <FormInput
+              className={"my-4"}
+              icon={
+                <img
+                  src="/assets/icons/male.png"
+                  height="25"
+                  alt="Phone Icon"
+                />
+              }
+              type="text"
+              name="name"
+              id="name"
+              value={contactName}
+              aria-describedby="name"
+              placeholder="Name"
+              onChange={handleNameChange}
+              onBlur={handleNameBlur}
+              isValid={!nameTouched || isNameValid}
+              required
+              label={"Full Name as per PAN Card"}
+              errorMessage={
+                nameTouched && !isNameValid ? "Please enter a valid name" : ""
+              }
+            />
+            <FormInput
+              className={"my-2"}
+              icon={
+                <img
+                  src="/assets/icons/phone-call.png"
+                  height="25"
+                  alt="Phone Icon"
+                />
+              }
+              type="number"
+              name="mobile"
+              id="mobile"
+              aria-describedby="name"
+              placeholder="Mobile"
+              minLength="10"
+              maxLength="10"
+              pattern="[0-9]{10}"
+              value={mobile}
+              onChange={handleMobileChange}
+              onBlur={handleMobileBlur}
+              isValid={!mobileTouched || isMobileValid}
+              required
+              label={"Mobile Number"}
+              errorMessage={
+                mobileTouched && !isMobileValid
+                  ? "Please enter a valid mobile number"
+                  : ""
+              }
+            />
+          </div>
+          <div className="mt-16">
+            <CheckboxTnC checked={isTncChecked} handleChange={handleChange} />
+            <FormButton
+              style={{ marginTop: "10px" }}
+              className="w-100 btn btn-lg btn-primary btn-get-otp"
+              type="submit"
+              onClick={handleSendOtp}
+              disabled={!isFormValid}
+              id="myBtn"
+            >
+              GET OTP
+            </FormButton>
+          </div>
         </>
       )}
     </div>
