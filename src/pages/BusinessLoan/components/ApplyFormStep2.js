@@ -9,6 +9,8 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import FormInput from "../../PreApprovedNew/Components/FormInputBtn";
 import BusinessAddressBox from "./BusinessAddressBox";
 import industryOptions from "../../../constants/industries.json";
+import callApi from "../../../utility/apiCaller";
+import { toast } from "react-toastify";
 
 const turnoverOptions = [
   { value: "", label: "Select Annual Turnover" },
@@ -43,10 +45,22 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
   useEffect(() => {
     console.log("Received GST Number in Step 2:", formData.gst_no);
     console.log("Received Udyam Number in Step 2:", formData.udyam_number);
+    console.log("Received Work Address in Step 2:", formData.work_address1);
   }, [formData]);
+
+  useEffect(() => {
+    if (formData.work_address1) {
+      console.log("Updating confirm_business_address:", formData.work_address1);
+      setData((prev) => ({
+        ...prev,
+        confirm_business_address: formData.work_address1,
+      }));
+    }
+  }, [formData.work_address1]);
 
   const handleDataChange = (keyName, keyValue) => {
     setData((prevData) => ({ ...prevData, [keyName]: keyValue }));
+    setFormData((prev) => ({ ...prev, [keyName]: keyValue }));
   };
 
   const handleBlur = (keyName) => {
@@ -72,10 +86,50 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
     data.address_type &&
     data.ownership;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setUserClickData({ event_name: "step2-business-loan-page" });
 
+    if (data.confirm_business_address) {
+      setFormData((prev) => ({
+        ...prev,
+        work_address1: data.confirm_business_address,
+      }));
+    }
+
     if (isFormValid) {
+      const payload = {
+        businessloanlead: {
+          contact_phone: formData.mobile,
+          pan_no: formData.pancard,
+          work_address1: data.confirm_business_address,
+          address_type: data.address_type,
+          ownership: data.ownership,
+          annual_turnover: data.annual_turnover,
+          industry: data.industry,
+          is_stage2_completed: true,
+        },
+      };
+
+      try {
+        const leadResponse = await callApi(
+          "v1/businessloanlead/new",
+          "post",
+          payload,
+          "core"
+        );
+
+        if (leadResponse.status === "Success") {
+          console.log("Business Loan Lead Updated:", leadResponse.data);
+          toast.success("Business loan lead updated successfully.");
+        } else {
+          console.warn("Failed to update business loan lead:", leadResponse);
+          toast.error("Failed to update business loan lead.");
+        }
+      } catch (err) {
+        console.error("API Error:", err);
+        toast.error("An error occurred while updating the business loan lead.");
+      }
+
       dispatch(setLead({ ...data, stepDone: 2 }));
       nextStep();
     } else {
