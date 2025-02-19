@@ -1,129 +1,196 @@
 import React, { useEffect, useState } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import FormButton from "../../../components/Buttons/FormButton";
-import { useDispatch, useSelector } from "react-redux";
 import callApi from "../../../utility/apiCaller";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { sourceConvert } from "../../../utility/commonUtils";
-import { useSearchParams } from "react-router-dom";
+import axios from "axios";
 
-const UploadFiles = ({ nextStep }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const lead = useSelector((state) => state.app.lead);
-  const user = useSelector((state) => state.app.user);
-  const [leadId, setLeadId] = useState(null);
-  const [source, setSource] = useState("");
-  const [params] = useSearchParams();
+const UploadFiles = ({ formData, nextStep }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadedFilePaths, setUploadedFilePaths] = useState({
+    bank_statement_file: [],
+    gst_certificate_file: "",
+    pan_card_file: "",
+    aadhar_card_file: "",
+    electricity_bill_file: "",
+  });
   const [files, setFiles] = useState({
-    bank_statement: null,
+    bank_statement: [],
     gst_certificate: null,
     pan_card: null,
     aadhar_card: null,
+    electricity_bill: null,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg", "application/pdf"];
+
+  const allowedFileTypes = [
+    "image/png",
+    "image/jpeg",
+    "image/jpg",
+    "application/pdf",
+  ];
 
   useEffect(() => {
-    if (params.get("source")) setSource(params.get("source"));
-  }, [params]);
-
-  useEffect(() => {
-    if (lead.stepDone === 2) {
-      submitLeadData();
-    }
-  }, [lead]);
-
-  const submitLeadData = async () => {
     setUserClickData({ event_name: "upload-documents-page" });
+  }, []);
 
-    try {
-      const trackId = localStorage.getItem("TRACK_ID");
-      const res = await callApi(
-        `v1/lead/${lead._id}/update-lead`,
-        "post",
-        {
-          lead: {
-            ...lead,
-            tracking_id: trackId,
-            gst: lead.gst_no,
-            turnover: lead.turnover,
-            business_vintage: lead.company_age,
-            utm_medium: lead.utm_medium,
-            is_data_filled: true,
-            utm_medium: sourceConvert(source),
-          },
-        },
-        "core",
-        user.token
-      );
+  const handleFileChange = (event, key) => {
+    const selectedFiles = Array.from(event.target.files);
 
-      if (res.status === "Success" && res.data.lead) {
-        setLeadId(res.data.lead._id);
+    if (key === "bank_statement") {
+      if (selectedFiles.length + files.bank_statement.length > 3) {
+        toast.error("You can upload a maximum of 3 bank statement files.");
+        return;
       }
-    } catch (err) {
-      //   toast.error("Error submitting data.");
-      console.log(err);
+
+      const validFiles = selectedFiles.filter((file) =>
+        allowedFileTypes.includes(file.type)
+      );
+      if (validFiles.length !== selectedFiles.length) {
+        toast.error(
+          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
+        );
+        return;
+      }
+
+      setFiles((prevFiles) => ({
+        ...prevFiles,
+        bank_statement: [...prevFiles.bank_statement, ...validFiles],
+      }));
+    } else {
+      const file = selectedFiles[0];
+      if (!allowedFileTypes.includes(file.type)) {
+        toast.error(
+          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
+        );
+        return;
+      }
+      setFiles((prevFiles) => ({ ...prevFiles, [key]: file }));
     }
   };
 
-  const handleFileChange = (event, key) => {
-  const file = event.target.files[0];
+  const removeFile = (key, index = null) => {
+    setFiles((prevFiles) => {
+      if (key === "bank_statement") {
+        return {
+          ...prevFiles,
+          bank_statement: prevFiles.bank_statement.filter(
+            (_, i) => i !== index
+          ),
+        };
+      } else {
+        return { ...prevFiles, [key]: null };
+      }
+    });
+  };
 
-  if (file) {
-    if (!allowedFileTypes.includes(file.type)) {
-      toast.error("Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed.");
-      return;
+  const uploadFile = async (selectedFiles) => {
+    if (!selectedFiles || selectedFiles.length === 0) {
+      console.error("No files selected!");
+      return [];
     }
 
-    setFiles((prevFiles) => ({ ...prevFiles, [key]: file }));
-  }
-};
+    if (!(selectedFiles instanceof FileList || Array.isArray(selectedFiles))) {
+      console.warn("selectedFiles is not an array. Wrapping in an array.");
+      selectedFiles = [selectedFiles];
+    }
+
+    const uploadedPaths = [];
+    for (const file of selectedFiles) {
+      const bodyFormData = new FormData();
+      bodyFormData.append("file", file);
+      try {
+        const res = await axios.post(
+          "https://report-api.digitmoney.in/api/v1/upload/user-loan-documents/file-upload",
+          // "http://localhost:8090/api/v1/upload/user-loan-documents/file-upload",
+          bodyFormData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        if (!res.data.data || !res.data.data.file_path) {
+          console.error("Upload failed for", file.name, "Response:", res.data);
+          continue;
+        }
+        uploadedPaths.push(res.data.data.file_path);
+      } catch (error) {
+        console.error("Upload error for", file.name, ":", error);
+      }
+    }
+    return uploadedPaths;
+  };
 
   const handleSubmit = async () => {
-    setUserClickData({ event_name: "upload-documents-page" });
+    setIsSubmitting(true);
 
-    if (
-      !files.bank_statement ||
-      !files.gst_certificate ||
-      !files.pan_card ||
-      !files.aadhar_card
-    ) {
-      toast.error("Please upload all files before submitting.");
+    if (!formData || !formData.mobile || !formData.pancard) {
+      toast.error("Missing required user details.");
+      setIsSubmitting(false);
       return;
     }
 
-    setIsSubmitting(true);
+    if (files.bank_statement.length < 1) {
+      toast.error("Please upload at least one bank statement file.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const fileEntries = Object.entries(files).filter(
+      ([_, file]) => file !== null && file.length !== 0
+    );
+
+    if (fileEntries.length !== 5) {
+      toast.error("Please upload all files before submitting.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    let uploadedFiles = {};
 
     try {
-      // Prepare form data
-      const formData = new FormData();
-      formData.append("bank_statement", files.bank_statement);
-      formData.append("gst_certificate", files.gst_certificate);
-      formData.append("pan_card", files.pan_card);
-      formData.append("aadhar_card", files.aadhar_card);
+      for (const [docType, file] of fileEntries) {
+        console.log("Uploading document:", docType);
+        const fileUploadResponse = await uploadFile(file);
 
-      const res = await callApi(
-        `v1/upload-files/${leadId}`,
+        if (!fileUploadResponse || fileUploadResponse.length === 0) {
+          toast.error(`Upload failed for ${docType}`);
+          setIsSubmitting(false);
+          return;
+        }
+        uploadedFiles[`${docType}_file`] =
+          docType === "bank_statement"
+            ? fileUploadResponse
+            : fileUploadResponse[0];
+      }
+      setUploadedFilePaths(uploadedFiles);
+      toast.success("All files uploaded successfully!");
+
+      const payload = {
+        businessloanlead: {
+          is_stage3_completed: true,
+          contact_phone: formData?.mobile,
+          pan_no: formData?.pancard,
+          ...uploadedFiles,
+        },
+      };
+
+      const leadResponse = await callApi(
+        "v1/businessloanlead/new",
         "post",
-        formData,
-        "core",
-        user.token
+        payload,
+        "core"
       );
 
-      if (res.status === "Success") {
-        toast.success("Files uploaded successfully!");
-        nextStep(); // Proceed to ConfirmationPage only if API is successful
+      if (leadResponse?.status === "Success") {
+        const leadId = leadResponse.data.businessloanlead._id;
+        localStorage.setItem("lead_id", leadId);
+        toast.success("Lead successfully created!");
+        nextStep();
       } else {
-        toast.error("File upload failed. Please try again.");
+        toast.error("Error submitting lead data. Please try again.");
       }
     } catch (err) {
       toast.error("Error uploading files. Please try again.");
-      nextStep();
-      console.log(err);
+      console.error(err);
     } finally {
       setIsSubmitting(false);
     }
@@ -138,13 +205,13 @@ const UploadFiles = ({ nextStep }) => {
           Upload Documents
         </h2>
 
-        {/* File Upload Fields */}
         {[
-          { label: "Bank Statement", key: "bank_statement" },
+          { label: "Bank Statement", key: "bank_statement", multiple: true },
           { label: "GST/MSME Certificate", key: "gst_certificate" },
           { label: "Pan Card", key: "pan_card" },
           { label: "Aadhar Card", key: "aadhar_card" },
-        ].map(({ label, key }) => (
+          { label: "Electricity Bill", key: "electricity_bill" },
+        ].map(({ label, key, multiple }) => (
           <div key={key} className="mb-3">
             <div className="flex items-center justify-between w-full bg-white border border-gray-300 px-4 py-3 rounded-lg shadow-sm">
               <span className="text-sm font-medium text-gray-600">{label}</span>
@@ -153,18 +220,48 @@ const UploadFiles = ({ nextStep }) => {
                 id={key}
                 className="hidden"
                 onChange={(e) => handleFileChange(e, key)}
+                multiple={multiple}
               />
               <label
                 htmlFor={key}
                 className="px-4 py-2 bg-cyan-500 text-white text-sm font-semibold rounded cursor-pointer hover:bg-blue-600 transition"
               >
-                {files[key] ? "Change File" : "Attach File"}
+                {key === "bank_statement" || !files[key]
+                  ? "Attach Files"
+                  : "Change File"}
               </label>
             </div>
 
-            {files[key] && (
-              <div className="text-xs text-gray-500 mt-2 px-2 truncate max-w-full">
-                Uploaded File: {files[key].name}
+            {key === "bank_statement" && files[key].length > 0 && (
+              <div className="text-xs text-gray-500 mt-2 px-2">
+                {files[key].map((file, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center border p-2 rounded mt-1"
+                  >
+                    <span className="truncate">{file.name}</span>
+                    <button
+                      className="ml-2 text-red-500 hover:text-red-700"
+                      onClick={() => removeFile(key, index)}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {key !== "bank_statement" && files[key] && (
+              <div className="text-xs text-gray-500 mt-2 px-2 flex justify-between items-center">
+                <span className="truncate">
+                  Uploaded File: {files[key].name}
+                </span>
+                <button
+                  className="ml-2 text-red-500 hover:text-red-700"
+                  onClick={() => removeFile(key)}
+                >
+                  ✕
+                </button>
               </div>
             )}
           </div>

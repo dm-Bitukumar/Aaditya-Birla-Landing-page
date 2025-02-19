@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
 import { login, setLead } from "../../../store/app/appReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 
@@ -17,13 +17,14 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [isTncChecked, setIsTncChecked] = useState(true);
   const [contactName, setContactName] = useState("");
+  const [pan, setPan] = useState("");
   const [mobile, setMobile] = useState("");
   const [source, setSource] = useState("");
   const [isMobileValid, setIsMobileValid] = useState(true);
-  const [isNameValid, setIsNameValid] = useState(true);
-  const [nameTouched, setNameTouched] = useState(false);
+  const [isPanValid, setIsPanValid] = useState(true);
   const [mobileTouched, setMobileTouched] = useState(false);
-
+  const [panTouched, setPanTouched] = useState(false);
+  const user = useSelector((state) => state.app.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
@@ -32,17 +33,17 @@ const Form = ({ formData, setFormData, ...props }) => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
-  const handleNameChange = (event) => {
+  const handlePanChange = (event) => {
     const { value } = event.target;
-    setContactName(value);
+    setPan(value);
   };
 
-  const handleNameBlur = () => {
-    setNameTouched(true);
-    if (contactName.length === 0) {
-      setIsNameValid(true);
+  const handlePanBlur = () => {
+    setPanTouched(true);
+    if (pan.length === 0) {
+      setIsPanValid(true);
     } else {
-      setIsNameValid(/^[A-Za-z ]+$/.test(contactName));
+      setIsPanValid(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan));
     }
   };
 
@@ -63,7 +64,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const isFormValid =
-    isNameValid && !_.isEmpty(contactName) && isMobileValid && mobile.length === 10;
+    isPanValid && !_.isEmpty(pan) && isMobileValid && mobile.length === 10;
 
   const handleSendOtp = async (event) => {
     event.preventDefault();
@@ -127,37 +128,88 @@ const Form = ({ formData, setFormData, ...props }) => {
         "messaging"
       );
 
-      if (res["status"] === "Success") {
+      if (res.status === "Success") {
         dispatch(login({ ...res.data.customer, token: res.data.token }));
         setUserClickData({
           event_name: `otp-verify-business-loan-page`,
           user_id: mobile || "unknown",
         });
-        await callApi(
-          "v1/lead/lead-from-phone",
-          "post",
-          {
-            phone: mobile,
-            website_kyc_consent: isTncChecked,
-          },
-          "core",
-          res.data.token
-        )
-          .then((response) => {
-            if (response["status"] === "Success") {
-              dispatch(setLead(response.data.lead));
-              navigate(`/business-loan/apply?source=${source}`);
-            }
-          })
-          .catch((e) => navigate(`/personal-loan?source=${source}`));
+
+        toast.success("OTP verified successfully.");
+
+        let fullName = "";
+        try {
+          const panRes = await callApi(
+            "v1/M2P_data/get-data-from-pan",
+            "post",
+            { pancard: pan },
+            "core",
+            res.data.token
+          );
+
+          if (panRes.status === "Success" && panRes.data?.fullname) {
+            fullName = panRes.data.fullname;
+
+            await callApi(
+              "v1/ican_api/bl-data-send-to-ican",
+              "post",
+              {
+                lead: {
+                  contact_phone: mobile,
+                  pan_no: pan,
+                  conatct_name: fullName,
+                },
+              },
+              "core"
+            );
+          }
+        } catch (err) {
+          console.warn(
+            "Failed to fetch PAN details. Proceeding without full name."
+          );
+        }
+
+        try {
+          const leadRes = await callApi(
+            "v1/businessloanlead/new",
+            "post",
+            {
+              businessloanlead: {
+                contact_phone: mobile,
+                pan_no: pan,
+                is_pan_verified: true,
+                is_pan_mobile_verify_completed: true,
+              }
+            },
+            "core",
+          );
+
+          if (leadRes.status === "Success") {
+            dispatch(setLead(leadRes.data.lead));
+          }
+        } catch (err) {
+          console.warn("Lead update failed, continuing flow.");
+        }
+
+        setFormData((prev) => {
+          const updatedData = {
+            ...prev,
+            pancard: pan,
+            mobile: mobile,
+            full_name: fullName,
+          };
+          navigate(`/business-loan/apply?source=${source}`, { state: updatedData });
+          return updatedData;
+        });
       }
     } catch (err) {
-      if (err.response.data.data.message === "Invalid OTP") {
-        toast("Wrong OTP", { hideProgressBar: true, type: "error" });
+      if (err.response?.data?.message === "Invalid OTP") {
+        toast.error("Wrong OTP");
       }
       console.log(err);
     }
   };
+
   return (
     <div className={"personal-loan-form"}>
       <img
@@ -203,24 +255,29 @@ const Form = ({ formData, setFormData, ...props }) => {
               className={"my-4"}
               icon={
                 <img
-                  src="/assets/icons/male.png"
+                  src="/assets/icons/pancard.png"
                   height="25"
-                  alt="Phone Icon"
+                  alt="PAN Icon"
                 />
               }
               type="text"
-              name="name"
-              id="name"
-              value={contactName}
-              aria-describedby="name"
-              placeholder="Name"
-              onChange={handleNameChange}
-              onBlur={handleNameBlur}
-              isValid={!nameTouched || isNameValid}
+              name="pancard"
+              id="pancard"
+              value={pan}
+              placeholder="Enter PAN"
+              minLength="10"
+              maxLength="10"
+              pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
+              onChange={handlePanChange}
+              onBlur={handlePanBlur}
+              isValid={!panTouched || isPanValid}
+              style={{ textTransform: "uppercase" }}
               required
-              label={"Full Name as per PAN Card"}
+              label={"Pancard"}
               errorMessage={
-                nameTouched && !isNameValid ? "Please enter a valid name" : ""
+                panTouched && !isPanValid
+                  ? "Please enter a valid PAN number."
+                  : ""
               }
             />
             <FormInput
