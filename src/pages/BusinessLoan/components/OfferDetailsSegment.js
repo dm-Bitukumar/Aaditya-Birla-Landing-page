@@ -8,17 +8,11 @@ import { setLead, setOffers } from "../../../store/app/appReducer";
 import callApi from "../../../utility/apiCaller";
 import OfferTile from "../../PersonalDetails/components/OfferTile";
 import { toast } from "react-toastify";
-import {
-  getAllianceLeadFromMoneyTapInput,
-  getBusinessTurnoverFromEntry,
-  getBusinessVintageFromEntry,
-  sourceConvert,
-} from "../../../utility/commonUtils";
 import { TRACK_ID } from "../../../utility/enum";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 
-const OfferDetailsSegment = () => {
+const OfferDetailsSegment = ( formData ) => {
   const dispatch = useDispatch();
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
@@ -33,13 +27,9 @@ const OfferDetailsSegment = () => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
-  //   662a73413a05656cf94543c4
-
   // useEffect(() => {
-  //   if (lead.stepDone === 2 && !leadId) {
-  //     submitLead();
-  //   }
-  // }, [lead]);
+  //   submitLead(); 
+  // }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,39 +40,35 @@ const OfferDetailsSegment = () => {
   }, [leadId]);
 
   const submitLead = async () => {
-    setUserClickData({
-      event_name: "business-loan-page",
-    });
+    setUserClickData({ event_name: "business-loan-page" });
+
     try {
-      const trackId = localStorage.getItem(TRACK_ID);
-      const res = await callApi(
-        `v1/lead/${lead._id}/update-lead`,
+      // if (!formData._id) {
+      //   toast.error("Lead ID is missing. Please restart the process.");
+      //   return;
+      // }
+
+      const leadResponse = await callApi(
+        "v1/lead/business-lead",
         "post",
-        {
-          lead: {
-            ...lead,
-            tracking_id: trackId,
-            gst: lead.gst_no,
-            turnover: getBusinessTurnoverFromEntry(lead.turnover),
-            business_vintage: getBusinessVintageFromEntry(lead.company_age),
-            utm_medium: sourceConvert(source),
-          },
-        },
+        { lead_id: formData._id },
         "core",
         user.token
       );
-      console.log(res);
-      if (res.status === "Success" && res.data.lead) {
-        setLeadId(res.data.lead._id);
+
+      console.log("Lead API Response:", leadResponse);
+
+      if (leadResponse.status === "Success" && leadResponse.data._id) {
+        setLeadId(leadResponse.data._id);
       }
     } catch (err) {
       toast("Some error occurred", { hideProgressBar: true, type: "error" });
-      console.log(err);
+      console.error(err);
     }
   };
 
   const fetchOffers = async () => {
-    if (isFinished) return;
+    if (isFinished || !leadId) return;
     try {
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,

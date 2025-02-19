@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
 import FormButton from "../../../components/Buttons/FormButton";
-import OtpInputForm from "../../../components/Form/OtpInputForm";
-import { useNavigate } from "react-router";
 import GstRegistrationOption from "./GstRegistrationOption";
-import moment from "moment";
 import { useDispatch } from "react-redux";
 import { setLead } from "../../../store/app/appReducer";
 import { setUserClickData } from "../../../utility/setUserClickData";
@@ -23,24 +20,32 @@ const residential_type_options = [
 const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const [data, setData] = useState({
-    pan_card: "",
+    full_name: "",
     residence_pincode: "",
     residential_type: "",
     gst_available: "",
     gst_no: "",
   });
   const [touched, setTouched] = useState({
-    pan_card: false,
+    full_name: false,
     residence_pincode: false,
     residential_type: false,
     gst_no: false,
   });
-  const navigate = useNavigate();
   const udyamRegex = /^UDYAM-[A-Z]{2}-\d{2}-\d{7}$/;
-  const [isFetching, setIsFetching] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
+  const gstRegex = /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[0-9a-zA-Z]{3}$/;
+
+  useEffect(() => {
+    if (formData.full_name) {
+      setData((prevData) => ({
+        ...prevData,
+        full_name: formData.full_name,
+      }));
+    }
+  }, [formData.full_name]);
 
   const handleDataChange = (keyName, keyValue) => {
     setData((prevData) => {
@@ -73,15 +78,11 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
     let validationErrors = {};
     let isValid = true;
 
-    const gstRegex = /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[0-9a-zA-Z]{3}$/;
-
-    if (
-      touched.pan_card &&
-      data.pan_card &&
-      !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.pan_card)
-    ) {
-      validationErrors.pan_card = "Please enter a valid PAN Card";
-      isValid = false;
+    if (touched.full_name) {
+      if (data.full_name.length > 0 && !/^[A-Za-z ]+$/.test(data.full_name)) {
+        validationErrors.full_name = "Only alphabets are allowed.";
+        isValid = false;
+      }
     }
 
     if (
@@ -109,7 +110,7 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
     }
 
     setErrors(validationErrors);
-    return isValid;
+    return isValid && data.full_name.length > 0;
   };
 
   const fetchGSTAddress = async (gstNumber) => {
@@ -147,9 +148,13 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
 
       if (
         response?.status === "Success" &&
-        response?.data?.raw_response?.udyamdetails?.address
+        response?.data?.raw_response?.data?.main_details
       ) {
-        return response.data.raw_response.udyamdetails.address;
+        const details = response.data.raw_response.data.main_details;
+
+        const address = `${details.flat}, ${details.name_of_building}, ${details.road}, ${details.village}, ${details.block}, ${details.city}, ${details.state} - ${details.pin}`;
+
+        return address;
       }
 
       return "Unable to fetch address";
@@ -177,6 +182,45 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
         fetchedAddress = await fetchUdyamAddress(data.udyam_number);
         console.log("Fetched Udyam Address:", fetchedAddress);
       }
+      const isGst = data.gst_available === "yes";
+      const isUdyam = data.udyam_available === "yes";
+
+      const payload = {
+        businessloanlead: {
+          contact_phone: formData.mobile,
+          pan_no: formData.pancard,
+          contact_name: data.full_name,
+          pincode: data.residence_pincode,
+          residence_type: data.residential_type,
+          is_gst: isGst,
+          is_udyam: isUdyam,
+          udyamno: isUdyam ? data.udyam_number : "",
+          gst_no: isGst ? data.gst_no : "",
+          is_stage1_completed: true,
+        },
+      };
+
+      try {
+        const leadResponse = await callApi(
+          "v1/businessloanlead/new",
+          "post",
+          payload,
+          "core"
+        );
+
+        if (leadResponse.status === "Success") {
+          console.log("Business Loan Lead Created:", leadResponse.data);
+          toast.success("Business loan lead created successfully.");
+        } else {
+          console.warn("Failed to create business loan lead:", leadResponse);
+          toast.error("Failed to create business loan lead.");
+        }
+      } catch (err) {
+        console.error("API Error:", err);
+        toast.error(
+          "An error occurred while submitting the business loan lead."
+        );
+      }
 
       setFormData((prev) => ({
         ...prev,
@@ -192,11 +236,11 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   };
 
   const isBothNo = data.gst_available === "no" && data.udyam_available === "no";
-  
+
   useEffect(() => {
     setIsFormValid(
-      !!data.pan_card &&
-        /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.pan_card) &&
+      !!data.full_name &&
+        /^[A-Za-z ]+$/.test(data.full_name) &&
         !!data.residence_pincode &&
         data.residence_pincode.length === 6 &&
         !!data.residential_type &&
@@ -217,22 +261,22 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       <img className="mt-4 w-36" src="/assets/img/logo.png" alt="Logo" />
 
       <div className="flex flex-col w-full max-w-md flex-grow justify-center">
-        {/* PAN Card Field */}
+        {/* Full Name Field */}
         <FormInput
           icon={
-            <img src="/assets/icons/pancard.png" className="h-6" alt="PAN" />
+            <img src="/assets/icons/male.png" className="h-6 px-2" alt="icon" />
           }
           type="text"
-          name="pan_card"
-          placeholder="PAN Card Number"
-          label="PAN Card"
-          value={data.pan_card}
+          name="full_name"
+          placeholder="Full Name as per PAN Card"
+          label="Full Name"
+          value={data.full_name}
           onChange={(e) =>
-            handleDataChange("pan_card", e.target.value.toUpperCase())
+            handleDataChange("full_name", e.target.value.toUpperCase())
           }
-          onBlur={() => handleBlur("pan_card")}
-          isValid={!errors.pan_card}
-          errorMessage={errors.pan_card}
+          onBlur={() => handleBlur("full_name")}
+          isValid={!errors.full_name}
+          errorMessage={errors.full_name}
         />
 
         {/* Residence Pincode Field */}
