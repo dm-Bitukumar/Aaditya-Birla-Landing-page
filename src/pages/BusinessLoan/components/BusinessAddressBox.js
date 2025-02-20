@@ -4,20 +4,19 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   const defaultMessage = "Please enter address, unable to fetch right now.";
   const [isEditing, setIsEditing] = useState(false);
   const [editedAddress, setEditedAddress] = useState("");
-  const [lastSavedAddress, setLastSavedAddress] = useState("");
+  const [lastSavedAddress, setLastSavedAddress] = useState(defaultMessage);
   const [selectedAddressType, setSelectedAddressType] = useState(
     data.address_type || ""
   );
 
   useEffect(() => {
-    const initialAddress =
+    if (
       data.confirm_business_address &&
       data.confirm_business_address !== defaultMessage
-        ? data.confirm_business_address
-        : defaultMessage;
-
-    setEditedAddress(initialAddress);
-    setLastSavedAddress(initialAddress);
+    ) {
+      setLastSavedAddress(data.confirm_business_address);
+      setEditedAddress(data.confirm_business_address);
+    }
   }, [data.confirm_business_address]);
 
   useEffect(() => {
@@ -25,12 +24,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   }, [data.address_type]);
 
   const handleEditClick = () => {
-    const prefillAddress =
-      lastSavedAddress && lastSavedAddress !== defaultMessage
-        ? lastSavedAddress
-        : "";
-
-    setEditedAddress(prefillAddress);
+    setEditedAddress(lastSavedAddress);
     setIsEditing(true);
   };
 
@@ -77,9 +71,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
               placeholder="Enter your business address"
             />
           ) : (
-            <p className="text-gray-600 text-sm">
-              {lastSavedAddress || defaultMessage}
-            </p>
+            <p className="text-gray-600 text-sm">{lastSavedAddress}</p>
           )}
         </div>
 
@@ -94,10 +86,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
             </button>
             <button
               className="text-gray-500 text-xs font-medium"
-              onClick={() => {
-                setEditedAddress(lastSavedAddress);
-                setIsEditing(false);
-              }}
+              onClick={() => setIsEditing(false)}
             >
               Cancel
             </button>
@@ -108,7 +97,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
       {/* Address Type (Using Simple Radio Buttons) */}
       <div className="mt-3">
         <p className="text-xs font-semibold mb-1">Address Type</p>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2">
           <label className="flex items-center space-x-1">
             <input
               type="radio"

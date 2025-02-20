@@ -12,9 +12,9 @@ import callApi from "../../../utility/apiCaller";
 
 const residential_type_options = [
   { value: "", label: "Select Residential Type" },
-  { value: "Residential", label: "Residential" },
-  { value: "Commercial", label: "Commercial" },
-  { value: "Industrial", label: "Industrial" },
+  { value: "owned", label: "Owned" },
+  { value: "rented", label: "Rented" },
+  { value: "owned_by_parents", label: "Owned by Parents" },
 ];
 
 const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
@@ -27,13 +27,13 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
     residence_pincode: "",
     residential_type: "",
     gst_available: "",
-    gst_no: "",
+    gst: "",
   });
   const [touched, setTouched] = useState({
     full_name: false,
     residence_pincode: false,
     residential_type: false,
-    gst_no: false,
+    gst: false,
   });
   const udyamRegex = /^UDYAM-[A-Z]{2}-\d{2}-\d{7}$/;
   const gstRegex = /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[0-9a-zA-Z]{3}$/;
@@ -57,7 +57,7 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       }
 
       if (keyName === "gst_available" && keyValue === "no") {
-        updatedData.gst_no = "";
+        updatedData.gst = "";
       }
 
       if (keyName === "gst_available") {
@@ -99,12 +99,12 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       isValid = false;
     }
 
-    if (touched.gst_no && data.gst_available === "yes") {
-      if (_.isEmpty(data.gst_no)) {
-        validationErrors.gst_no = "Please enter GST Number.";
+    if (touched.gst && data.gst_available === "yes") {
+      if (_.isEmpty(data.gst)) {
+        validationErrors.gst = "Please enter GST Number.";
         isValid = false;
-      } else if (!gstRegex.test(data.gst_no)) {
-        validationErrors.gst_no = "Please enter a valid GST Number.";
+      } else if (!gstRegex.test(data.gst)) {
+        validationErrors.gst = "Please enter a valid GST Number.";
         isValid = false;
       }
     }
@@ -165,22 +165,20 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   };
 
   const handleSubmit = async () => {
-    setUserClickData({ event_name: "step1-business-loan-page" });
-
     const isValid = handleValidation();
     if (isValid) {
-      console.log("GST Number:", data.gst_no);
+      console.log("GST Number:", data.gst);
       console.log("Udyam Number:", data.udyam_number);
 
       setIsFetching(true);
 
       let fetchedAddress = "";
-      if (data.gst_no) {
-        fetchedAddress = await fetchGSTAddress(data.gst_no);
-        console.log("Fetched GST Address:", fetchedAddress);
+      if (data.gst) {
+        fetchedAddress = await fetchGSTAddress(data.gst);
+        // console.log("Fetched GST Address:", fetchedAddress);
       } else if (data.udyam_number) {
         fetchedAddress = await fetchUdyamAddress(data.udyam_number);
-        console.log("Fetched Udyam Address:", fetchedAddress);
+        // console.log("Fetched Udyam Address:", fetchedAddress);
       }
       const isGst = data.gst_available === "yes";
       const isUdyam = data.udyam_available === "yes";
@@ -195,8 +193,9 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
           is_gst: isGst,
           is_udyam: isUdyam,
           udyamno: isUdyam ? data.udyam_number : "",
-          gst_no: isGst ? data.gst_no : "",
-          is_stage1_completed: true,
+          gst: isGst ? data.gst : "",
+          is_stage1_completed: "true",
+          work_address1: fetchedAddress,
         },
       };
 
@@ -209,22 +208,22 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
         );
 
         if (leadResponse.status === "Success") {
-          console.log("Business Loan Lead Created:", leadResponse.data);
-          toast.success("Business loan lead created successfully.");
+          toast.success("Data uploaded successfully.");
+          setUserClickData({
+            event_name: "step1-business-loan-page-completed",
+            user_id: formData.mobile || "unknown",
+          });
         } else {
-          console.warn("Failed to create business loan lead:", leadResponse);
-          toast.error("Failed to create business loan lead.");
+          toast.error("Failed to update data.");
         }
       } catch (err) {
         console.error("API Error:", err);
-        toast.error(
-          "An error occurred while submitting the business loan lead."
-        );
+        toast.error("An error occurred while submitting the data.");
       }
 
       setFormData((prev) => ({
         ...prev,
-        gst_no: data.gst_no,
+        gst: data.gst,
         udyam_number: data.udyam_number,
         confirm_business_address: fetchedAddress,
       }));
@@ -238,22 +237,23 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
   const isBothNo = data.gst_available === "no" && data.udyam_available === "no";
 
   useEffect(() => {
-    setIsFormValid(
+    const isValid =
       !!data.full_name &&
-        /^[A-Za-z ]+$/.test(data.full_name) &&
-        !!data.residence_pincode &&
-        data.residence_pincode.length === 6 &&
-        !!data.residential_type &&
-        data.gst_available !== "" &&
-        !isBothNo &&
-        ((data.gst_available === "yes" &&
-          !!data.gst_no &&
-          data.gst_no.length === 15 &&
-          /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{3}$/.test(data.gst_no)) ||
-          (data.udyam_available === "yes" &&
-            !!data.udyam_number &&
-            udyamRegex.test(data.udyam_number)))
-    );
+      /^[A-Za-z ]+$/.test(data.full_name) &&
+      !!data.residence_pincode &&
+      data.residence_pincode.length === 6 &&
+      !!data.residential_type &&
+      data.gst_available !== "" &&
+      !isBothNo &&
+      ((data.gst_available === "yes" &&
+        !!data.gst &&
+        data.gst.length === 15 &&
+        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{3}$/.test(data.gst)) ||
+        (data.udyam_available === "yes" &&
+          !!data.udyam_number &&
+          udyamRegex.test(data.udyam_number)));
+
+    setIsFormValid(isValid);
   }, [data]);
 
   return (

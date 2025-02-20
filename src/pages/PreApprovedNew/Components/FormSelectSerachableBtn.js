@@ -101,7 +101,7 @@ const FormSelectSearchable = ({
             filteredOptions.map((option) => (
               <div
                 key={option.value}
-                className="p-2 cursor-pointer hover:bg-gray-100"
+                className="p-2 cursor-pointer hover:bg-gray-100 text-xs"
                 onClick={() => handleChange(option.value)}
               >
                 {option.label}

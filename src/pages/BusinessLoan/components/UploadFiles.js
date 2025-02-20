@@ -5,6 +5,7 @@ import callApi from "../../../utility/apiCaller";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const UploadFiles = ({ formData, nextStep }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,17 +23,8 @@ const UploadFiles = ({ formData, nextStep }) => {
     aadhar_card: null,
     electricity_bill: null,
   });
-
-  const allowedFileTypes = [
-    "image/png",
-    "image/jpeg",
-    "image/jpg",
-    "application/pdf",
-  ];
-
-  useEffect(() => {
-    setUserClickData({ event_name: "upload-documents-page" });
-  }, []);
+  const navigate = useNavigate();
+  const allowedFileTypes = ["image/png", "image/jpg", "application/pdf"];
 
   const handleFileChange = (event, key) => {
     const selectedFiles = Array.from(event.target.files);
@@ -47,9 +39,7 @@ const UploadFiles = ({ formData, nextStep }) => {
         allowedFileTypes.includes(file.type)
       );
       if (validFiles.length !== selectedFiles.length) {
-        toast.error(
-          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
-        );
+        toast.error("Invalid file type. Only JPG, PNG, and PDF are allowed.");
         return;
       }
 
@@ -60,9 +50,7 @@ const UploadFiles = ({ formData, nextStep }) => {
     } else {
       const file = selectedFiles[0];
       if (!allowedFileTypes.includes(file.type)) {
-        toast.error(
-          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
-        );
+        toast.error("Invalid file type. Only JPG, PNG, and PDF are allowed.");
         return;
       }
       setFiles((prevFiles) => ({ ...prevFiles, [key]: file }));
@@ -95,10 +83,17 @@ const UploadFiles = ({ formData, nextStep }) => {
       selectedFiles = [selectedFiles];
     }
 
+    if (!formData._id) {
+      console.error("leadId is required for file uploads.");
+      return [];
+    }
+
     const uploadedPaths = [];
     for (const file of selectedFiles) {
       const bodyFormData = new FormData();
       bodyFormData.append("file", file);
+      bodyFormData.append("leadId", formData._id);
+      console.log("Uploading file:", file.name, "for leadId:", formData._id);
       try {
         const res = await axios.post(
           "https://report-api.digitmoney.in/api/v1/upload/user-loan-documents/file-upload",
@@ -145,6 +140,8 @@ const UploadFiles = ({ formData, nextStep }) => {
     }
 
     let uploadedFiles = {};
+    const S3_BASE_URL =
+      "https://user-loan-documents.s3.ap-south-1.amazonaws.com/";
 
     try {
       for (const [docType, file] of fileEntries) {
@@ -156,17 +153,21 @@ const UploadFiles = ({ formData, nextStep }) => {
           setIsSubmitting(false);
           return;
         }
-        uploadedFiles[`${docType}_file`] =
-          docType === "bank_statement"
-            ? fileUploadResponse
-            : fileUploadResponse[0];
+        const formattedFilePath = Array.isArray(fileUploadResponse)
+          ? fileUploadResponse.map((path) => `${S3_BASE_URL}${path}`)
+          : `${S3_BASE_URL}${fileUploadResponse}`;
+        if (docType === "bank_statement") {
+          uploadedFiles[`${docType}_file`] = formattedFilePath;
+        } else {
+          uploadedFiles[`${docType}_file`] = formattedFilePath[0];
+        }
       }
       setUploadedFilePaths(uploadedFiles);
       toast.success("All files uploaded successfully!");
 
       const payload = {
         businessloanlead: {
-          is_stage3_completed: true,
+          is_stage3_completed: "true",
           contact_phone: formData?.mobile,
           pan_no: formData?.pancard,
           ...uploadedFiles,
@@ -181,10 +182,32 @@ const UploadFiles = ({ formData, nextStep }) => {
       );
 
       if (leadResponse?.status === "Success") {
-        const leadId = leadResponse.data.businessloanlead._id;
+        setUserClickData({
+          event_name: "step3-file-upload-completed",
+          user_id: formData.mobile || "unknown",
+        });
+        const leadId = leadResponse.data.businessloanlead?.lead?._id;
+        console.log("Lead ID:", leadId);
         localStorage.setItem("lead_id", leadId);
         toast.success("Lead successfully created!");
-        nextStep();
+
+        try {
+          await callApi(
+            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+            "post",
+            {
+              lead: {
+                lead_id: leadId,
+                is_document_upload: "Yes",
+              },
+            },
+            "core"
+          );
+          console.log("ICAN API call successful!");
+        } catch (err) {
+          console.warn("ICAN API call failed:", err);
+        }
+        navigate(`/business-loan/offer?lid=${leadId}`);
       } else {
         toast.error("Error submitting lead data. Please try again.");
       }
@@ -207,33 +230,44 @@ const UploadFiles = ({ formData, nextStep }) => {
 
         {[
           { label: "Bank Statement", key: "bank_statement", multiple: true },
+          { label: "Owned Property Electricity Bill", key: "electricity_bill" },
           { label: "GST/MSME Certificate", key: "gst_certificate" },
           { label: "Pan Card", key: "pan_card" },
           { label: "Aadhar Card", key: "aadhar_card" },
-          { label: "Electricity Bill", key: "electricity_bill" },
         ].map(({ label, key, multiple }) => (
           <div key={key} className="mb-3">
-            <div className="flex items-center justify-between w-full bg-white border border-gray-300 px-4 py-3 rounded-lg shadow-sm">
-              <span className="text-sm font-medium text-gray-600">{label}</span>
+            <div
+              className={`flex items-center justify-between w-full bg-white border border-gray-300 px-4 py-3 rounded-lg shadow-sm ${
+                key === "electricity_bill" ? "items-start" : "items-center"
+              }`}
+            >
+              <span
+                className={`text-sm font-medium text-gray-600 ${
+                  key === "electricity_bill" ? "w-1/2 leading-tight" : ""
+                }`}
+              >
+                {label}
+              </span>
               <input
                 type="file"
                 id={key}
                 className="hidden"
                 onChange={(e) => handleFileChange(e, key)}
-                multiple={multiple}
+                multiple={multiple && key === "bank_statement"}
               />
               <label
                 htmlFor={key}
                 className="px-4 py-2 bg-cyan-500 text-white text-sm font-semibold rounded cursor-pointer hover:bg-blue-600 transition"
               >
                 {key === "bank_statement" || !files[key]
-                  ? "Attach Files"
+                  ? "Attach File"
                   : "Change File"}
               </label>
             </div>
 
             {key === "bank_statement" && files[key].length > 0 && (
               <div className="text-xs text-gray-500 mt-2 px-2">
+                <p className="mb-1">Max 3 files allowed for bank statement</p>
                 {files[key].map((file, index) => (
                   <div
                     key={index}
