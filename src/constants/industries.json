@@ -1,394 +1,440 @@
 [
-    {
-        "label":"Advisory services (legal, business, educational, psychological etc.)",
-        "value":"advisory_services_(legal,_business,_educational,_psychological_etc.)"
-    },
-    {
-        "label":"Aircel distributor \/ R-com distributor",
-        "value":"aircel_distributor_\/_r-com_distributor"
-    },
-    {
-        "label":"Apparel, Readymade garments",
-        "value":"apparel,_readymade_garments"
-    },
-    {
-        "label":"Arms and ammunition dealers",
-        "value":"arms_and_ammunition_dealers"
-    },
-    {
-        "label":"Arts, design and other creative services",
-        "value":"arts,_design_and_other_creative_services"
-    },
-    {
-        "label":"Automobile accessories \/ service centre",
-        "value":"automobile_accessories_\/_service_centre"
-    },
-    {
-        "label":"Automotive parts",
-        "value":"automotive_parts"
-    },
-    {
-        "label":"BPO\/KPO & facility management",
-        "value":"bpo\/kpo_&_facility_management"
-    },
-    {
-        "label":"Bar \/ Liquor",
-        "value":"bar_\/_liquor"
-    },
-    {
-        "label":"CSC, photocopying and other documents and ID (Aadhar, PAN) related services, Kisan seva kendra",
-        "value":"csc,_photocopying_and_other_documents_and_id_(aadhar,_pan)_related_services,_kisan_seva_kendra"
-    },
-    {
-        "label":"Cab Services",
-        "value":"cab_services"
-    },
-    {
-        "label":"Camera, CCTV and related accessories",
-        "value":"camera,_cctv_and_related_accessories"
-    },
-    {
-        "label":"Cargo and retail transport service",
-        "value":"cargo_and_retail_transport_service"
-    },
-    {
-        "label":"Chain restaurant \/ verified income",
-        "value":"chain_restaurant_\/_verified_income"
-    },
-    {
-        "label":"Chemist, Retail health accessories, medicines and supplements",
-        "value":"chemist,_retail_health_accessories,_medicines_and_supplements"
-    },
-    {
-        "label":"Clinics, hospital, nursing home, lab, gym, pet clinic etc.",
-        "value":"clinics,_hospital,_nursing_home,_lab,_gym,_pet_clinic_etc."
-    },
-    {
-        "label":"Computer, Mobile and related accessories",
-        "value":"computer,_mobile_and_related_accessories"
-    },
-    {
-        "label":"Computer, mobile and camera repairing service",
-        "value":"computer,_mobile_and_camera_repairing_service"
-    },
-    {
-        "label":"Construction equipment including building, road, sewage etc.",
-        "value":"construction_equipment_including_building,_road,_sewage_etc."
-    },
-    {
-        "label":"Construction material like cement, bricks, sand etc",
-        "value":"construction_material_like_cement,_bricks,_sand_etc"
-    },
-    {
-        "label":"Corporate services \/ Corporate bookings",
-        "value":"corporate_services_\/_corporate_bookings"
-    },
-    {
-        "label":"Cotton bales, Textile manufacturing",
-        "value":"cotton_bales,_textile_manufacturing"
-    },
-    {
-        "label":"Countdown Timers, Electronic Scoreboards and Digital Clocks",
-        "value":"countdown_timers,_electronic_scoreboards_and_digital_clocks"
-    },
-    {
-        "label":"Courier, \"Design, Fabrication & Painting Services\"",
-        "value":"courier,_\"design,_fabrication_&_painting_services\""
-    },
-    {
-        "label":"Distributor of cooking\/commercial Gas",
-        "value":"distributor_of_cooking\/commercial_gas"
-    },
-    {
-        "label":"Eco-friendly solutions for industry (solar, greenhouse, biomass, recycling, etc.)",
-        "value":"eco-friendly_solutions_for_industry_(solar,_greenhouse,_biomass,_recycling,_etc.)"
-    },
-    {
-        "label":"Edible Oil business",
-        "value":"edible_oil_business"
-    },
-    {
-        "label":"Educational Institute (Pre-school, school, college, coaching center, library etc.)",
-        "value":"educational_institute_(pre-school,_school,_college,_coaching_center,_library_etc.)"
-    },
-    {
-        "label":"Educational products (books, educational toys, stationeries, e-learning etc.)",
-        "value":"educational_products_(books,_educational_toys,_stationeries,_e-learning_etc.)"
-    },
-    {
-        "label":"Electronic sensors, devices",
-        "value":"electronic_sensors,_devices"
-    },
-    {
-        "label":"Entertainment Event",
-        "value":"entertainment_event"
-    },
-    {
-        "label":"Equipment used in agriculture",
-        "value":"equipment_used_in_agriculture"
-    },
-    {
-        "label":"Event Management",
-        "value":"event_management"
-    },
-    {
-        "label":"Fabric (woven and non-woven) & textiles",
-        "value":"fabric_(woven_and_non-woven)_&_textiles"
-    },
-    {
-        "label":"Facility Management Services",
-        "value":"facility_management_services"
-    },
-    {
-        "label":"Fibres, threads, buttons and other raw materials supplier to textile industry",
-        "value":"fibres,_threads,_buttons_and_other_raw_materials_supplier_to_textile_industry"
-    },
-    {
-        "label":"Film Producer",
-        "value":"film_producer"
-    },
-    {
-        "label":"Financial service providers (Chit funds\/ small finance companies\/Stock broking Companies)",
-        "value":"financial_service_providers_(chit_funds\/_small_finance_companies\/stock_broking_companies)"
-    },
-    {
-        "label":"Financial service providers (DSA, agents and other intermediators)",
-        "value":"financial_service_providers_(dsa,_agents_and_other_intermediators)"
-    },
-    {
-        "label":"Financial service providers (NBFCs\/ Other money lending companies)",
-        "value":"financial_service_providers_(nbfcs\/_other_money_lending_companies)"
-    },
-    {
-        "label":"Fire fighting equipment, safety materials",
-        "value":"fire_fighting_equipment,_safety_materials"
-    },
-    {
-        "label":"Footwear, bags, cosmetics and other fashion accessories",
-        "value":"footwear,_bags,_cosmetics_and_other_fashion_accessories"
-    },
-    {
-        "label":"Freight forwarding services",
-        "value":"freight_forwarding_services"
-    },
-    {
-        "label":"Furniture & Fixtures (including on rent)",
-        "value":"furniture_&_fixtures_(including_on_rent)"
-    },
-    {
-        "label":"Grocery\/ Kirana store \/ Departmental Store",
-        "value":"grocery\/_kirana_store_\/_departmental_store"
-    },
-    {
-        "label":"Hardware & Fittings (ceramics, tiles, cables, lights etc.)",
-        "value":"hardware_&_fittings_(ceramics,_tiles,_cables,_lights_etc.)"
-    },
-    {
-        "label":"Hardware provider to telecom industry",
-        "value":"hardware_provider_to_telecom_industry"
-    },
-    {
-        "label":"Heavy machineries & Robotics",
-        "value":"heavy_machineries_&_robotics"
-    },
-    {
-        "label":"Home & Kitchen Appliances",
-        "value":"home_&_kitchen_appliances"
-    },
-    {
-        "label":"Home Decor, interior items, kitchen accessories, toys, gift articles",
-        "value":"home_decor,_interior_items,_kitchen_accessories,_toys,_gift_articles"
-    },
-    {
-        "label":"Hotels, resorts and club",
-        "value":"hotels,_resorts_and_club"
-    },
-    {
-        "label":"Housekeeping products",
-        "value":"housekeeping_products"
-    },
-    {
-        "label":"Housekeeping, security & industrial labour supply",
-        "value":"housekeeping,_security_&_industrial_labour_supply"
-    },
-    {
-        "label":"Imitation jewellery",
-        "value":"imitation_jewellery"
-    },
-    {
-        "label":"Industrial and customized software, applications and ITES",
-        "value":"industrial_and_customized_software,_applications_and_ites"
-    },
-    {
-        "label":"Installation and repair services for telecom products",
-        "value":"installation_and_repair_services_for_telecom_products"
-    },
-    {
-        "label":"Intelligence Agencies\/ Private Security Firms",
-        "value":"intelligence_agencies\/_private_security_firms"
-    },
-    {
-        "label":"Interior Designers",
-        "value":"interior_designers"
-    },
-    {
-        "label":"Jewellery, precious metals and stones",
-        "value":"jewellery,_precious_metals_and_stones"
-    },
-    {
-        "label":"Law services, astrological services, etc.",
-        "value":"law_services,_astrological_services,_etc."
-    },
-    {
-        "label":"Leather Trading, \"Live Stock Trading\"",
-        "value":"leather_trading,_\"live_stock_trading\""
-    },
-    {
-        "label":"Material handling service provider",
-        "value":"material_handling_service_provider"
-    },
-    {
-        "label":"Medical, non-medical & wellness equipments",
-        "value":"medical,_non-medical_&_wellness_equipments"
-    },
-    {
-        "label":"Mining & Mining Products",
-        "value":"mining_&_mining_products"
-    },
-    {
-        "label":"Mobile and related accessories",
-        "value":"mobile_and_related_accessories"
-    },
-    {
-        "label":"Mobile recharge, Telecom, DTH, data service provider (telephone, internet, broadband, ISP, leased line etc.)",
-        "value":"mobile_recharge,_telecom,_dth,_data_service_provider_(telephone,_internet,_broadband,_isp,_leased_line_etc.)"
-    },
-    {
-        "label":"Musical Instruments, bulbs, tubelights",
-        "value":"musical_instruments,_bulbs,_tubelights"
-    },
-    {
-        "label":"Networking, storage, data management and other support services",
-        "value":"networking,_storage,_data_management_and_other_support_services"
-    },
-    {
-        "label":"Non-metal products like wood, paper, plastic, glass, etc",
-        "value":"non-metal_products_like_wood,_paper,_plastic,_glass,_etc"
-    },
-    {
-        "label":"Oils, Paint, Chemicals and petroleum products",
-        "value":"oils,_paint,_chemicals_and_petroleum_products"
-    },
-    {
-        "label":"Other metals, alloys, minerals and their scraps",
-        "value":"other_metals,_alloys,_minerals_and_their_scraps"
-    },
-    {
-        "label":"Others",
-        "value":"others"
-    },
-    {
-        "label":"Outdoor furniture (swings etc.)",
-        "value":"outdoor_furniture_(swings_etc.)"
-    },
-    {
-        "label":"Outsourced consultancy (recruitment, research, placement, transcription, visa etc.)",
-        "value":"outsourced_consultancy_(recruitment,_research,_placement,_transcription,_visa_etc.)"
-    },
-    {
-        "label":"Pet Shop, Pet Clinic & Pet Grooming Parlour",
-        "value":"pet_shop,_pet_clinic_&_pet_grooming_parlour"
-    },
-    {
-        "label":"Petrol pump & Gas station, \"Power\"",
-        "value":"petrol_pump_&_gas_station,_\"power\""
-    },
-    {
-        "label":"Professional services (branding, media, architecture, salon, beauty parlour etc.)",
-        "value":"professional_services_(branding,_media,_architecture,_salon,_beauty_parlour_etc.)"
-    },
-    {
-        "label":"Property dealing & management (Rent, lease or Sell)",
-        "value":"property_dealing_&_management_(rent,_lease_or_sell)"
-    },
-    {
-        "label":"Raw materials and parts used for manufacturing",
-        "value":"raw_materials_and_parts_used_for_manufacturing"
-    },
-    {
-        "label":"Real estate developer, Civil contractor",
-        "value":"real_estate_developer,_civil_contractor"
-    },
-    {
-        "label":"Renewal (other than Via)",
-        "value":"renewal_(other_than_via)"
-    },
-    {
-        "label":"Repair and maintenance services",
-        "value":"repair_and_maintenance_services"
-    },
-    {
-        "label":"Repair and servicing of household appliances",
-        "value":"repair_and_servicing_of_household_appliances"
-    },
-    {
-        "label":"Restaurants, Cafes, food outlets & catering",
-        "value":"restaurants,_cafes,_food_outlets_&_catering"
-    },
-    {
-        "label":"Retail and standard softwares, applications and ITES",
-        "value":"retail_and_standard_softwares,_applications_and_ites"
-    },
-    {
-        "label":"Seeds, Fertilizer, Pesticides, Cattle feeds and agricultural products",
-        "value":"seeds,_fertilizer,_pesticides,_cattle_feeds_and_agricultural_products"
-    },
-    {
-        "label":"Shares\/Bitcoins\/Old coins trading or Other speculative activities",
-        "value":"shares\/bitcoins\/old_coins_trading_or_other_speculative_activities"
-    },
-    {
-        "label":"Shipping Services",
-        "value":"shipping_services"
-    },
-    {
-        "label":"Supplier for switches, cables etc",
-        "value":"supplier_for_switches,_cables_etc"
-    },
-    {
-        "label":"Support services (facilitators, intermediators, agents, etc.)",
-        "value":"support_services_(facilitators,_intermediators,_agents,_etc.)"
-    },
-    {
-        "label":"Support services to industries like industrial design, warehousing, testing, repairing etc.",
-        "value":"support_services_to_industries_like_industrial_design,_warehousing,_testing,_repairing_etc."
-    },
-    {
-        "label":"Tax planners \/ Auditors",
-        "value":"tax_planners_\/_auditors"
-    },
-    {
-        "label":"Tea \/ coffee vending machine & Tea \/ Coffee powder to Government \/ corporates",
-        "value":"tea_\/_coffee_vending_machine_&_tea_\/_coffee_powder_to_government_\/_corporates"
-    },
-    {
-        "label":"Ticket, Travel & Tour Packages",
-        "value":"ticket,_travel_&_tour_packages"
-    },
-    {
-        "label":"Tobacco Products",
-        "value":"tobacco_products"
-    },
-    {
-        "label":"Tools and equipments including electricals, transformers, inverters and batteries",
-        "value":"tools_and_equipments_including_electricals,_transformers,_inverters_and_batteries"
-    },
-    {
-        "label":"Vegetables, Fruits, Milk and other dairy products, Spices, Sea-food and food-processing",
-        "value":"vegetables,_fruits,_milk_and_other_dairy_products,_spices,_sea-food_and_food-processing"
-    },
-    {
-        "label":"Vehicles (New\/second hand)",
-        "value":"vehicles_(new\/second_hand)"
-    }
+  {
+    "label": "Advisory services (legal, business, educational, psychological etc.)",
+    "value": "advisory_services_legal_business_educational_psychological_etc"
+  },
+  {
+    "label": "Advocate/Lawyer",
+    "value": "advocate_lawyer"
+  },
+  {
+    "label": "Aircel distributor / R-com distributor",
+    "value": "aircel_distributor_r_com_distributor"
+  },
+  {
+    "label": "Alcoholic beverages",
+    "value": "alcoholic_beverages"
+  },
+  {
+    "label": "Apparel, Readymade garments",
+    "value": "apparel_readymade_garments"
+  },
+  {
+    "label": "Arms and ammunition dealers",
+    "value": "arms_and_ammunition_dealers"
+  },
+  {
+    "label": "Arts, design and other creative services",
+    "value": "arts_design_and_other_creative_services"
+  },
+  {
+    "label": "Automobile accessories / service centre",
+    "value": "automobile_accessories_service_centre"
+  },
+  {
+    "label": "Automotive parts",
+    "value": "automotive_parts"
+  },
+  {
+    "label": "Bar / Liquor",
+    "value": "bar_liquor"
+  },
+  {
+    "label": "BIFR companies",
+    "value": "bifr_companies"
+  },
+  {
+    "label": "BPO/KPO & facility management",
+    "value": "bpo_kpo_facility_management"
+  },
+  {
+    "label": "Cab Services",
+    "value": "cab_services"
+  },
+  {
+    "label": "Cable Operators",
+    "value": "cable_operators"
+  },
+  {
+    "label": "Camera, CCTV and related accessories",
+    "value": "camera_cctv_and_related_accessories"
+  },
+  {
+    "label": "Cargo and retail transport service",
+    "value": "cargo_and_retail_transport_service"
+  },
+  {
+    "label": "Chain restaurant / verified income",
+    "value": "chain_restaurant_verified_income"
+  },
+  {
+    "label": "Chemist, Retail health accessories, medicines and supplements",
+    "value": "chemist_retail_health_accessories_medicines_and_supplements"
+  },
+  {
+    "label": "Clinics, hospital, nursing home, lab, gym, pet clinic etc.",
+    "value": "clinics_hospital_nursing_home_lab_gym_pet_clinic_etc"
+  },
+  {
+    "label": "Collection agencies",
+    "value": "collection_agencies"
+  },
+  {
+    "label": "Computer, mobile and camera repairing service",
+    "value": "computer_mobile_and_camera_repairing_service"
+  },
+  {
+    "label": "Computer, Mobile and related accessories",
+    "value": "computer_mobile_and_related_accessories"
+  },
+  {
+    "label": "Construction equipment including building, road, sewage etc.",
+    "value": "construction_equipment_including_building_road_sewage_etc"
+  },
+  {
+    "label": "Construction material like cement, bricks, sand etc",
+    "value": "construction_material_like_cement_bricks_sand_etc"
+  },
+  {
+    "label": "Corporate services / Corporate bookings",
+    "value": "corporate_services_corporate_bookings"
+  },
+  {
+    "label": "Cotton bales, Textile manufacturing",
+    "value": "cotton_bales_textile_manufacturing"
+  },
+  {
+    "label": "Countdown Timers, Electronic Scoreboards and Digital Clocks",
+    "value": "countdown_timers_electronic_scoreboards_digital_clocks"
+  },
+  {
+    "label": "Courier, Design, Fabrication & Painting Services",
+    "value": "courier_design_fabrication_painting_services"
+  },
+  {
+    "label": "CSC, photocopying and other documents and ID (Aadhar, PAN) related services, Kisan seva kendra",
+    "value": "csc_photocopying_documents_id_aadhar_pan_related_services_kisan_seva_kendra"
+  },
+  {
+    "label": "Detective agencies",
+    "value": "detective_agencies"
+  },
+  {
+    "label": "Distributor of cooking/commercial Gas",
+    "value": "distributor_of_cooking_commercial_gas"
+  },
+  {
+    "label": "Eco-friendly solutions for industry (solar, greenhouse, biomass, recycling, etc.)",
+    "value": "eco_friendly_solutions_for_industry_solar_greenhouse_biomass_recycling_etc"
+  },
+  {
+    "label": "Edible Oil business",
+    "value": "edible_oil_business"
+  },
+  {
+    "label": "Educational Institute (Pre-school, school, college, coaching center, library etc.)",
+    "value": "educational_institute_pre_school_school_college_coaching_center_library_etc"
+  },
+  {
+    "label": "Educational products (books, educational toys, stationeries, e-learning etc.)",
+    "value": "educational_products_books_educational_toys_stationeries_e_learning_etc"
+  },
+  {
+    "label": "Electronic sensors, devices",
+    "value": "electronic_sensors_devices"
+  },
+  {
+    "label": "Entertainment Event",
+    "value": "entertainment_event"
+  },
+  {
+    "label": "Equipment used in agriculture",
+    "value": "equipment_used_in_agriculture"
+  },
+  {
+    "label": "Event Management",
+    "value": "event_management"
+  },
+  {
+    "label": "Fabric (woven and non-woven) & textiles",
+    "value": "fabric_woven_non_woven_textiles"
+  },
+  {
+    "label": "Facility Management Services",
+    "value": "facility_management_services"
+  },
+  {
+    "label": "Fibres, threads, buttons and other raw materials supplier to textile industry",
+    "value": "fibres_threads_buttons_other_raw_materials_supplier_to_textile_industry"
+  },
+  {
+    "label": "Film Producer",
+    "value": "film_producer"
+  },
+  {
+    "label": "Film stars",
+    "value": "film_stars"
+  },
+  {
+    "label": "Financial service providers (Chit funds/ small finance companies/Stock broking Companies)",
+    "value": "financial_service_providers_chit_funds_small_finance_companies_stock_broking_companies"
+  },
+  {
+    "label": "Financial service providers (DSA, agents and other intermediators)",
+    "value": "financial_service_providers_dsa_agents_other_intermediators"
+  },
+  {
+    "label": "Financial service providers (NBFCs/ Other money lending companies)",
+    "value": "financial_service_providers_nbfcs_other_money_lending_companies"
+  },
+  {
+    "label": "Fire fighting equipment, safety materials",
+    "value": "fire_fighting_equipment_safety_materials"
+  },
+  {
+    "label": "Footwear, bags, cosmetics and other fashion accessories",
+    "value": "footwear_bags_cosmetics_other_fashion_accessories"
+  },
+  {
+    "label": "Freight forwarding services",
+    "value": "freight_forwarding_services"
+  },
+  {
+    "label": "Furniture & Fixtures (including on rent)",
+    "value": "furniture_fixtures_including_on_rent"
+  },
+  {
+    "label": "Gambling, Casinos",
+    "value": "gambling_casinos"
+  },
+  {
+    "label": "Grocery/ Kirana store / Departmental Store",
+    "value": "grocery_kirana_store_departmental_store"
+  },
+  {
+    "label": "Hardware & Fittings (ceramics, tiles, cables, lights etc.)",
+    "value": "hardware_fittings_ceramics_tiles_cables_lights_etc"
+  },
+  {
+    "label": "Hardware provider to telecom industry",
+    "value": "hardware_provider_to_telecom_industry"
+  },
+  {
+    "label": "Heavy machineries & Robotics",
+    "value": "heavy_machineries_robotics"
+  },
+  {
+    "label": "Home & Kitchen Appliances",
+    "value": "home_kitchen_appliances"
+  },
+  {
+    "label": "Home Decor, interior items, kitchen accessories, toys, gift articles",
+    "value": "home_decor_interior_items_kitchen_accessories_toys_gift_articles"
+  },
+  {
+    "label": "Hotels, resorts and club",
+    "value": "hotels_resorts_club"
+  },
+  {
+    "label": "Housekeeping products",
+    "value": "housekeeping_products"
+  },
+  {
+    "label": "Housekeeping, security & industrial labour supply",
+    "value": "housekeeping_security_industrial_labour_supply"
+  },
+  {
+    "label": "Imitation jewellery",
+    "value": "imitation_jewellery"
+  },
+  {
+    "label": "Industrial and customized software, applications and ITES",
+    "value": "industrial_customized_software_applications_ites"
+  },
+  {
+    "label": "Installation and repair services for telecom products",
+    "value": "installation_repair_services_for_telecom_products"
+  },
+  {
+    "label": "Intelligence Agencies/ Private Security Firms",
+    "value": "intelligence_agencies_private_security_firms"
+  },
+  {
+    "label": "Interior Designers",
+    "value": "interior_designers"
+  },
+  {
+    "label": "Jewellery, precious metals and stones",
+    "value": "jewellery_precious_metals_stones"
+  },
+  {
+    "label": "Law services, astrological services, etc.",
+    "value": "law_services_astrological_services_etc"
+  },
+  {
+    "label": "Leather Trading, Live Stock Trading",
+    "value": "leather_trading_live_stock_trading"
+  },
+  {
+    "label": "Material handling service provider",
+    "value": "material_handling_service_provider"
+  },
+  {
+    "label": "Media Companies",
+    "value": "media_companies"
+  },
+  {
+    "label": "Medical, non-medical & wellness equipments",
+    "value": "medical_non_medical_wellness_equipments"
+  },
+  {
+    "label": "Mining & Mining Products",
+    "value": "mining_mining_products"
+  },
+  {
+    "label": "Mobile and related accessories",
+    "value": "mobile_related_accessories"
+  },
+  {
+    "label": "Mobile recharge, Telecom, DTH, data service provider (telephone, internet, broadband, ISP, leased line etc.)",
+    "value": "mobile_recharge_telecom_dth_data_service_provider"
+  },
+  {
+    "label": "Musical Instruments, bulbs, tubelights",
+    "value": "musical_instruments_bulbs_tubelights"
+  },
+  {
+    "label": "Networking, storage, data management and other support services",
+    "value": "networking_storage_data_management_other_support_services"
+  },
+  {
+    "label": "Non-metal products like wood, paper, plastic, glass, etc.",
+    "value": "non_metal_products_wood_paper_plastic_glass_etc"
+  },
+  {
+    "label": "Oils, Paint, Chemicals and petroleum products",
+    "value": "oils_paint_chemicals_petroleum_products"
+  },
+  {
+    "label": "Other metals, alloys, minerals and their scraps",
+    "value": "other_metals_alloys_minerals_scraps"
+  },
+  {
+    "label": "Others",
+    "value": "others"
+  },
+  {
+    "label": "Outdoor furniture (swings etc.)",
+    "value": "outdoor_furniture_swings_etc"
+  },
+  {
+    "label": "Outsourced consultancy (recruitment, research, placement, transcription, visa etc.)",
+    "value": "outsourced_consultancy_recruitment_research_placement_transcription_visa_etc"
+  },
+  {
+    "label": "Pet Shop, Pet Clinic & Pet Grooming Parlour",
+    "value": "pet_shop_pet_clinic_pet_grooming_parlour"
+  },
+  {
+    "label": "Petrol pump & Gas station, Power",
+    "value": "petrol_pump_gas_station_power"
+  },
+  {
+    "label": "Politician",
+    "value": "politician"
+  },
+  {
+    "label": "Professional services (branding, media, architecture, saloon, beauty parlour etc.)",
+    "value": "professional_services_branding_media_architecture_saloon_beauty_parlour_etc"
+  },
+  {
+    "label": "Property dealing & management (Rent, lease or Sell)",
+    "value": "property_dealing_management_rent_lease_sell"
+  },
+  {
+    "label": "Raw materials and parts used for manufacturing",
+    "value": "raw_materials_parts_used_for_manufacturing"
+  },
+  {
+    "label": "Real estate developer, Civil contractor",
+    "value": "real_estate_developer_civil_contractor"
+  },
+  {
+    "label": "Renewal (other than Via)",
+    "value": "renewal_other_than_via"
+  },
+  {
+    "label": "Repair and maintenance services",
+    "value": "repair_maintenance_services"
+  },
+  {
+    "label": "Repair and servicing of household appliances",
+    "value": "repair_servicing_of_household_appliances"
+  },
+  {
+    "label": "Restaurants, Cafes, food outlets & catering",
+    "value": "restaurants_cafes_food_outlets_catering"
+  },
+  {
+    "label": "Retail and standard softwares, applications and ITES",
+    "value": "retail_standard_softwares_applications_ites"
+  },
+  {
+    "label": "Seeds, Fertilizer, Pesticides, Cattle feeds and agricultural products",
+    "value": "seeds_fertilizer_pesticides_cattle_feeds_agricultural_products"
+  },
+  {
+    "label": "Shares/Bitcoins/Old coins trading or Other speculative activities",
+    "value": "shares_bitcoins_old_coins_trading_other_speculative_activities"
+  },
+  {
+    "label": "Shipping Services",
+    "value": "shipping_services"
+  },
+  {
+    "label": "Supplier for switches, cables etc.",
+    "value": "supplier_for_switches_cables_etc"
+  },
+  {
+    "label": "Support services (facilitators, intermediators, agents, etc.)",
+    "value": "support_services_facilitators_intermediators_agents_etc"
+  },
+  {
+    "label": "Support services to industries like industrial design, warehousing, testing, repairing etc.",
+    "value": "support_services_to_industries_design_warehousing_testing_repairing_etc"
+  },
+  {
+    "label": "Tax planners / Auditors",
+    "value": "tax_planners_auditors"
+  },
+  {
+    "label": "Tea / coffee vending machine & Tea / Coffee powder to Government / corporates",
+    "value": "tea_coffee_vending_machine_tea_coffee_powder_to_government_corporates"
+  },
+  {
+    "label": "Ticket, Travel & Tour Packages",
+    "value": "ticket_travel_tour_packages"
+  },
+  {
+    "label": "Tobacco Products",
+    "value": "tobacco_products"
+  },
+
+  {
+    "label": "Tools and equipments including electricals, transformers, inverters and batteries",
+    "value": "tools_equipments_electricals_transformers_inverters_batteries"
+  },
+  {
+    "label": "Vegetables, Fruits, Milk and other dairy products, Spices, Sea-food and food-processing",
+    "value": "vegetables_fruits_milk_dairy_products_spices_seafood_food_processing"
+  },
+
+  {
+    "label": "Vehicles (New/second hand)",
+    "value": "vehicles_new_second_hand"
+  },
+  {
+    "label": "Video Parlours",
+    "value": "video_parlours"
+  }
 ]

@@ -61,8 +61,10 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
       event_name: eventName || "offer-apply-button", 
       user_id: userId || "unknown" 
     });
-    var win = window.open(`${offer.app_url}${source}`, "_blank");
-    win.focus();
+
+    window.location.href = `${offer.app_url}${source}`;
+    // var win = window.open(`${offer.app_url}${source}`);
+    // win.focus();
   };
 
   return (

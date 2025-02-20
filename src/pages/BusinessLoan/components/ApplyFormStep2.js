@@ -14,10 +14,12 @@ import { toast } from "react-toastify";
 
 const turnoverOptions = [
   { value: "", label: "Select Annual Turnover" },
-  { value: "10L-50L", label: "10 Lakhs to 50 Lakhs" },
-  { value: "50L-1Cr", label: "50 Lakhs to 1 Crore" },
-  { value: "1Cr-5Cr", label: "1 Crore to 5 Crore" },
-  { value: "5Cr+", label: "Above 5 Crore" },
+  { value: "<10Lacs", label: "Less than 10 Lacs" },
+  { value: "10Lacs-40Lacs", label: "10 Lacs - 40 Lacs" },
+  { value: "40Lacs-1Cr", label: "40 Lacs - 1 Crore" },
+  { value: "1Cr-3Cr", label: "1 Crore - 3 Crore" },
+  { value: "3Cr-7Cr", label: "3 Crore - 7 Crore" },
+  { value: ">7Cr", label: "More than 7 Crore" },
 ];
 
 const ownershipOptions = [
@@ -32,7 +34,7 @@ const ownershipOptions = [
 const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log("Received Data in Step 2:", formData);
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     annual_turnover: "",
@@ -43,15 +45,13 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
   });
 
   useEffect(() => {
-    console.log("Received GST Number in Step 2:", formData.gst_no);
+    console.log("Received GST Number in Step 2:", formData.gst);
     console.log("Received Udyam Number in Step 2:", formData.udyam_number);
-    console.log("Received Work Address in Step 2:", formData.work_address1);
   }, [formData]);
 
   useEffect(() => {
     if (formData.work_address1) {
-      console.log("Updating confirm_business_address:", formData.work_address1);
-      setData((prev) => ({
+      setFormData((prev) => ({
         ...prev,
         confirm_business_address: formData.work_address1,
       }));
@@ -87,8 +87,6 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
     data.ownership;
 
   const handleSubmit = async () => {
-    setUserClickData({ event_name: "step2-business-loan-page" });
-
     if (data.confirm_business_address) {
       setFormData((prev) => ({
         ...prev,
@@ -102,14 +100,14 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
           contact_phone: formData.mobile,
           pan_no: formData.pancard,
           work_address1: data.confirm_business_address,
-          address_type: data.address_type,
+          business_type: data.address_type,
           ownership: data.ownership,
           annual_turnover: data.annual_turnover,
           industry: data.industry,
-          is_stage2_completed: true,
+          is_stage2_completed: "true",
         },
       };
-
+      console.log("Payload:", payload);
       try {
         const leadResponse = await callApi(
           "v1/businessloanlead/new",
@@ -119,15 +117,18 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
         );
 
         if (leadResponse.status === "Success") {
-          console.log("Business Loan Lead Updated:", leadResponse.data);
-          toast.success("Business loan lead updated successfully.");
+          toast.success("Data saved successfully.");
+          setUserClickData({ 
+            event_name: "step2-business-loan-page-completed" ,
+            user_id: formData.mobile || "unknown",
+          });
         } else {
           console.warn("Failed to update business loan lead:", leadResponse);
-          toast.error("Failed to update business loan lead.");
+          toast.error("Failed to update data.");
         }
       } catch (err) {
         console.error("API Error:", err);
-        toast.error("An error occurred while updating the business loan lead.");
+        toast.error("An error occurred while updating the data.");
       }
 
       dispatch(setLead({ ...data, stepDone: 2 }));

@@ -40,6 +40,7 @@ import NewPreapproveOffersPage from "./pages/NewPreaaprovedOffersFlow/NewPreappr
 import BusinessLoanOld from "./pages/BusinessLoanOld/OldBusinessLoan"
 import BusinessApplyOld from "./pages/BusinessLoanOld/BusinessLoanApply"
 import BusinessOfferDetailsSegment from "./pages/BusinessLoan/components/OfferDetailsSegment";
+import ConfirmationPage from "./pages/BusinessLoan/components/ConfirmationPage";
 
 function App() {
   const location = useLocation();
@@ -114,6 +115,7 @@ function App() {
         <Route path={"/business-loan/offer"} element={<BusinessOfferDetailsSegment />} />
         <Route path={"/business-loan-old"} element={<BusinessLoanOld />} />
         <Route path={"/business-loan-old/apply"} element={<BusinessApplyOld />} />
+        <Route path={"/business-loan/confirmation"} element={<ConfirmationPage />} />
         <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
