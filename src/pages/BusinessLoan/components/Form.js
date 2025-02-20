@@ -11,6 +11,7 @@ import { login, setLead } from "../../../store/app/appReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
+import moment from "moment";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -138,6 +139,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         toast.success("OTP verified successfully.");
 
         let fullName = "";
+        let dateofbirth = "";
         try {
           const panRes = await callApi(
             "v1/M2P_data/get-data-from-pan",
@@ -149,19 +151,7 @@ const Form = ({ formData, setFormData, ...props }) => {
 
           if (panRes.status === "Success" && panRes.data?.fullname) {
             fullName = panRes.data.fullname;
-
-            await callApi(
-              "v1/ican_api/bl-data-send-to-ican",
-              "post",
-              {
-                lead: {
-                  contact_phone: mobile,
-                  pan_no: pan,
-                  conatct_name: fullName,
-                },
-              },
-              "core"
-            );
+            dateofbirth = moment(panRes.data.dob, "DD/MM/YYYY").format("YYYY-MM-DDT00:00:00.000+00:00");
           }
         } catch (err) {
           console.warn(
@@ -169,26 +159,50 @@ const Form = ({ formData, setFormData, ...props }) => {
           );
         }
 
+        let leadId = "";
         try {
           const leadRes = await callApi(
             "v1/businessloanlead/new",
             "post",
             {
               businessloanlead: {
+                contact_name: fullName,
                 contact_phone: mobile,
+                dob: dateofbirth,
                 pan_no: pan,
                 is_pan_verified: true,
-                is_pan_mobile_verify_completed: true,
-              }
+                is_pan_mobile_verify_completed: "true",
+              },
             },
-            "core",
+            "core"
           );
 
           if (leadRes.status === "Success") {
+            leadId = leadRes.data.businessloanlead?.lead?._id;
             dispatch(setLead(leadRes.data.lead));
           }
         } catch (err) {
           console.warn("Lead update failed, continuing flow.");
+        }
+
+        if (leadId) {
+          try {
+            await callApi(
+              "v1/ican_api/bl-data-send-to-ican",
+              "post",
+              {
+                lead: {
+                  id: leadId,
+                  contact_phone: mobile,
+                  pan_no: pan,
+                  contact_name: fullName,
+                },
+              },
+              "core"
+            );
+          } catch (err) {
+            console.warn("ICAN API call failed.");
+          }
         }
 
         setFormData((prev) => {
@@ -198,7 +212,9 @@ const Form = ({ formData, setFormData, ...props }) => {
             mobile: mobile,
             full_name: fullName,
           };
-          navigate(`/business-loan/apply?source=${source}`, { state: updatedData });
+          navigate(`/business-loan/apply?source=${source}`, {
+            state: updatedData,
+          });
           return updatedData;
         });
       }
@@ -234,9 +250,9 @@ const Form = ({ formData, setFormData, ...props }) => {
       ) : (
         <>
           <div className="">
-            <h2 className="text-center mt-28 text-xl mb-8">
+            <h2 className="text-center mt-28 text-xl text-gray-600 mb-8">
               Fuel Your Business Growth with Instant,{" "}
-              <span style={{ color: "#007bff", fontWeight: "600" }}>
+              <span className="text-cyan-500 font-normal">
                 Unsecured Business Loans.
               </span>
             </h2>

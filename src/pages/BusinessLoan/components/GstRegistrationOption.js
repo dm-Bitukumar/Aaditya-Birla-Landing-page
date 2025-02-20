@@ -48,12 +48,12 @@ const GstRegistrationOption = ({
             maxLength={15}
             placeholder="GST Number"
             required
-            id="gst_no"
-            value={data.gst_no}
-            onChange={(e) => handleDataChange("gst_no", e.target.value)}
+            id="gst"
+            value={data.gst}
+            onChange={(e) => handleDataChange("gst", e.target.value)}
             errorMessage={errorMessage}
-            onBlur={() => handleBlur("gst_no")}
-            isValid={errors !== "gst_no"}
+            onBlur={() => handleBlur("gst")}
+            isValid={errors !== "gst"}
             icon={
               <img src="/assets/icons/gst.png" style={{ height: "25px" }} />
             }
