@@ -64,22 +64,22 @@ const BusinessLoanApply = () => {
           is_stage1_completed,
           is_stage2_completed,
           is_stage3_completed,
+          is_stage4_completed,
           work_address1,
           contact_name,
           udyam_number,
           gst,
-          is_pan_mobile_verify_completed,
         } = res.data.businessloanlead.lead;
         console.log("Lead status fetched:", {
           _id,
           is_stage1_completed,
           is_stage2_completed,
           is_stage3_completed,
+          is_stage4_completed,
           work_address1,
           contact_name,
           udyam_number,
           gst,
-          is_pan_mobile_verify_completed,
         });
 
         let startStep = 1;
@@ -89,14 +89,11 @@ const BusinessLoanApply = () => {
             state: {
               ...formData,
               _id,
+              is_stage4_completed,
               udyam_number: udyam_number || formData.udyam_number,
               gst: gst || formData.gst,
               full_name: contact_name || formData.full_name,
               work_address1: work_address1 || formData.work_address1,
-              is_pan_mobile_verify_completed:
-                is_pan_mobile_verify_completed ||
-                formData.is_pan_mobile_verify_completed ||
-                "false",
             },
           });
           return;
@@ -113,10 +110,6 @@ const BusinessLoanApply = () => {
           gst: gst || prev.gst,
           full_name: contact_name || prev.full_name,
           work_address1: work_address1 || prev.work_address1,
-          is_pan_mobile_verify_completed:
-            is_pan_mobile_verify_completed ||
-            prev.is_pan_mobile_verify_completed ||
-            "true",
         }));
 
         setStep(startStep);
