@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import HeadBar from "../../../components/Static/HeadBar";
 import FormButton from "../../../components/Buttons/FormButton";
 import callApi from "../../../utility/apiCaller";
@@ -23,8 +23,15 @@ const UploadFiles = ({ formData, nextStep }) => {
     aadhar_card: null,
     electricity_bill: null,
   });
+  const fileInputRefs = {
+    bank_statement: useRef(null),
+    gst_certificate: useRef(null),
+    pan_card: useRef(null),
+    aadhar_card: useRef(null),
+    electricity_bill: useRef(null),
+  };
   const navigate = useNavigate();
-  const allowedFileTypes = ["image/png", "image/jpg", "application/pdf"];
+  const allowedFileTypes = ["image/png", "image/jpg", "image/jpeg", "application/pdf"];
 
   const handleFileChange = (event, key) => {
     const selectedFiles = Array.from(event.target.files);
@@ -39,7 +46,7 @@ const UploadFiles = ({ formData, nextStep }) => {
         allowedFileTypes.includes(file.type)
       );
       if (validFiles.length !== selectedFiles.length) {
-        toast.error("Invalid file type. Only JPG, PNG, and PDF are allowed.");
+        toast.error("Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed.");
         return;
       }
 
@@ -50,7 +57,7 @@ const UploadFiles = ({ formData, nextStep }) => {
     } else {
       const file = selectedFiles[0];
       if (!allowedFileTypes.includes(file.type)) {
-        toast.error("Invalid file type. Only JPG, PNG, and PDF are allowed.");
+        toast.error("Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed.");
         return;
       }
       setFiles((prevFiles) => ({ ...prevFiles, [key]: file }));
@@ -70,6 +77,9 @@ const UploadFiles = ({ formData, nextStep }) => {
         return { ...prevFiles, [key]: null };
       }
     });
+    if (fileInputRefs[key]?.current) {
+      fileInputRefs[key].current.value = "";
+    }
   };
 
   const uploadFile = async (selectedFiles) => {
@@ -257,6 +267,7 @@ const UploadFiles = ({ formData, nextStep }) => {
                 type="file"
                 id={key}
                 className="hidden"
+                ref={fileInputRefs[key]} 
                 onChange={(e) => handleFileChange(e, key)}
                 multiple={multiple && key === "bank_statement"}
               />
