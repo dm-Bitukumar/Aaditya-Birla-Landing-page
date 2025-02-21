@@ -193,7 +193,7 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
           is_gst: isGst,
           is_udyam: isUdyam,
           udyamno: isUdyam ? data.udyam_number : "",
-          gst: isGst ? data.gst : "",
+          gst_no: isGst ? data.gst : "",
           is_stage1_completed: "true",
           work_address1: fetchedAddress,
         },

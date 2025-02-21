@@ -168,6 +168,7 @@ const UploadFiles = ({ formData, nextStep }) => {
       const payload = {
         businessloanlead: {
           is_stage3_completed: "true",
+          is_stage4_completed: false,
           contact_phone: formData?.mobile,
           pan_no: formData?.pancard,
           ...uploadedFiles,
@@ -196,10 +197,8 @@ const UploadFiles = ({ formData, nextStep }) => {
             "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
             "post",
             {
-              lead: {
                 lead_id: leadId,
                 is_document_upload: "Yes",
-              },
             },
             "core"
           );
@@ -207,7 +206,13 @@ const UploadFiles = ({ formData, nextStep }) => {
         } catch (err) {
           console.warn("ICAN API call failed:", err);
         }
-        navigate(`/business-loan/offer?lid=${leadId}`);
+        navigate(`/business-loan/offer?lid=${leadId}`, {
+          state: {
+            ...formData,
+            _id: leadId,
+            is_stage4_completed: false,
+          },
+        });
       } else {
         toast.error("Error submitting lead data. Please try again.");
       }
