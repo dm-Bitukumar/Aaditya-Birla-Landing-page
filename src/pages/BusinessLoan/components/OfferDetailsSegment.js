@@ -21,6 +21,7 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
   const offers = useSelector((state) => state.app.offers);
   const [isFinished, setIsFinished] = useState(false);
   const [coreLeadId, setCoreLeadId] = useState("");
+  const [leadName, setLeadName] = useState("Customer");
   const [show, setShow] = useState(false);
   const [source, setSource] = useState("");
   const [params] = useSearchParams();
@@ -58,12 +59,12 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
   // const submitLead = async () => {
   //   setUserClickData({ event_name: "business-loan-page" });
-  
+
   //   try {
   //     console.log(`Skipping business-lead API`);
 
   //     const leadResponse = { status: "Success", data: "mock-lead-id-12345" };
-  
+
   //     if (leadResponse.status === "Success" && leadResponse.data) {
   //       setCoreLeadId(leadResponse.data);
   //       const updateResponse = await callApi(
@@ -89,7 +90,7 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
   //   }
   //   return null;
   // };
-  
+
   const submitLead = async () => {
     setUserClickData({ event_name: "business-loan-page" });
     try {
@@ -162,12 +163,14 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
             "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
             "post",
             {
-                lead_id: leadId,
-                is_document_upload: "",
+              lead_id: leadId,
+              is_document_upload: "",
             },
             "core"
           );
         }
+        setLeadName(res.data.lead?.contact_name ?? "Customer");
+        console.log("Fetched lead name:", res.data.lead?.contact_name);
       } else {
         console.warn("Offer API did not return success:", res);
       }
@@ -219,9 +222,7 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
               <h3 className="mt-8 text-lg text-center">
                 Congratulations{" "}
-                <span className="text-2xl font-normal">
-                  {lead.name || "Customer"}!!
-                </span>{" "}
+                <span className="text-2xl font-normal">{leadName}!!</span>{" "}
               </h3>
               <h3 className="text-lg">Your pre-approved offers </h3>
 
