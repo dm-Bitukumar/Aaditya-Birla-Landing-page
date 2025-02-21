@@ -26,16 +26,19 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
   const [params] = useSearchParams();
   const leadId = params.get("lid");
   const icanApiCalledRef = useRef(false);
-
+  console.log("Formdata:", formData);
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
   useEffect(() => {
-    if (leadId) {
+    if (leadId && formData.is_stage4_completed === false) {
+      console.log("Calling business-lead api for the first time");
       submitLead();
+    } else {
+      console.log("Skipping business-lead api");
     }
-  }, [leadId]);
+  }, [leadId, formData.is_stage4_completed]);
 
   useEffect(() => {
     if (!leadId) return;
@@ -53,16 +56,44 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
     return () => clearInterval(intervalId);
   }, [leadId]);
 
+  // const submitLead = async () => {
+  //   setUserClickData({ event_name: "business-loan-page" });
+  
+  //   try {
+  //     console.log(`Skipping business-lead API`);
+
+  //     const leadResponse = { status: "Success", data: "mock-lead-id-12345" };
+  
+  //     if (leadResponse.status === "Success" && leadResponse.data) {
+  //       setCoreLeadId(leadResponse.data);
+  //       const updateResponse = await callApi(
+  //         "v1/businessloanlead/new",
+  //         "post",
+  //         {
+  //           businessloanlead: {
+  //             contact_phone: formData.mobile,
+  //             contact_name: formData.full_name,
+  //             pan_no: formData.pancard,
+  //             is_stage4_completed: true,
+  //           },
+  //         },
+  //         "core"
+  //       );
+  //       console.log(updateResponse);
+  //       return leadResponse.data;
+  //     } else {
+  //       console.warn("Lead API did not return success:", leadResponse);
+  //     }
+  //   } catch (err) {
+  //     console.error("API Call Failed:", err);
+  //   }
+  //   return null;
+  // };
+  
   const submitLead = async () => {
     setUserClickData({ event_name: "business-loan-page" });
-
-    // if (formData.is_pan_mobile_verify_completed !== "true") {
-    //   console.warn(
-    //     "Skipping submitLead: PAN & Mobile verification not completed."
-    //   );
-    //   return;
-    // }
     try {
+      console.log(`Submitting Lead API for leadId: ${leadId}`);
       const leadResponse = await callApi(
         "v1/lead/business-lead",
         "post",
@@ -75,6 +106,22 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
       if (leadResponse.status === "Success" && leadResponse.data) {
         setCoreLeadId(leadResponse.data);
+        console.log("Updating businessloanlead with is_stage4_completed: true");
+
+        const updateResponse = await callApi(
+          "v1/businessloanlead/new",
+          "post",
+          {
+            businessloanlead: {
+              contact_phone: formData.mobile,
+              contact_name: formData.full_name,
+              pan_no: formData.pancard,
+              is_stage4_completed: true,
+            },
+          },
+          "core"
+        );
+        console.log("Update API Response:", updateResponse);
         return leadResponse.data;
       } else {
         console.warn("Lead API did not return success:", leadResponse);
@@ -87,11 +134,13 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
   };
 
   const fetchOffers = async () => {
+    console.log("fetchOffers() triggered");
     if (isFinished || !leadId) {
       return;
     }
 
     try {
+      console.log(`Fetching offers for leadId: ${leadId}`);
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
         "get",
@@ -113,10 +162,8 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
             "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
             "post",
             {
-              lead: {
                 lead_id: leadId,
                 is_document_upload: "",
-              },
             },
             "core"
           );
@@ -141,14 +188,15 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
         steps={["Personal Details", "Work Details", "Offer Page"]}
         currentStep={2}
       /> */}
+      <img src="/assets/img/Dm LOGO.png" className="mt-8 mx-auto" />
       {!isFinished && offers?.length === 0 && (
-        <div className="mb-4 font-normal text-center">
+        <div className="mb-4 mt-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span className="ml-2 dot-pulse"></span>
         </div>
       )}
       {isFinished && offers?.length === 0 && (
-        <div className="mb-4 font-normal text-center">
+        <div className="mb-4 mt-4 font-normal text-center">
           There is no offer for you currently.
         </div>
       )}
@@ -164,10 +212,10 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
               filteredOffers.push(offer);
             }
           });
-          console.log("Filtered Offers:", filteredOffers);
+
           return (
             <div className="flex flex-col items-center justify-center">
-              <img src="/assets/img/Dm LOGO.png" className="mt-4"/>
+              {/* <img src="/assets/img/Dm LOGO.png" className="mt-4" /> */}
 
               <h3 className="mt-8 text-lg text-center">
                 Congratulations{" "}

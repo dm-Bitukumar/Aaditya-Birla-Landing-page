@@ -16,6 +16,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
     ) {
       setLastSavedAddress(data.confirm_business_address);
       setEditedAddress(data.confirm_business_address);
+      handleDataChange("confirm_business_address", data.confirm_business_address);
     }
   }, [data.confirm_business_address]);
 
