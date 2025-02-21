@@ -72,7 +72,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
               placeholder="Enter your business address"
             />
           ) : (
-            <p className="text-gray-600 text-sm">{lastSavedAddress}</p>
+            <p className="text-gray-600 text-xs font-semibold">{lastSavedAddress}</p>
           )}
         </div>
 

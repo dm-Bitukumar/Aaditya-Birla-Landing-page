@@ -54,6 +54,16 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       if (keyName === "udyam_number") {
         let formattedValue = keyValue.toUpperCase().replace(/[^A-Z0-9-]/g, "");
         updatedData.udyam_number = formattedValue;
+        console.log("Updated Udyam Number:", formattedValue);
+      }
+
+      if (keyName === "gst") {
+        let formattedValue = keyValue.toUpperCase();
+        updatedData.gst = formattedValue;
+        console.log(
+          "GST Number Changed (Stored as Uppercase):",
+          formattedValue
+        );
       }
 
       if (keyName === "gst_available" && keyValue === "no") {

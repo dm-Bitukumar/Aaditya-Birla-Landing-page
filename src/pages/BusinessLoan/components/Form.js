@@ -36,8 +36,10 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handlePanChange = (event) => {
     const { value } = event.target;
-    setPan(value);
-  };
+    const upperCaseValue = value.toUpperCase();
+    // console.log("PAN Input Changed (Stored as Uppercase):", upperCaseValue);
+    setPan(upperCaseValue);
+  };  
 
   const handlePanBlur = () => {
     setPanTouched(true);
