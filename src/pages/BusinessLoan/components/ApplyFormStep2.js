@@ -23,7 +23,7 @@ const turnoverOptions = [
 ];
 
 const ownershipOptions = [
-  { value: "", label: "Select Ownership Type" },
+  { value: "", label: "Select Company Type" },
   { value: "Sole Proprietorship", label: "Sole Proprietorship" },
   { value: "Partnership", label: "Partnership" },
   { value: "Private Limited", label: "Private Limited Company (PVT LTD)" },
@@ -206,7 +206,7 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
               alt="Ownership"
             />
           }
-          label="Ownership"
+          label="Company Type"
           name="ownership"
           options={ownershipOptions}
           value={data.ownership}
