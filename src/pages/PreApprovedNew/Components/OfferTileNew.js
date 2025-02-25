@@ -3,7 +3,14 @@ import FormButton from "../../../components/Buttons/FormButton";
 import { convertNumberToIndianFormat } from "../../../utility/numberUtility";
 import { setUserClickData } from "../../../utility/setUserClickData";
 
-const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData, leadId }) => {
+const OfferTileNew = ({
+  offer,
+  small,
+  setStep,
+  mobileNumber,
+  hideData,
+  leadId,
+}) => {
   const [show, setShow] = useState(false);
   const mobile = mobileNumber;
 
@@ -46,7 +53,7 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData, leadId })
       const redirectUrl = `https://instant-pocket-loan.poonawallafincorp.com/?redirectto=primepl&utm_DSA_Code=PMH00227&UTM_Partner_Name=DigitMoney&UTM_Partner_Medium=${utmMedium}&UTM_Partner_AgentCode=${affId}Pre&UTM_Partner_ReferenceID=${leadIdParam}`;
       console.log("Redirect URL:", redirectUrl);
       window.location.href = redirectUrl;
-    }else {
+    } else {
       setStep(3);
     }
   };
@@ -77,8 +84,10 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData, leadId })
               : {}
           }
         >
-          {hideData
+          {offer?.lender_id === "662752eb65fdba1a48d6e482"
             ? "Upto Rs. 10,00,000"
+            : offer?.lender_id === "6799b8fada60414f0f195bf9"
+            ? "Upto Rs. 15,00,000"
             : convertNumberToIndianFormat(offer.loan_amount ?? 0)}
         </h2>
         {!small && !hideData && (
