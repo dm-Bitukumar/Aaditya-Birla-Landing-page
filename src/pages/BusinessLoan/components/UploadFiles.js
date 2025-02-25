@@ -31,7 +31,12 @@ const UploadFiles = ({ formData, nextStep }) => {
     electricity_bill: useRef(null),
   };
   const navigate = useNavigate();
-  const allowedFileTypes = ["image/png", "image/jpg", "image/jpeg", "application/pdf"];
+  const allowedFileTypes = [
+    "image/png",
+    "image/jpg",
+    "image/jpeg",
+    "application/pdf",
+  ];
 
   const handleFileChange = (event, key) => {
     const selectedFiles = Array.from(event.target.files);
@@ -46,7 +51,9 @@ const UploadFiles = ({ formData, nextStep }) => {
         allowedFileTypes.includes(file.type)
       );
       if (validFiles.length !== selectedFiles.length) {
-        toast.error("Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed.");
+        toast.error(
+          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
+        );
         return;
       }
 
@@ -57,7 +64,9 @@ const UploadFiles = ({ formData, nextStep }) => {
     } else {
       const file = selectedFiles[0];
       if (!allowedFileTypes.includes(file.type)) {
-        toast.error("Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed.");
+        toast.error(
+          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
+        );
         return;
       }
       setFiles((prevFiles) => ({ ...prevFiles, [key]: file }));
@@ -207,11 +216,12 @@ const UploadFiles = ({ formData, nextStep }) => {
             "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
             "post",
             {
-                lead_id: leadId,
-                is_document_upload: "Yes",
+              lead_id: leadId,
+              is_document_upload: "Yes",
             },
             "core"
           );
+
           console.log("ICAN API call successful!");
         } catch (err) {
           console.warn("ICAN API call failed:", err);
@@ -267,7 +277,7 @@ const UploadFiles = ({ formData, nextStep }) => {
                 type="file"
                 id={key}
                 className="hidden"
-                ref={fileInputRefs[key]} 
+                ref={fileInputRefs[key]}
                 onChange={(e) => handleFileChange(e, key)}
                 multiple={multiple && key === "bank_statement"}
               />

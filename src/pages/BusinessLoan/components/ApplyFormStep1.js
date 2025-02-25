@@ -9,6 +9,7 @@ import FormInput from "../../PreApprovedNew/Components/FormInputBtn";
 import FormSelect from "../../PreApprovedNew/Components/FormSelectBtn";
 import { toast } from "react-toastify";
 import callApi from "../../../utility/apiCaller";
+import axios from "axios";
 
 const residential_type_options = [
   { value: "", label: "Select Residential Type" },
