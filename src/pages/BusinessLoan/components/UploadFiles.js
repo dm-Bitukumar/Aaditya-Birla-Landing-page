@@ -194,18 +194,13 @@ const UploadFiles = ({ formData, nextStep }) => {
         },
       };
 
-      // const leadResponse = await callApi(
-      //   "v1/businessloanlead/new",
-      //   "post",
-      //   payload,
-      //   "core"
-      // );
-      const response1 = await axios.post(
-        "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
+      const leadResponse = await callApi(
+        "v1/businessloanlead/new",
+        "post",
         payload,
-        { headers: { "Content-Type": "application/json" } }
+        "core"
       );
-      const leadResponse = response1.data;
+
       if (leadResponse?.status === "Success") {
         setUserClickData({
           event_name: "step3-file-upload-completed",
@@ -217,23 +212,15 @@ const UploadFiles = ({ formData, nextStep }) => {
         toast.success("Lead successfully created!");
 
         try {
-          // await callApi(
-          //   "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
-          //   "post",
-          //   {
-          //     lead_id: leadId,
-          //     is_document_upload: "Yes",
-          //   },
-          //   "core"
-          // );
-          await axios.post(
-            "https://core-api.digitmoney.in/api/v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+          await callApi(
+            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+            "post",
             {
               lead_id: leadId,
               is_document_upload: "Yes",
             },
-            { headers: { "Content-Type": "application/json" } }
-          ).data;
+            "core"
+          );
 
           console.log("ICAN API call successful!");
         } catch (err) {

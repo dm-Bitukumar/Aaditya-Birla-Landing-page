@@ -126,18 +126,13 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
 
   const fetchGSTAddress = async (gstNumber) => {
     try {
-      // const response = await callApi(
-      //   "v1/lender/gst",
-      //   "post",
-      //   { gst_no: gstNumber },
-      //   "loan"
-      // );
-      const response1 = await axios.post(
-        "https://core-api.digitmoney.in/api/v1/lender/gst",
+      const response = await callApi(
+        "v1/lender/gst",
+        "post",
         { gst_no: gstNumber },
-        { headers: { "Content-Type": "application/json" } }
+        "loan"
       );
-      const response = response1.data;
+
       if (
         response?.status === "Success" &&
         response?.data?.raw_response?.gstdetails?.pradr?.addr
@@ -155,18 +150,13 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
 
   const fetchUdyamAddress = async (udyamNumber) => {
     try {
-      // const response = await callApi(
-      //   "v1/lender/udyam",
-      //   "post",
-      //   { udyamno: udyamNumber },
-      //   "loan"
-      // );
-      const response1 = await axios.post(
-        "https://core-api.digitmoney.in/api/v1/lender/udyam",
+      const response = await callApi(
+        "v1/lender/udyam",
+        "post",
         { udyamno: udyamNumber },
-        { headers: { "Content-Type": "application/json" } }
+        "loan"
       );
-      const response = response1.data;
+
       if (
         response?.status === "Success" &&
         response?.data?.raw_response?.data?.main_details
@@ -221,18 +211,13 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       };
 
       try {
-        // const leadResponse = await callApi(
-        //   "v1/businessloanlead/new",
-        //   "post",
-        //   payload,
-        //   "core"
-        // );
-        const response1 = await axios.post(
-          "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
+        const leadResponse = await callApi(
+          "v1/businessloanlead/new",
+          "post",
           payload,
-          { headers: { "Content-Type": "application/json" } }
+          "core"
         );
-        const leadResponse = response1.data;
+
         if (leadResponse.status === "Success") {
           toast.success("Data uploaded successfully.");
           setUserClickData({

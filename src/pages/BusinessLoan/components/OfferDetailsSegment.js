@@ -96,46 +96,22 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
     setUserClickData({ event_name: "business-loan-page" });
     try {
       console.log(`Submitting Lead API for leadId: ${leadId}`);
-      // const leadResponse = await callApi(
-      //   "v1/lead/business-lead",
-      //   "post",
-      //   { lead_id: leadId },
-      //   "core",
-      //   user.token
-      // );
-
-      const response1 = await axios.post(
-        "https://core-api.digitmoney.in/api/v1/lead/business-lead",
+      const leadResponse = await callApi(
+        "v1/lead/business-lead",
+        "post",
         { lead_id: leadId },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
+        "core",
+        user.token
       );
-      const leadResponse = response1.data;
       console.log("Lead API Response:", leadResponse);
 
       if (leadResponse.status === "Success" && leadResponse.data) {
         setCoreLeadId(leadResponse.data);
         console.log("Updating businessloanlead with is_stage4_completed: true");
 
-        // const updateResponse = await callApi(
-        //   "v1/businessloanlead/new",
-        //   "post",
-        //   {
-        //     businessloanlead: {
-        //       contact_phone: formData.mobile,
-        //       contact_name: formData.full_name,
-        //       pan_no: formData.pancard,
-        //       is_stage4_completed: true,
-        //     },
-        //   },
-        //   "core"
-        // );
-        const response1 = await axios.post(
-          "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
+        const updateResponse = await callApi(
+          "v1/businessloanlead/new",
+          "post",
           {
             businessloanlead: {
               contact_phone: formData.mobile,
@@ -144,9 +120,9 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
               is_stage4_completed: true,
             },
           },
-          { headers: { "Content-Type": "application/json" } }
+          "core"
         );
-        const updateResponse = response1.data;
+
         console.log("Update API Response:", updateResponse);
         return leadResponse.data;
       } else {
@@ -167,17 +143,13 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
     try {
       console.log(`Fetching offers for leadId: ${leadId}`);
-      // const res = await callApi(
-      //   `v1/loan_offer/lead_id/${leadId}`,
-      //   "get",
-      //   {},
-      //   "core"
-      // );
-      const response1 = await axios.get(
-        `https://core-api.digitmoney.in/api/v1/loan_offer/lead_id/${leadId}`,
-        { headers: { "Content-Type": "application/json" } }
+      const res = await callApi(
+        `v1/loan_offer/lead_id/${leadId}`,
+        "get",
+        {},
+        "core"
       );
-      const res = response1.data;
+
       if (res.status === "Success") {
         dispatch(setOffers(res.data.offers ?? []));
         if (res.data.lead?.all_responses) {
@@ -188,22 +160,14 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
         if (!icanApiCalledRef.current) {
           icanApiCalledRef.current = true;
-          // await callApi(
-          //   "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
-          //   "post",
-          //   {
-          //     lead_id: leadId,
-          //     is_document_upload: "",
-          //   },
-          //   "core"
-          // );
-          await axios.post(
-            "https://core-api.digitmoney.in/api/v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+          await callApi(
+            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+            "post",
             {
               lead_id: leadId,
               is_document_upload: "",
             },
-            { headers: { "Content-Type": "application/json" } }
+            "core"
           );
         }
         setLeadName(res.data.lead?.contact_name ?? "Customer");

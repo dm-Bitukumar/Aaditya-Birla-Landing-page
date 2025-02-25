@@ -110,19 +110,13 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
       };
       console.log("Payload:", payload);
       try {
-        // const leadResponse = await callApi(
-        //   "v1/businessloanlead/new",
-        //   "post",
-        //   payload,
-        //   "core"
-        // );
-
-        const response1 = await axios.post(
-          "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
+        const leadResponse = await callApi(
+          "v1/businessloanlead/new",
+          "post",
           payload,
-          { headers: { "Content-Type": "application/json" } }
+          "core"
         );
-        const leadResponse = response1.data;
+
         if (leadResponse.status === "Success") {
           toast.success("Data saved successfully.");
           setUserClickData({
