@@ -194,20 +194,20 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
           ) {
             const leadData = leadResponse.data.preapproved_leadList[0];
 
-            try {
-              await callApi(
-                "v1/ican_api/pa-data-send-to-ican",
-                "post",
-                {
-                  lead_id: leadData._id,
-                  lender_id: lenderId,
-                  utm_medium: utmMedium,
-                },
-                "core"
-              );
-            } catch (icanError) {
-              console.error("Error sending data to iCan:", icanError);
-            }
+            // try {
+            //   await callApi(
+            //     "v1/ican_api/pa-data-send-to-ican",
+            //     "post",
+            //     {
+            //       lead_id: leadData._id,
+            //       lender_id: lenderId,
+            //       utm_medium: utmMedium,
+            //     },
+            //     "core"
+            //   );
+            // } catch (icanError) {
+            //   console.error("Error sending data to iCan:", icanError);
+            // }
             setStep(2);
           } else {
             console.warn("No lead data found:", leadResponse);
