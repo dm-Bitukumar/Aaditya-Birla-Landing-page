@@ -168,7 +168,7 @@ const OffersPage = ({ setStep, setLeadId }) => {
               offer={preLoans}
               setStep={setStep}
               mobileNumber={mobileNumber}
-              hideData={ldr === "1"}
+              hideData={ldr === "1" || ldr == "6"}
               leadId={userLeadId}
             />
           </div>
