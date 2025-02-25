@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 import moment from "moment";
+import axios from "axios";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -39,7 +40,7 @@ const Form = ({ formData, setFormData, ...props }) => {
     const upperCaseValue = value.toUpperCase();
     // console.log("PAN Input Changed (Stored as Uppercase):", upperCaseValue);
     setPan(upperCaseValue);
-  };  
+  };
 
   const handlePanBlur = () => {
     setPanTouched(true);
@@ -82,6 +83,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         },
         "messaging"
       );
+
       if (res["status"] === "Success") {
         setIsOtpGenerated(true);
         setUserClickData({
@@ -107,6 +109,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         },
         "messaging"
       );
+
       if (res["status"] === "Success") {
         setUserClickData({
           event_name: `resend-otp-business-loan-page`,
@@ -139,7 +142,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         });
 
         toast.success("OTP verified successfully.");
-
+        console.log("hii");
         let fullName = "";
         let dateofbirth = "";
         try {
@@ -153,7 +156,9 @@ const Form = ({ formData, setFormData, ...props }) => {
 
           if (panRes.status === "Success" && panRes.data?.fullname) {
             fullName = panRes.data.fullname;
-            dateofbirth = moment(panRes.data.dob, "DD/MM/YYYY").format("YYYY-MM-DDT00:00:00.000+00:00");
+            dateofbirth = moment(panRes.data.dob, "DD/MM/YYYY").format(
+              "YYYY-MM-DDT00:00:00.000+00:00"
+            );
           }
         } catch (err) {
           console.warn(

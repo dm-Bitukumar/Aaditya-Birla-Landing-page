@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const OfferDetailsSegment = ({ formData: initialFormData }) => {
   const location = useLocation();
@@ -102,7 +103,6 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
         "core",
         user.token
       );
-
       console.log("Lead API Response:", leadResponse);
 
       if (leadResponse.status === "Success" && leadResponse.data) {
@@ -122,6 +122,7 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
           },
           "core"
         );
+
         console.log("Update API Response:", updateResponse);
         return leadResponse.data;
       } else {

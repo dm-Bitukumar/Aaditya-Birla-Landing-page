@@ -11,6 +11,7 @@ import BusinessAddressBox from "./BusinessAddressBox";
 import industryOptions from "../../../constants/industries.json";
 import callApi from "../../../utility/apiCaller";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const turnoverOptions = [
   { value: "", label: "Select Annual Turnover" },
@@ -118,8 +119,8 @@ const ApplyFormStep2 = ({ formData, setFormData, nextStep, previousStep }) => {
 
         if (leadResponse.status === "Success") {
           toast.success("Data saved successfully.");
-          setUserClickData({ 
-            event_name: "step2-business-loan-page-completed" ,
+          setUserClickData({
+            event_name: "step2-business-loan-page-completed",
             user_id: formData.mobile || "unknown",
           });
         } else {
