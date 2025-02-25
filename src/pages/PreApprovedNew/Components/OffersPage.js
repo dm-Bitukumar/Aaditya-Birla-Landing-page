@@ -13,6 +13,7 @@ const OffersPage = ({ setStep, setLeadId }) => {
   const [affId, setAffId] = useState(null);
   const [utmMedium, setUtmMedium] = useState(null);
   const [ldr, setldr] = useState(null);
+  const [userLeadId, setUserLeadId] = useState(null);
   const [searchParams] = useSearchParams();
   const lead = useSelector((state) => state.app.lead);
 
@@ -44,7 +45,6 @@ const OffersPage = ({ setStep, setLeadId }) => {
           contact_phone: contactPhone,
         },
       };
-
       const res = await callApi(
         "v1/preapproved_lead/list",
         "post",
@@ -60,6 +60,7 @@ const OffersPage = ({ setStep, setLeadId }) => {
 
         if (fetchedLeadId) {
           setLeadId(fetchedLeadId);
+          setUserLeadId(fetchedLeadId);
           fetchPreApprovedLoan(fetchedLeadId);
         } else {
           console.error("No valid lead ID found in the response.");
@@ -82,12 +83,7 @@ const OffersPage = ({ setStep, setLeadId }) => {
   const fetchPreApprovedLoan = async (id) => {
     try {
       setIsLoading(true);
-      const res = await callApi(
-        `v1/preapproved_lead/${id}`,
-        "get",
-        {},
-        "core"
-      );
+      const res = await callApi(`v1/preapproved_lead/${id}`, "get", {}, "core");
 
       if (res.status === "Success") {
         setPreLoans(res.data?.preapproved_lead);
@@ -103,9 +99,9 @@ const OffersPage = ({ setStep, setLeadId }) => {
           const ldr = parseInt(queryParams.get("ldr"), 10);
 
           const preapprovedLeadData =
-          ldr === 4
-            ? { utm_medium: utmMedium }
-            : { aff_id: affId, utm_medium: utmMedium };
+            ldr === 4
+              ? { utm_medium: utmMedium }
+              : { aff_id: affId, utm_medium: utmMedium };
 
           await callApi(
             `v1/preapproved_lead/${id}/update_with_no_resp`,
@@ -115,7 +111,6 @@ const OffersPage = ({ setStep, setLeadId }) => {
             },
             "core"
           );
-
         } catch (updateError) {
           console.error("Error updating aff_id and utm_medium:", updateError);
           toast.warn(
@@ -174,6 +169,7 @@ const OffersPage = ({ setStep, setLeadId }) => {
               setStep={setStep}
               mobileNumber={mobileNumber}
               hideData={ldr === "1"}
+              leadId={userLeadId}
             />
           </div>
 
