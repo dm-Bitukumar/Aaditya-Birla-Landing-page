@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const OfferDetailsSegment = ({ formData: initialFormData }) => {
   const location = useLocation();
@@ -95,23 +96,46 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
     setUserClickData({ event_name: "business-loan-page" });
     try {
       console.log(`Submitting Lead API for leadId: ${leadId}`);
-      const leadResponse = await callApi(
-        "v1/lead/business-lead",
-        "post",
-        { lead_id: leadId },
-        "core",
-        user.token
-      );
+      // const leadResponse = await callApi(
+      //   "v1/lead/business-lead",
+      //   "post",
+      //   { lead_id: leadId },
+      //   "core",
+      //   user.token
+      // );
 
+      const response1 = await axios.post(
+        "https://core-api.digitmoney.in/api/v1/lead/business-lead",
+        { lead_id: leadId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      const leadResponse = response1.data;
       console.log("Lead API Response:", leadResponse);
 
       if (leadResponse.status === "Success" && leadResponse.data) {
         setCoreLeadId(leadResponse.data);
         console.log("Updating businessloanlead with is_stage4_completed: true");
 
-        const updateResponse = await callApi(
-          "v1/businessloanlead/new",
-          "post",
+        // const updateResponse = await callApi(
+        //   "v1/businessloanlead/new",
+        //   "post",
+        //   {
+        //     businessloanlead: {
+        //       contact_phone: formData.mobile,
+        //       contact_name: formData.full_name,
+        //       pan_no: formData.pancard,
+        //       is_stage4_completed: true,
+        //     },
+        //   },
+        //   "core"
+        // );
+        const response1 = await axios.post(
+          "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
           {
             businessloanlead: {
               contact_phone: formData.mobile,
@@ -120,8 +144,9 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
               is_stage4_completed: true,
             },
           },
-          "core"
+          { headers: { "Content-Type": "application/json" } }
         );
+        const updateResponse = response1.data;
         console.log("Update API Response:", updateResponse);
         return leadResponse.data;
       } else {
@@ -142,13 +167,17 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
     try {
       console.log(`Fetching offers for leadId: ${leadId}`);
-      const res = await callApi(
-        `v1/loan_offer/lead_id/${leadId}`,
-        "get",
-        {},
-        "core"
+      // const res = await callApi(
+      //   `v1/loan_offer/lead_id/${leadId}`,
+      //   "get",
+      //   {},
+      //   "core"
+      // );
+      const response1 = await axios.get(
+        `https://core-api.digitmoney.in/api/v1/loan_offer/lead_id/${leadId}`,
+        { headers: { "Content-Type": "application/json" } }
       );
-
+      const res = response1.data;
       if (res.status === "Success") {
         dispatch(setOffers(res.data.offers ?? []));
         if (res.data.lead?.all_responses) {
@@ -159,14 +188,22 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
         if (!icanApiCalledRef.current) {
           icanApiCalledRef.current = true;
-          await callApi(
-            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
-            "post",
+          // await callApi(
+          //   "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+          //   "post",
+          //   {
+          //     lead_id: leadId,
+          //     is_document_upload: "",
+          //   },
+          //   "core"
+          // );
+          await axios.post(
+            "https://core-api.digitmoney.in/api/v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
             {
               lead_id: leadId,
               is_document_upload: "",
             },
-            "core"
+            { headers: { "Content-Type": "application/json" } }
           );
         }
         setLeadName(res.data.lead?.contact_name ?? "Customer");

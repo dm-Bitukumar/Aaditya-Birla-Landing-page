@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserClickData } from "../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
 import moment from "moment";
+import axios from "axios";
 
 const Form = ({ formData, setFormData, ...props }) => {
   const [otp, setOtp] = useState("");
@@ -39,7 +40,7 @@ const Form = ({ formData, setFormData, ...props }) => {
     const upperCaseValue = value.toUpperCase();
     // console.log("PAN Input Changed (Stored as Uppercase):", upperCaseValue);
     setPan(upperCaseValue);
-  };  
+  };
 
   const handlePanBlur = () => {
     setPanTouched(true);
@@ -73,15 +74,24 @@ const Form = ({ formData, setFormData, ...props }) => {
     event.preventDefault();
     if (isFormValid) {
       setIsOtpGenerated(true);
-      const res = await callApi(
-        "v1/sms/send-otp",
-        "post",
+      // const res = await callApi(
+      //   "v1/sms/send-otp",
+      //   "post",
+      //   {
+      //     contact_phone: mobile,
+      //     kyc_consent: isTncChecked,
+      //   },
+      //   "messaging"
+      // );
+      const response1 = await axios.post(
+        "https://msg-api.digitmoney.in/api/v1/sms/send-otp",
         {
           contact_phone: mobile,
           kyc_consent: isTncChecked,
         },
-        "messaging"
+        { headers: { "Content-Type": "application/json" } }
       );
+      const res = response1.data;
       if (res["status"] === "Success") {
         setIsOtpGenerated(true);
         setUserClickData({
@@ -98,15 +108,24 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handleResendOtp = async () => {
     try {
-      const res = await callApi(
-        "v1/sms/send-otp",
-        "post",
+      // const res = await callApi(
+      //   "v1/sms/send-otp",
+      //   "post",
+      //   {
+      //     contact_phone: mobile,
+      //     kyc_consent: isTncChecked,
+      //   },
+      //   "messaging"
+      // );
+      const response1 = await axios.post(
+        "https://msg-api.digitmoney.in/api/v1/sms/send-otp",
         {
           contact_phone: mobile,
           kyc_consent: isTncChecked,
         },
-        "messaging"
+        { headers: { "Content-Type": "application/json" } }
       );
+      const res = response1.data;
       if (res["status"] === "Success") {
         setUserClickData({
           event_name: `resend-otp-business-loan-page`,
@@ -121,15 +140,25 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handleSubmitOtp = async () => {
     try {
-      const res = await callApi(
-        "v1/sms/validate-otp",
-        "post",
+      // const res1 = await callApi(
+      //   "v1/sms/validate-otp",
+      //   "post",
+      //   {
+      //     contact_phone: mobile,
+      //     otp,
+      //   },
+      //   "messaging"
+      // );
+
+      const response1 = await axios.post(
+        "https://msg-api.digitmoney.in/api/v1/sms/validate-otp",
         {
           contact_phone: mobile,
           otp,
         },
-        "messaging"
+        { headers: { "Content-Type": "application/json" } }
       );
+      const res = response1.data;
 
       if (res.status === "Success") {
         dispatch(login({ ...res.data.customer, token: res.data.token }));
@@ -139,21 +168,33 @@ const Form = ({ formData, setFormData, ...props }) => {
         });
 
         toast.success("OTP verified successfully.");
-
+        console.log("hii");
         let fullName = "";
         let dateofbirth = "";
         try {
-          const panRes = await callApi(
-            "v1/M2P_data/get-data-from-pan",
-            "post",
+          // const panRes = await callApi(
+          //   "v1/M2P_data/get-data-from-pan",
+          //   "post",
+          //   { pancard: pan },
+          //   "core",
+          //   res.data.token
+          // );
+          const response1 = await axios.post(
+            "https://core-api.digitmoney.in/api/v1/M2P_data/get-data-from-pan",
             { pancard: pan },
-            "core",
-            res.data.token
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${res.data.token}`,
+              },
+            }
           );
-
+          const panRes = response1.data;
           if (panRes.status === "Success" && panRes.data?.fullname) {
             fullName = panRes.data.fullname;
-            dateofbirth = moment(panRes.data.dob, "DD/MM/YYYY").format("YYYY-MM-DDT00:00:00.000+00:00");
+            dateofbirth = moment(panRes.data.dob, "DD/MM/YYYY").format(
+              "YYYY-MM-DDT00:00:00.000+00:00"
+            );
           }
         } catch (err) {
           console.warn(
@@ -163,9 +204,23 @@ const Form = ({ formData, setFormData, ...props }) => {
 
         let leadId = "";
         try {
-          const leadRes = await callApi(
-            "v1/businessloanlead/new",
-            "post",
+          // const leadRes = await callApi(
+          //   "v1/businessloanlead/new",
+          //   "post",
+          //   {
+          //     businessloanlead: {
+          //       contact_name: fullName,
+          //       contact_phone: mobile,
+          //       dob: dateofbirth,
+          //       pan_no: pan,
+          //       is_pan_verified: true,
+          //       is_pan_mobile_verify_completed: "true",
+          //     },
+          //   },
+          //   "core"
+          // );
+          const response1 = await axios.post(
+            "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
             {
               businessloanlead: {
                 contact_name: fullName,
@@ -176,9 +231,9 @@ const Form = ({ formData, setFormData, ...props }) => {
                 is_pan_mobile_verify_completed: "true",
               },
             },
-            "core"
+            { headers: { "Content-Type": "application/json" } }
           );
-
+          const leadRes = response1.data;
           if (leadRes.status === "Success") {
             leadId = leadRes.data.businessloanlead?.lead?._id;
             dispatch(setLead(leadRes.data.lead));
@@ -189,9 +244,21 @@ const Form = ({ formData, setFormData, ...props }) => {
 
         if (leadId) {
           try {
-            await callApi(
-              "v1/ican_api/bl-data-send-to-ican",
-              "post",
+            // await callApi(
+            //   "v1/ican_api/bl-data-send-to-ican",
+            //   "post",
+            //   {
+            //     lead: {
+            //       id: leadId,
+            //       contact_phone: mobile,
+            //       pan_no: pan,
+            //       contact_name: fullName,
+            //     },
+            //   },
+            //   "core"
+            // );
+            await axios.post(
+              "https://core-api.digitmoney.in/api/v1/ican_api/bl-data-send-to-ican",
               {
                 lead: {
                   id: leadId,
@@ -200,7 +267,7 @@ const Form = ({ formData, setFormData, ...props }) => {
                   contact_name: fullName,
                 },
               },
-              "core"
+              { headers: { "Content-Type": "application/json" } }
             );
           } catch (err) {
             console.warn("ICAN API call failed.");

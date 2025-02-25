@@ -31,7 +31,12 @@ const UploadFiles = ({ formData, nextStep }) => {
     electricity_bill: useRef(null),
   };
   const navigate = useNavigate();
-  const allowedFileTypes = ["image/png", "image/jpg", "image/jpeg", "application/pdf"];
+  const allowedFileTypes = [
+    "image/png",
+    "image/jpg",
+    "image/jpeg",
+    "application/pdf",
+  ];
 
   const handleFileChange = (event, key) => {
     const selectedFiles = Array.from(event.target.files);
@@ -46,7 +51,9 @@ const UploadFiles = ({ formData, nextStep }) => {
         allowedFileTypes.includes(file.type)
       );
       if (validFiles.length !== selectedFiles.length) {
-        toast.error("Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed.");
+        toast.error(
+          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
+        );
         return;
       }
 
@@ -57,7 +64,9 @@ const UploadFiles = ({ formData, nextStep }) => {
     } else {
       const file = selectedFiles[0];
       if (!allowedFileTypes.includes(file.type)) {
-        toast.error("Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed.");
+        toast.error(
+          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
+        );
         return;
       }
       setFiles((prevFiles) => ({ ...prevFiles, [key]: file }));
@@ -185,13 +194,18 @@ const UploadFiles = ({ formData, nextStep }) => {
         },
       };
 
-      const leadResponse = await callApi(
-        "v1/businessloanlead/new",
-        "post",
+      // const leadResponse = await callApi(
+      //   "v1/businessloanlead/new",
+      //   "post",
+      //   payload,
+      //   "core"
+      // );
+      const response1 = await axios.post(
+        "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
         payload,
-        "core"
+        { headers: { "Content-Type": "application/json" } }
       );
-
+      const leadResponse = response1.data;
       if (leadResponse?.status === "Success") {
         setUserClickData({
           event_name: "step3-file-upload-completed",
@@ -203,15 +217,24 @@ const UploadFiles = ({ formData, nextStep }) => {
         toast.success("Lead successfully created!");
 
         try {
-          await callApi(
-            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
-            "post",
+          // await callApi(
+          //   "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+          //   "post",
+          //   {
+          //     lead_id: leadId,
+          //     is_document_upload: "Yes",
+          //   },
+          //   "core"
+          // );
+          await axios.post(
+            "https://core-api.digitmoney.in/api/v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
             {
-                lead_id: leadId,
-                is_document_upload: "Yes",
+              lead_id: leadId,
+              is_document_upload: "Yes",
             },
-            "core"
-          );
+            { headers: { "Content-Type": "application/json" } }
+          ).data;
+
           console.log("ICAN API call successful!");
         } catch (err) {
           console.warn("ICAN API call failed:", err);
@@ -267,7 +290,7 @@ const UploadFiles = ({ formData, nextStep }) => {
                 type="file"
                 id={key}
                 className="hidden"
-                ref={fileInputRefs[key]} 
+                ref={fileInputRefs[key]}
                 onChange={(e) => handleFileChange(e, key)}
                 multiple={multiple && key === "bank_statement"}
               />

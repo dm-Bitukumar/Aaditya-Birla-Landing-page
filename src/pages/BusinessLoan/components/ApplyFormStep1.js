@@ -9,6 +9,7 @@ import FormInput from "../../PreApprovedNew/Components/FormInputBtn";
 import FormSelect from "../../PreApprovedNew/Components/FormSelectBtn";
 import { toast } from "react-toastify";
 import callApi from "../../../utility/apiCaller";
+import axios from "axios";
 
 const residential_type_options = [
   { value: "", label: "Select Residential Type" },
@@ -125,13 +126,18 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
 
   const fetchGSTAddress = async (gstNumber) => {
     try {
-      const response = await callApi(
-        "v1/lender/gst",
-        "post",
+      // const response = await callApi(
+      //   "v1/lender/gst",
+      //   "post",
+      //   { gst_no: gstNumber },
+      //   "loan"
+      // );
+      const response1 = await axios.post(
+        "https://core-api.digitmoney.in/api/v1/lender/gst",
         { gst_no: gstNumber },
-        "loan"
+        { headers: { "Content-Type": "application/json" } }
       );
-
+      const response = response1.data;
       if (
         response?.status === "Success" &&
         response?.data?.raw_response?.gstdetails?.pradr?.addr
@@ -149,13 +155,18 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
 
   const fetchUdyamAddress = async (udyamNumber) => {
     try {
-      const response = await callApi(
-        "v1/lender/udyam",
-        "post",
+      // const response = await callApi(
+      //   "v1/lender/udyam",
+      //   "post",
+      //   { udyamno: udyamNumber },
+      //   "loan"
+      // );
+      const response1 = await axios.post(
+        "https://core-api.digitmoney.in/api/v1/lender/udyam",
         { udyamno: udyamNumber },
-        "loan"
+        { headers: { "Content-Type": "application/json" } }
       );
-
+      const response = response1.data;
       if (
         response?.status === "Success" &&
         response?.data?.raw_response?.data?.main_details
@@ -210,13 +221,18 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       };
 
       try {
-        const leadResponse = await callApi(
-          "v1/businessloanlead/new",
-          "post",
+        // const leadResponse = await callApi(
+        //   "v1/businessloanlead/new",
+        //   "post",
+        //   payload,
+        //   "core"
+        // );
+        const response1 = await axios.post(
+          "https://core-api.digitmoney.in/api/v1/businessloanlead/new",
           payload,
-          "core"
+          { headers: { "Content-Type": "application/json" } }
         );
-
+        const leadResponse = response1.data;
         if (leadResponse.status === "Success") {
           toast.success("Data uploaded successfully.");
           setUserClickData({
