@@ -43,7 +43,7 @@ const OfferTileNew = ({ offer, small, setStep, mobileNumber, hideData, leadId })
       const affId = offer?.aff_id || "";
       const leadIdParam = leadId || "";
 
-      const redirectUrl = `https://instant-pocket-loan.poonawallafincorp.com/?redirectto=primepl&utm_DSA_Code=PMH00227&UTM_Partner_Name=DigitMoney&UTM_Partner_Medium=${utmMedium}&aff_id=${affId}&lead_id=${leadIdParam}`;
+      const redirectUrl = `https://instant-pocket-loan.poonawallafincorp.com/?redirectto=primepl&utm_DSA_Code=PMH00227&UTM_Partner_Name=DigitMoney&UTM_Partner_Medium=${utmMedium}&UTM_Partner_AgentCode=${affId}Pre&UTM_Partner_ReferenceID=${leadIdParam}`;
       console.log("Redirect URL:", redirectUrl);
       window.location.href = redirectUrl;
     }else {
