@@ -9,6 +9,7 @@ import FormInput from "../../PreApprovedNew/Components/FormInputBtn";
 import FormSelect from "../../PreApprovedNew/Components/FormSelectBtn";
 import { toast } from "react-toastify";
 import callApi from "../../../utility/apiCaller";
+import axios from "axios";
 
 const residential_type_options = [
   { value: "", label: "Select Residential Type" },
@@ -28,12 +29,14 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
     residential_type: "",
     gst_available: "",
     gst: "",
+    contact_email: "",
   });
   const [touched, setTouched] = useState({
     full_name: false,
     residence_pincode: false,
     residential_type: false,
     gst: false,
+    contact_email: false,
   });
   const udyamRegex = /^UDYAM-[A-Z]{2}-\d{2}-\d{7}$/;
   const gstRegex = /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[0-9a-zA-Z]{3}$/;
@@ -73,6 +76,10 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       if (keyName === "gst_available") {
         updatedData.udyam_available = "";
         updatedData.udyam_number = "";
+      }
+
+      if (keyName === "contact_email") {
+        updatedData.contact_email = keyValue.toLowerCase();
       }
 
       return updatedData;
@@ -115,6 +122,14 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
         isValid = false;
       } else if (!gstRegex.test(data.gst)) {
         validationErrors.gst = "Please enter a valid GST Number.";
+        isValid = false;
+      }
+    }
+
+    if (touched.contact_email && data.contact_email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(data.contact_email)) {
+        validationErrors.contact_email = "Please enter a valid email address.";
         isValid = false;
       }
     }
@@ -200,6 +215,7 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
           contact_name: data.full_name,
           pincode: data.residence_pincode,
           residence_type: data.residential_type,
+          contact_email: data.contact_email,
           is_gst: isGst,
           is_udyam: isUdyam,
           udyamno: isUdyam ? data.udyam_number : "",
@@ -253,6 +269,8 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
       !!data.residence_pincode &&
       data.residence_pincode.length === 6 &&
       !!data.residential_type &&
+      !!data.contact_email &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.contact_email) &&
       data.gst_available !== "" &&
       !isBothNo &&
       ((data.gst_available === "yes" &&
@@ -339,6 +357,25 @@ const ApplyFormStep1 = ({ formData, setFormData, nextStep, ...props }) => {
         <input type="hidden" name="click_id" value="" />
         <input type="hidden" name="aff_id" value="" />
         <input type="hidden" name="src" value="" />
+
+        <FormInput
+          icon={
+            <img
+              src="/assets/icons/email.png"
+              className="h-6 px-2"
+              alt="Email"
+            />
+          }
+          type="email"
+          name="contact_email"
+          placeholder="Enter Email Address"
+          label="Email Address"
+          value={data.contact_email}
+          onChange={(e) => handleDataChange("contact_email", e.target.value)}
+          onBlur={() => handleBlur("contact_email")}
+          isValid={!errors.contact_email}
+          errorMessage={errors.contact_email}
+        />
 
         {/* GST Section */}
         <GstRegistrationOption
