@@ -37,19 +37,27 @@ const OfferTileNew = ({
   }, [offer, mobileNumber]);
 
   const handleClick = () => {
+    let affId = offer?.aff_id || "";
+
+    if (!affId) {
+      const urlParams = new URLSearchParams(window.location.search);
+      affId = urlParams.get("aff_id") || "";
+    }
+
     setUserClickData({
       event_name: `preapp-offer-apply-button-lender-${
         offer?.lender_name || "unknown"
       }`,
       user_id: mobile || "unknown",
     });
+    const utmMedium = offer?.utm_medium || "";
+    const leadIdParam = leadId || "";
+    console.log(utmMedium, affId, leadIdParam);
     if (offer?.lender_id === "66b76539fadd84ed521dcd2a") {
-      window.location.href = "https://abfl.finbox.in/?partnerCode=AX_ME2SIV";
+      const url = `https://oneapp.abfldirect.com/epl/index?dsa_hash=cbb1050eb01e3f56224da7c4b39a3eda1881bd93c474d2ccc23e0897281bd46a&utm_source=${affId}&utm_medium=sms&utm_campaign=&utm_term=${leadIdParam}&utm_content=`;
+      console.log("Redirect URL:", url);
+      window.location.href = url;
     } else if (offer?.lender_id === "6799b8fada60414f0f195bf9") {
-      const utmMedium = offer?.utm_medium || "";
-      const affId = offer?.aff_id || "";
-      const leadIdParam = leadId || "";
-
       const redirectUrl = `https://instant-pocket-loan.poonawallafincorp.com/?redirectto=primepl&utm_DSA_Code=PMH00227&UTM_Partner_Name=DigitMoney&UTM_Partner_Medium=${utmMedium}&UTM_Partner_AgentCode=${affId}Pre&UTM_Partner_ReferenceID=${leadIdParam}`;
       console.log("Redirect URL:", redirectUrl);
       window.location.href = redirectUrl;
