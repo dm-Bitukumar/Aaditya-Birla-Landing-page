@@ -25,11 +25,12 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
-
+  const [affId, setAffId] = useState(null);
   const [utmMedium, setUtmMedium] = useState(null);
   const [searchParams] = useSearchParams();
   useEffect(() => {
     setUtmMedium(searchParams.get("utm_medium"));
+    setAffId(searchParams.get("aff_id"));
   }, [searchParams]);
 
   const handleValidation = () => {
@@ -202,6 +203,7 @@ const MobileVerification = ({ setStep, setUserData, userData }) => {
                   lead_id: leadData._id,
                   lender_id: lenderId,
                   utm_medium: utmMedium,
+                  aff_id: affId,
                 },
                 "core"
               );
