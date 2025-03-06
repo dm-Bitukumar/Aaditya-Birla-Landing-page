@@ -99,7 +99,8 @@ const OfferDetailsSegment = () => {
       );
 
       if (res.status === "Success") {
-        dispatch(setOffers(res.data.offers ?? []));
+        const uniqueOffers = _.uniqBy(res.data.offers ?? [], "lender_id");
+        dispatch(setOffers(uniqueOffers));
         if (res.data.lead?.all_responses) {
           setIsFinished(
             res.data.lead?.all_responses === res.data.lead?.total_response
@@ -154,7 +155,12 @@ const OfferDetailsSegment = () => {
             .slice(0, 1)
             .map((e, i) => (
               <div key={e._id} className="my-4">
-                <OfferTile small={false} offer={e} source={source} />
+                <OfferTile
+                  small={false}
+                  offer={e}
+                  source={source}
+                  userId={leadId}
+                />
               </div>
             ))}
           <div
@@ -172,7 +178,7 @@ const OfferDetailsSegment = () => {
               .slice(1, show ? 1000 : 4)
               .map((e, i) => (
                 <div key={e._id} className="">
-                  <OfferTile small offer={e} source={source} />
+                  <OfferTile small offer={e} source={source} userId={leadId} />
                 </div>
               ))}
           </div>
@@ -189,7 +195,7 @@ const OfferDetailsSegment = () => {
             </div>
           )}
 
-          {!isFinished && (
+          {!isFinished && offers.length === 0 && (
             <div className="mt-4 font-normal text-center">
               Please wait while we are searching best offers for you
               <span class="ml-2 dot-pulse"></span>
