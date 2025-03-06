@@ -59,7 +59,7 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
 
     setUserClickData({ 
       event_name: eventName || "offer-apply-button", 
-      user_id: userId || "unknown" 
+      user_id: userId || "No User ID found" 
     });
 
     window.location.href = `${offer.app_url}${source}`;
