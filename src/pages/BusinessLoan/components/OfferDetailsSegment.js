@@ -211,8 +211,8 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
           const seenLeadIds = new Set();
 
           offers.forEach((offer) => {
-            if (!seenLeadIds.has(offer.lead_id)) {
-              seenLeadIds.add(offer.lead_id);
+            if (!seenLeadIds.has(offer.lender_id)) {
+              seenLeadIds.add(offer.lender_id);
               filteredOffers.push(offer);
             }
           });
