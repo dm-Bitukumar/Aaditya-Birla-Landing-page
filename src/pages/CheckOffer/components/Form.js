@@ -24,9 +24,11 @@ const Form = ({ formData, setFormData, ...props }) => {
   const navigate = useNavigate();
   const [source, setSource] = useState("");
   const [params] = useSearchParams();
+  const [leadId, setLeadId] = useState("");
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
+    if (params.get("lid")) setLeadId(params.get("lid"));
   }, [params]);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ const Form = ({ formData, setFormData, ...props }) => {
   const handleSubmit = async (event) => {
     setUserClickData({
       event_name: "otp-button-check-offer-loan-page",
-      user_id: mobile || "unknown",
+      user_id: leadId || "unknown",
     });
     event.preventDefault();
     // let isValid = handleValidation();
@@ -112,8 +114,8 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
       if (res["status"] === "Success") {
         setUserClickData({
-          event_name: "otp-page-for-check-offer",
-          user_id: mobile || "unknown",
+          event_name: "otp-send-for-check-offer",
+          user_id: leadId || "unknown",
         });
         setIsOtpGenerated(true);
       }
@@ -124,17 +126,12 @@ const Form = ({ formData, setFormData, ...props }) => {
   const handleChange = () => {
     setUserClickData({
       event_name: "check-offer-loan-page",
-      user_id: mobile || "unknown",
+      user_id: leadId || "unknown",
     });
     setIsTncChecked((prev) => !prev);
   };
 
   const handleResendOtp = async () => {
-    // todo resend login with timer
-    setUserClickData({
-      event_name: "resend-otp-form-for-check-offer",
-      user_id: mobile || "unknown",
-    });
     try {
       const res = await callApi(
         "v1/sms/send-otp",
@@ -147,6 +144,10 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
       if (res["status"] === "Success") {
         toast("Otp sent", { hideProgressBar: true, type: "success" });
+        setUserClickData({
+          event_name: "resend-otp-form-for-check-offer",
+          user_id: leadId || "unknown",
+        });
       }
     } catch (err) {
       console.log(err);
@@ -154,11 +155,6 @@ const Form = ({ formData, setFormData, ...props }) => {
   };
 
   const handleSubmitOtp = async () => {
-    setUserClickData({
-      event_name: "verify-otp-check-offer-loan-page",
-      user_id: mobile || "unknown",
-    });
-
     try {
       const res = await callApi(
         "v1/sms/validate-otp",
@@ -171,6 +167,10 @@ const Form = ({ formData, setFormData, ...props }) => {
       );
 
       if (res["status"] === "Success") {
+        setUserClickData({
+          event_name: "verify-otp-check-offer-loan-page",
+          user_id: leadId || "unknown",
+        });
         const leadResponse = await callApi(
           "v1/lead/lead-from-phone",
           "post",
