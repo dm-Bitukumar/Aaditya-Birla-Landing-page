@@ -15,10 +15,25 @@ const OfferDetailsSegment = () => {
   const [show, setShow] = useState(false);
   const [source, setSource] = useState("");
   const [params] = useSearchParams();
+  const [leadId, setLeadId] = useState("");
 
   useEffect(() => {
     if (params.get("lid")) fetchOffers(params.get("lid"));
     if (params.get("source")) setSource(params.get("source"));
+  }, [params]);
+
+  useEffect(() => {
+    const lid = params.get("lid");
+    const sourceParam = params.get("source");
+
+    if (lid) {
+      setLeadId(lid);
+      fetchOffers(lid);
+    }
+
+    if (sourceParam) {
+      setSource(sourceParam);
+    }
   }, [params]);
 
   const fetchOffers = async (lid) => {
@@ -40,10 +55,10 @@ const OfferDetailsSegment = () => {
         );
         let newObjectMap = {};
         let newOffers = [];
-        localOffers.forEach(item => {
+        localOffers.forEach((item) => {
           if (!newObjectMap[item.lender_id]) {
-            newOffers.push(item); 
-            newObjectMap[item.lender_id] = 1;  
+            newOffers.push(item);
+            newObjectMap[item.lender_id] = 1;
           }
         });
         setOffers(newOffers);
@@ -97,7 +112,12 @@ const OfferDetailsSegment = () => {
             .slice(0, 1)
             .map((e, i) => (
               <div key={e._id} className="my-4">
-                <OfferTile small={false} offer={e} source={source} />
+                <OfferTile
+                  small={false}
+                  offer={e}
+                  source={source}
+                  userId={leadId}
+                />
               </div>
             ))}
           <div
@@ -115,7 +135,7 @@ const OfferDetailsSegment = () => {
               .slice(1, show ? 1000 : 4)
               .map((e, i) => (
                 <div key={e._id} className="">
-                  <OfferTile small offer={e} source={source} />
+                  <OfferTile small offer={e} source={source} userId={leadId} />
                 </div>
               ))}
           </div>
