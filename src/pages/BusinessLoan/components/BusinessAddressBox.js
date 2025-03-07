@@ -16,7 +16,10 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
     ) {
       setLastSavedAddress(data.confirm_business_address);
       setEditedAddress(data.confirm_business_address);
-      handleDataChange("confirm_business_address", data.confirm_business_address);
+      handleDataChange(
+        "confirm_business_address",
+        data.confirm_business_address
+      );
     }
   }, [data.confirm_business_address]);
 
@@ -31,6 +34,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
 
   const handleSave = () => {
     const newAddress = editedAddress.trim() || defaultMessage;
+    // const newAddress = editedAddress.trim() && editedAddress.trim() !== defaultMessage ? editedAddress.trim() : "";
 
     handleDataChange("confirm_business_address", newAddress);
     setLastSavedAddress(newAddress);
@@ -72,7 +76,9 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
               placeholder="Enter your business address"
             />
           ) : (
-            <p className="text-gray-600 text-xs font-semibold">{lastSavedAddress}</p>
+            <p className="text-gray-600 text-xs font-semibold">
+              {lastSavedAddress}
+            </p>
           )}
         </div>
 
@@ -97,7 +103,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
 
       {/* Address Type (Using Simple Radio Buttons) */}
       <div className="mt-3">
-        <p className="text-xs font-semibold mb-1">Address Type</p>
+        <p className="text-xs font-semibold mb-1">Address Type <span className="text-red-500">*</span></p>
         <div className="flex items-center space-x-2">
           <label className="flex items-center space-x-1">
             <input
