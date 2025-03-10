@@ -7,7 +7,9 @@ import Homepage from "./pages/Homepage/Homepage";
 import LenderPage from "./pages/LenderPage/LenderPage";
 import { Route, useLocation } from "react-router";
 import PersonalLoan from "./pages/PersonalLoan/PersonalLoan";
+import PersonalLoanV2 from "./pages/PersonalLoanV2/PersonalLoanV2";
 import PersonalDetails from "./pages/PersonalDetails/PersonalDetails";
+import PersonalDetailsV2 from "./pages/PersonalDetailsV2/PersonalDetailsV2";
 import PreApprovedLoan from "./pages/PAO/PreApprovedLoan";
 import BusinessLoan from "./pages/BusinessLoan/BusinessLoan";
 import BusinessLoanApply from "./pages/BusinessLoan/BusinessLoanApply";
@@ -103,7 +105,9 @@ function App() {
         <Route path={"/"} element={<Homepage />} />
         <Route path={"/lenders"} element={<LenderPage />} />
         <Route path={"/personal-loan"} element={<PersonalLoan />} />
+        <Route path={"/personal-loan-v2"} element={<PersonalLoanV2 />} />
         <Route path={"/apply"} element={<PersonalDetails />} />
+        <Route path={"/apply-v2"} element={<PersonalDetailsV2 />} />
         <Route path={"/pao"} element={<PreApprovedLoan />} />
         <Route path={"/offers"} element={<OffersPage />} />
         <Route path={"/offersv2"} element={<OffersPageNew />} />
