@@ -145,6 +145,7 @@ const Form = ({ formData, setFormData, ...props }) => {
         dispatch(
           login({ ...res.data.customer, token: res.data.token, pancard })
         );
+        localStorage.setItem("mobile", mobile);
         navigate(
           `/apply-v2?aff_id=${affId}&utm_source=${utmSource}&source=${source}`
         );

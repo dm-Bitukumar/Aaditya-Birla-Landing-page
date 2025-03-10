@@ -16,6 +16,7 @@ let noTransitions = {
 
 const PersonalDetailsV2 = () => {
   const user = useSelector((state) => state.app.user);
+  const [mobile, setMobile] = useState(localStorage.getItem("mobile") || "");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,9 +34,9 @@ const PersonalDetailsV2 = () => {
         initialStep={step}
         onStepChange={({ activeStep }) => setStep(activeStep)}
       >
-        <PersonalDetailsForm />
-        <WorkDetailsForm />
-        <OfferDetailsSegment />
+        <PersonalDetailsForm mobile={mobile} />
+        <WorkDetailsForm mobile={mobile} />
+        <OfferDetailsSegment mobile={mobile}/>
       </StepWizard>
     </div>
   );
