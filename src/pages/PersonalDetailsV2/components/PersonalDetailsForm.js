@@ -20,7 +20,7 @@ const profession_options = [
   { label: "Business Owner", value: "business owner" },
 ];
 
-const PersonalDetailsForm = ({ nextStep }) => {
+const PersonalDetailsForm = ({ nextStep, mobile }) => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     gender: "",
@@ -92,6 +92,7 @@ const PersonalDetailsForm = ({ nextStep }) => {
   const handleSubmit = () => {
     setUserClickData({
       event_name: "personal-detail-form-submit-v2",
+      user_id: mobile || "No User ID found",
     });
     const isValid = handleValidate();
     if (isValid) {
