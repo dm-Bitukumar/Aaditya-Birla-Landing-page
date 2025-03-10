@@ -18,7 +18,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import { TRACK_ID } from "../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 
-const OfferDetailsSegment = () => {
+const OfferDetailsSegment = ( mobile ) => {
   const dispatch = useDispatch();
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
@@ -44,16 +44,23 @@ const OfferDetailsSegment = () => {
   }, [lead]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (leadId) fetchOffers(leadId);
-    }, 5000);
+    if (!leadId) return;
+  
+    const timer = setTimeout(() => {
+      fetchOffers(leadId);
+      const interval = setInterval(() => {
+        fetchOffers(leadId);
+      }, 5000);
 
-    return () => clearInterval(timer);
+      return () => clearInterval(interval);
+    }, 5000); 
+    return () => clearTimeout(timer);
   }, [leadId]);
 
   const submitLead = async () => {
     setUserClickData({
       event_name: "personal-detail-api-v2",
+      user_id: mobile || "No User ID found here",
     });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
@@ -105,7 +112,7 @@ const OfferDetailsSegment = () => {
   };
 
   const fetchOffers = async () => {
-    if (isFinished) return;
+    if (!leadId || isFinished) return;
     try {
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,

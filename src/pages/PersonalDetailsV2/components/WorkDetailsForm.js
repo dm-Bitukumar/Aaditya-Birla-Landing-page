@@ -11,7 +11,7 @@ import { setUserClickData } from "../../../utility/setUserClickData";
 import numberToWords from "../../../utility/numberToWords";
 import { formatAmount } from "../../../utility/amountFormat";
 
-const WorkDetailsForm = ({ nextStep, previousStep }) => {
+const WorkDetailsForm = ({ nextStep, previousStep, mobile }) => {
   const dispatch = useDispatch();
   const lead = useSelector((state) => state.app.lead);
   const [monthlyIncome, setMonthlyIncome] = useState("");
@@ -150,6 +150,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const handleSubmit = () => {
     setUserClickData({
       event_name: "work-detail-form-submit-v2",
+      user_id: mobile || "No User ID found",
     });
     const isValid = handleValidate();
     if (isValid) {
@@ -168,6 +169,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const handleBack = () => {
     setUserClickData({
       event_name: "work-detail-back-button-v2",
+      user_id: mobile || "No User ID found",
     });
     previousStep();
   };
@@ -175,6 +177,7 @@ const WorkDetailsForm = ({ nextStep, previousStep }) => {
   const renderForm = () => {
     // setUserClickData({
     //   event_name: "work-detail-page-v2",
+    //   user_id: mobile || "No User ID found",
     // });
     switch (lead.profession) {
       case "Salaried":
