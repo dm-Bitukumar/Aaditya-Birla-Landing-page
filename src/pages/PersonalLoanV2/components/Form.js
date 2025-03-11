@@ -176,7 +176,7 @@ const Form = ({ formData, setFormData, ...props }) => {
       >
         Get Instant Personal Loan
         <br />
-        <strong>Upto 25 Lacs</strong>
+        <strong>Upto 15 Lacs</strong>
       </h1>
       <p className="mb-3 text-center" style={{ fontSize: "14px" }}>
         • Instant Approvals • Complete Digital Process •
