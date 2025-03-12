@@ -28,6 +28,9 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
   const [params] = useSearchParams();
   const leadId = params.get("lid");
   const icanApiCalledRef = useRef(false);
+  const callCenterApiCalledRef = useRef(false);
+  const [hasTriggeredCallCenterApi, setHasTriggeredCallCenterApi] =
+    useState(false);
   console.log("Formdata:", formData);
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -75,45 +78,26 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
             console.error("ican API Call Failed:", err);
           }
         }
+
+        console.log("Offers fetched:", offers);
+        console.log(offers.length);
+
+        if (
+          !hasTriggeredCallCenterApi &&
+          offers.length > 0 &&
+          formData.is_stage4_completed === false
+        ) {
+          console.log(
+            "🚀 Triggering Call Center API since offers are available"
+          );
+          setHasTriggeredCallCenterApi(true);
+          triggerCallCenterApi();
+        }
       }
     }, 5000);
 
     return () => clearInterval(intervalId);
-  }, [leadId]);
-
-  // const submitLead = async () => {
-  //   setUserClickData({ event_name: "business-loan-page" });
-
-  //   try {
-  //     console.log(`Skipping business-lead API`);
-
-  //     const leadResponse = { status: "Success", data: "mock-lead-id-12345" };
-
-  //     if (leadResponse.status === "Success" && leadResponse.data) {
-  //       setCoreLeadId(leadResponse.data);
-  //       const updateResponse = await callApi(
-  //         "v1/businessloanlead/new",
-  //         "post",
-  //         {
-  //           businessloanlead: {
-  //             contact_phone: formData.mobile,
-  //             contact_name: formData.full_name,
-  //             pan_no: formData.pancard,
-  //             is_stage4_completed: true,
-  //           },
-  //         },
-  //         "core"
-  //       );
-  //       console.log(updateResponse);
-  //       return leadResponse.data;
-  //     } else {
-  //       console.warn("Lead API did not return success:", leadResponse);
-  //     }
-  //   } catch (err) {
-  //     console.error("API Call Failed:", err);
-  //   }
-  //   return null;
-  // };
+  }, [leadId, offers]);
 
   const submitLead = async () => {
     setUserClickData({ event_name: "business-loan-page" });
@@ -188,6 +172,85 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
       }
     } catch (err) {
       console.error("fetchOffers API Call Failed:", err);
+    }
+  };
+
+  const triggerCallCenterApi = async () => {
+    try {
+      console.log("🚀 Inside triggerCallCenterApi - Attempting API call");
+
+      const leadDetailsResponse = await callApi(
+        "v1/lead/list",
+        "post",
+        {
+          filters: { _id: leadId },
+        },
+        "core"
+      );
+
+      if (
+        leadDetailsResponse.status === "Success" &&
+        Array.isArray(leadDetailsResponse.data?.leadList) &&
+        leadDetailsResponse.data.leadList.length > 0
+      ) {
+        const leadDetails = leadDetailsResponse.data.leadList[0];
+        console.log("✅ Lead details extracted:", leadDetails);
+
+        const bankStatements = leadDetails.bank_statement_file || [];
+        const bank_statementOne =
+          bankStatements.length > 0 ? bankStatements[0] : "";
+        const bank_statementTwo =
+          bankStatements.length > 1 ? bankStatements[1] : "";
+        const bank_statementThree =
+          bankStatements.length > 2 ? bankStatements[2] : "";
+
+        const payload = {
+          leadid: leadDetails._id || "",
+          name: leadDetails.contact_name || "",
+          phonenumber: leadDetails.contact_phone || "",
+          pan: leadDetails.pancard || "",
+          email: leadDetails.contact_email || "",
+          dob: leadDetails.dob ? leadDetails.dob.split("T")[0] : "",
+          residence_pincode: leadDetails.pincode || "",
+          residence_type: leadDetails.residence_type || "",
+          gst_number: leadDetails.gst || "",
+          udyam_number: leadDetails.udyamno || "",
+          annual_turnover: leadDetails.annual_turnover || "",
+          industry: leadDetails.industry || "",
+          business_address: leadDetails.work_address1 || "",
+          address_type: leadDetails.business_type || "",
+          company_type: leadDetails.ownership || "",
+          bank_statementOne,
+          bank_statementTwo,
+          bank_statementThree,
+          electricity_bill: leadDetails.electricity_bill_file?.[0] || "",
+          gst_certificate: leadDetails.gst_certificate_file || "",
+          pan_card: leadDetails.pan_card_file || "",
+          aadhar_card: leadDetails.aadhar_card_file || "",
+        };
+
+        console.log("📨 Sending data to Call Center API:", payload);
+
+        const callCenterApiResponse = await axios.post(
+          "https://api.digitmoney.in/new-api/callcenter-bl.php",
+          payload
+        );
+
+        console.log("Call Center API Response:", callCenterApiResponse.data);
+
+        if (callCenterApiResponse.status === 200) {
+          console.log("Call Center API triggered successfully");
+        }  else {
+            console.log("⚠️ Call Center API returned unexpected status:", callCenterApiResponse.status);
+            callCenterApiCalledRef.current = false;
+        }
+      } else {
+        console.warn("Lead details not found for Call Center API");
+        callCenterApiCalledRef.current = false;
+      }
+    } catch (err) {
+      console.error("Call Center API Call Failed:", err);
+      callCenterApiCalledRef.current = false;
     }
   };
 
