@@ -22,6 +22,9 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [pan, setPan] = useState("");
   const [mobile, setMobile] = useState("");
   const [source, setSource] = useState("");
+  const [affId, setAffId] = useState("");
+  const [utmSource, setUtmSource] = useState("");
+  const [utmMedium, setUtmMedium] = useState("");
   const [isMobileValid, setIsMobileValid] = useState(true);
   const [isPanValid, setIsPanValid] = useState(true);
   const [mobileTouched, setMobileTouched] = useState(false);
@@ -32,8 +35,24 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [params] = useSearchParams();
 
   useEffect(() => {
-    if (params.get("source")) setSource(params.get("source"));
-  }, [params]);
+    const sourceParam = params.get("source");
+    const affIdParam = params.get("aff_id");
+    const utmSourceParam = params.get("utm_source");
+    const utmMediumParam = params.get("utm_medium");
+  
+    if (sourceParam) setSource(sourceParam);
+    if (affIdParam) setAffId(affIdParam);
+    if (utmSourceParam) setUtmSource(utmSourceParam);
+    if (utmMediumParam) setUtmMedium(utmMediumParam);
+  
+    setFormData((prev) => ({
+      ...prev,
+      source: sourceParam || "",
+      aff_id: affIdParam || "",
+      utm_source: utmSourceParam || "",
+      utm_medium: utmMediumParam || "",
+    }));
+  }, [params, setFormData]);
 
   const handlePanChange = (event) => {
     const { value } = event.target;
@@ -179,6 +198,10 @@ const Form = ({ formData, setFormData, ...props }) => {
                 pan_no: pan,
                 is_pan_verified: true,
                 is_pan_mobile_verify_completed: "true",
+                aff_id: affId || "",
+                source: source || "",
+                utm_source: utmSource || "",
+                utm_medium: utmMedium || "",
               },
             },
             "core"
