@@ -46,12 +46,35 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
     if (!leadId) return;
 
     let callCount = 0;
-    const intervalId = setInterval(() => {
-      if (callCount < 2) {
-        fetchOffers();
+    const intervalId = setInterval(async () => {
+      if (callCount < 3) {
+        await fetchOffers();
         callCount++;
       } else {
         clearInterval(intervalId);
+
+        if (
+          !icanApiCalledRef.current &&
+          formData.is_stage4_completed === false
+        ) {
+          console.log(
+            "Triggering ican API after completing all loan offer API calls"
+          );
+          icanApiCalledRef.current = true;
+          try {
+            await callApi(
+              "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+              "post",
+              {
+                lead_id: leadId,
+                is_document_upload: "",
+              },
+              "core"
+            );
+          } catch (err) {
+            console.error("ican API Call Failed:", err);
+          }
+        }
       }
     }, 5000);
 
@@ -158,18 +181,6 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
           );
         }
 
-        if (!icanApiCalledRef.current) {
-          icanApiCalledRef.current = true;
-          await callApi(
-            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
-            "post",
-            {
-              lead_id: leadId,
-              is_document_upload: "",
-            },
-            "core"
-          );
-        }
         setLeadName(res.data.lead?.contact_name ?? "Customer");
         console.log("Fetched lead name:", res.data.lead?.contact_name);
       } else {
