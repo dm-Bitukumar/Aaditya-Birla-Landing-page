@@ -39,8 +39,8 @@ import BajajFinserv from "./pages/BajajFinserv";
 import CheckOffers_v2 from "./pages/CheckOffer_v2/CheckOffers_v2";
 import OffersPage_v2 from "./pages/Offers_v2/Offerspage_v2";
 import NewPreapproveOffersPage from "./pages/NewPreaaprovedOffersFlow/NewPreapproveOffers";
-import BusinessLoanOld from "./pages/BusinessLoanOld/OldBusinessLoan"
-import BusinessApplyOld from "./pages/BusinessLoanOld/BusinessLoanApply"
+import BusinessLoanOld from "./pages/BusinessLoanOld/OldBusinessLoan";
+import BusinessApplyOld from "./pages/BusinessLoanOld/BusinessLoanApply";
 import BusinessOfferDetailsSegment from "./pages/BusinessLoan/components/OfferDetailsSegment";
 import ConfirmationPage from "./pages/BusinessLoan/components/ConfirmationPage";
 
@@ -116,10 +116,23 @@ function App() {
         <Route path={"/rtg"} element={<PreLoan />} />
         <Route path={"/business-loan"} element={<BusinessLoan />} />
         <Route path={"/business-loan/apply"} element={<BusinessLoanApply />} />
-        <Route path={"/business-loan/offer"} element={<BusinessOfferDetailsSegment />} />
+        <Route
+          path={"/business-loan/offer"}
+          element={<BusinessOfferDetailsSegment />}
+        />
         <Route path={"/business-loan-old"} element={<BusinessLoanOld />} />
-        <Route path={"/business-loan-old/apply"} element={<BusinessApplyOld />} />
-        <Route path={"/business-loan/confirmation"} element={<ConfirmationPage />} />
+        <Route
+          path={"/business-loan-old/apply"}
+          element={<BusinessApplyOld />}
+        />
+        <Route
+          path={"/business-loan/confirmation"}
+          element={<ConfirmationPage />}
+        />
+        <Route
+          path={"/personal-loan/confirmation"}
+          element={<ConfirmationPage />}
+        />
         <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -141,7 +154,7 @@ function App() {
 
         <Route path="/bajaj-finserv" element={<BajajFinserv />} />
         <Route path="/check-offers-v2" element={<CheckOffers_v2 />} />
-        <Route path={"/preapp-offers"} element={<NewPreapproveOffersPage /> } />
+        <Route path={"/preapp-offers"} element={<NewPreapproveOffersPage />} />
       </Routes>
     </>
   );
