@@ -1,6 +1,7 @@
 import React from "react";
 
 const ConfirmationPage = () => {
+  console.log("ConfirmationPage");
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white relative">
       <div className="absolute top-12">
