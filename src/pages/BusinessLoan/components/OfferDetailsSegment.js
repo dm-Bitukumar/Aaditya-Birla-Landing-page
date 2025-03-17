@@ -29,14 +29,18 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
   const leadId = params.get("lid");
   const icanApiCalledRef = useRef(false);
   const callCenterApiCalledRef = useRef(false);
+  const callCountRef = useRef(0);
   const [hasTriggeredCallCenterApi, setHasTriggeredCallCenterApi] =
     useState(false);
+
   console.log("Formdata:", formData);
+
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
   }, [params]);
 
   useEffect(() => {
+    console.log("Stage 4:", formData.is_stage4_completed);
     if (leadId && formData.is_stage4_completed === false) {
       console.log("Calling business-lead api for the first time");
       submitLead();
@@ -47,22 +51,18 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
   useEffect(() => {
     if (!leadId) return;
-
-    let callCount = 0;
     const intervalId = setInterval(async () => {
-      if (callCount < 3) {
+      console.log(`Call count before fetchOffers: ${callCountRef.current}`);
+      if (callCountRef.current < 3) {
         await fetchOffers();
-        callCount++;
+        callCountRef.current += 1;
       } else {
         clearInterval(intervalId);
-
         if (
           !icanApiCalledRef.current &&
           formData.is_stage4_completed === false
         ) {
-          console.log(
-            "Triggering ican API after completing all loan offer API calls"
-          );
+          console.log("Triggering ican API");
           icanApiCalledRef.current = true;
           try {
             await callApi(
@@ -78,18 +78,16 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
             console.error("ican API Call Failed:", err);
           }
         }
-
-        console.log("Offers fetched:", offers);
-        console.log(offers.length);
-
+        console.log(
+          hasTriggeredCallCenterApi,
+          offers.length,
+          formData.is_stage4_completed
+        );
         if (
           !hasTriggeredCallCenterApi &&
           offers.length > 0 &&
           formData.is_stage4_completed === false
         ) {
-          console.log(
-            "🚀 Triggering Call Center API since offers are available"
-          );
           setHasTriggeredCallCenterApi(true);
           triggerCallCenterApi();
         }
@@ -114,7 +112,6 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
       if (leadResponse.status === "Success" && leadResponse.data) {
         setCoreLeadId(leadResponse.data);
-        console.log("Updating businessloanlead with is_stage4_completed: true");
 
         const updateResponse = await callApi(
           "v1/businessloanlead/new",
@@ -129,8 +126,6 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
           },
           "core"
         );
-
-        console.log("Update API Response:", updateResponse);
         return leadResponse.data;
       } else {
         console.warn("Lead API did not return success:", leadResponse);
@@ -144,7 +139,7 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
   const fetchOffers = async () => {
     console.log("fetchOffers() triggered");
-    if (isFinished || !leadId) {
+    if (!leadId) {
       return;
     }
 
@@ -177,7 +172,7 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
   const triggerCallCenterApi = async () => {
     try {
-      console.log("🚀 Inside triggerCallCenterApi - Attempting API call");
+      console.log("triggerCallCenterApi");
 
       const leadDetailsResponse = await callApi(
         "v1/lead/list",
@@ -194,7 +189,6 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
         leadDetailsResponse.data.leadList.length > 0
       ) {
         const leadDetails = leadDetailsResponse.data.leadList[0];
-        console.log("✅ Lead details extracted:", leadDetails);
 
         const bankStatements = leadDetails.bank_statement_file || [];
         const bank_statementOne =
@@ -240,9 +234,9 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
 
         if (callCenterApiResponse.status === 200) {
           console.log("Call Center API triggered successfully");
-        }  else {
-            console.log("⚠️ Call Center API returned unexpected status:", callCenterApiResponse.status);
-            callCenterApiCalledRef.current = false;
+        } else {
+          console.log(callCenterApiResponse.status);
+          callCenterApiCalledRef.current = false;
         }
       } else {
         console.warn("Lead details not found for Call Center API");
@@ -267,12 +261,25 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
         currentStep={2}
       /> */}
       <img src="/assets/img/Dm LOGO.png" className="mt-8 mx-auto" />
-      {!isFinished && offers?.length === 0 && (
+
+      {/* {!isFinished && offers?.length === 0 && (
         <div className="mb-4 mt-4 font-normal text-center">
           Please wait while we are searching best offers for you
           <span className="ml-2 dot-pulse"></span>
         </div>
-      )}
+      )} */}
+      {
+        ((formData.is_stage4_completed === false && callCountRef.current < 3) ||
+          ((formData.is_stage4_completed === true ||
+            formData.is_stage4_completed === undefined) &&
+            offers?.length === 0)) && (
+          <div className="mb-4 mt-4 font-normal text-center">
+            Please wait while we are searching offers for you
+            <span className="ml-2 dot-pulse"></span>
+          </div>
+        )
+      }
+
       {isFinished && offers?.length === 0 && (
         <div className="mb-4 mt-4 font-normal text-center">
           There is no offer for you currently.
