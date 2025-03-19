@@ -67,7 +67,7 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handlePancardChange = (event) => {
     const { value } = event.target;
-    const sanitizedValue = value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    const sanitizedValue = value.toUpperCase();
     setPancard(sanitizedValue);
   };
 
