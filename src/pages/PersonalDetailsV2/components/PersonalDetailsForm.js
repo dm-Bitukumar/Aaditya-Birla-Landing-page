@@ -36,7 +36,19 @@ const PersonalDetailsForm = ({ nextStep, mobile }) => {
 
   const handleDataChange = (key, value) => {
     setErrors("");
-    setData((prevData) => ({ ...prevData, [key]: value }));
+
+    if (key === "name") {
+      const sanitizedValue = value.replace(/[^A-Za-z\s]/g, "");
+      setData((prevData) => ({ ...prevData, [key]: sanitizedValue }));
+    } else if (key === "dob") {
+      const formattedValue = value.replace(
+        /^(\d{2})\/?(\d{2})\/?(\d{4})$/,
+        "$1/$2/$3"
+      );
+      setData((prevData) => ({ ...prevData, [key]: formattedValue }));
+    } else {
+      setData((prevData) => ({ ...prevData, [key]: value }));
+    }
   };
 
   const handleValidate = () => {
