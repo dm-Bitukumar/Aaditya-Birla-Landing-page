@@ -259,7 +259,7 @@ const Form = ({ formData, setFormData, ...props }) => {
             onBlur={handlePanBlur}
             onChange={handlePancardChange}
             required
-            style={{ textTransform: "uppercase" }}
+            // style={{ textTransform: "uppercase" }}
             label={"Pancard"}
             errorMessage={
               panTouched && !isPancardValid
