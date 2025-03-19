@@ -23,6 +23,8 @@ const Form = ({ formData, setFormData, ...props }) => {
   const [affId, setAffId] = useState("");
   const [isPancardValid, setIsPancardValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
+  const [mobileTouched, setMobileTouched] = useState(false);
+  const [panTouched, setPancardTouched] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
@@ -36,22 +38,22 @@ const Form = ({ formData, setFormData, ...props }) => {
   const handleValidation = () => {
     let isValid = true;
 
-    if (_.isEmpty(pancard)) {
-      isValid = false;
-      setIsPancardValid(false);
-    }
-    if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
-      isValid = false;
-      setIsPancardValid(false);
-    }
-    if (_.isEmpty(mobile)) {
-      isValid = false;
-      setIsMobileValid(false);
-    }
-    if (!/^\d{10}$/.test(mobile)) {
-      isValid = false;
-      setIsMobileValid(false);
-    }
+    // if (_.isEmpty(pancard)) {
+    //   isValid = false;
+    //   setIsPancardValid(false);
+    // }
+    // if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
+    //   isValid = false;
+    //   setIsPancardValid(false);
+    // }
+    // if (_.isEmpty(mobile)) {
+    //   isValid = false;
+    //   setIsMobileValid(false);
+    // }
+    // if (!/^\d{10}$/.test(mobile)) {
+    //   isValid = false;
+    //   setIsMobileValid(false);
+    // }
     if (!isTncChecked) {
       isValid = false;
       toast("Please accept the Terms and Conditions", {
@@ -65,14 +67,41 @@ const Form = ({ formData, setFormData, ...props }) => {
 
   const handlePancardChange = (event) => {
     const { value } = event.target;
-    setIsPancardValid(true);
-    setPancard(value);
+    const sanitizedValue = value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    setPancard(sanitizedValue);
   };
+
+  const handlePanBlur = () => {
+    setPancardTouched(true);
+    if (pancard.length === 0) {
+      setIsPancardValid(true);
+    } else {
+      setIsPancardValid(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pancard));
+    }
+  };
+
+  // const handlePancardChange = (event) => {
+  //   const { value } = event.target;
+  //   setIsPancardValid(true);
+  //   setPancard(value);
+  // };
+
+  // const handleMobileChange = (event) => {
+  //   const { value } = event.target;
+  //   setIsMobileValid(true);
+  //   setMobile(value);
+  // };
 
   const handleMobileChange = (event) => {
     const { value } = event.target;
-    setIsMobileValid(true);
-    setMobile(value);
+    if (/^\d{0,10}$/.test(value)) {
+      setMobile(value);
+    }
+  };
+
+  const handleMobileBlur = () => {
+    setMobileTouched(true);
+    setIsMobileValid(mobile.length === 10);
   };
 
   const handleSubmit = async (event) => {
@@ -218,7 +247,7 @@ const Form = ({ formData, setFormData, ...props }) => {
             }
             type="text"
             name="pancard"
-            isValid={isPancardValid}
+            isValid={!panTouched || isPancardValid}
             id="pancard"
             aria-describedby="name"
             placeholder="PAN Card"
@@ -227,11 +256,16 @@ const Form = ({ formData, setFormData, ...props }) => {
             pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
             title="Please enter a valid PAN number. E.g. AAAAA9999A"
             value={pancard}
+            onBlur={handlePanBlur}
             onChange={handlePancardChange}
             required
             style={{ textTransform: "uppercase" }}
             label={"Pancard"}
-            errorMessage={"Please enter a valid PAN number"}
+            errorMessage={
+              panTouched && !isPancardValid
+                ? "Please enter a valid PAN number."
+                : ""
+            }
           />
           <FormInput
             icon={
@@ -243,7 +277,7 @@ const Form = ({ formData, setFormData, ...props }) => {
             }
             type="number"
             name="mobile"
-            isValid={isMobileValid}
+            isValid={!mobileTouched || isMobileValid}
             id="mobile"
             aria-describedby="name"
             placeholder="Mobile"
@@ -251,6 +285,7 @@ const Form = ({ formData, setFormData, ...props }) => {
             maxLength="10"
             pattern="[0-9]{10}"
             value={mobile}
+            onBlur={handleMobileBlur}
             onChange={handleMobileChange}
             required
             label={"Mobile Number"}
