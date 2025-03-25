@@ -38,14 +38,14 @@ const Form = ({ formData, setFormData, ...props }) => {
   const handleValidation = () => {
     let isValid = true;
 
-    // if (_.isEmpty(pancard)) {
-    //   isValid = false;
-    //   setIsPancardValid(false);
-    // }
-    // if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
-    //   isValid = false;
-    //   setIsPancardValid(false);
-    // }
+    if (_.isEmpty(pancard)) {
+      isValid = false;
+      setIsPancardValid(false);
+    }
+    if (!/^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$/.test(pancard)) {
+      isValid = false;
+      setIsPancardValid(false);
+    }
     // if (_.isEmpty(mobile)) {
     //   isValid = false;
     //   setIsMobileValid(false);
@@ -65,26 +65,26 @@ const Form = ({ formData, setFormData, ...props }) => {
     return isValid;
   };
 
-  const handlePancardChange = (event) => {
-    const { value } = event.target;
-    const sanitizedValue = value.toUpperCase().replace(/[^A-Z0-9]/g, "");
-    setPancard(sanitizedValue);
-  };
-
-  const handlePanBlur = () => {
-    setPancardTouched(true);
-    if (pancard.length === 0) {
-      setIsPancardValid(true);
-    } else {
-      setIsPancardValid(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pancard));
-    }
-  };
-
   // const handlePancardChange = (event) => {
   //   const { value } = event.target;
-  //   setIsPancardValid(true);
-  //   setPancard(value);
+  //   const sanitizedValue = value.toUpperCase();
+  //   setPancard(sanitizedValue);
   // };
+
+  // const handlePanBlur = () => {
+  //   setPancardTouched(true);
+  //   if (pancard.length === 0) {
+  //     setIsPancardValid(true);
+  //   } else {
+  //     setIsPancardValid(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pancard));
+  //   }
+  // };
+
+  const handlePancardChange = (event) => {
+    const { value } = event.target;
+    setIsPancardValid(true);
+    setPancard(value);
+  };
 
   // const handleMobileChange = (event) => {
   //   const { value } = event.target;
@@ -247,7 +247,7 @@ const Form = ({ formData, setFormData, ...props }) => {
             }
             type="text"
             name="pancard"
-            isValid={!panTouched || isPancardValid}
+            isValid={isPancardValid}
             id="pancard"
             aria-describedby="name"
             placeholder="PAN Card"
@@ -256,16 +256,17 @@ const Form = ({ formData, setFormData, ...props }) => {
             pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}"
             title="Please enter a valid PAN number. E.g. AAAAA9999A"
             value={pancard}
-            onBlur={handlePanBlur}
+            // onBlur={handlePanBlur}
             onChange={handlePancardChange}
             required
             style={{ textTransform: "uppercase" }}
             label={"Pancard"}
-            errorMessage={
-              panTouched && !isPancardValid
-                ? "Please enter a valid PAN number."
-                : ""
-            }
+            errorMessage={"Please enter a valid PAN number"}
+            // errorMessage={
+            //   panTouched && !isPancardValid
+            //     ? "Please enter a valid PAN number."
+            //     : ""
+            // }
           />
           <FormInput
             icon={

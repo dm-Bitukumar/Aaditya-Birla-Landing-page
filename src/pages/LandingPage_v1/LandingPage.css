@@ -1,0 +1,8 @@
+.landing-page-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px 20px;
+  margin: auto;
+  background: #fff;
+  font-family: "Montserrat", sans-serif;
+}
