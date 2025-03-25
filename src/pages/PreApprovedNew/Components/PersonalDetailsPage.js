@@ -172,6 +172,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         }
         type="text"
         name="firstName"
+        disabled
         isValid={!errors.firstName}
         value={data.firstName}
         onChange={(e) => handleChange("firstName", e.target.value)}
@@ -190,6 +191,7 @@ const PersonalDetailsForm = ({ setStep, handleDataChange, leadId }) => {
         }
         type="text"
         name="lastName"
+        disabled
         isValid={!errors.lastName}
         value={data.lastName}
         onChange={(e) => handleChange("lastName", e.target.value)}
