@@ -43,6 +43,7 @@ import BusinessLoanOld from "./pages/BusinessLoanOld/OldBusinessLoan";
 import BusinessApplyOld from "./pages/BusinessLoanOld/BusinessLoanApply";
 import BusinessOfferDetailsSegment from "./pages/BusinessLoan/components/OfferDetailsSegment";
 import ConfirmationPage from "./pages/BusinessLoan/components/ConfirmationPage";
+import LandingPage_v1 from "./pages/LandingPage_v1/LandingPage";
 
 function App() {
   const location = useLocation();
@@ -114,25 +115,19 @@ function App() {
         <Route path={"/offers-v2"} element={<OffersPage_v2 />} />
 
         <Route path={"/rtg"} element={<PreLoan />} />
+
+        {/* New Landing Pages */}
+        <Route path={"/landing-page"} element={<LandingPage_v1 />} />
+
+        {/* Business Loan */}
         <Route path={"/business-loan"} element={<BusinessLoan />} />
         <Route path={"/business-loan/apply"} element={<BusinessLoanApply />} />
-        <Route
-          path={"/business-loan/offer"}
-          element={<BusinessOfferDetailsSegment />}
-        />
+        <Route path={"/business-loan/offer"} element={<BusinessOfferDetailsSegment />} />
         <Route path={"/business-loan-old"} element={<BusinessLoanOld />} />
-        <Route
-          path={"/business-loan-old/apply"}
-          element={<BusinessApplyOld />}
-        />
-        <Route
-          path={"/business-loan/confirmation"}
-          element={<ConfirmationPage />}
-        />
-        <Route
-          path={"/personal-loan/confirmation"}
-          element={<ConfirmationPage />}
-        />
+        <Route path={"/business-loan-old/apply"} element={<BusinessApplyOld />} />
+        <Route path={"/business-loan/confirmation"} element={<ConfirmationPage />} />
+
+        <Route path={"/personal-loan/confirmation"} element={<ConfirmationPage />} />
         <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -142,10 +137,7 @@ function App() {
         <Route path="/pa-lt" element={<LtPersonalLoan />} />
         <Route path="/pa-ab" element={<AdityaBirlaPersonalLoan />} />
         <Route path="/abfl-offer" element={<PreapprovedOfferAbfl />} />
-        <Route
-          path="/new-loan"
-          element={<New pages={pages} setPages={setPages} />}
-        />
+        <Route path="/new-loan" element={<New pages={pages} setPages={setPages} />} />
         <Route path={"/check-offers"} element={<CheckOffers />} />
         <Route path="/preapproved-offers" element={<PreapprovedOffer />} />
         <Route path="/fb-offer" element={<OfferDetailsSegmentNiro2 />} />
