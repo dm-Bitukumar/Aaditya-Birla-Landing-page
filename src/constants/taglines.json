@@ -1,0 +1,72 @@
+[
+  {
+    "label": "Flexible Tenure",
+    "color": "#12F28040",
+    "textColor": "#000000",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 1
+  },
+  {
+    "label": "Instant Approvals",
+    "color": "#000000",
+    "textColor": "#fff",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 1
+  },
+  {
+    "label": "Quick Disbursal",
+    "color": "#00ff84",
+    "textColor": "#000000",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 1
+  },
+  {
+    "label": "100% Paperless",
+    "color": "#12F28040",
+    "textColor": "#000000",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 1
+  },
+  {
+    "label": "RBI Approved Lenders",
+    "color": "#12F28040",
+    "textColor": "#004739",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 1
+  },
+  {
+    "label": "Lowest interest rate",
+    "color": "#B3B3B340",
+    "textColor": "#004739",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 2
+  },
+  {
+    "label": "Complete Digital Process",
+    "color": "#12F280",
+    "textColor": "#000000",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 2
+  },
+  {
+    "label": "24x7 Support",
+    "color": "#B3B3B340",
+    "textColor": "#004739",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 2
+  },
+  {
+    "label": "No Collateral",
+    "color": "#B3B3B340",
+    "textColor": "#004739",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 2
+  },
+  {
+    "label": "PAN Based Offers",
+    "color": "#B3B3B340",
+    "textColor": "#004739",
+    "icon": "/assets/img/greenTick.svg",
+    "line": 2
+  }
+]
