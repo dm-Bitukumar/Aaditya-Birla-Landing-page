@@ -1,8 +1,14 @@
 .landing-page-container {
   width: 100%;
   max-width: 400px;
-  padding: 15px 20px;
   margin: auto;
-  background: #fff;
+  background-image: url("../../../public/assets/img/2nd design main BG.svg");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
   font-family: "Montserrat", sans-serif;
+}
+
+.landing-page {
+  padding: 15px 20px;
 }

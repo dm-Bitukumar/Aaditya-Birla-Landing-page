@@ -1,16 +1,20 @@
-import React from 'react';
-import './Header.css';
+import React from "react";
+import "./Header.css";
 
 const Header = () => {
   return (
     <header className="header">
-      <img src="/assets/img/Dm LOGO.png" alt="Digit Money Logo" className="logo-img" />
+      <img
+        src="/assets/img/New_LOGO.svg"
+        alt="Digit Money Logo"
+        className="logo-img"
+      />
       <button className="menu-btn" aria-label="Menu">
-        <div className="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <img
+          src="/assets/img/Hamburger menu.svg"
+          alt="Menu"
+          className="hamburger-icon"
+        />
       </button>
     </header>
   );
