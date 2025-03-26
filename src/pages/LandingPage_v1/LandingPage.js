@@ -8,6 +8,10 @@ import "./LandingPage.css";
 import KeyAdvantages from "./Components/KeyAdvantages/KeyAdvantages";
 import BankingPartners from "./Components/BankingPartners/BankingPartners";
 import HowItWorks from "./Components/HowItWorks/HowItWorks";
+import EligibilityDocuments from "./Components/EligibilityDocuments/EligibilityDocuments";
+import Testimonials from "./Components/Testimonials/Testimonials";
+import FAQSection from "./Components/FAQSection/FAQSection";
+import Footer from "./Components/Footer/Footer";
 
 const LandingPage = () => {
   return (
@@ -28,6 +32,10 @@ const LandingPage = () => {
         <KeyAdvantages />
         <BankingPartners />
         <HowItWorks />
+        <EligibilityDocuments />
+        <Testimonials />
+        <FAQSection />
+        <Footer />
       </div>
     </div>
   );
