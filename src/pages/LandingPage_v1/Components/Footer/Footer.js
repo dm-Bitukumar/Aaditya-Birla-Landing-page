@@ -45,19 +45,89 @@ const Footer = () => {
 
         <div className="footer-links">
           <div className="footer-column">
-            <p>Personal Loan</p>
-            <p>Business Loan</p>
-            <p>PayOff</p>
-            <p>FAQs</p>
-            <p>Blogs</p>
-            <p>Career</p>
-            <p>Eligibility Calculator</p>
+            <p>
+              <a href="#hero">Personal Loan</a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                Business Loan
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                PayOff
+              </a>
+            </p>
+            <p>
+              <a href="#faqs">FAQs</a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                Blogs
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                Career
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                Eligibility Calculator
+              </a>
+            </p>
           </div>
           <div className="footer-column">
-            <p>Affiliate Program</p>
-            <p>Digital Lending Partners</p>
-            <p>Our Partners</p>
-            <p>EMI Calculator</p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                Affiliate Program
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                Digital Lending Partners
+              </a>
+            </p>
+            <p>
+              <a href="#our-partners">Our Partners</a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                EMI Calculator
+              </a>
+            </p>
           </div>
         </div>
 
@@ -84,10 +154,34 @@ const Footer = () => {
         <div className="footer-divider" />
 
         <div className="footer-bottom-links">
-          <p>About Us</p>
-          <p>Contact Us</p>
-          <p>Terms & Conditions</p>
-          <p>Privacy Policy</p>
+          <a
+            href="https://web.digitmoney.in/"
+            // target="_blank"
+            rel="noopener noreferrer"
+          >
+            About Us
+          </a>
+          <a
+            href="https://web.digitmoney.in/contact"
+            // target="_blank"
+            rel="noopener noreferrer"
+          >
+            Contact Us
+          </a>
+          <a
+            href="https://web.digitmoney.in/terms"
+            // target="_blank"
+            rel="noopener noreferrer"
+          >
+            Terms & Conditions
+          </a>
+          <a
+            href="https://web.digitmoney.in/privacy-policy"
+            // target="_blank"
+            rel="noopener noreferrer"
+          >
+            Privacy Policy
+          </a>
         </div>
 
         <div className="footer-divider" />
