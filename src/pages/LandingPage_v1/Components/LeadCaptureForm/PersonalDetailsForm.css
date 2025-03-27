@@ -1,0 +1,63 @@
+.personal-details-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 30px 24px;
+  border-radius: 24px 24px 0 0;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+.form-title {
+  /* font-family: Atkinson Hyperlegible; */
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #1b1b1b;
+}
+
+.form-subtitle {
+  /* font-family: Atkinson Hyperlegible; */
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #b3b3b3;
+}
+
+.gender-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.gender-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 185px;
+  height: 55px;
+  border: 1px solid #b3b3b3;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.gender-btn.active {
+  background-color: #1b1b1b;
+  color: #12f280;
+  font-weight: 600;
+}
+
+.gender-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gender-content img {
+  height: 20px;
+}
