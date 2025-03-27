@@ -1,0 +1,31 @@
+.personal-details-container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  /* text-align: center; */
+}
+
+.form-subtitle {
+  font-size: 14px;
+  color: #666;
+  /* text-align: center; */
+  margin-bottom: 24px;
+}
+
+/* Reuse this for consistent field layout */
+input,
+select {
+  font-family: inherit;
+}
+
+input::placeholder {
+  color: #ccc;
+}
