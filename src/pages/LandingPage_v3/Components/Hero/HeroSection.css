@@ -1,0 +1,43 @@
+.hero {
+  text-align: center;
+  padding: 24px 16px 16px;
+}
+
+.hero-icon {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 18px;
+}
+
+
+
+.disclaimer {
+  font-size: 12px;
+  /* background: rgba(255, 255, 255, 0.1); */
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
+  color: #FFFFFF;
+}
+
+.main-heading {
+  font-family: "Bomstad Display";
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 35px;
+  color: #FFFFFF;
+  letter-spacing: 0%;
+  margin-top: 30px;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+}
+
+.main-heading1 {
+  font-family: "Bomstad Display";
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 35px;
+  color: #FFFFFF;
+  letter-spacing: 0%;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+}
