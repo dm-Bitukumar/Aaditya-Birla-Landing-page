@@ -32,7 +32,7 @@ const FormSelectStyle2 = ({
     <div
       ref={ref}
       style={{
-        width: "370px",
+        width: "350px",
         marginBottom: "24px",
         position: "relative",
       }}

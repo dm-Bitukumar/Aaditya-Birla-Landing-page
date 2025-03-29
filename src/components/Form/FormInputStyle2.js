@@ -23,7 +23,7 @@ const FormInputStyle2 = ({
         onBlur={() => setIsFocused(false)}
         disabled={disabled}
         style={{
-          width: "370px",
+          width: "350px",
           height: "55px",
           borderRadius: "5px",
           border: isValid ? "1px solid #B3B3B3" : "1px solid red",
