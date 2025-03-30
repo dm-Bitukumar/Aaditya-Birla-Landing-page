@@ -1,6 +1,6 @@
 {
   "name": "main-website",
-  "version": "0.6.10",
+  "version": "0.6.11",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
