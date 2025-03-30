@@ -2,28 +2,28 @@
   {
     "label": "Flexible Tenure",
     "color": "#12F28040",
-    "textColor": "#000000",
+    "textColor": "#004739",
     "icon": "/assets/img/greenTick.svg",
     "line": 1
   },
   {
     "label": "Instant Approvals",
-    "color": "#000000",
-    "textColor": "#fff",
+    "color": "#FFFFFF",
+    "textColor": "#004739",
     "icon": "/assets/img/greenTick.svg",
     "line": 1
   },
   {
     "label": "Quick Disbursal",
     "color": "#00ff84",
-    "textColor": "#000000",
+    "textColor": "#004739",
     "icon": "/assets/img/greenTick.svg",
     "line": 1
   },
   {
     "label": "100% Paperless",
     "color": "#12F28040",
-    "textColor": "#000000",
+    "textColor": "#004739",
     "icon": "/assets/img/greenTick.svg",
     "line": 1
   },
@@ -44,7 +44,7 @@
   {
     "label": "Complete Digital Process",
     "color": "#12F280",
-    "textColor": "#000000",
+    "textColor": "#004739",
     "icon": "/assets/img/greenTick.svg",
     "line": 2
   },
