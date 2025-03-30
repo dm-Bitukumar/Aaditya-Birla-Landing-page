@@ -128,16 +128,17 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   return (
-    <div className="final-offers-container1">
-      <div className="offer-bg-layer-1" />
-      <div className="offer-bg-layer-2" />
-      <div className="offer-bg-layer-3" />
-      <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" />
+    <>
+      <div className="final-offers-container1">
+        <div className="offer-bg-layer-1" />
+        <div className="offer-bg-layer-2" />
+        <div className="offer-bg-layer-3" />
+        <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" />
 
-      <h2 className="congrats-text">Congratulations!</h2>
-      <h3 className="sub-text1">You’re Pre-Approved for</h3>
-      <h3 className="sub-text1">a Personal Loan!</h3>
-
+        <h2 className="congrats-text">Congratulations!</h2>
+        <h3 className="sub-text1">You’re Pre-Approved for</h3>
+        <h3 className="sub-text1">a Personal Loan!</h3>
+      </div>
       <div className="offer-cards-container1">
         {offers.length < 0 ? (
           offers.map((offer) => <OfferCard key={offer._id} offer={offer} />)
@@ -154,7 +155,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           will be based on risk policy of Bank / NBFC.
         </p>
       </div>
-    </div>
+    </>
   );
 };
 
