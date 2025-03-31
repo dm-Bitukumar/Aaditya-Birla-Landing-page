@@ -3,6 +3,7 @@ import "./ProfessionalDetailsForm.css";
 import FormInputStyle2 from "../../../../components/Form/FormInputStyle2";
 import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
+import { setUserClickData } from "../../../../utility/setUserClickData";
 
 const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [companyName, setCompanyName] = useState(formData.companyName || "");
@@ -31,12 +32,12 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
   const handleContinue = () => {
     if (!validate()) return;
-
+    const plainMonthlyIncome = monthlyIncome.replace(/,/g, "");
     const updated = {
       companyName,
       companyType,
       workEmail,
-      monthlyIncome,
+      monthlyIncome: plainMonthlyIncome,
       work_pincode,
       stepDone: 3,
     };
@@ -51,6 +52,10 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       ...updated,
     });
 
+    setUserClickData({
+      event_name: "professional-details-submit-for-pl-pan",
+      user_id: formData.mobile || "No User ID found here",
+    });
     setCurrentStep(5);
   };
 

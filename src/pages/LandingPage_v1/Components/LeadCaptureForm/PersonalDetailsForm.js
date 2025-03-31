@@ -3,6 +3,8 @@ import "./PersonalDetailsForm.css";
 import FormInputStyle2 from "../../../../components/Form/FormInputStyle2";
 import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
+import { setUserClickData } from "../../../../utility/setUserClickData";
+
 import moment from "moment";
 
 const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
@@ -38,6 +40,10 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       pincode,
       professionType,
     }));
+    setUserClickData({
+      event_name: "personal-details-submit-for-pl-pan",
+      user_id: formData.mobile || "No User ID found here",
+    });
     setCurrentStep(4);
   };
 

@@ -51,7 +51,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
 
   const submitLead = async () => {
     setUserClickData({
-      event_name: "personal-detail-api-v2",
+      event_name: "personal-detail-api-v2-for-pl-pan",
       user_id: formData.mobile || "No User ID found here",
     });
     try {
@@ -91,7 +91,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         );
         if (processLeadRes.status === "Success") {
           setUserClickData({
-            event_name: "process-lead-for-loan-personal-loan-v2",
+            event_name: "process-lead-for-loan-personal-loan-v2-for-pl-pan",
             user_id: contactPhone || leadId || "No User ID found here",
           });
           fetchOffers(newLeadId);

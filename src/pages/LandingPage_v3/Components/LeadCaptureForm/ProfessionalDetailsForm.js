@@ -3,6 +3,7 @@ import "./ProfessionalDetailsForm.css";
 import FormInputStyle2 from "../../../../components/Form/FormInputStyle2";
 import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
+import { setUserClickData } from "../../../../utility/setUserClickData";
 
 const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [companyName, setCompanyName] = useState(formData.companyName || "");

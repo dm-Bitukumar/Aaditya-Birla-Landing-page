@@ -36,8 +36,9 @@ const FormInputStyle2 = ({
           cursor: disabled ? "not-allowed" : "text",
         }}
       />
-      <label 
+      <label
         htmlFor={label}
+        className={labelClassName}
         style={{
           position: "absolute",
           left: "12px",

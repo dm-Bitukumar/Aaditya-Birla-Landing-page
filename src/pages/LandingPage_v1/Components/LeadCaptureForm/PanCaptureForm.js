@@ -77,9 +77,7 @@ const PanCaptureForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `pan-otp-send-for-preapp-lender-${
-            lenderName || "unknown"
-          }`,
+          event_name: `pan-otp-send-for-pl-pan`,
           user_id: mobileNumber || "unknown",
         });
         toast.success("OTP sent to your registered mobile number.");
@@ -109,9 +107,7 @@ const PanCaptureForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `resend-pan-otp-for-preapp-lender-${
-            lenderName || "unknown"
-          }`,
+          event_name: `resend-pan-otp-for-pl-pan`,
           user_id: mobileNumber || "unknown",
         });
         toast.success("OTP resent successfully.");
@@ -144,9 +140,7 @@ const PanCaptureForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `pan-otp-submit-for-preapp-lender-${
-            lenderName || "unknown"
-          }`,
+          event_name: `pan-otp-submit-for-pl-pan`,
           user_id: mobileNumber || "unknown",
         });
         toast.success("OTP verified successfully.");
@@ -183,9 +177,7 @@ const PanCaptureForm = ({
 
       if (res.status === "Success") {
         setUserClickData({
-          event_name: `details-fetched-for-preapp-lender-${
-            lenderName || "unknown"
-          }-pan-${pan || "unknown"}`,
+          event_name: `details-fetched-for-pl-pan-${pan || "unknown"}`,
           user_id: mobileNumber || "unknown",
         });
         const { first_name, last_name, gender, dob, fullname } = res.data || {};
@@ -256,9 +248,7 @@ const PanCaptureForm = ({
 
   const handlePanSubmit = () => {
     setUserClickData({
-      event_name: `pan-submit-check-for-preapp-lender-${
-        lenderName || "unknown"
-      }`,
+      event_name: `pan-submit-check-for-pl-pan`,
       user_id: mobileNumber || "unknown",
     });
     if (!isPanValid) {
