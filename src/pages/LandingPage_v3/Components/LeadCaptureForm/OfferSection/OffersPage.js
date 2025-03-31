@@ -53,7 +53,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
 
   const submitLead = async () => {
     setUserClickData({
-      event_name: "personal-detail-api-v2",
+      event_name: "professional-details-submit-for-pl-non-pan",
       user_id: formData.mobile || "No User ID found here",
     });
     try {
@@ -83,8 +83,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         const newLeadId = res.data.lead._id;
         const contactPhone = res.data.lead.contact_phone;
         setLeadId(newLeadId);
-        console.log("new leadid");
-        console.log(newLeadId);
         const processLeadRes = await callApi(
           "v1/lead/process-lead-for-loan-v2",
           "post",
@@ -96,10 +94,9 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         console.log(processLeadRes);
         if (processLeadRes.status === "Success") {
           setUserClickData({
-            event_name: "process-lead-for-loan-personal-loan-v2",
+            event_name: "process-lead-for-pl-non-pan",
             user_id: contactPhone || leadId || "No User ID found here",
           });
-          console.log("Hello");
           fetchOffers(newLeadId);
         }
       }
@@ -111,8 +108,9 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
 
   const fetchOffers = async (leadId) => {
     console.log(leadId);
+    console.log(isFinished);
     // || isFinished
-    // if (!leadId) return;
+    if (!leadId || isFinished) return;
     try {
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
