@@ -57,9 +57,9 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
       });
     }
 
-    setUserClickData({ 
-      event_name: eventName || "offer-apply-button", 
-      user_id: userId || "No User ID found" 
+    setUserClickData({
+      event_name: eventName || "offer-apply-button",
+      user_id: userId || "No User ID found",
     });
 
     window.location.href = `${offer.app_url}${source}`;
@@ -76,7 +76,7 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
       >
         <img
           width={small ? 100 : 200}
-          src={offer?.logo_image_url || "/assets/img/Dm LOGO.png"} 
+          src={offer?.logo_image_url || "/assets/img/Dm LOGO.png"}
           alt="Lender Logo"
           // className="mt-4 mb-4"
         />

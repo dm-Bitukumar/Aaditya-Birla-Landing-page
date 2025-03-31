@@ -153,7 +153,7 @@ const PersonalDetailsForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `otp-send-for-pl-lp1-lender-${lenderName || "unknown"}`,
+          event_name: `otp-send-for-pl-non-pan`,
           user_id: mobile || "unknown",
         });
         setFormData((prev) => ({
@@ -196,7 +196,7 @@ const PersonalDetailsForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `resend-otp-for-pl-lp1-lender-${lenderName || "unknown"}`,
+          event_name: `resend-otp-for-pl-non-pan`,
           user_id: mobile || "unknown",
         });
         toast.success("OTP Resent Successfully");
@@ -231,7 +231,7 @@ const PersonalDetailsForm = ({
 
       if (otpResponse.status === "Success") {
         setUserClickData({
-          event_name: `otp-submit-for-pl-lp1-lender-${lenderName || "unknown"}`,
+          event_name: `otp-submit-for-pl-non-pan`,
           user_id: mobile || "unknown",
         });
         toast.success("OTP Verified Successfully");
