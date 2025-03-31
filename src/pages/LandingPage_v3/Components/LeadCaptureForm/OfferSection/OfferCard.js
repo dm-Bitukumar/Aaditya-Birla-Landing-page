@@ -43,11 +43,13 @@ const OfferCard = ({ offer }) => {
                 className="lender-logo"
                 alt="Lender"
               />
-              <span className="amount-label">Pre-Approved Amount:</span>
-              <br />
-              <span className="amount-value">
+              <div>
+                <span className="amount-label">Pre-Approved Amount:</span>
+                <br />
+                <span className="amount-value">
                 ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
-              </span>
+                </span>
+              </div>
             </div>
           )}
 
@@ -60,7 +62,7 @@ const OfferCard = ({ offer }) => {
           {expanded && (
             <>
               <div className="emi-row">
-                <span className="tenure">Tenure: {offer.tenure} Months</span>
+                <span className="tenure">Tenure: {offer.tenure} Months</span><span class="vertical-divide">|</span>
                 <span className="emi">
                   EMI: ₹{Number(offer.emi).toLocaleString("en-IN")}
                 </span>
