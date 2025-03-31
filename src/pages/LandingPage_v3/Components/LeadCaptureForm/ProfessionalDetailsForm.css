@@ -33,3 +33,7 @@ select {
 input::placeholder {
   color: #ccc;
 }
+.dob-label
+{
+  padding: 0px 25px 0px 0px !important;
+}
