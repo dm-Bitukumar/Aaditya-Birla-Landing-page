@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import "./OffersPage.css";
+import { setUserClickData } from "../../../../../utility/setUserClickData";
 
 const OfferCard = ({ offer }) => {
   const [expanded, setExpanded] = useState(false);
   console.log(offer);
+  const handleClick = () => {
+    setUserClickData({
+      event_name: `offer-apply-button-for-lp-non-pan-lender-${offer.lender_name}`,
+      user_id: offer.lead_id || "No User ID found",
+    });
+
+    window.location.href = `${offer.app_url}`;
+    // var win = window.open(`${offer.app_url}${source}`);
+    // win.focus();
+  };
   return (
     <div className="offer-card-section">
       <div
@@ -43,11 +54,13 @@ const OfferCard = ({ offer }) => {
                 className="lender-logo"
                 alt="Lender"
               />
-              <span className="amount-label">Pre-Approved Amount:</span>
-              <br />
-              <span className="amount-value">
-                ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
-              </span>
+              <div>
+                <span className="amount-label">Pre-Approved Amount:</span>
+                <br />
+                <span className="amount-value">
+                  ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
+                </span>
+              </div>
             </div>
           )}
 
@@ -61,12 +74,13 @@ const OfferCard = ({ offer }) => {
             <>
               <div className="emi-row">
                 <span className="tenure">Tenure: {offer.tenure} Months</span>
+                <span class="vertical-divide">|</span>
                 <span className="emi">
                   EMI: ₹{Number(offer.emi).toLocaleString("en-IN")}
                 </span>
               </div>
 
-              <button className="get-offer-btn">
+              <button className="get-offer-btn" onClick={handleClick}>
                 Get Offer{" "}
                 <img
                   src="/assets/img/Get offer CTA icon.svg"

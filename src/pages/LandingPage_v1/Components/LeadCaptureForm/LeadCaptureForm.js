@@ -110,7 +110,7 @@ const LeadCaptureForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `otp-send-for-preapp-lender-${lenderName || "unknown"}`,
+          event_name: `otp-send-for-pl-pan`,
           user_id: mobile || "unknown",
         });
         setFormData((prev) => ({
@@ -146,7 +146,7 @@ const LeadCaptureForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `resend-otp-for-preapp-lender-${lenderName || "unknown"}`,
+          event_name: `resend-otp-for-pl-pan`,
           user_id: mobile || "unknown",
         });
         toast.success("OTP Resent Successfully");
@@ -181,7 +181,7 @@ const LeadCaptureForm = ({
 
       if (otpResponse.status === "Success") {
         setUserClickData({
-          event_name: `otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
+          event_name: `otp-submit-for-pl-pan`,
           user_id: mobile || "unknown",
         });
         toast.success("OTP Verified Successfully");
