@@ -39,7 +39,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   }, [formData]);
 
   useEffect(() => {
-    console.log("Lead ID ",lead);
+    console.log("Lead ID ", lead);
     if (!lead?._id) return;
     fetchOffers(lead._id);
     const interval = setInterval(() => {
@@ -58,9 +58,9 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
       const trackId = localStorage.getItem(TRACK_ID);
       const processedLead = getAllianceLeadFromMoneyTapInput("website", {
         ...formData,
-        ...user
+        ...user,
       });
-      console.log("processedLead:",processedLead);
+      console.log("processedLead:", processedLead);
       const res = await callApi(
         "v1/lead/finbud-lp-lead",
         "post",

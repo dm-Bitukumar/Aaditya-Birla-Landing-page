@@ -31,12 +31,12 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
   const handleContinue = () => {
     if (!validate()) return;
-
+    const plainMonthlyIncome = monthlyIncome.replace(/,/g, "");
     const updated = {
       companyName,
       companyType,
       workEmail,
-      monthlyIncome,
+      monthlyIncome: plainMonthlyIncome,
       work_pincode,
       stepDone: 3,
     };
@@ -51,7 +51,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       ...updated,
     });
 
-    setCurrentStep(3);
+    setCurrentStep(4);
   };
 
   useEffect(() => {
@@ -137,22 +137,28 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
         <FormInputStyle2
           label="Monthly Income"
-          value={monthlyIncome}
+          value={
+            monthlyIncome
+              ? Number(monthlyIncome.replace(/,/g, "")).toLocaleString("en-IN")
+              : ""
+          }
           id="monthlyIncome"
           onChange={(e) => {
-            let raw = e.target.value.replace(/,/g, "");
+            let raw = e.target.value.replace(/,/g, ""); // Remove commas
             if (/^\d*$/.test(raw)) {
-              const formatted = Number(raw).toLocaleString("en-IN");
-              setMonthlyIncome(formatted);
+              // Ensure only numbers
+              setMonthlyIncome(raw); // Store raw value (unformatted)
               if (errors.monthlyIncome) {
                 setErrors((prev) => ({ ...prev, monthlyIncome: false }));
               }
             }
           }}
           onBlur={() => {
-            const raw = monthlyIncome.replace(/,/g, "");
-            if (!raw.match(/^\d+$/)) {
+            if (!monthlyIncome.match(/^\d+$/)) {
               setErrors((prev) => ({ ...prev, monthlyIncome: true }));
+            } else {
+              // Format on blur
+              setMonthlyIncome(Number(monthlyIncome).toLocaleString("en-IN"));
             }
           }}
           isValid={!errors.monthlyIncome}
