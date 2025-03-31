@@ -43,6 +43,7 @@ const PersonalDetailsForm = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -330,13 +331,24 @@ const PersonalDetailsForm = ({
             inputMode="text"
             errorMessage={"Please enter a valid PAN Number"}
           />
-          <FormInputStyle2
+         <FormInputStyle2
             label="Date of Birth"
             value={dob}
-            onChange={(e) => setDob(e.target.value)}
+            onChange={(e) => {
+              let input = e.target.value.replace(/\D/g, ""); 
+
+              if (input.length > 2) input = input.slice(0, 2) + "/" + input.slice(2);
+              if (input.length > 5) input = input.slice(0, 5) + "/" + input.slice(5, 9);
+
+              if (input.length > 10) return;
+
+              setDob(input);
+            }}
             isValid={!errors.dob}
             errorMessage="DOB is required"
-            placeholder="DD MM YYYY"
+            placeholder={dob ? "" : "DD/MM/YYYY"}
+            maxLength={10}
+            labelClassName="dob-label"
           />
           <FormInputStyle2
             label="Personal Email Address"

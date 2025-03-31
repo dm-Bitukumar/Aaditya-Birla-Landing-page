@@ -10,8 +10,8 @@ const TaglineScroller = () => {
   const firstRowRef = useRef(null);
 
   useEffect(() => {
-    const line1Tags = taglines.filter((tag) => tag.line === 1);
-    const line2Tags = taglines.filter((tag) => tag.line === 2);
+    const line1Tags = taglines.filter((tag) => tag.line === 3);
+    const line2Tags = taglines.filter((tag) => tag.line === 4);
     setLine1(line1Tags);
     setLine2(line2Tags);
   }, []);
