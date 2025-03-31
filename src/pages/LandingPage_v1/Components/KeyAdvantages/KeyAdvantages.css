@@ -14,11 +14,11 @@
 }
 
 .advantage-title {
-  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-family: myFirstFont;
   font-weight: 500;
   font-size: 35px;
   line-height: 45px;
-  letter-spacing: 0%;
+  letter-spacing: 0px;
   color: #fff;
   margin-bottom: 16px;
 }

@@ -15,7 +15,7 @@ const FormInputStyle2 = ({
   const showFloatingLabel = isFocused || value;
 
   return (
-    <div style={{ position: "relative", marginBottom: "24px", width: "330px" }}>
+    <div style={{ position: "relative", marginBottom: "1rem", width: "350px" }}>
       <input
         {...props}
         value={value}
@@ -58,7 +58,7 @@ const FormInputStyle2 = ({
           alt="tick"
           style={{
             position: "absolute",
-            right: "0px",
+            right: "10px",
             top: "50%",
             transform: "translateY(-50%)",
             height: "20px",

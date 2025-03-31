@@ -302,7 +302,7 @@ const LeadCaptureForm = ({
               }}
               containerStyle={{
                 display: "flex",
-                gap: "19px",
+                gap: "12px",
                 margin: "16px 0",
                 justifyContent: "center",
               }}

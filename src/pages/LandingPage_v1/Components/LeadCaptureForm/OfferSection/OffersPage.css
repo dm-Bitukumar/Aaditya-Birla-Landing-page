@@ -1,6 +1,7 @@
 .final-offers-container {
   position: relative;
   padding: 40px 16px;
+  padding-top: 0;
   text-align: center;
   overflow-x: hidden;
 }
@@ -42,20 +43,23 @@
 }
 
 .gift-icon {
-  width: 80px;
+  width: 136px;
   margin: 20px auto 10px;
 }
 
 .congrats-text {
   color: #12f280;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
+  line-height: 30px;
+  font-family: myFirstFont;
 }
 
 .sub-text {
   font-size: 18px;
   color: black;
   margin-bottom: 20px;
+  font-family: myFirstFont;
 }
 
 .offer-cards-container {

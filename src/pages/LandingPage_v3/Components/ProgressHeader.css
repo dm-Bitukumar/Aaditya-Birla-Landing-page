@@ -34,7 +34,7 @@
 }
 
 .progress-title1 {
-  font-family: "Bomstad Display", sans-serif;
+  font-family: myFirstFont;
   font-weight: 600;
   font-size: 25px;
   line-height: 30px;
@@ -50,7 +50,13 @@
   vertical-align: middle;
   padding-left: 10px;
   padding-bottom: 10px;
-  color: #FFFFFF;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+.landing-page-container .back-text{
+  color: #1b1b1b;
+}
+.landing-page-container2 .back-text{
+  color: #ffffff;
 }
 .progress-indicator-wrapper {
   margin-top: 20px;
@@ -62,13 +68,13 @@
 .progress-indicator {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   /* padding-left: 10px; */
 }
 
 .step-circle {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background-color: #FFFFFF;
 }
@@ -78,7 +84,7 @@
 }
 
 .step-line {
-  width: 90px;
+  width: 118px;
   height: 2px;
   background-color: #FFFFFF;
   margin-bottom: 18px;
@@ -93,10 +99,16 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  width: 30px;
 }
 
 .step-label {
   font-size: 10px;
-  color: #FFFFFF;
+  line-height: 10px;
   font-weight: 400;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.landing-page-container2 .step-label {
+  color: #ffffff;
 }
