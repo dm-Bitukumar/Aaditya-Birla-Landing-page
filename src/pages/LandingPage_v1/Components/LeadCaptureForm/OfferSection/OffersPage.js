@@ -94,6 +94,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             event_name: "process-lead-for-loan-personal-loan-v2-for-pl-pan",
             user_id: contactPhone || leadId || "No User ID found here",
           });
+          console.log(newLeadId);
           fetchOffers(newLeadId);
         }
       }
@@ -128,17 +129,19 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   return (
-    <div className="final-offers-container">
-      <div className="offer-bg-layer-1" />
-      <div className="offer-bg-layer-2" />
-      <div className="offer-bg-layer-3" />
-      <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" />
+    <>
+      <div className="final-offers-container1">
+        <div className="offer-bg-layer-1" />
+        <div className="offer-bg-layer-2" />
+        <div className="offer-bg-layer-3" />
+        <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" />
 
-      <h2 className="congrats-text">Congratulations!</h2>
-      <h3 className="sub-text">You’re Pre-Approved for a Personal Loan!</h3>
-
-      <div className="offer-cards-container">
-        {offers.length < 0 ? (
+        <h2 className="congrats-text">Congratulations!</h2>
+        <h3 className="sub-text1">You’re Pre-Approved for</h3>
+        <h3 className="sub-text1">a Personal Loan!</h3>
+      </div>
+      <div className="offer-cards-container1">
+        {offers.length > 0 ? (
           offers.map((offer) => <OfferCard key={offer._id} offer={offer} />)
         ) : (
           <p className="loading-text">
@@ -147,14 +150,17 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               : "Please wait while we are searching best offers for you"}
           </p>
         )}
+        <p className="disclaimer-offer-text">
+          Choose from these incredible offers that best suit your needs
+        </p>
+        <p className="disclaimer-text">
+          *These pre-approved offers are subject to change at discretion of Bank
+          / NBFC after receiving all you documents and details. Final offer will
+          be based on risk policy of Bank / NBFC. We do not guarantee that final
+          offer will be same as Pre-approved offer.
+        </p>
       </div>
-
-      <p className="disclaimer-text">
-        *These pre-approved offers are subject to change at discretion of Bank /
-        NBFC after receiving all your documents and details. Final offer will be
-        based on risk policy of Bank / NBFC.
-      </p>
-    </div>
+    </>
   );
 };
 

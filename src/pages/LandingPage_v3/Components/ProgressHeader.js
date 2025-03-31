@@ -25,7 +25,7 @@ const ProgressHeader = ({ step = 1, onBack }) => {
       }
 
       <h2 className="progress-title1">
-        Get Your Loan Approved <br /> In Quick & Simple Steps!
+        Get Your Loan Approved <br /> In 3 Simple Steps
       </h2>
 
       <div className="progress-indicator-wrapper">
