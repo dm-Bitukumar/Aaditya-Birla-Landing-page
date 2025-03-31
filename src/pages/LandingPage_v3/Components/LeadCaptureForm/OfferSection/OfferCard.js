@@ -10,16 +10,52 @@ const OfferCard = ({ offer }) => {
         className={`offer-card ${expanded ? "expanded" : "collapsed"}`}
         onClick={() => setExpanded((prev) => !prev)}
       >
-        <img src={offer.logo_image_url} className="lender-logo" alt="Lender" />
+        {expanded && (
+          <>
+            <img
+              src={offer.logo_image_url}
+              className="lender-logo"
+              alt="Lender"
+            />
+          </>
+        )}
+
         <div className="offer-details">
-          <hr className="offer-divider" />
-          <div className="amount-row">
-            <span className="amount-label">Pre-Approved Amount:</span>
-            <span className="amount-value">
-              ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
-            </span>
-          </div>
-          <hr className="offer-divider" />
+          {expanded && (
+            <>
+              <hr className="offer-divider" />
+            </>
+          )}
+
+          {expanded ? (
+            <>
+              <div className="amount-row">
+                <span className="amount-label">Pre-Approved Amount:</span>
+                <span className="amount-value">
+                  ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="amount-row">
+              <img
+                src={offer.logo_image_url}
+                className="lender-logo"
+                alt="Lender"
+              />
+              <span className="amount-label">Pre-Approved Amount:</span>
+              <br />
+              <span className="amount-value">
+                ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
+              </span>
+            </div>
+          )}
+
+          {expanded && (
+            <>
+              <hr className="offer-divider" />
+            </>
+          )}
 
           {expanded && (
             <>
