@@ -1,12 +1,10 @@
 .progress-header-container {
   padding: 16px 20px 50px 20px;
   background-image: url("../../../../public/assets/img/2nd design main BG.svg");
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #f7fefb 42.23%,
-    #ccf8e1 92.81%
-  );
+  background: linear-gradient(180deg,
+      #ffffff 0%,
+      #f7fefb 42.23%,
+      #ccf8e1 92.81%);
 }
 
 .back-container {
@@ -23,7 +21,7 @@
 }
 
 .progress-title {
-  font-family: "Bomstad Display", sans-serif;
+  font-family: myFirstFont;
   font-weight: 600;
   font-size: 25px;
   line-height: 30px;
@@ -38,7 +36,10 @@
   vertical-align: middle;
   padding-left: 10px;
   padding-bottom: 10px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  color: #ffffff;
 }
+
 .progress-indicator-wrapper {
   margin-top: 20px;
   display: flex;
@@ -48,13 +49,13 @@
 .progress-indicator {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   /* padding-left: 10px; */
 }
 
 .step-circle {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background-color: #1b1b1b;
 }
@@ -64,7 +65,7 @@
 }
 
 .step-line {
-  width: 90px;
+  width: 118px;
   height: 2px;
   background-color: #1b1b1b;
   margin-bottom: 18px;
@@ -79,6 +80,7 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  width: 30px;
 }
 
 .step-label {

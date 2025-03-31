@@ -7,21 +7,27 @@
   width: 100%;
   padding: 30px 30px;
   background-color: #FFFFFF;
-  font-family: Atkinson Hyperlegible  ;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
 .form-title {
-  font-size: 20px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 700;
-  margin-bottom: 4px;
-  /* text-align: center; */
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #1b1b1b;
+  padding-bottom: 10px;
 }
 
 .form-subtitle {
-  font-size: 14px;
-  color: #666;
-  /* text-align: center; */
-  margin-bottom: 24px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 15px;
+  vertical-align: middle;
+  padding-bottom: 1rem;
 }
 
 /* Reuse this for consistent field layout */
@@ -33,7 +39,14 @@ select {
 input::placeholder {
   color: #ccc;
 }
-.dob-label
-{
+
+.dob-label {
   padding: 0px 25px 0px 0px !important;
+}
+
+.professional-details-input label,
+.professional-details-input input::placeholder,
+.professional-details-input select,
+.professional-details-input input {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }

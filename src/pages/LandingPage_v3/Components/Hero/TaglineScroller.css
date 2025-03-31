@@ -1,7 +1,7 @@
 .tagline-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .tagline-scroll-wrapper {
@@ -45,10 +45,11 @@
 .tag-pill {
   display: flex;
   align-items: center;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
   padding: 24px 18px;
   border-radius: 999px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   white-space: nowrap;
   flex-shrink: 0;
   height: 32px;

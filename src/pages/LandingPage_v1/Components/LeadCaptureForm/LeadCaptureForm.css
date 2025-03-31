@@ -7,17 +7,23 @@
 }
 
 .form-title {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.4;
   text-align: left;
+  color: #1b1b1b;
   margin-bottom: 4px;
 }
 
 .form-subtitle {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 400;
   font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 15px;
+  vertical-align: middle;
   color: #b3b3b3;
-  padding-bottom: 24px;
 }
 
 .mobile-input {
@@ -78,6 +84,7 @@
   line-height: 100%;
   letter-spacing: 0%;
   margin-bottom: 10px;
+  padding: 30px;
 }
 
 .otp-verification-container h3 {
@@ -146,4 +153,8 @@
   text-decoration-thickness: 0%;
   color: #438AFF;
   cursor: pointer;
+}
+.lead-capture-container label,
+.lead-capture-container input,.lead-capture-container input::placeholder{
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }
