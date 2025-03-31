@@ -36,127 +36,137 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div
-      className={"landing-page-container"}
-      style={{ marginBottom: "400px", maxHeight: "100vh" }}
-    >
-      <div className={"landing-page"}>
-        <Header />
+    <>
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-5MF6MDPF"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+      </noscript>
+      <div
+        className={"landing-page-container"}
+        style={{ marginBottom: "400px", maxHeight: "100vh" }}
+      >
+        <div className={"landing-page"}>
+          <Header />
 
-        {!isFormStarted && <GoogleRatingCard />}
-        {!isFormStarted && (
-          <div id="hero">
-            <HeroSection />
-          </div>
-        )}
-      </div>
-
-      {!isFormStarted && <TaglineScroller />}
-
-      <div>
-        {isFormStarted && currentStep !== 5 && (
-          <ProgressHeader
-            step={currentStep}
-            onBack={() => {
-              if (currentStep === 1) {
-                setIsFormStarted(false);
-                setCurrentStep(1);
-                sessionStorage.removeItem("isFormStarted");
-                const form = document.getElementById("personal-loan-form");
-                if (form?.resetOtpState) form.resetOtpState();
-              } else {
-                if (currentStep === 4) {
-                  const latestData = getProfessionalFormData();
-                  console.log("📦 Saving this to formData:", latestData);
-                  setFormData((prev) => ({ ...prev, ...latestData }));
-                }
-                setCurrentStep((prev) => prev - 1);
-              }
-            }}
-          />
-        )}
-
-        <div id="personal-loan-form">
-          {currentStep === 1 && (
-            <LeadCaptureForm
-              isFormStarted={isFormStarted}
-              setIsFormStarted={() => {
-                sessionStorage.setItem("isFormStarted", "true");
-                setIsFormStarted(true);
-              }}
-              setCurrentStep={setCurrentStep}
-              currentStep={currentStep}
-              formData={formData}
-              setFormData={setFormData}
-            />
-          )}
-
-          {currentStep === 2 && (
-            <PanCaptureForm
-              setCurrentStep={setCurrentStep}
-              currentStep={currentStep}
-              setIsFormStarted={() => {
-                sessionStorage.setItem("isFormStarted", "true");
-                setIsFormStarted(true);
-              }}
-              formData={formData}
-              setFormData={setFormData}
-            />
-          )}
-
-          {currentStep === 3 && (
-            <PersonalDetailsForm
-              setCurrentStep={setCurrentStep}
-              currentStep={currentStep}
-              setIsFormStarted={() => {
-                sessionStorage.setItem("isFormStarted", "true");
-                setIsFormStarted(true);
-              }}
-              formData={formData}
-              setFormData={setFormData}
-            />
-          )}
-
-          {currentStep === 4 && (
-            <ProfessionalDetailsForm
-              setCurrentStep={setCurrentStep}
-              currentStep={currentStep}
-              setIsFormStarted={() => {
-                sessionStorage.setItem("isFormStarted", "true");
-                setIsFormStarted(true);
-              }}
-              formData={formData}
-              setFormData={setFormData}
-            />
-          )}
-
-          {currentStep === 5 && (
-            <OfferPage
-              formData={formData}
-              setFormData={setFormData}
-              currentStep={currentStep}
-              setCurrentStep={setCurrentStep}
-            />
+          {!isFormStarted && <GoogleRatingCard />}
+          {!isFormStarted && (
+            <div id="hero">
+              <HeroSection />
+            </div>
           )}
         </div>
 
-        {!isFormStarted && (
-          <>
-            <KeyAdvantages />
-            <div id="our-partners">
-              <BankingPartners />
-            </div>
-            <HowItWorks />
-            <EligibilityDocuments />
-            <Testimonials />
-            <div id="faqs">
-              <FAQSection />
-            </div>
-            <Footer />
-          </>
-        )}
+        {!isFormStarted && <TaglineScroller />}
+
+        <div>
+          {isFormStarted && currentStep !== 5 && (
+            <ProgressHeader
+              step={currentStep}
+              onBack={() => {
+                if (currentStep === 1) {
+                  setIsFormStarted(false);
+                  setCurrentStep(1);
+                  sessionStorage.removeItem("isFormStarted");
+                  const form = document.getElementById("personal-loan-form");
+                  if (form?.resetOtpState) form.resetOtpState();
+                } else {
+                  if (currentStep === 4) {
+                    const latestData = getProfessionalFormData();
+                    console.log("📦 Saving this to formData:", latestData);
+                    setFormData((prev) => ({ ...prev, ...latestData }));
+                  }
+                  setCurrentStep((prev) => prev - 1);
+                }
+              }}
+            />
+          )}
+
+          <div id="personal-loan-form">
+            {currentStep === 1 && (
+              <LeadCaptureForm
+                isFormStarted={isFormStarted}
+                setIsFormStarted={() => {
+                  sessionStorage.setItem("isFormStarted", "true");
+                  setIsFormStarted(true);
+                }}
+                setCurrentStep={setCurrentStep}
+                currentStep={currentStep}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            )}
+
+            {currentStep === 2 && (
+              <PanCaptureForm
+                setCurrentStep={setCurrentStep}
+                currentStep={currentStep}
+                setIsFormStarted={() => {
+                  sessionStorage.setItem("isFormStarted", "true");
+                  setIsFormStarted(true);
+                }}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            )}
+
+            {currentStep === 3 && (
+              <PersonalDetailsForm
+                setCurrentStep={setCurrentStep}
+                currentStep={currentStep}
+                setIsFormStarted={() => {
+                  sessionStorage.setItem("isFormStarted", "true");
+                  setIsFormStarted(true);
+                }}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            )}
+
+            {currentStep === 4 && (
+              <ProfessionalDetailsForm
+                setCurrentStep={setCurrentStep}
+                currentStep={currentStep}
+                setIsFormStarted={() => {
+                  sessionStorage.setItem("isFormStarted", "true");
+                  setIsFormStarted(true);
+                }}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            )}
+
+            {currentStep === 5 && (
+              <OfferPage
+                formData={formData}
+                setFormData={setFormData}
+                currentStep={currentStep}
+                setCurrentStep={setCurrentStep}
+              />
+            )}
+          </div>
+
+          {!isFormStarted && (
+            <>
+              <KeyAdvantages />
+              <div id="our-partners">
+                <BankingPartners />
+              </div>
+              <HowItWorks />
+              <EligibilityDocuments />
+              <Testimonials />
+              <div id="faqs">
+                <FAQSection />
+              </div>
+              <Footer />
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

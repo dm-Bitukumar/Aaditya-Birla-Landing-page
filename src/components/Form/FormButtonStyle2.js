@@ -6,7 +6,7 @@ const FormButtonStyle2 = ({ text = "Get OTP", onClick, disabled = false }) => {
       onClick={onClick}
       disabled={disabled}
       style={{
-        width: "370px",
+        width: "350px",
         padding: "14px 0",
         fontSize: "16px",
         fontWeight: 400,
