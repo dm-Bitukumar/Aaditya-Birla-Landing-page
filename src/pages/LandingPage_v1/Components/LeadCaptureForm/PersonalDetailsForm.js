@@ -153,7 +153,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         />
 
         <FormSelectStyle2
-          label="professionType"
+          label="Profession Type"
           value={professionType}
           onChange={(val) => {
             setprofessionType(val);

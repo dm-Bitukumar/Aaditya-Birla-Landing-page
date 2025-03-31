@@ -33,7 +33,7 @@ const FormSelectStyle2 = ({
       ref={ref}
       style={{
         width: "350px",
-        marginBottom: "24px",
+        marginBottom: "1rem",
         position: "relative",
       }}
     >
@@ -48,6 +48,7 @@ const FormSelectStyle2 = ({
           cursor: "pointer",
           backgroundColor: "#fff",
           position: "relative",
+          fontFamily: "Atkinson Hyperlegible",
         }}
       >
         <span
@@ -101,6 +102,7 @@ const FormSelectStyle2 = ({
               style={{
                 padding: "10px 16px",
                 cursor: "pointer",
+                fontFamily: "Atkinson Hyperlegible",
                 backgroundColor: value === opt.value ? "#F0F0F0" : "white",
               }}
             >

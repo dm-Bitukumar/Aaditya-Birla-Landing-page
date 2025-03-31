@@ -87,15 +87,7 @@ const Footer = () => {
                 Career
               </a>
             </p>
-            <p>
-              <a
-                href="https://web.digitmoney.in/"
-                // target="_blank"
-                rel="noopener noreferrer"
-              >
-                Eligibility Calculator
-              </a>
-            </p>
+
           </div>
           <div className="footer-column">
             <p>
@@ -126,6 +118,15 @@ const Footer = () => {
                 rel="noopener noreferrer"
               >
                 EMI Calculator
+              </a>
+            </p>
+            <p>
+              <a
+                href="https://web.digitmoney.in/"
+                // target="_blank"
+                rel="noopener noreferrer"
+              >
+                Eligibility Calculator
               </a>
             </p>
           </div>
@@ -187,7 +188,10 @@ const Footer = () => {
         <div className="footer-divider" />
 
         <p className="footer-copyright">
-          A Product of iPerformance © 2024. All Rights Reserved.
+        Made with Love in India <a href="https://iperformance.in/">iPerformance Media Pvt Ltd</a>
+          <br></br>
+
+          A Product of <a href="https://iperformance.in/">iPerformance</a> Ⓒ 2025. All Rights Reserved
         </p>
       </div>
     </div>

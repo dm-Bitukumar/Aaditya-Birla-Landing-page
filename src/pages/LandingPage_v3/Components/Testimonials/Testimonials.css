@@ -9,12 +9,12 @@
   background: #004739;
   color: white;
   width: 218px;
-  height: 41px;
+  height: 50px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-family: myFirstFont2;
   font-weight: 400;
   font-size: 30px;
   line-height: 50px;
@@ -24,7 +24,7 @@
 .testimonial-description {
   font-family: "Atkinson Hyperlegible", sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 22px;
   color: #757575;
   padding-bottom: 50px;
@@ -32,7 +32,7 @@
 }
 
 .testimonial-heading {
-  font-family: "PP Pangaia", sans-serif;
+  font-family: myFirstFont3;
   font-weight: 500;
   font-size: 55px;
   line-height: 40px;
@@ -57,7 +57,7 @@
   height: 311px;
   border-radius: 20px;
   background: #004739;
-  padding: 20px;
+  padding: 25px 20px;
   color: white;
   flex-shrink: 0;
   display: flex;
@@ -82,18 +82,22 @@
 .star-icon {
   width: 100px;
   margin: 12px 0;
+  padding-left: 1rem;
 }
 
 .testimonial-message {
-  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-family: myFirstFont4;
   font-size: 14px;
   line-height: 20px;
+  font-weight: 400;
+  padding-left: 1rem;
 }
 
 .testimonial-user {
   display: flex;
   align-items: center;
   gap: 12px;
+  padding-left: 1rem;
 }
 
 .avatar {
@@ -103,15 +107,21 @@
   object-fit: cover;
 }
 
+
 .user-name {
   font-weight: 600;
   font-size: 14px;
+  font-family: myFirstFont4;
+  line-height: 14px;
   margin: 0;
+  padding-bottom: 4px;
 }
 
 .user-location {
   font-size: 10px;
   font-weight: 400;
+  line-height: 14px;
   color: inherit;
+  font-family: myFirstFont4;
   font-style: italic;
 }

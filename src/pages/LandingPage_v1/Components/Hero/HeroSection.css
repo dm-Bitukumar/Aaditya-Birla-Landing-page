@@ -10,12 +10,12 @@
 }
 
 .hero-heading {
-  font-family: "Bomstad Display", sans-serif;
+  font-family: myFirstFont;
   font-weight: 600;
   font-size: 40px;
   line-height: 35px;
   letter-spacing: 0;
   text-align: center;
   color: #000;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
