@@ -9,34 +9,37 @@
 }
 
 .form-title {
-  /* font-family: Atkinson Hyperlegible; */
+  font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #1b1b1b;
+  padding-bottom: 10px;
 }
 
 .form-subtitle {
-  /* font-family: Atkinson Hyperlegible; */
+  font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 0px;
+  line-height: 24px;
   vertical-align: middle;
   color: #b3b3b3;
+  padding-bottom: 1rem;
 }
 
 .gender-toggle {
   display: flex;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 1rem;
 }
 
 .gender-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 185px;
+  width: 170px;
   height: 55px;
   border: 1px solid #b3b3b3;
   background-color: white;
@@ -44,12 +47,12 @@
   font-size: 16px;
   cursor: pointer;
   padding: 0;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
 .gender-btn.active {
   background-color: #1b1b1b;
   color: #12f280;
-  font-weight: 600;
 }
 
 .gender-content {
@@ -60,4 +63,11 @@
 
 .gender-content img {
   height: 20px;
+}
+
+.personal-details-input label,
+.personal-details-input input::placeholder,
+.personal-details-input select,
+.personal-details-input input {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }

@@ -40,7 +40,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     }));
     setCurrentStep(4);
   };
-  
+
   useEffect(() => {
     if (formData) {
       setGender(formData.gender || "");
@@ -51,7 +51,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       setprofessionType(formData.professionType || "");
     }
   }, []);
-  
+
   return (
     <div className="personal-details-container">
       <h2 className="form-title">Personal information</h2>
@@ -136,7 +136,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           onChange={(e) => {
             const value = e.target.value;
             if (/^\d{0,6}$/.test(value)) {
-                setPincode(value);
+              setPincode(value);
               if (errors.pincode) {
                 setErrors((prev) => ({ ...prev, pincode: false }));
               }
@@ -153,7 +153,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         />
 
         <FormSelectStyle2
-          label="professionType"
+          label="Profession Type"
           value={professionType}
           onChange={(val) => {
             setprofessionType(val);

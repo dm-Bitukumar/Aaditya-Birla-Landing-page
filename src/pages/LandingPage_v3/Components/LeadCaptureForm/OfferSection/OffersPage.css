@@ -1,6 +1,7 @@
 .final-offers-container1 {
   position: relative;
   padding: 40px 16px;
+  padding-top: 0;
   text-align: center;
   /* overflow-x: hidden; */
 }
@@ -42,16 +43,18 @@
 }
 
 .gift-icon {
-  width: 80px;
+  width: 136px;
   margin: 20px auto 10px;
   position: relative;
 }
 
 .congrats-text {
   color: #12f280;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
+  line-height: 30px;
   position: relative;
+  font-family: myFirstFont;
 }
 
 .sub-text1 {
@@ -59,9 +62,11 @@
   color: #FFFFFF;
   /* margin-bottom: 20px; */
   position: relative;
+  font-family: myFirstFont;
 }
 
 .offer-cards-container1 {
+  padding-top:2rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -87,6 +92,7 @@
   background-image: url("../../../../../../public/assets/img/Key advantages BG.png");
   background-size: cover;
   background-position: center;
+  border-radius: 30px;
 }
 
 
@@ -102,12 +108,12 @@
 
 .expanded {
   background: #ccf8e1;
-  height: 210px;
+  height: 240px;
 }
 
 .lender-logo {
   height: auto;
-  width: 30%;
+  width: 95px;
   height: 26;
   margin-bottom: 8px;
 }
@@ -166,14 +172,15 @@
 .collapse-arrow {
   position: absolute;
   right: 16px;
-  top: 16px;
-  width: 16px;
-  height: auto;
+  top: 35px;
+  width: 28px;
+  height: 28px;
 }
 
 .loading-text {
   font-size: 14px;
   margin-top: 40px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
 .disclaimer-text {
@@ -182,7 +189,18 @@
   margin-top: 30px;
   padding: 0 16px;
   position: relative;
-  font-family: Atkinson Hyperlegible;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  text-align: center;
+  padding-bottom: 30px;
+}
+.disclaimer-offer-text {
+  font-family: myFirstFont;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #12f280;
 }
 
 .amount-row,
@@ -207,3 +225,5 @@
   object-fit: cover;
   /* z-index: -1;  */
 }
+
+

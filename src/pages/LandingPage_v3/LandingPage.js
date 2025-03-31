@@ -40,7 +40,7 @@ const LandingPage = () => {
       className={"landing-page-container2"}
       style={{ marginBottom: "400px" }}
     >
-      {(!isFormStarted || currentStep === 3) && (
+      {(!isFormStarted || currentStep === 4) && (
         <video
           className="background-video1"
           src="/assets/img/BG video.mp4"
@@ -64,7 +64,7 @@ const LandingPage = () => {
       {!isFormStarted && <TaglineScroller />}
 
       <div>
-        {isFormStarted && currentStep !== 3 && (
+        {isFormStarted && currentStep !== 4 && (
           <ProgressHeader
             step={currentStep}
             onBack={() => {
@@ -75,7 +75,7 @@ const LandingPage = () => {
                 const form = document.getElementById("personal-loan-form");
                 if (form?.resetOtpState) form.resetOtpState();
               } else {
-                if (currentStep === 4) {
+                if (currentStep === 3) {
                   const latestData = getProfessionalFormData();
                   console.log("📦 Saving this to formData:", latestData);
                   setFormData((prev) => ({ ...prev, ...latestData }));
@@ -101,7 +101,7 @@ const LandingPage = () => {
             />
           )}
 
-          {currentStep === 2 && (
+          {currentStep === 3 && (
             <ProfessionalDetailsForm
               setCurrentStep={setCurrentStep}
               currentStep={currentStep}
@@ -114,7 +114,7 @@ const LandingPage = () => {
             />
           )}
 
-          {currentStep === 3 && (
+          {currentStep === 4 && (
             <OfferPage
               formData={formData}
               setFormData={setFormData}

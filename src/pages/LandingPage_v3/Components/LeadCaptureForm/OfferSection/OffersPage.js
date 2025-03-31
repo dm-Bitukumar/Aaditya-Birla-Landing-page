@@ -33,6 +33,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   }, [params]);
 
   useEffect(() => {
+    console.log("formdata");
+    console.log(formData);
     if (formData.stepDone === 3 && !leadId) {
       submitLead();
     }
@@ -81,7 +83,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         const newLeadId = res.data.lead._id;
         const contactPhone = res.data.lead.contact_phone;
         setLeadId(newLeadId);
-
+        console.log("new leadid");
+        console.log(newLeadId);
         const processLeadRes = await callApi(
           "v1/lead/process-lead-for-loan-v2",
           "post",
@@ -89,11 +92,14 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           "core",
           user.token
         );
+        console.log("processLeadRes");
+        console.log(processLeadRes);
         if (processLeadRes.status === "Success") {
           setUserClickData({
             event_name: "process-lead-for-loan-personal-loan-v2",
             user_id: contactPhone || leadId || "No User ID found here",
           });
+          console.log("Hello");
           fetchOffers(newLeadId);
         }
       }
@@ -104,7 +110,9 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   const fetchOffers = async (leadId) => {
-    if (!leadId || isFinished) return;
+    console.log(leadId);
+    // || isFinished
+    // if (!leadId) return;
     try {
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
@@ -113,6 +121,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         "core",
         user.token
       );
+      console.log(res);
       if (res.status === "Success") {
         const uniqueOffers = _.uniqBy(res.data.offers ?? [], "lender_id");
         dispatch(setOffers(uniqueOffers));
@@ -140,7 +149,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         <h3 className="sub-text1">a Personal Loan!</h3>
       </div>
       <div className="offer-cards-container1">
-        {offers.length < 0 ? (
+        {offers.length > 0 ? (
           offers.map((offer) => <OfferCard key={offer._id} offer={offer} />)
         ) : (
           <p className="loading-text">
@@ -149,10 +158,14 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               : "Please wait while we are searching best offers for you"}
           </p>
         )}
+        <p className="disclaimer-offer-text">
+          Choose from these incredible offers that best suit your needs
+        </p>
         <p className="disclaimer-text">
           *These pre-approved offers are subject to change at discretion of Bank
-          / NBFC after receiving all your documents and details. Final offer
-          will be based on risk policy of Bank / NBFC.
+          / NBFC after receiving all you documents and details. Final offer will
+          be based on risk policy of Bank / NBFC. We do not guarantee that final
+          offer will be same as Pre-approved offer.
         </p>
       </div>
     </>

@@ -28,8 +28,11 @@
   
   .review-text {
     font-size: 12px;
+    line-height: 12px;
     color: #333;
     margin: 0 0 4px 0;
+    padding-bottom: 5px;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
   }
   
   .rating-row {

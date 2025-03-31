@@ -22,8 +22,8 @@ const PersonalDetailsForm = ({
   setFormData,
 }) => {
   const [gender, setGender] = useState("");
-  const [name, setName] = useState(formData.fullname || "");
-  const [dob, setDob] = useState(formData.dob || "");
+  const [name, setName] = useState("");
+  const [dob, setDob] = useState("");
   const [email, setEmail] = useState("");
   const [pincode, setPincode] = useState("");
   const [professionType, setprofessionType] = useState("");
@@ -34,7 +34,7 @@ const PersonalDetailsForm = ({
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
   const [errors, setErrors] = useState({});
-  const [pan, setPan] = useState("");
+  const [pancard, setPan] = useState("");
   const [isPanValid, setIsPanValid] = useState(true);
   const [isConsentChecked, setIsConsentChecked] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,34 +81,32 @@ const PersonalDetailsForm = ({
 
   const validate = () => {
     const newErrors = {};
+
     if (!gender) newErrors.gender = true;
     if (!name.trim()) newErrors.name = true;
     if (!dob.trim()) newErrors.dob = true;
     if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) newErrors.email = true;
     if (!pincode.match(/^\d{6}$/)) newErrors.pincode = true;
     if (!professionType) newErrors.professionType = true;
+
+    // PAN validation logic
+    if (!pancard || !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pancard)) {
+      newErrors.pancard = true;
+      setIsPanValid(false);
+    } else {
+      setIsPanValid(true);
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   console.log("Personal formData:", formData);
-  const handleContinue = () => {
-    if (!validate()) return;
-    setFormData((prev) => ({
-      ...prev,
-      gender,
-      fullname: name,
-      dob: moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
-      email,
-      pincode,
-      professionType,
-    }));
-    setCurrentStep(4);
-  };
 
   useEffect(() => {
     if (formData) {
       setGender(formData.gender || "");
-      setName(formData.fullname || "");
+      setName(formData.name || "");
       setDob(formData.dob || "");
       setEmail(formData.email || "");
       setPincode(formData.pincode || "");
@@ -122,6 +120,7 @@ const PersonalDetailsForm = ({
 
   const handleValidation = () => {
     let isValid = true;
+    if (!validate()) return;
     if (!/^\d{10}$/.test(mobile) || mobile.length !== 10) {
       isValid = false;
       setIsMobileValid(false);
@@ -154,11 +153,18 @@ const PersonalDetailsForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `otp-send-for-preapp-lender-${lenderName || "unknown"}`,
+          event_name: `otp-send-for-pl-lp1-lender-${lenderName || "unknown"}`,
           user_id: mobile || "unknown",
         });
         setFormData((prev) => ({
           ...prev,
+          gender,
+          pancard,
+          name,
+          dob: moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD"),
+          email,
+          pincode,
+          professionType,
           mobile,
           mobiletncchecked: true,
           mobiletnctime: new Date().toISOString(),
@@ -190,7 +196,7 @@ const PersonalDetailsForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `resend-otp-for-preapp-lender-${lenderName || "unknown"}`,
+          event_name: `resend-otp-for-pl-lp1-lender-${lenderName || "unknown"}`,
           user_id: mobile || "unknown",
         });
         toast.success("OTP Resent Successfully");
@@ -225,7 +231,7 @@ const PersonalDetailsForm = ({
 
       if (otpResponse.status === "Success") {
         setUserClickData({
-          event_name: `otp-submit-for-preapp-lender-${lenderName || "unknown"}`,
+          event_name: `otp-submit-for-pl-lp1-lender-${lenderName || "unknown"}`,
           user_id: mobile || "unknown",
         });
         toast.success("OTP Verified Successfully");
@@ -238,7 +244,7 @@ const PersonalDetailsForm = ({
         );
         localStorage.setItem("mobile", mobile);
 
-        setCurrentStep(2);
+        setCurrentStep(3);
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
@@ -319,26 +325,28 @@ const PersonalDetailsForm = ({
           />
           <FormInputStyle2
             type="text"
-            name="pan"
+            name="pancard"
             isValid={isPanValid}
-            id="pan"
+            id="pancard"
             minLength="10"
             maxLength="10"
-            value={pan}
+            value={pancard}
             onChange={handlePanChange}
             required
             label={"PAN Number"}
             inputMode="text"
             errorMessage={"Please enter a valid PAN Number"}
           />
-         <FormInputStyle2
+          <FormInputStyle2
             label="Date of Birth"
             value={dob}
             onChange={(e) => {
-              let input = e.target.value.replace(/\D/g, ""); 
+              let input = e.target.value.replace(/\D/g, "");
 
-              if (input.length > 2) input = input.slice(0, 2) + "/" + input.slice(2);
-              if (input.length > 5) input = input.slice(0, 5) + "/" + input.slice(5, 9);
+              if (input.length > 2)
+                input = input.slice(0, 2) + "/" + input.slice(2);
+              if (input.length > 5)
+                input = input.slice(0, 5) + "/" + input.slice(5, 9);
 
               if (input.length > 10) return;
 
@@ -449,7 +457,7 @@ const PersonalDetailsForm = ({
           onClick={() => {
             setIsOtpGenerated(false);
             setOtp("");
-            setCurrentStep(1);
+            setCurrentStep(2);
           }}
         >
           Edit
@@ -474,7 +482,7 @@ const PersonalDetailsForm = ({
           }}
           containerStyle={{
             display: "flex",
-            gap: "19px",
+            gap: "12px",
             margin: "16px 0",
             justifyContent: "center",
           }}

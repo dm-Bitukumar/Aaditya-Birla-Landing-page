@@ -21,6 +21,7 @@ const FormButtonStyle2 = ({ text = "Get OTP", onClick, disabled = false }) => {
         justifyContent: "center",
         alignItems: "center",
         gap: "8px",
+        fontFamily: "Atkinson Hyperlegible",
       }}
     >
       {text}

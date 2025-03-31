@@ -1,7 +1,7 @@
 .tagline-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 3rem;
 }
 
 .tagline-scroll-wrapper {
@@ -47,8 +47,9 @@
   align-items: center;
   padding: 24px 18px;
   border-radius: 999px;
-  font-size: 12px;
-  font-weight: 500;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
   white-space: nowrap;
   flex-shrink: 0;
   height: 32px;
