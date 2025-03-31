@@ -3,6 +3,37 @@
   padding: 24px 16px 16px;
 }
 
+.background-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 98px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bg-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  flex-shrink: 0; /* Prevent images from shrinking */
+}
+
+
+.bg-one {
+  background-image: url('/public/assets/img/square-one.png');
+  width: 191px; 
+  height: 363px;
+}
+
+.bg-two {
+  background-image: url('/public/assets/img/square-one.png');
+  width: 155px; 
+  height: 155px;
+}
+
 .hero-icon {
   width: 85px;
   height: 85px;

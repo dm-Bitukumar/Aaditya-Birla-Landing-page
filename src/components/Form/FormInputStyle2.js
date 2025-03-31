@@ -8,6 +8,7 @@ const FormInputStyle2 = ({
   errorMessage,
   tick = false,
   disabled = false,
+  labelClassName,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -35,7 +36,7 @@ const FormInputStyle2 = ({
           cursor: disabled ? "not-allowed" : "text",
         }}
       />
-      <label
+      <label 
         htmlFor={label}
         style={{
           position: "absolute",

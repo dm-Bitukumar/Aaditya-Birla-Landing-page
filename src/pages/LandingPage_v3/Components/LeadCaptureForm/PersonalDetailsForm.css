@@ -196,3 +196,8 @@
   color: #438AFF;
   cursor: pointer;
 }
+
+.dob-label
+{
+  padding: 0px 25px 0px 0px !important;
+}
