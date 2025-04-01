@@ -24,6 +24,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [utmSource, setUtmSource] = useState("");
   const [affId, setAffId] = useState("");
   const [leadId, setLeadId] = useState();
+  const [expandedOfferId, setExpandedOfferId] = useState(null);
   const [params] = useSearchParams();
 
   useEffect(() => {
@@ -33,23 +34,25 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   }, [params]);
 
   useEffect(() => {
-    console.log("formdata");
-    console.log(formData);
     if (formData.stepDone === 3 && !leadId) {
       submitLead();
     }
   }, [formData]);
 
   useEffect(() => {
-    console.log("Lead ID ", lead);
     if (!lead?._id) return;
     fetchOffers(lead._id);
     const interval = setInterval(() => {
       fetchOffers(lead._id);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [lead]);
+
+  useEffect(() => {
+    if (offers.length > 0 && !expandedOfferId) {
+      setExpandedOfferId(offers[0]._id);
+    }
+  }, [offers]);
 
   const submitLead = async () => {
     setUserClickData({
@@ -62,7 +65,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         ...formData,
         ...user,
       });
-      console.log("processedLead:", processedLead);
+
       const res = await callApi(
         "v1/lead/finbud-lp-lead",
         "post",
@@ -70,7 +73,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           lead: {
             ...processedLead,
             tracking_id: trackId,
-            aff_id: 49,
+            aff_id: affId,
             utm_source: utmSource,
             utm_medium: sourceConvert(source),
           },
@@ -78,11 +81,12 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         "core",
         user.token
       );
-      console.log(res);
+
       if (res.status === "Success" && res.data.lead) {
         const newLeadId = res.data.lead._id;
         const contactPhone = res.data.lead.contact_phone;
         setLeadId(newLeadId);
+
         const processLeadRes = await callApi(
           "v1/lead/process-lead-for-loan-v2",
           "post",
@@ -90,12 +94,11 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           "core",
           user.token
         );
-        console.log("processLeadRes");
-        console.log(processLeadRes);
+
         if (processLeadRes.status === "Success") {
           setUserClickData({
             event_name: "process-lead-for-pl-non-pan",
-            user_id: contactPhone || leadId || "No User ID found here",
+            user_id: contactPhone || newLeadId || "No User ID found here",
           });
           fetchOffers(newLeadId);
         }
@@ -107,10 +110,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   const fetchOffers = async (leadId) => {
-    console.log(leadId);
-    console.log(isFinished);
-    // || isFinished
     if (!leadId || isFinished) return;
+
     try {
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
@@ -119,36 +120,81 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         "core",
         user.token
       );
-      console.log(res);
-      if (res.status === "Success") {
-        const uniqueOffers = _.uniqBy(res.data.offers ?? [], "lender_id");
-        dispatch(setOffers(uniqueOffers));
-        if (res.data.lead?.all_responses) {
-          setIsFinished(
-            res.data.lead?.all_responses === res.data.lead?.total_response
+
+      if (
+        res.status === "Success" &&
+        res.data?.offers?.length > 0
+      ) {
+        console.log(res);
+        const priorityRes = await callApi(
+          `v1/finbud_data/finbud_update_priority/${leadId}`,
+          "post",
+          res,
+          "loan",
+          user.token
+        );
+
+        if (
+          priorityRes.status === "Success" &&
+          Array.isArray(priorityRes.data?.offers)
+        ) {
+          const sortedOffers = _.orderBy(
+            priorityRes.data.offers,
+            ["priority"],
+            ["asc"]
           );
+          dispatch(setOffers(sortedOffers));
+
+          if (priorityRes.data.lead?.all_responses) {
+            setIsFinished(
+              priorityRes.data.lead.all_responses ===
+                priorityRes.data.lead.total_response
+            );
+          }
+        } else {
+          toast.error("Failed to fetch prioritized offers.");
         }
       }
     } catch (err) {
-      console.log(err);
+      console.error("Error in offer fetching and prioritizing:", err);
+      toast.error("Something went wrong while fetching offers.");
     }
   };
 
   return (
     <>
-      <div className="final-offers-container1">
-        <div className="offer-bg-layer-1" />
-        <div className="offer-bg-layer-2" />
-        <div className="offer-bg-layer-3" />
-        <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" />
-
-        <h2 className="congrats-text">Congratulations!</h2>
-        <h3 className="sub-text1">You’re Pre-Approved for</h3>
-        <h3 className="sub-text1">a Personal Loan!</h3>
+      <div className="final-offers-container-v3">
+        <>
+          <video
+            className="background-video1"
+            src="/assets/img/BG video.mp4"
+            autoPlay
+            loop
+            muted
+          />
+          <img
+            src="/assets/img/Offers BG.svg"
+            alt="Square Check Background"
+            className="background-overlay-img-offer"
+          />
+        </>
+        <div className="offer-bg-layer-v3">
+          <h2 className="congrats-text">Congratulations!</h2>
+          <h3 className="sub-text">You’re Pre-Approved for</h3>
+          <h3 className="sub-text">a Personal Loan!</h3>
+        </div>
       </div>
-      <div className="offer-cards-container1">
+
+      <div className="offer-cards-container">
         {offers.length > 0 ? (
-          offers.map((offer) => <OfferCard key={offer._id} offer={offer} />)
+          offers.map((offer) => (
+            <OfferCard
+              key={offer._id}
+              offer={offer}
+              isExpanded={expandedOfferId === offer._id}
+              onExpand={() => setExpandedOfferId(offer._id)}
+            />
+          ))
         ) : (
           <p className="loading-text">
             {isFinished
@@ -156,14 +202,15 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               : "Please wait while we are searching best offers for you"}
           </p>
         )}
+
         <p className="disclaimer-offer-text">
           Choose from these incredible offers that best suit your needs
         </p>
         <p className="disclaimer-text">
           *These pre-approved offers are subject to change at discretion of Bank
-          / NBFC after receiving all you documents and details. Final offer will
-          be based on risk policy of Bank / NBFC. We do not guarantee that final
-          offer will be same as Pre-approved offer.
+          / NBFC after receiving all your documents and details. Final offer
+          will be based on risk policy of Bank / NBFC. We do not guarantee that
+          final offer will be same as Pre-approved offer.
         </p>
       </div>
     </>

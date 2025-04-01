@@ -1,15 +1,15 @@
-.personal-details-container1 {
+.personal-details-container-v3 {
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding: 30px 24px;
+  padding: 20px 24px;
   border-radius: 24px 24px 0 0;
   margin-top: 20px;
   margin-bottom: 20px;
   position: relative;
 }
 
-.form-title {
+.form-title-v3 {
   font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 700;
   font-size: 20px;
@@ -19,7 +19,7 @@
   padding-bottom: 10px;
 }
 
-.form-subtitle {
+.form-subtitle-v3 {
   font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 400;
   font-size: 12px;
@@ -30,17 +30,17 @@
   padding-bottom: 1rem;
 }
 
-.gender-toggle {
+.gender-toggle-v3 {
   display: flex;
   gap: 12px;
   margin-bottom: 1rem;
 }
 
-.gender-btn {
+.gender-btn-v3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 170px;
+  width: 165px;
   height: 55px;
   border: 1px solid #b3b3b3;
   background-color: white;
@@ -51,18 +51,18 @@
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
-.gender-btn.active {
+.gender-btn-v3.active {
   background-color: #1b1b1b;
   color: #12f280;
 }
 
-.gender-content {
+.gender-content-v3 {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.gender-content img {
+.gender-content-v3 img {
   height: 20px;
 }
 
@@ -75,7 +75,7 @@
   vertical-align: middle;
 }
 
-.checkbox-wrapper {
+.checkbox-wrapper-v3 {
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -84,12 +84,12 @@
   margin-bottom: 20px;
 }
 
-.checkbox-wrapper input[type="checkbox"] {
+.checkbox-wrapper-v3 input[type="checkbox"] {
   margin-top: 2px;
   size: 5px;
 }
 
-.checkbox-wrapper label {
+.checkbox-wrapper-v3 label {
   font-size: 8px;
   line-height: 9px;
   font-weight: 400;
@@ -122,7 +122,7 @@
   /* filter: brightness(0) invert(1); */
 }
 
-.otp-verification-container {
+.otp-verification-container-v3 {
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
@@ -136,11 +136,11 @@
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
-.landing-page-container2 .otp-verification-container {
+.landing-page-container2 .otp-verification-container-v3 {
   padding: 30px;
 }
 
-.otp-verification-container h3 {
+.otp-verification-container-v3 h3 {
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
@@ -149,7 +149,7 @@
   padding-bottom: 10px;
 }
 
-.otp-verification-container p {
+.otp-verification-container-v3 p {
   font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 400;
   font-size: 12px;
@@ -160,7 +160,7 @@
   padding-bottom: 20px;
 }
 
-.otp-verification-container strong {
+.otp-verification-container-v3 strong {
   font-weight: 700;
   font-size: 12px;
   line-height: 14px;
@@ -169,7 +169,7 @@
   color: #1b1b1b;
 }
 
-.otp-verification-container span {
+.otp-verification-container-v3 span {
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;

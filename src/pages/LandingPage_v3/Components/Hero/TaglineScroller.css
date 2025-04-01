@@ -7,6 +7,7 @@
 .tagline-scroll-wrapper {
   position: relative;
   overflow: hidden; /* changed from auto */
+  z-index: 2;
 }
 
 .tagline-scroll-wrapper::before,

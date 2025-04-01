@@ -39,7 +39,7 @@
   font-weight: 600;
   font-size: 25px;
   line-height: 30px;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   position: relative;
 }
@@ -51,12 +51,12 @@
   vertical-align: middle;
   padding-left: 10px;
   padding-bottom: 10px;
-  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }
-.landing-page-container .back-text{
+.landing-page-container .back-text {
   color: #1b1b1b;
 }
-.landing-page-container2 .back-text{
+.landing-page-container2 .back-text {
   color: #ffffff;
 }
 .progress-indicator-wrapper {
@@ -69,7 +69,7 @@
 .progress-indicator {
   display: flex;
   align-items: center;
-  gap: 10px;
+  /* gap: 10px; */
   /* padding-left: 10px; */
 }
 
@@ -77,7 +77,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .step-circle.active {
@@ -85,9 +85,9 @@
 }
 
 .step-line {
-  width: 118px;
+  width: 90px;
   height: 2px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-bottom: 18px;
 }
 
@@ -107,7 +107,7 @@
   font-size: 10px;
   line-height: 10px;
   font-weight: 400;
-  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
 .landing-page-container2 .step-label {

@@ -44,12 +44,23 @@ const PersonalDetailsForm = ({
   const navigate = useNavigate();
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
   const [isFocused, setIsFocused] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);
+
+  useEffect(() => {
+    const container = document.getElementById("personal-loan-form");
+    if (container)
+      container.resetOtpState = () => {
+        setIsOtpGenerated(false);
+        setOtp("");
+      };
+  }, []);
 
   const handleMobileChange = (event) => {
     const value = event.target.value;
@@ -62,9 +73,7 @@ const PersonalDetailsForm = ({
       }));
     }
 
-    if (isMobileValid === false) {
-      setIsMobileValid(true);
-    }
+    setIsMobileValid(value.length === 10);
   };
 
   const handlePanChange = (e) => {
@@ -104,9 +113,24 @@ const PersonalDetailsForm = ({
   console.log("Personal formData:", formData);
 
   useEffect(() => {
+    const allValid =
+      gender &&
+      name.trim() &&
+      dob.trim() &&
+      email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
+      pincode.match(/^\d{6}$/) &&
+      professionType &&
+      pancard;
+    
+    setIsFormValid(allValid);
+  }, [gender, name, dob, email, pincode, professionType, pancard, isPanValid]);
+
+  useEffect(() => {
     if (formData) {
       setGender(formData.gender || "");
       setName(formData.name || "");
+      setMobile(formData.mobile || "");
+      setPan(formData.pancard || "");
       setDob(formData.dob || "");
       setEmail(formData.email || "");
       setPincode(formData.pincode || "");
@@ -191,6 +215,7 @@ const PersonalDetailsForm = ({
         {
           contact_phone: mobile,
           kyc_consent: isConsentChecked,
+          kyc_consent_datetime: new Date().toISOString(),
         },
         "messaging"
       );
@@ -244,7 +269,7 @@ const PersonalDetailsForm = ({
         );
         localStorage.setItem("mobile", mobile);
 
-        setCurrentStep(3);
+        setCurrentStep(2);
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
@@ -256,9 +281,9 @@ const PersonalDetailsForm = ({
 
   return !isOtpGenerated ? (
     <>
-      <div className="personal-details-container1">
-        <h2 className="form-title">Personal information</h2>
-        <p className="form-subtitle">
+      <div className="personal-details-container-v3">
+        <h2 className="form-title-v3">Personal information</h2>
+        <p className="form-subtitle-v3">
           We will use your contact details to proceed further.
         </p>
         <input type="hidden" name="utm_campaign" value="" />
@@ -270,12 +295,12 @@ const PersonalDetailsForm = ({
         <input type="hidden" name="src" value={source || ""} />
 
         <div className="personal-details-input">
-          <div className="gender-toggle">
+          <div className="gender-toggle-v3">
             <button
-              className={`gender-btn ${gender === "Male" ? "active" : ""}`}
+              className={`gender-btn-v3 ${gender === "Male" ? "active" : ""}`}
               onClick={() => setGender("Male")}
             >
-              <div className="gender-content">
+              <div className="gender-content-v3">
                 <img
                   src={
                     gender === "Male"
@@ -288,10 +313,10 @@ const PersonalDetailsForm = ({
               </div>
             </button>
             <button
-              className={`gender-btn ${gender === "Female" ? "active" : ""}`}
+              className={`gender-btn-v3 ${gender === "Female" ? "active" : ""}`}
               onClick={() => setGender("Female")}
             >
-              <div className="gender-content">
+              <div className="gender-content-v3">
                 <img
                   src={
                     gender === "Female"
@@ -315,12 +340,12 @@ const PersonalDetailsForm = ({
           <FormInputStyle2
             label="Mobile Number"
             value={mobile}
+            isValid={showErrors ? isMobileValid : true}
             minLength="10"
             maxLength="10"
             pattern="[0-9]{10}"
             inputMode="numeric"
             onChange={handleMobileChange}
-            isValid={!errors.mobile}
             errorMessage="Mobile Number is required"
           />
           <FormInputStyle2
@@ -422,7 +447,7 @@ const PersonalDetailsForm = ({
           />
         </div>
 
-        <div className="checkbox-wrapper">
+        <div className="checkbox-wrapper-v3">
           <input
             type="checkbox"
             id="consent"
@@ -443,12 +468,12 @@ const PersonalDetailsForm = ({
         <FormButtonStyle2
           text="Continue"
           onClick={handleSendOtp}
-          disabled={!isMobileValid || isLoading}
+          disabled={mobile.length !== 10 || isLoading || !isFormValid}
         />
       </div>
     </>
   ) : (
-    <div className="otp-verification-container">
+    <div className="otp-verification-container-v3">
       <h3>Mobile OTP verification</h3>
       <p>
         A One Time Password (OTP) has been sent to your mobile number{" "}
@@ -457,7 +482,7 @@ const PersonalDetailsForm = ({
           onClick={() => {
             setIsOtpGenerated(false);
             setOtp("");
-            setCurrentStep(2);
+            setCurrentStep(1);
           }}
         >
           Edit

@@ -14,7 +14,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [email, setEmail] = useState("");
   const [pincode, setPincode] = useState("");
   const [professionType, setprofessionType] = useState("");
-
+  const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -57,6 +57,18 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       setprofessionType(formData.professionType || "");
     }
   }, []);
+
+  useEffect(() => {
+    const allValid =
+      gender &&
+      name.trim() &&
+      dob.trim() &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+      /^\d{6}$/.test(pincode) &&
+      professionType;
+  
+    setIsFormValid(allValid);
+  }, [gender, name, dob, email, pincode, professionType]);
 
   return (
     <div className="personal-details-container">
@@ -184,6 +196,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         <FormButtonStyle2
           text="Continue"
           onClick={handleContinue}
+          disabled={!isFormValid}
           id="btn-personal-details-landing-v1"
           className="tracking-btn-personal-details-landing-v1"
         />
