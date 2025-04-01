@@ -18,6 +18,7 @@
   letter-spacing: 0%;
   color: #1b1b1b;
   padding-bottom: 10px;
+  padding-left: 16px;
 }
 
 .form-subtitle {
@@ -28,6 +29,7 @@
   line-height: 15px;
   vertical-align: middle;
   padding-bottom: 1rem;
+  padding-left: 16px;
 }
 
 /* Reuse this for consistent field layout */

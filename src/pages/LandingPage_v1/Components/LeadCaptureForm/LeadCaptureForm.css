@@ -14,6 +14,7 @@
   text-align: left;
   color: #1b1b1b;
   margin-bottom: 4px;
+  padding-left: 4px;
 }
 
 .form-subtitle {
@@ -24,6 +25,7 @@
   line-height: 15px;
   vertical-align: middle;
   color: #b3b3b3;
+  padding-left: 4px;
 }
 
 .mobile-input {
@@ -94,6 +96,8 @@
   letter-spacing: 0%;
   color: #1b1b1b;
   padding-bottom: 10px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  padding-left: 4px;
 }
 
 .otp-verification-container-v1 p {
@@ -104,6 +108,8 @@
   vertical-align: middle;
   color: #b3b3b3;
   padding-bottom: 20px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  padding-left: 4px;
 }
 
 .otp-verification-container-v1 strong {
