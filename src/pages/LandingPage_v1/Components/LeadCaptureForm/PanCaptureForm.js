@@ -327,7 +327,7 @@ const PanCaptureForm = ({
               }}
               containerStyle={{
                 display: "flex",
-                gap: "12px",
+                gap: "19px",
                 margin: "16px 0",
                 justifyContent: "center",
               }}
