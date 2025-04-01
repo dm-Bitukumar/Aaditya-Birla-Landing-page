@@ -1,10 +1,18 @@
 import React from "react";
 
-const FormButtonStyle2 = ({ text = "Get OTP", onClick, disabled = false }) => {
+const FormButtonStyle2 = ({
+  text = "Get OTP",
+  onClick,
+  disabled = false,
+  className = "",
+  id = "",
+}) => {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
+      className={className}
+      id={id}
       style={{
         width: "350px",
         padding: "14px 0",
