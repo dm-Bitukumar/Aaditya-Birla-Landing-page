@@ -61,10 +61,13 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
-      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        ...formData,
-        ...user,
-      });
+      const processedLead = getAllianceLeadFromMoneyTapInput(
+        "website-pl-non-pan",
+        {
+          ...formData,
+          ...user,
+        }
+      );
 
       const res = await callApi(
         "v1/lead/finbud-lp-lead",
