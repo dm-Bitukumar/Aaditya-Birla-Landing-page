@@ -120,8 +120,8 @@ function App() {
         <Route path={"/rtg"} element={<PreLoan />} />
 
         {/* New Landing Pages */}
-        <Route path={"/landing-page"} element={<LandingPage_v1 />} />
-        <Route path={"/landing-page1"} element={<LandingPage_v3 />} />
+        <Route path={"/personal-loan-v3"} element={<LandingPage_v1 />} />
+        <Route path={"/personal-loan-v4"} element={<LandingPage_v3 />} />
         <Route path={"/offer-page-v1"} element={<OfferPage_v1 />} />
         <Route path={"/offer-page-v3"} element={<OfferPage_v3 />} />
 
