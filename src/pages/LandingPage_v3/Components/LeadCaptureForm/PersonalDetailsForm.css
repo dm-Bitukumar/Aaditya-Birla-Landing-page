@@ -17,6 +17,7 @@
   letter-spacing: 0%;
   color: #1b1b1b;
   padding-bottom: 10px;
+  padding-left: 4px;
 }
 
 .form-subtitle-v3 {
@@ -28,12 +29,15 @@
   vertical-align: middle;
   color: #b3b3b3;
   padding-bottom: 1rem;
+  padding-left: 4px;
 }
 
 .gender-toggle-v3 {
   display: flex;
   gap: 12px;
   margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .gender-btn-v3 {
