@@ -75,124 +75,126 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       <p className="form-subtitle">
         You're just a few steps away from your ideal loan!
       </p>
-      <div className="professional-details-input">
-        <FormInputStyle2
-          label="Company Name"
-          value={companyName}
-          id="companyName"
-          onChange={(e) => {
-            setCompanyName(e.target.value);
-            if (errors.companyName)
-              setErrors((prev) => ({ ...prev, companyName: false }));
-          }}
-          onBlur={() => {
-            if (!companyName.trim())
-              setErrors((prev) => ({ ...prev, companyName: true }));
-          }}
-          isValid={!errors.companyName}
-          errorMessage="Company name is required"
-        />
+      <div className="professional-details-1">
+        <div className="professional-details-input">
+          <FormInputStyle2
+            label="Company Name"
+            value={companyName}
+            id="companyName"
+            onChange={(e) => {
+              setCompanyName(e.target.value);
+              if (errors.companyName)
+                setErrors((prev) => ({ ...prev, companyName: false }));
+            }}
+            onBlur={() => {
+              if (!companyName.trim())
+                setErrors((prev) => ({ ...prev, companyName: true }));
+            }}
+            isValid={!errors.companyName}
+            errorMessage="Company name is required"
+          />
 
-        <FormSelectStyle2
-          label="Company Type"
-          value={companyType}
-          id="companyType"
-          onChange={(val) => {
-            setCompanyType(val);
-            if (errors.companyType)
-              setErrors((prev) => ({ ...prev, companyType: false }));
-          }}
-          onBlur={() => {
-            if (!companyType)
-              setErrors((prev) => ({ ...prev, companyType: true }));
-          }}
-          options={[
-            { label: "Private Limited", value: "Private Limited" },
-            { label: "Public Limited", value: "Public Limited" },
-            {
-              label: "Limited liability partnership (LLP)",
-              value: "Limited liability partnership (LLP)",
-            },
-            { label: "Partnership", value: "Partnership" },
-            { label: "Proprietorship", value: "Proprietorship" },
-            { label: "Government", value: "Government" },
-            { label: "One Person Company", value: "One Person Company" },
-          ]}
-          isValid={!errors.companyType}
-          errorMessage="Please select company type"
-        />
+          <FormSelectStyle2
+            label="Company Type"
+            value={companyType}
+            id="companyType"
+            onChange={(val) => {
+              setCompanyType(val);
+              if (errors.companyType)
+                setErrors((prev) => ({ ...prev, companyType: false }));
+            }}
+            onBlur={() => {
+              if (!companyType)
+                setErrors((prev) => ({ ...prev, companyType: true }));
+            }}
+            options={[
+              { label: "Private Limited", value: "Private Limited" },
+              { label: "Public Limited", value: "Public Limited" },
+              {
+                label: "Limited liability partnership (LLP)",
+                value: "Limited liability partnership (LLP)",
+              },
+              { label: "Partnership", value: "Partnership" },
+              { label: "Proprietorship", value: "Proprietorship" },
+              { label: "Government", value: "Government" },
+              { label: "One Person Company", value: "One Person Company" },
+            ]}
+            isValid={!errors.companyType}
+            errorMessage="Please select company type"
+          />
 
-        <FormInputStyle2
-          label="Work Email Address"
-          value={workEmail}
-          id="workEmail"
-          onChange={(e) => {
-            setWorkEmail(e.target.value);
-            if (errors.workEmail)
-              setErrors((prev) => ({ ...prev, workEmail: false }));
-          }}
-          onBlur={() => {
-            if (!workEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-              setErrors((prev) => ({ ...prev, workEmail: true }));
-            }
-          }}
-          isValid={!errors.workEmail}
-          errorMessage="Enter a valid work email"
-        />
-
-        <FormInputStyle2
-          label="Monthly Income"
-          value={monthlyIncome}
-          id="monthlyIncome"
-          onChange={(e) => {
-            let raw = e.target.value.replace(/,/g, "");
-            if (/^\d*$/.test(raw)) {
-              const formatted = Number(raw).toLocaleString("en-IN");
-              setMonthlyIncome(formatted);
-              if (errors.monthlyIncome) {
-                setErrors((prev) => ({ ...prev, monthlyIncome: false }));
+          <FormInputStyle2
+            label="Work Email Address"
+            value={workEmail}
+            id="workEmail"
+            onChange={(e) => {
+              setWorkEmail(e.target.value);
+              if (errors.workEmail)
+                setErrors((prev) => ({ ...prev, workEmail: false }));
+            }}
+            onBlur={() => {
+              if (!workEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                setErrors((prev) => ({ ...prev, workEmail: true }));
               }
-            }
-          }}
-          onBlur={() => {
-            const raw = monthlyIncome.replace(/,/g, "");
-            if (!raw.match(/^\d+$/)) {
-              setErrors((prev) => ({ ...prev, monthlyIncome: true }));
-            }
-          }}
-          isValid={!errors.monthlyIncome}
-          errorMessage="Enter valid income"
-        />
+            }}
+            isValid={!errors.workEmail}
+            errorMessage="Enter a valid work email"
+          />
 
-        <FormInputStyle2
-          label="Work Pin Code"
-          value={work_pincode}
-          id="work_pincode"
-          onChange={(e) => {
-            const value = e.target.value;
-            if (/^\d{0,6}$/.test(value)) {
-              setwork_pincode(value);
-              if (errors.work_pincode) {
-                setErrors((prev) => ({ ...prev, work_pincode: false }));
+          <FormInputStyle2
+            label="Monthly Income"
+            value={monthlyIncome}
+            id="monthlyIncome"
+            onChange={(e) => {
+              let raw = e.target.value.replace(/,/g, "");
+              if (/^\d*$/.test(raw)) {
+                const formatted = Number(raw).toLocaleString("en-IN");
+                setMonthlyIncome(formatted);
+                if (errors.monthlyIncome) {
+                  setErrors((prev) => ({ ...prev, monthlyIncome: false }));
+                }
               }
-            }
-          }}
-          onBlur={() => {
-            if (!work_pincode.match(/^\d{6}$/)) {
-              setErrors((prev) => ({ ...prev, work_pincode: true }));
-            }
-          }}
-          isValid={!errors.work_pincode}
-          errorMessage="Enter 6-digit pincode"
-          tick={work_pincode.length === 6}
+            }}
+            onBlur={() => {
+              const raw = monthlyIncome.replace(/,/g, "");
+              if (!raw.match(/^\d+$/)) {
+                setErrors((prev) => ({ ...prev, monthlyIncome: true }));
+              }
+            }}
+            isValid={!errors.monthlyIncome}
+            errorMessage="Enter valid income"
+          />
+
+          <FormInputStyle2
+            label="Work Pin Code"
+            value={work_pincode}
+            id="work_pincode"
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d{0,6}$/.test(value)) {
+                setwork_pincode(value);
+                if (errors.work_pincode) {
+                  setErrors((prev) => ({ ...prev, work_pincode: false }));
+                }
+              }
+            }}
+            onBlur={() => {
+              if (!work_pincode.match(/^\d{6}$/)) {
+                setErrors((prev) => ({ ...prev, work_pincode: true }));
+              }
+            }}
+            isValid={!errors.work_pincode}
+            errorMessage="Enter 6-digit pincode"
+            tick={work_pincode.length === 6}
+          />
+        </div>
+        <FormButtonStyle2
+          text="Get My Offers"
+          onClick={handleContinue}
+          id="btn-professional-details-landing-v1"
+          className="tracking-btn-professional-details-landing-v1"
         />
       </div>
-      <FormButtonStyle2
-        text="Get My Offers"
-        onClick={handleContinue}
-        id="btn-professional-details-landing-v1"
-        className="tracking-btn-professional-details-landing-v1"
-      />
     </div>
   );
 };

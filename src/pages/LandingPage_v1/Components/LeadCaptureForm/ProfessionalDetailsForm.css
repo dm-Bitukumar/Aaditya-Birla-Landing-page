@@ -40,6 +40,13 @@ input::placeholder {
   color: #ccc;
 }
 
+.professional-details-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .professional-details-input label,
 .professional-details-input input::placeholder,
 .professional-details-input select,

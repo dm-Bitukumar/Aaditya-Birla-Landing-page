@@ -46,11 +46,10 @@
   justify-content: center;
 }
 
-.progress-indicator {
+.progress-indicator-1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  /* padding-left: 10px; */
 }
 
 .step-circle {
@@ -64,14 +63,14 @@
   background-color: #12f280;
 }
 
-.step-line {
-  width: 118px;
+.step-line-1 {
+  width: 90px;
   height: 2px;
-  background-color: #1b1b1b;
+  background-color: #FFFFFF;
   margin-bottom: 18px;
 }
 
-.step-line.active {
+.step-line-1.active {
   background-color: #12f280;
 }
 

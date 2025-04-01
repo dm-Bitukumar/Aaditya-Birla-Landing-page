@@ -15,7 +15,7 @@ const FormInputStyle2 = ({
   const showFloatingLabel = isFocused || value;
 
   return (
-    <div style={{ position: "relative", marginBottom: "1rem", width: "350px" }}>
+    <div style={{ position: "relative", marginBottom: "1rem", width: "340px" }}>
       <input
         {...props}
         value={value}
@@ -24,7 +24,7 @@ const FormInputStyle2 = ({
         onBlur={() => setIsFocused(false)}
         disabled={disabled}
         style={{
-          width: "350px",
+          width: "340px",
           height: "55px",
           borderRadius: "5px",
           border: isValid ? "1px solid #B3B3B3" : "1px solid red",
