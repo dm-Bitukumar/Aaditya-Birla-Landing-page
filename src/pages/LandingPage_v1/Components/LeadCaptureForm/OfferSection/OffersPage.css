@@ -187,3 +187,27 @@
   border: 1px solid #9acbb2;
   margin-bottom: 10px;
 }
+
+.no-offers-found {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  height: 90vh;
+  background: linear-gradient(180deg, #ffffff 0%, #ccf8e1 100%);
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Bomstad Display", sans-serif;
+}
+
+.no-offers-found h2 {
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  color: #323232;
+  text-align: center;
+}
