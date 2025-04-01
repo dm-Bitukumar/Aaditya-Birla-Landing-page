@@ -13,6 +13,7 @@ import OfferCard from "./OfferCard";
 import { TRACK_ID } from "../../../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
+import Header from "../../../../LandingPage_v3/Components/Header/Header";
 
 const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const lead = useSelector((state) => state.app.lead);
@@ -31,24 +32,33 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("lid")) setLeadId(params.get("lid"));
+  }, [params]);
+
+  console.log("leadId", leadId);
+
+  useEffect(() => {
+    const checkLeadIdInterval = setInterval(() => {
+      if (params.get("lead_id")) {
+        const id = params.get("lead_id");
+        setLeadId(id);
+        clearInterval(checkLeadIdInterval);
+      }
+    }, 1000);
+
+    return () => clearInterval(checkLeadIdInterval);
   }, [params]);
 
   useEffect(() => {
-    if (formData.stepDone === 3 && !leadId) {
-      submitLead();
-    }
-  }, [formData]);
+    if (!leadId) return;
 
-  useEffect(() => {
-    console.log("Lead ID ", lead);
-    if (!lead?._id) return;
-    fetchOffers(lead._id);
+    fetchOffers(leadId);
     const interval = setInterval(() => {
-      fetchOffers(lead._id);
+      fetchOffers(leadId);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [lead]);
+  }, [leadId]);
 
   useEffect(() => {
     if (offers.length > 0 && !expandedOfferId) {
@@ -58,7 +68,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
 
   const submitLead = async () => {
     setUserClickData({
-      event_name: "personal-detail-api-v2-for-pl-pan",
+      event_name: "professional-details-submit-for-pl-non-pan",
       user_id: formData.mobile || "No User ID found here",
     });
     try {
@@ -67,6 +77,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         ...formData,
         ...user,
       });
+
       const res = await callApi(
         "v1/lead/finbud-lp-lead",
         "post",
@@ -82,6 +93,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         "core",
         user.token
       );
+
       if (res.status === "Success" && res.data.lead) {
         const newLeadId = res.data.lead._id;
         const contactPhone = res.data.lead.contact_phone;
@@ -94,16 +106,18 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           "core",
           user.token
         );
+
         if (processLeadRes.status === "Success") {
           setUserClickData({
-            event_name: "process-lead-for-loan-personal-loan-v2-for-pl-pan",
-            user_id: contactPhone || leadId || "No User ID found here",
+            event_name: "process-lead-for-pl-non-pan",
+            user_id: contactPhone || newLeadId || "No User ID found here",
           });
           fetchOffers(newLeadId);
         }
       }
     } catch (err) {
       toast("Some error occurred", { hideProgressBar: true, type: "error" });
+      console.log(err);
     }
   };
 
@@ -111,25 +125,22 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (!leadId || isFinished) return;
 
     try {
-      const loanOfferRes = await callApi(
+      const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
         "get",
         {},
         "core",
-        user.token
+        // user.token
       );
 
-      if (
-        loanOfferRes.status === "Success" &&
-        loanOfferRes.data?.offers?.length > 0
-      ) {
-        console.log(loanOfferRes);
+      if (res.status === "Success" && res.data?.offers?.length > 0) {
+        console.log(res);
         const priorityRes = await callApi(
           `v1/finbud_data/finbud_update_priority/${leadId}`,
           "post",
-          loanOfferRes,
+          res,
           "loan",
-          user.token
+          // user.token
         );
 
         if (
@@ -160,15 +171,30 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   return (
-    <>
-      <div className="final-offers-container">
-        <div className="offer-bg-layer" />
-        {/* <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" /> */}
-
-        <h2 className="congrats-text">Congratulations!</h2>
-        <h3 className="sub-text-v1">You’re Pre-Approved for</h3>
-        <h3 className="sub-text-v1">a Personal Loan!</h3>
+    <div className="landing-page-container2">
+      <Header />
+      <div className="final-offers-container-v3">
+        <>
+          <video
+            className="background-video1"
+            src="/assets/img/BG video.mp4"
+            autoPlay
+            loop
+            muted
+          />
+          <img
+            src="/assets/img/Offers BG.svg"
+            alt="Square Check Background"
+            className="background-overlay-img-offer"
+          />
+        </>
+        <div className="offer-bg-layer-v3">
+          <h2 className="congrats-text">Congratulations!</h2>
+          <h3 className="sub-text">You’re Pre-Approved for</h3>
+          <h3 className="sub-text">a Personal Loan!</h3>
+        </div>
       </div>
+
       <div className="offer-cards-container">
         {offers.length > 0 ? (
           offers.map((offer) => (
@@ -186,17 +212,18 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               : "Please wait while we are searching best offers for you"}
           </p>
         )}
+
         <p className="disclaimer-offer-text">
           Choose from these incredible offers that best suit your needs
         </p>
         <p className="disclaimer-text">
           *These pre-approved offers are subject to change at discretion of Bank
-          / NBFC after receiving all you documents and details. Final offer will
-          be based on risk policy of Bank / NBFC. We do not guarantee that final
-          offer will be same as Pre-approved offer.
+          / NBFC after receiving all your documents and details. Final offer
+          will be based on risk policy of Bank / NBFC. We do not guarantee that
+          final offer will be same as Pre-approved offer.
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

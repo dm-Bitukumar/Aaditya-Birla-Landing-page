@@ -1,10 +1,12 @@
 .progress-header-container {
   padding: 16px 20px 50px 20px;
   background-image: url("../../../../public/assets/img/2nd design main BG.svg");
-  background: linear-gradient(180deg,
-      #ffffff 0%,
-      #f7fefb 42.23%,
-      #ccf8e1 92.81%);
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f7fefb 42.23%,
+    #ccf8e1 92.81%
+  );
 }
 
 .back-container {
@@ -36,7 +38,7 @@
   vertical-align: middle;
   padding-left: 10px;
   padding-bottom: 10px;
-  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
   color: #ffffff;
 }
 
@@ -66,7 +68,7 @@
 .step-line-1 {
   width: 90px;
   height: 2px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-bottom: 18px;
 }
 

@@ -6,8 +6,8 @@ const HeroSection = () => {
   return (
     <section className="hero">
       <div className="background-container">
-        <div className="bg-image bg-one"></div>
-        <div className="bg-image bg-two"></div>
+        {/* <div className="bg-image bg-one"></div>
+        <div className="bg-image bg-two"></div> */}
       </div>
       <h1 className="main-heading">Get Instant</h1>
       <h1 className="main-heading1">Personal Loan</h1>

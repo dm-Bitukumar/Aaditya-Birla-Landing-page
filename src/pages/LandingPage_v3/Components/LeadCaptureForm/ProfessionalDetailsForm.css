@@ -1,13 +1,14 @@
-.personal-details-container1 {
+.professional-details-container-v3 {
   display: flex;
   flex-direction: column;
-  padding: 24px 16px;
+  /* padding: 24px 16px; */
   max-width: 400px;
-  margin: 0 auto;
   width: 100%;
   padding: 30px 30px;
   background-color: #FFFFFF;
   font-family: 'Atkinson Hyperlegible', sans-serif;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 .form-title {
