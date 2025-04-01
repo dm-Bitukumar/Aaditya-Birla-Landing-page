@@ -13,6 +13,7 @@ import OfferCard from "./OfferCard";
 import { TRACK_ID } from "../../../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
+import Header from "../../../../LandingPage_v1/Components/Header/Header";
 
 const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const lead = useSelector((state) => state.app.lead);
@@ -31,24 +32,33 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("lid")) setLeadId(params.get("lid"));
+  }, [params]);
+
+  console.log("leadId", leadId);
+
+  useEffect(() => {
+    const checkLeadIdInterval = setInterval(() => {
+      if (params.get("lead_id")) {
+        const id = params.get("lead_id");
+        setLeadId(id);
+        clearInterval(checkLeadIdInterval);
+      }
+    }, 1000);
+
+    return () => clearInterval(checkLeadIdInterval);
   }, [params]);
 
   useEffect(() => {
-    if (formData.stepDone === 3 && !leadId) {
-      submitLead();
-    }
-  }, [formData]);
+    if (!leadId) return;
 
-  useEffect(() => {
-    console.log("Lead ID ", lead);
-    if (!lead?._id) return;
-    fetchOffers(lead._id);
+    fetchOffers(leadId);
     const interval = setInterval(() => {
-      fetchOffers(lead._id);
+      fetchOffers(leadId);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [lead]);
+  }, [leadId]);
 
   useEffect(() => {
     if (offers.length > 0 && !expandedOfferId) {
@@ -57,6 +67,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   }, [offers]);
 
   const submitLead = async () => {
+    console.log("Submit Lead called");
     setUserClickData({
       event_name: "personal-detail-api-v2-for-pl-pan",
       user_id: formData.mobile || "No User ID found here",
@@ -115,8 +126,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         `v1/loan_offer/lead_id/${leadId}`,
         "get",
         {},
-        "core",
-        user.token
+        "core"
+        // user.token
       );
 
       if (
@@ -128,8 +139,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           `v1/finbud_data/finbud_update_priority/${leadId}`,
           "post",
           loanOfferRes,
-          "loan",
-          user.token
+          "loan"
+          //   user.token
         );
 
         if (
@@ -160,7 +171,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   return (
-    <>
+    <div className="landing-page-container">
+      <Header />
       <div className="final-offers-container">
         <div className="offer-bg-layer" />
         {/* <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" /> */}
@@ -196,7 +208,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           offer will be same as Pre-approved offer.
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

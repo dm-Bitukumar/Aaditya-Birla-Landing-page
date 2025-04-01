@@ -45,6 +45,8 @@ import BusinessOfferDetailsSegment from "./pages/BusinessLoan/components/OfferDe
 import ConfirmationPage from "./pages/BusinessLoan/components/ConfirmationPage";
 import LandingPage_v1 from "./pages/LandingPage_v1/LandingPage";
 import LandingPage_v3 from "./pages/LandingPage_v3/LandingPage";
+import OfferPage_v1 from "./pages/LandingPage_v1/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
+import OfferPage_v3 from "./pages/LandingPage_v3/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 
 function App() {
   const location = useLocation();
@@ -120,6 +122,8 @@ function App() {
         {/* New Landing Pages */}
         <Route path={"/landing-page"} element={<LandingPage_v1 />} />
         <Route path={"/landing-page1"} element={<LandingPage_v3 />} />
+        <Route path={"/offer-page-v1"} element={<OfferPage_v1 />} />
+        <Route path={"/offer-page-v3"} element={<OfferPage_v3 />} />
 
         {/* Business Loan */}
         <Route path={"/business-loan"} element={<BusinessLoan />} />
