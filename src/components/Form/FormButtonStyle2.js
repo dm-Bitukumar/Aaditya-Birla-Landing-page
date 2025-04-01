@@ -30,6 +30,8 @@ const FormButtonStyle2 = ({
         alignItems: "center",
         gap: "8px",
         fontFamily: "Atkinson Hyperlegible",
+        marginLeft: "auto",
+        marginRight: "auto", 
       }}
     >
       {text}

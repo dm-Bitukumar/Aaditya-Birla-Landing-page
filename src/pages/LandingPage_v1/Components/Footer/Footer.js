@@ -40,7 +40,7 @@ const Footer = () => {
 
         <p className="footer-contact">
           Contact us at{" "}
-          <span className="footer-email">hello@digitmoney.in</span>
+          <span className="footer-email"><a href="mailto: hello@wowinsure.in" class="text-decoration-none">hello@digitmoney.in</a></span>
         </p>
 
         <div className="footer-links">
@@ -133,23 +133,24 @@ const Footer = () => {
         </div>
 
         <p className="footer-address">
-          DigitMoney Technologies Pvt Ltd.
-          <br />
-          1341 Regus Platinum Business Centre Pvt Ltd, Level 13, Platinum Techno
-          Park,
-          <br />
-          Plot no. 17 & 18, Sector 30A, Vashi,
-          <br />
-          Navi Mumbai - 400705
+          <a href="https://www.google.com/maps/place/Regus+-+Mumbai+Navi+Mumbai+Vashi/@19.0656051,72.9938251,17z/data=!3m2!4b1!5s0x3be7c14cc982360b:0xe56cd8202f48699c!4m6!3m5!1s0x3be7c8ee979c7bc9:0xeb3505e4b813f39d!8m2!3d19.0656!4d72.9964!16s%2Fg%2F1hc4583zv?entry=ttu">
+            DigitMoney Technologies Pvt Ltd.
+            <br />
+            1341 Regus Platinum Business Centre Pvt Ltd, Level 13, Platinum Techno Park,
+            <br />
+            Plot no. 17 & 18, Sector 30A, Vashi,
+            <br />
+            Navi Mumbai - 400705
+          </a>
         </p>
 
         <div className="footer-social">
-          <img src="/assets/img/FB.svg" alt="facebook" />
-          <img src="/assets/img/insta.svg" alt="instagram" />
-          <img src="/assets/img/linkedin.svg" alt="linkedin" />
-          <img src="/assets/img/youtube.svg" alt="youtube" />
-          <img src="/assets/img/x.svg" alt="x" />
-          <img src="/assets/img/whatsapp.svg" alt="whatsapp" />
+          <a href="https://www.facebook.com/DigitMoneyTechnologies"><img src="/assets/img/FB.svg" alt="facebook" /></a>
+          <a href="https://www.instagram.com/digitmoney.india"><img src="/assets/img/Insta.svg" alt="instagram" /></a>
+          <a href="https://www.linkedin.com/company/digitmoney"><img src="/assets/img/linkedin.svg" alt="linkedin" /></a>
+          <a href="https://web.digitmoney.in/"><img src="/assets/img/youtube.svg" alt="youtube" /></a>
+          <a href="https://twitter.com/DigitMoneyIndia"><img src="/assets/img/x.svg" alt="x" /></a>
+          <a href="https://api.whatsapp.com/send/?phone=9076324177&type=phone_number&app_absent=0"><img src="/assets/img/whatsapp.svg" alt="whatsapp" /></a>
         </div>
 
         <div className="footer-divider" />
