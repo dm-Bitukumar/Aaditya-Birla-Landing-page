@@ -9,7 +9,7 @@
 }
 
 .form-title {
-  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
@@ -19,7 +19,7 @@
 }
 
 .form-subtitle {
-  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 0px;
@@ -35,11 +35,11 @@
   margin-bottom: 1rem;
 }
 
-.gender-btn {
+.gender-btn-1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 170px;
+  width: 165px;
   height: 55px;
   border: 1px solid #b3b3b3;
   background-color: white;
@@ -47,10 +47,10 @@
   font-size: 16px;
   cursor: pointer;
   padding: 0;
-  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
-.gender-btn.active {
+.gender-btn-1.active {
   background-color: #1b1b1b;
   color: #12f280;
 }
@@ -65,9 +65,16 @@
   height: 20px;
 }
 
+.personal-details-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .personal-details-input label,
 .personal-details-input input::placeholder,
 .personal-details-input select,
 .personal-details-input input {
-  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }

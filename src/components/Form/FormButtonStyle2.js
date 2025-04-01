@@ -14,7 +14,7 @@ const FormButtonStyle2 = ({
       className={className}
       id={id}
       style={{
-        width: "350px",
+        width: "340px",
         padding: "14px 0",
         fontSize: "16px",
         fontWeight: 400,
