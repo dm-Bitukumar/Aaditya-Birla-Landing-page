@@ -187,7 +187,12 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           tick={work_pincode.length === 6}
         />
       </div>
-      <FormButtonStyle2 text="Get My Offers" onClick={handleContinue} />
+      <FormButtonStyle2
+        text="Get My Offers"
+        onClick={handleContinue}
+        id="btn-professional-details-landing-v1"
+        className="tracking-btn-professional-details-landing-v1"
+      />
     </div>
   );
 };

@@ -288,6 +288,8 @@ const PanCaptureForm = ({
             text="Verify PAN"
             onClick={handlePanSubmit}
             disabled={!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan) || isLoading}
+            id="btn-get-pan-otp-landing-v1"
+            className="tracking-btn-get-pan-otp-landing-v1"
           />
         </>
       ) : (
@@ -337,6 +339,8 @@ const PanCaptureForm = ({
             text="Verify OTP"
             onClick={handleOtpSubmit}
             disabled={otp.length !== 4 || isLoading}
+            id="btn-verify-pan-otp-landing-v1"
+            className="tracking-verify-get-pan-otp-landing-v1"
           />
 
           <p className="resend-otp">
