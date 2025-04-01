@@ -78,8 +78,8 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
   return (
     <div className="professional-details-container-v3">
-      <h2 className="form-title">Professional information</h2>
-      <p className="form-subtitle">
+      <h2 className="form-title" style={{paddingLeft: "4px",}}>Professional information</h2>
+      <p className="form-subtitle" style={{paddingLeft: "4px",}}>
         You're just a few steps away from your ideal loan!
       </p>
       <div className="professional-details-input">

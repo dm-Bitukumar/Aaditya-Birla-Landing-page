@@ -121,7 +121,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: white;
+  color: #12f280;
+  border: 1.5px solid #ffffff33;
 }
 
 .criteria-icon {
