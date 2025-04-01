@@ -181,7 +181,12 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           errorMessage="Please select professionType"
         />
       </div>
-      <FormButtonStyle2 text="Continue" onClick={handleContinue} />
+      <FormButtonStyle2
+        text="Continue"
+        onClick={handleContinue}
+        id="btn-personal-details-landing-v1"
+        className="tracking-btn-personal-details-landing-v1"
+      />
     </div>
   );
 };

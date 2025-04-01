@@ -60,7 +60,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         ...formData,
         ...user,
       });
-      console.log("processedLead:", processedLead);
       const res = await callApi(
         "v1/lead/finbud-lp-lead",
         "post",
@@ -76,7 +75,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         "core",
         user.token
       );
-      console.log(res);
       if (res.status === "Success" && res.data.lead) {
         const newLeadId = res.data.lead._id;
         const contactPhone = res.data.lead.contact_phone;
@@ -94,13 +92,11 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             event_name: "process-lead-for-loan-personal-loan-v2-for-pl-pan",
             user_id: contactPhone || leadId || "No User ID found here",
           });
-          console.log(newLeadId);
           fetchOffers(newLeadId);
         }
       }
     } catch (err) {
       toast("Some error occurred", { hideProgressBar: true, type: "error" });
-      console.log(err);
     }
   };
 
@@ -130,17 +126,15 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
 
   return (
     <>
-      <div className="final-offers-container1">
-        <div className="offer-bg-layer-1" />
-        <div className="offer-bg-layer-2" />
-        <div className="offer-bg-layer-3" />
-        <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" />
+      <div className="final-offers-container">
+        <div className="offer-bg-layer" />
+        {/* <img src="/assets/img/Gift.png" className="gift-icon" alt="Gift" /> */}
 
         <h2 className="congrats-text">Congratulations!</h2>
-        <h3 className="sub-text1">You’re Pre-Approved for</h3>
-        <h3 className="sub-text1">a Personal Loan!</h3>
+        <h3 className="sub-text">You’re Pre-Approved for</h3>
+        <h3 className="sub-text">a Personal Loan!</h3>
       </div>
-      <div className="offer-cards-container1">
+      <div className="offer-cards-container">
         {offers.length > 0 ? (
           offers.map((offer) => <OfferCard key={offer._id} offer={offer} />)
         ) : (

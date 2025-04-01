@@ -47,7 +47,7 @@ const LandingPage = () => {
       </noscript>
       <div
         className={"landing-page-container"}
-        style={{ marginBottom: "400px", maxHeight: "100vh" }}
+        style={{maxHeight: "100vh" }}
       >
         <div className={"landing-page"}>
           <Header />
