@@ -71,6 +71,7 @@
       rgba(255, 255, 255, 0.4) 102.75%
     ),
     linear-gradient(54.47deg, #12f280 11.06%, #004739 96.68%);
+    opacity: 0.7;
 }
 
 .document-item {
