@@ -23,7 +23,7 @@ const LandingPage = () => {
   const [isFormStarted, setIsFormStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
-  console.log(isFormStarted);
+
   useEffect(() => {
     window.onbeforeunload = () => {
       sessionStorage.removeItem("isFormStarted");
@@ -35,22 +35,29 @@ const LandingPage = () => {
     }
   }, []);
 
+  console.log("isFormStarted", isFormStarted);
+  console.log("currentStep", currentStep);
+
   return (
-    <div
-      className={"landing-page-container2"}
-      style={{ marginBottom: "400px" }}
-    >
-      {(!isFormStarted || currentStep === 4) && (
-        <video
-          className="background-video1"
-          src="/assets/img/BG video.mp4"
-          autoPlay
-          loop
-          muted
-        />
+    <div className={"landing-page-container2"} style={{}}>
+      {(!isFormStarted) && (
+        <>
+          <video
+            className="background-video1-v3"
+            src="/assets/img/BG video.mp4"
+            autoPlay
+            loop
+            muted
+          />
+          <img
+            src="/assets/img/square check bg.svg"
+            alt="Square Check Background"
+            className="background-overlay-img"
+          />
+        </>
       )}
 
-      <div className={"landing-page"}>
+      <div className={"landing-page-v3"}>
         <Header />
 
         {!isFormStarted && <GoogleRatingCard />}
@@ -64,7 +71,7 @@ const LandingPage = () => {
       {!isFormStarted && <TaglineScroller />}
 
       <div>
-        {isFormStarted && currentStep !== 4 && (
+        {isFormStarted && currentStep !== 3 && (
           <ProgressHeader
             step={currentStep}
             onBack={() => {
@@ -75,7 +82,7 @@ const LandingPage = () => {
                 const form = document.getElementById("personal-loan-form");
                 if (form?.resetOtpState) form.resetOtpState();
               } else {
-                if (currentStep === 3) {
+                if (currentStep === 2) {
                   const latestData = getProfessionalFormData();
                   console.log("📦 Saving this to formData:", latestData);
                   setFormData((prev) => ({ ...prev, ...latestData }));
@@ -101,7 +108,7 @@ const LandingPage = () => {
             />
           )}
 
-          {currentStep === 3 && (
+          {currentStep === 2 && (
             <ProfessionalDetailsForm
               setCurrentStep={setCurrentStep}
               currentStep={currentStep}
@@ -114,7 +121,7 @@ const LandingPage = () => {
             />
           )}
 
-          {currentStep === 4 && (
+          {currentStep === 3 && (
             <OfferPage
               formData={formData}
               setFormData={setFormData}

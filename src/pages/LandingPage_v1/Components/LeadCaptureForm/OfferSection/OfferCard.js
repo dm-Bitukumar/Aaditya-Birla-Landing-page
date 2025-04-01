@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "./OffersPage.css";
 import { setUserClickData } from "../../../../../utility/setUserClickData";
 
-const OfferCard = ({ offer }) => {
+const OfferCard = ({ offer, isExpanded, onExpand }) => {
   const [expanded, setExpanded] = useState(false);
   console.log(offer);
   const handleClick = () => {
     setUserClickData({
-      event_name: `offer-apply-button-for-lp-non-pan-lender-${offer.lender_name}`,
+      event_name: `offer-apply-button-for-pl-pan-lender-${offer.lender_name}`,
+      user_id: offer.lead_id || "No User ID found",
+    });
+    setUserClickData({
+      event_name: `offer-apply-button-for-pl-pan`,
       user_id: offer.lead_id || "No User ID found",
     });
 
@@ -15,13 +19,14 @@ const OfferCard = ({ offer }) => {
     // var win = window.open(`${offer.app_url}${source}`);
     // win.focus();
   };
+
   return (
     <div className="offer-card-section">
       <div
-        className={`offer-card ${expanded ? "expanded" : "collapsed"}`}
-        onClick={() => setExpanded((prev) => !prev)}
+        className={`offer-card ${isExpanded ? "expanded" : "collapsed"}`}
+        onClick={onExpand}
       >
-        {expanded && (
+        {isExpanded && (
           <>
             <img
               src={offer.logo_image_url}
@@ -32,13 +37,9 @@ const OfferCard = ({ offer }) => {
         )}
 
         <div className="offer-details">
-          {expanded && (
-            <>
-              <hr className="offer-divider" />
-            </>
-          )}
+          {isExpanded && <hr className="offer-divider" />}
 
-          {expanded ? (
+          {isExpanded ? (
             <>
               <div className="amount-row">
                 <span className="amount-label">Pre-Approved Amount:</span>
@@ -64,13 +65,9 @@ const OfferCard = ({ offer }) => {
             </div>
           )}
 
-          {expanded && (
-            <>
-              <hr className="offer-divider" />
-            </>
-          )}
+          {isExpanded && <hr className="offer-divider" />}
 
-          {expanded && (
+          {isExpanded && (
             <>
               <div className="emi-row">
                 <span className="tenure">Tenure: {offer.tenure} Months</span>
@@ -91,7 +88,8 @@ const OfferCard = ({ offer }) => {
             </>
           )}
         </div>
-        {!expanded && (
+
+        {!isExpanded && (
           <img
             src="/assets/img/offers arrow.svg"
             className="collapse-arrow"

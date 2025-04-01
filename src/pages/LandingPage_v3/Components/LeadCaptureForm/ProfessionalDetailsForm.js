@@ -13,7 +13,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     formData.monthlyIncome || ""
   );
   const [work_pincode, setwork_pincode] = useState(formData.work_pincode || "");
-
+  const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -27,6 +27,17 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  useEffect(() => {
+    const allValid =
+      companyName.trim() &&
+      companyType &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(workEmail) &&
+      /^\d+$/.test(monthlyIncome.replace(/,/g, "")) &&
+      /^\d{6}$/.test(work_pincode);
+
+    setIsFormValid(allValid);
+  }, [companyName, companyType, workEmail, monthlyIncome, work_pincode]);
 
   console.log("Professional formData:", formData);
 
@@ -52,7 +63,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       ...updated,
     });
 
-    setCurrentStep(4);
+    setCurrentStep(3);
   };
 
   useEffect(() => {
@@ -66,7 +77,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   }, []);
 
   return (
-    <div className="personal-details-container1">
+    <div className="professional-details-container-v3">
       <h2 className="form-title">Professional information</h2>
       <p className="form-subtitle">
         You're just a few steps away from your ideal loan!
@@ -189,7 +200,11 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           tick={work_pincode.length === 6}
         />
       </div>
-      <FormButtonStyle2 text="Get My Offers" onClick={handleContinue} />
+      <FormButtonStyle2
+        text="Get My Offers"
+        onClick={handleContinue}
+        disabled={!isFormValid}
+      />
     </div>
   );
 };

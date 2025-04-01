@@ -78,16 +78,16 @@
   /* filter: brightness(0) invert(1); */
 }
 
-.otp-verification-container {
+.otp-verification-container-v1 {
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
   margin-bottom: 10px;
-  padding: 30px;
+  /* padding: 30px; */
 }
 
-.otp-verification-container h3 {
+.otp-verification-container-v1 h3 {
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
@@ -96,7 +96,7 @@
   padding-bottom: 10px;
 }
 
-.otp-verification-container p {
+.otp-verification-container-v1 p {
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
@@ -106,7 +106,7 @@
   padding-bottom: 20px;
 }
 
-.otp-verification-container strong {
+.otp-verification-container-v1 strong {
   font-weight: 700;
   font-size: 12px;
   line-height: 14px;
@@ -115,7 +115,7 @@
   color: #1b1b1b;
 }
 
-.otp-verification-container span {
+.otp-verification-container-v1 span {
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;

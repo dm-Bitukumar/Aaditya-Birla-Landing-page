@@ -13,7 +13,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     formData.monthlyIncome || ""
   );
   const [work_pincode, setwork_pincode] = useState(formData.work_pincode || "");
-
+  const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -68,6 +68,18 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       setwork_pincode(formData.work_pincode || "");
     }
   }, []);
+
+  useEffect(() => {
+    const allValid =
+      companyName.trim() &&
+      companyType &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(workEmail) &&
+      /^\d+$/.test(monthlyIncome.replace(/,/g, "")) &&
+      /^\d{6}$/.test(work_pincode);
+
+    setIsFormValid(allValid);
+  }, [companyName, companyType, workEmail, monthlyIncome, work_pincode]);
+  
 
   return (
     <div className="personal-details-container">
@@ -191,6 +203,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         <FormButtonStyle2
           text="Get My Offers"
           onClick={handleContinue}
+          disabled={!isFormValid}
           id="btn-professional-details-landing-v1"
           className="tracking-btn-professional-details-landing-v1"
         />

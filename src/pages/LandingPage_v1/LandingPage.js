@@ -49,7 +49,7 @@ const LandingPage = () => {
         className={"landing-page-container"}
         style={{maxHeight: "100vh" }}
       >
-        <div className={"landing-page"}>
+        <div className={"landing-page-v1"}>
           <Header />
 
           {!isFormStarted && <GoogleRatingCard />}

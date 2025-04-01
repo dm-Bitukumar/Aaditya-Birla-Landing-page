@@ -34,6 +34,7 @@ const LeadCaptureForm = ({
   const [utmSource, setUtmSource] = useState("");
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
+  const [showErrors, setShowErrors] = useState(false);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -51,20 +52,15 @@ const LeadCaptureForm = ({
   }, []);
 
   const handleValidation = () => {
-    let isValid = true;
+    setShowErrors(true);
 
-    // if (!mobile || mobile.trim() === "") {
-    //   isValid = false;
-    //   setIsMobileValid(false);
-    // }
-    if (!/^\d{10}$/.test(mobile) || mobile.length !== 10) {
-      isValid = false;
+    if (!/^\d{10}$/.test(mobile)) {
       setIsMobileValid(false);
-    } else {
-      setIsMobileValid(true);
+      return false;
     }
 
-    return isValid;
+    setIsMobileValid(true);
+    return true;
   };
 
   const handleMobileChange = (event) => {
@@ -78,10 +74,7 @@ const LeadCaptureForm = ({
       }));
     }
 
-    if (isMobileValid === false) {
-      setIsMobileValid(true);
-    }
-    // setIsMobileValid(/^\d{10}$/.test(value));
+    setIsMobileValid(value.length === 10);
   };
 
   const handleConsentChange = () => {
@@ -116,8 +109,8 @@ const LeadCaptureForm = ({
         setFormData((prev) => ({
           ...prev,
           mobile,
-          mobiletncchecked: true,
-          mobiletnctime: new Date().toISOString(),
+          kyc_consent: true,
+          kyc_consent_datetime: new Date().toISOString(),
         }));
         toast.success("OTP Sent Successfully");
         setIsOtpGenerated(true);
@@ -229,7 +222,7 @@ const LeadCaptureForm = ({
           <FormInputStyle2
             type="text"
             name="mobile"
-            isValid={isMobileValid}
+            isValid={showErrors ? isMobileValid : true}
             id="mobile"
             minLength="10"
             maxLength="10"
@@ -264,13 +257,13 @@ const LeadCaptureForm = ({
           <FormButtonStyle2
             text="Get OTP"
             onClick={handleSendOtp}
-            disabled={!isMobileValid || isLoading}
+            disabled={mobile.length !== 10 || isLoading}
             id="btn-get-otp-landing-v1"
             className="tracking-btn-get-otp-landing-v1"
           />
         </>
       ) : (
-        <div className="otp-verification-container">
+        <div className="otp-verification-container-v1">
           <h3>Mobile OTP verification</h3>
           <p>
             A One Time Password (OTP) has been sent to your mobile number{" "}
