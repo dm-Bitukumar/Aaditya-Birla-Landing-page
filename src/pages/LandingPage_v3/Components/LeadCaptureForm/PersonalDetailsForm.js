@@ -121,7 +121,7 @@ const PersonalDetailsForm = ({
       pincode.match(/^\d{6}$/) &&
       professionType &&
       pancard;
-    
+
     setIsFormValid(allValid);
   }, [gender, name, dob, email, pincode, professionType, pancard, isPanValid]);
 
@@ -469,6 +469,8 @@ const PersonalDetailsForm = ({
           text="Continue"
           onClick={handleSendOtp}
           disabled={mobile.length !== 10 || isLoading || !isFormValid}
+          id="btn-personal-details-landing-v4"
+          className="tracking-btn-personal-details-landing-v4"
         />
       </div>
     </>
@@ -520,6 +522,8 @@ const PersonalDetailsForm = ({
         text="Verify OTP"
         onClick={handleOtpSubmit}
         disabled={otp.length !== 4 || isLoading}
+        id="btn-verify-otp-personal-details-v4"
+        className="tracking-btn-verify-otp-personal-details-v4"
       />
 
       <p className="resend-otp">

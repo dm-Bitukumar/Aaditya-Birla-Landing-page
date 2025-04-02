@@ -204,6 +204,8 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         text="Get My Offers"
         onClick={handleContinue}
         disabled={!isFormValid}
+        id="btn-professional-details-landing-v4"
+        className="tracking-btn-professional-details-landing-v4"
       />
     </div>
   );
