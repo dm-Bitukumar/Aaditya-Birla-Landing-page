@@ -80,13 +80,13 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         <div className="personal-details-input">
           <div className="gender-toggle">
             <button
-              className={`gender-btn-1 ${gender === "Male" ? "active" : ""}`}
-              onClick={() => setGender("Male")}
+              className={`gender-btn-1 ${gender === "male" ? "active" : ""}`}
+              onClick={() => setGender("male")}
             >
               <div className="gender-content">
                 <img
                   src={
-                    gender === "Male"
+                    gender === "male"
                       ? "/assets/img/Male_green.svg"
                       : "/assets/img/Male_black.svg"
                   }
@@ -96,13 +96,13 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               </div>
             </button>
             <button
-              className={`gender-btn-1 ${gender === "Female" ? "active" : ""}`}
-              onClick={() => setGender("Female")}
+              className={`gender-btn-1 ${gender === "female" ? "active" : ""}`}
+              onClick={() => setGender("female")}
             >
               <div className="gender-content">
                 <img
                   src={
-                    gender === "Female"
+                    gender === "female"
                       ? "/assets/img/Female_green.svg"
                       : "/assets/img/Female_black.svg"
                   }
