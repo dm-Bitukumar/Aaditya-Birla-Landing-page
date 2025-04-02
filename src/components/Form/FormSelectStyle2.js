@@ -35,6 +35,8 @@ const FormSelectStyle2 = ({
         width: "340px",
         marginBottom: "1rem",
         position: "relative",
+        marginLeft: "auto",
+        marginRight: "auto",
       }}
     >
       <div
