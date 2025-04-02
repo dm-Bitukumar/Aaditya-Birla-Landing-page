@@ -18,11 +18,18 @@ import PersonalDetailsForm from "./Components/LeadCaptureForm/PersonalDetailsFor
 import ProfessionalDetailsForm from "./Components/LeadCaptureForm/ProfessionalDetailsForm";
 import { getProfessionalFormData } from "./Components/LeadCaptureForm/ProfessionalDetailsForm";
 import OfferPage from "./Components/LeadCaptureForm/OfferSection/OffersPage";
+import { useSearchParams } from "react-router-dom";
 
 const LandingPage = () => {
   const [isFormStarted, setIsFormStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const [params] = useSearchParams();
+
+  const affId = params.get("aff_id") || "";
+  const utmSource = params.get("utm_source") || "";
+  const source = params.get("source") || "";
+  const utmMedium = params.get("utm_medium") || "";
 
   useEffect(() => {
     window.onbeforeunload = () => {
@@ -38,9 +45,21 @@ const LandingPage = () => {
   console.log("isFormStarted", isFormStarted);
   console.log("currentStep", currentStep);
 
+  useEffect(() => {
+    const video = document.querySelector(".background-video1-v3");
+    if (video) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Autoplay failed:", error);
+        });
+      }
+    }
+  }, []);
+
   return (
     <div className={"landing-page-container2"} style={{}}>
-      {(!isFormStarted) && (
+      {!isFormStarted && (
         <>
           <video
             className="background-video1-v3"
@@ -48,6 +67,10 @@ const LandingPage = () => {
             autoPlay
             loop
             muted
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            controls={false}
           />
           <img
             src="/assets/img/square check bg.svg"
@@ -58,7 +81,7 @@ const LandingPage = () => {
       )}
 
       <div className={"landing-page-v3"}>
-        <Header />
+        <Header isOfferPage={isFormStarted && currentStep === 3} />
 
         {!isFormStarted && <GoogleRatingCard />}
         {!isFormStarted && (
@@ -127,6 +150,10 @@ const LandingPage = () => {
               setFormData={setFormData}
               currentStep={currentStep}
               setCurrentStep={setCurrentStep}
+              affId={affId}
+              utmSource={utmSource}
+              source={source}
+              utmMedium={utmMedium}
             />
           )}
         </div>
