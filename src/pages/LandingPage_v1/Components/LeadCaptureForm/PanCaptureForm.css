@@ -62,6 +62,7 @@
   letter-spacing: 0%;
   color: #1b1b1b;
   padding-bottom: 10px;
+  padding-left: 4px;
 }
 
 .pan-verify-content {
@@ -72,6 +73,7 @@
   line-height: 15px;
   vertical-align: middle;
   color: #b3b3b3;
+  padding-left: 4px;
 }
 
 .pan-verify-content strong {

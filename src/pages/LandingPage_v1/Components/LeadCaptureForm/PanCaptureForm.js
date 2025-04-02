@@ -265,8 +265,8 @@ const PanCaptureForm = ({
     <div className="lead-capture-container">
       {!isOtpGenerated ? (
         <>
-          <h2 className="form-title">Verify PAN Number</h2>
-          <p className="form-subtitle">
+          <h2 className="form-title" style={{paddingLeft: "4px",}}>Verify PAN Number</h2>
+          <p className="form-subtitle" style={{paddingLeft: "4px",}}>
             We need your PAN card to match your identity, initiate soft bureau
             pull, this won't impact your credit score
           </p>
@@ -327,7 +327,7 @@ const PanCaptureForm = ({
               }}
               containerStyle={{
                 display: "flex",
-                gap: "12px",
+                gap: "19px",
                 margin: "16px 0",
                 justifyContent: "center",
               }}

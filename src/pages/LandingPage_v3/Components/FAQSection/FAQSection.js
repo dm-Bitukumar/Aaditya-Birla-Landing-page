@@ -4,7 +4,7 @@ import allFaqs from "./FAQData";
 
 const FAQSection = () => {
   const [showAll, setShowAll] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const visibleFaqs = showAll ? allFaqs : allFaqs.slice(0, 4);
 

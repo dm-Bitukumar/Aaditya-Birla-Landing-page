@@ -204,13 +204,13 @@ const LeadCaptureForm = ({
     <div className="lead-capture-container">
       {!isOtpGenerated ? (
         <>
-          <h2 className="form-title">
+          <h2 className="form-title" style={{paddingLeft: "4px",}}>
             Get Your Loan Approved in
             <br />
             Quick & Simple Steps!
           </h2>
 
-          <p className="form-subtitle">
+          <p className="form-subtitle" style={{paddingLeft: "4px",}}>
             We will use your contact details to proceed further.
           </p>
 
@@ -300,7 +300,7 @@ const LeadCaptureForm = ({
               }}
               containerStyle={{
                 display: "flex",
-                gap: "12px",
+                gap: "19px",
                 margin: "16px 0",
                 justifyContent: "center",
               }}
