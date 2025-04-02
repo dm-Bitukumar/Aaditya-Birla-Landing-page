@@ -157,7 +157,7 @@ const LandingPage = () => {
               </div>
               <HowItWorks />
               <EligibilityDocuments />
-              <Testimonials />
+              {/* <Testimonials /> */}
               <div id="faqs">
                 <FAQSection />
               </div>
