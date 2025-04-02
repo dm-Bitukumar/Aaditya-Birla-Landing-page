@@ -75,7 +75,6 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.dob = moment(lead.dob).add("hours", 6).toISOString();
   alliance_lead.gender = getGenderFromEntry(lead.gender);
   alliance_lead.loan_type = PERSONAL_LOAN;
-
   alliance_lead.is_company = lead.company_type !== "";
   alliance_lead.address1 = lead.home_address1 || "";
   alliance_lead.address2 = lead.home_address2 || "";
@@ -98,6 +97,11 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.salary_mode =
     getSalaryModeFromEntry(lead.salary_mode) || "online/neft";
   alliance_lead.alliance_id = alliance_id;
+  alliance_lead.aff_id = lead.aff_id;
+  alliance_lead.source = sourceConvert(lead.source);
+  alliance_lead.utm_source = lead.utm_source;
+  alliance_lead.kyc_consent = lead.mobiletncchecked;
+  alliance_lead.kyc_consent_datetime = lead.mobiletnctime;
   return alliance_lead;
 }
 

@@ -38,9 +38,21 @@ const LandingPage = () => {
   console.log("isFormStarted", isFormStarted);
   console.log("currentStep", currentStep);
 
+  useEffect(() => {
+    const video = document.querySelector('.background-video1-v3');
+    if (video) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Autoplay failed:", error);
+        });
+      }
+    }
+  }, []);  
+
   return (
     <div className={"landing-page-container2"} style={{}}>
-      {(!isFormStarted) && (
+      {!isFormStarted && (
         <>
           <video
             className="background-video1-v3"
@@ -48,6 +60,10 @@ const LandingPage = () => {
             autoPlay
             loop
             muted
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            controls={false}
           />
           <img
             src="/assets/img/square check bg.svg"

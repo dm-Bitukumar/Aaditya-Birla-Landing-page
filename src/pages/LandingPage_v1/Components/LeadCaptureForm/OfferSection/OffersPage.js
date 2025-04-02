@@ -22,6 +22,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [source, setSource] = useState("");
   const [utmSource, setUtmSource] = useState("");
+  const [utmMedium, setUtmMedium] = useState("");
   const [affId, setAffId] = useState("");
   const [leadId, setLeadId] = useState();
   const [expandedOfferId, setExpandedOfferId] = useState(null);
@@ -31,6 +32,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("utm_medium")) setUtmMedium(params.get("utm_medium"));
   }, [params]);
 
   useEffect(() => {
@@ -67,6 +69,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         ...formData,
         ...user,
       });
+      console.log("Processed Lead: ", processedLead);
       const res = await callApi(
         "v1/lead/finbud-lp-lead",
         "post",
@@ -74,9 +77,10 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           lead: {
             ...processedLead,
             tracking_id: trackId,
-            aff_id: affId,
-            utm_source: utmSource,
-            utm_medium: sourceConvert(source),
+            aff_id: params.get("aff_id"),
+            utm_source: params.get("utm_source"),
+            source: params.get("source"),
+            utm_medium: params.get("utm_medium"),
           },
         },
         "core",
