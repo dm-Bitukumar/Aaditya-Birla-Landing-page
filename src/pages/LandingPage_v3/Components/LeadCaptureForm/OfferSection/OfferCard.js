@@ -73,7 +73,15 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
                 </span>
               </div>
 
-              <button className="get-offer-btn" onClick={handleClick}>
+              <button
+                className="get-offer-btn tracking-get-offer-btn-v4"
+                id={`btn-get-offer-${
+                  offer.lender_name?.toLowerCase().replace(/\s+/g, "-") ||
+                  "unknown"
+                }-v4`}
+                onClick={handleClick}
+              >
+                {" "}
                 Get Offer{" "}
                 <img
                   src="/assets/img/Get offer CTA icon.svg"
