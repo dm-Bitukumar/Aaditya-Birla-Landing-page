@@ -25,6 +25,7 @@ const LandingPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [params] = useSearchParams();
+  const [showOfferHeaderLogo, setShowOfferHeaderLogo] = useState(false);
 
   const affId = params.get("aff_id") || "";
   const utmSource = params.get("utm_source") || "";
@@ -81,7 +82,7 @@ const LandingPage = () => {
       )}
 
       <div className={"landing-page-v3"}>
-        <Header isOfferPage={isFormStarted && currentStep === 3} />
+        <Header isOfferPage={showOfferHeaderLogo} />
 
         {!isFormStarted && <GoogleRatingCard />}
         {!isFormStarted && (
@@ -154,6 +155,7 @@ const LandingPage = () => {
               utmSource={utmSource}
               source={source}
               utmMedium={utmMedium}
+              setShowOfferHeaderLogo={setShowOfferHeaderLogo}
             />
           )}
         </div>
@@ -166,7 +168,7 @@ const LandingPage = () => {
             </div>
             <HowItWorks />
             <EligibilityDocuments />
-            <Testimonials />
+            {/* <Testimonials /> */}
             <div id="faqs">
               <FAQSection />
             </div>
