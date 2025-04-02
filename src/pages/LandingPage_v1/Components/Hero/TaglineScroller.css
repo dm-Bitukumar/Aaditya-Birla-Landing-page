@@ -23,7 +23,7 @@
 .tagline-row {
   display: flex;
   gap: 10px;
-  padding: 8px;
+  padding: 4px;
   animation: scroll-left 20s linear infinite;
   width: max-content;
 }
