@@ -161,6 +161,7 @@ const LeadCaptureForm = ({
     }
 
     try {
+      setIsLoading(true);
       const otpResponse = await callApi(
         "v1/sms/validate-otp",
         "post",
@@ -194,6 +195,8 @@ const LeadCaptureForm = ({
     } catch (otpError) {
       console.error("Error occurred while verifying OTP:", otpError);
       toast.error("An error occurred while verifying OTP. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -307,7 +310,7 @@ const LeadCaptureForm = ({
           </div>
 
           <FormButtonStyle2
-            text="Verify OTP"
+            text={isLoading ? "Verifying" : "Verify OTP"}
             onClick={handleOtpSubmit}
             disabled={otp.length !== 4 || isLoading}
             id="btn-verify-otp-landing-v1"

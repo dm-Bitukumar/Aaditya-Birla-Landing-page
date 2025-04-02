@@ -150,14 +150,22 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               priorityRes.data.lead.all_responses ===
                 priorityRes.data.lead.total_response
             );
+          } else {
+            setIsFinished(true);
           }
         } else {
-          toast.error("Failed to fetch prioritized offers.");
+          toast.error("Failed to fetch offers.");
+          setOffers([]);
+          setIsFinished(true);
         }
+      } else {
+        setOffers([]);
+        setIsFinished(true);
       }
     } catch (err) {
-      console.error("Error in offer fetching and prioritizing:", err);
+      console.error("Error in offer fetching", err);
       toast.error("Something went wrong while fetching offers.");
+      setIsFinished(true);
     }
   };
 
