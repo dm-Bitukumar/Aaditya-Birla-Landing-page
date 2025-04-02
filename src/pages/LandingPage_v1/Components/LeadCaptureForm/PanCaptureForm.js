@@ -336,9 +336,9 @@ const PanCaptureForm = ({
             />
           </div>
           <FormButtonStyle2
-            text="Verify OTP"
+            text={isOtpLoading ? "Verifying" : "Verify OTP"}
             onClick={handleOtpSubmit}
-            disabled={otp.length !== 4 || isLoading}
+            disabled={otp.length !== 4 || isLoading || isOtpLoading}
             id="btn-verify-pan-otp-landing-v1"
             className="tracking-verify-get-pan-otp-landing-v1"
           />
