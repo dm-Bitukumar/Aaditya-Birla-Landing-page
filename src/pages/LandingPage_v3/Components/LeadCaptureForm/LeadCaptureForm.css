@@ -51,7 +51,10 @@
 }
 
 .checkbox-wrapper label {
-  font-size: 7px;
+  font-size: 8px;
+  line-height: 9px;
+  font-weight: 400;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
 .otp-button {

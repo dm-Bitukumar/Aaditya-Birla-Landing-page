@@ -265,6 +265,8 @@ const LeadCaptureForm = ({
             text="Get OTP"
             onClick={handleSendOtp}
             disabled={!isMobileValid || isLoading}
+            id="btn-get-otp-landing-v4"
+            className="tracking-btn-get-otp-landing-v4"
           />
         </>
       ) : (
@@ -315,6 +317,8 @@ const LeadCaptureForm = ({
             text="Verify OTP"
             onClick={handleOtpSubmit}
             disabled={otp.length !== 4 || isLoading}
+            id="btn-verify-otp-landing-v4"
+            className="tracking-btn-verify-otp-landing-v4"
           />
 
           <p className="resend-otp">
