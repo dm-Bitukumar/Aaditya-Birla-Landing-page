@@ -14,7 +14,12 @@ import { TRACK_ID } from "../../../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
 
-const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
+const OfferPage = ({
+  formData,
+  setFormData,
+  setCurrentStep,
+  setShowOfferHeaderLogo,
+}) => {
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
@@ -35,6 +40,12 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
       setExpandedOfferId(offers[0]._id);
     }
   }, [offers]);
+
+  useEffect(() => {
+    if (offers.length > 0) {
+      setShowOfferHeaderLogo(false);
+    }
+  }, [offers]);  
 
   const submitLead = async () => {
     setUserClickData({
@@ -150,8 +161,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             setIsFinished(true);
           }
           return true;
-        } 
-      } 
+        }
+      }
       return false;
     } catch (err) {
       console.error("Error in offer fetching", err);
@@ -163,63 +174,84 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
 
   return (
     <div id="offer-page-v4">
-      {offers.length > 0 ? (
-        <>
-          <div className="final-offers-container-v3">
-            <>
-              <video
-                className="background-video1"
-                src="/assets/img/BG video.mp4"
-                autoPlay
-                loop
-                muted
-              />
-              <img
-                src="/assets/img/Offers BG.svg"
-                alt="Square Check Background"
-                className="background-overlay-img-offer"
-              />
-            </>
-            <div className="offer-bg-layer-v3">
-              <h2 className="congrats-text">Congratulations!</h2>
-              <h3 className="sub-text">You’re Pre-Approved for</h3>
-              <h3 className="sub-text">a Personal Loan!</h3>
+      {
+        offers.length > 0 ? (
+          <>
+            <div className="final-offers-container-v3">
+              <>
+                <video
+                  className="background-video1"
+                  src="/assets/img/BG video.mp4"
+                  autoPlay
+                  loop
+                  muted
+                />
+                <img
+                  src="/assets/img/Offers BG.svg"
+                  alt="Square Check Background"
+                  className="background-overlay-img-offer"
+                />
+              </>
+              <div className="offer-bg-layer-v3">
+                <h2 className="congrats-text">Congratulations!</h2>
+                <h3 className="sub-text">You’re Pre-Approved for</h3>
+                <h3 className="sub-text">a Personal Loan!</h3>
+              </div>
             </div>
-          </div>
 
-          <div className="offer-cards-container">
-            {offers.map((offer) => (
-              <OfferCard
-                key={offer._id}
-                offer={offer}
-                isExpanded={expandedOfferId === offer._id}
-                onExpand={() => setExpandedOfferId(offer._id)}
-              />
-            ))}
-            <p className="disclaimer-offer-text-v4">
-              Choose from these incredible offers that best suit your needs
-            </p>
-            <p className="disclaimer-text">
-              *These pre-approved offers are subject to change at discretion of
-              Bank / NBFC after receiving all your documents and details. Final
-              offer will be based on risk policy of Bank / NBFC. We do not
-              guarantee that final offer will be same as Pre-approved offer.
-            </p>
-          </div>
-        </>
-      ) : isFinished ? (
-        <div className="no-offers-found">
-          <h2 className="congrats-text">
-            There is no offer for you currently.
-          </h2>
-        </div>
-      ) : (
-        <div className="no-offers-found">
-          <h2 className="congrats-text">
-            Please wait while we are searching best offers for you
-          </h2>
-        </div>
-      )}
+            <div className="offer-cards-container">
+              {offers.map((offer) => (
+                <OfferCard
+                  key={offer._id}
+                  offer={offer}
+                  isExpanded={expandedOfferId === offer._id}
+                  onExpand={() => setExpandedOfferId(offer._id)}
+                />
+              ))}
+              <p className="disclaimer-offer-text-v4">
+                Choose from these incredible offers that best suit your needs
+              </p>
+              <p className="disclaimer-text">
+                *These pre-approved offers are subject to change at discretion
+                of Bank / NBFC after receiving all your documents and details.
+                Final offer will be based on risk policy of Bank / NBFC. We do
+                not guarantee that final offer will be same as Pre-approved
+                offer.
+              </p>
+            </div>
+          </>
+        ) : isFinished ? (
+          setShowOfferHeaderLogo(true) || (
+            <div className="no-offers-found">
+              <h2 className="congrats-text">
+                There is no offer for you currently.
+              </h2>
+            </div>
+          )
+        ) : (
+          setShowOfferHeaderLogo(true) || (
+            <div className="no-offers-found">
+              <h2 className="congrats-text">
+                Please wait while we are searching best offers for you
+              </h2>
+            </div>
+          )
+        )
+
+        // ) : isFinished ? (
+        //   <div className="no-offers-found">
+        //     <h2 className="congrats-text">
+        //       There is no offer for you currently.
+        //     </h2>
+        //   </div>
+        // ) : (
+        //   <div className="no-offers-found">
+        //     <h2 className="congrats-text">
+        //       Please wait while we are searching best offers for you
+        //     </h2>
+        //   </div>
+        // )
+      }
     </div>
   );
 };
