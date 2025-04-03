@@ -29,7 +29,7 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
         {isExpanded && (
           <>
             <img
-              src={offer.logo_image_url}
+              src={offer.banking_partners_hl || offer.logo_image_url}
               className="lender-logo"
               alt="Lender"
             />
@@ -51,7 +51,7 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
           ) : (
             <div className="amount-row">
               <img
-                src={offer.logo_image_url}
+                src={offer.banking_partners_vl || offer.logo_image_url}
                 className="lender-logo"
                 alt="Lender"
               />

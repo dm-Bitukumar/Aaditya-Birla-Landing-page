@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import callApi from "../../../../utility/apiCaller";
 import { setpanDetails } from "../../../../store/app/appReducer";
 import { setUserClickData } from "../../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const PanCaptureForm = ({
   setCurrentStep,
@@ -27,11 +28,17 @@ const PanCaptureForm = ({
   const leadId = useSelector((state) => state.app.lead._id);
   const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
+  const [affId, setAffId] = useState("");
+  const [params] = useSearchParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("Form Data received in PAN Capture:", formData);
   }, []);
+
+  useEffect(() => {
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
 
   useEffect(() => {
     const container = document.getElementById("pan-verification-form");
@@ -79,6 +86,7 @@ const PanCaptureForm = ({
         setUserClickData({
           event_name: `pan-otp-send-for-pl-pan`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: affId || "No Aff_id found",
         });
         toast.success("OTP sent to your registered mobile number.");
         setIsOtpGenerated(true);
@@ -109,6 +117,7 @@ const PanCaptureForm = ({
         setUserClickData({
           event_name: `resend-pan-otp-for-pl-pan`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: affId || "No Aff_id found",
         });
         toast.success("OTP resent successfully.");
       } else {
@@ -142,6 +151,7 @@ const PanCaptureForm = ({
         setUserClickData({
           event_name: `pan-otp-submit-for-pl-pan`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: affId || "No Aff_id found",
         });
         toast.success("OTP verified successfully.");
         await fetchPanData();
@@ -179,6 +189,7 @@ const PanCaptureForm = ({
         setUserClickData({
           event_name: `details-fetched-for-pl-pan-${pan || "unknown"}`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: affId || "No Aff_id found",
         });
         const { first_name, last_name, gender, dob, fullname } = res.data || {};
         dispatch(
@@ -250,6 +261,7 @@ const PanCaptureForm = ({
     setUserClickData({
       event_name: `pan-submit-check-for-pl-pan`,
       user_id: mobileNumber || "unknown",
+      affiliate_id: affId || "No Aff_id found",
     });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");
@@ -265,8 +277,10 @@ const PanCaptureForm = ({
     <div className="lead-capture-container">
       {!isOtpGenerated ? (
         <>
-          <h2 className="form-title" style={{paddingLeft: "4px",}}>Verify PAN Number</h2>
-          <p className="form-subtitle" style={{paddingLeft: "4px",}}>
+          <h2 className="form-title" style={{ paddingLeft: "4px" }}>
+            Verify PAN Number
+          </h2>
+          <p className="form-subtitle" style={{ paddingLeft: "4px" }}>
             We need your PAN card to match your identity, initiate soft bureau
             pull, this won't impact your credit score
           </p>

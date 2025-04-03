@@ -105,6 +105,7 @@ const LeadCaptureForm = ({
         setUserClickData({
           event_name: `otp-send-for-pl-pan`,
           user_id: mobile || "unknown",
+          affiliate_id: affId || "No Aff_id found",
         });
         setFormData((prev) => ({
           ...prev,
@@ -141,6 +142,7 @@ const LeadCaptureForm = ({
         setUserClickData({
           event_name: `resend-otp-for-pl-pan`,
           user_id: mobile || "unknown",
+          affiliate_id: affId || "No Aff_id found",
         });
         toast.success("OTP Resent Successfully");
       } else {
@@ -177,6 +179,7 @@ const LeadCaptureForm = ({
         setUserClickData({
           event_name: `otp-submit-for-pl-pan`,
           user_id: mobile || "unknown",
+          affiliate_id: affId || "No Aff_id found",
         });
         toast.success("OTP Verified Successfully");
 

@@ -4,6 +4,7 @@ import FormInputStyle2 from "../../../../components/Form/FormInputStyle2";
 import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { setUserClickData } from "../../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [companyName, setCompanyName] = useState(formData.companyName || "");
@@ -15,6 +16,12 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [work_pincode, setwork_pincode] = useState(formData.work_pincode || "");
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
+  const [affId, setAffId] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
 
   const validate = () => {
     const newErrors = {};
@@ -62,7 +69,11 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       ...formData,
       ...updated,
     });
-
+    setUserClickData({
+      event_name: "professional-details-submit-for-pl-non-pan",
+      user_id: formData.mobile || "No User ID found here",
+      affiliate_id: affId || "No Aff_id found",
+    });
     setCurrentStep(3);
   };
 
@@ -78,8 +89,10 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
   return (
     <div className="professional-details-container-v3">
-      <h2 className="form-title" style={{paddingLeft: "4px",}}>Professional information</h2>
-      <p className="form-subtitle" style={{paddingLeft: "4px",}}>
+      <h2 className="form-title" style={{ paddingLeft: "4px" }}>
+        Professional information
+      </h2>
+      <p className="form-subtitle" style={{ paddingLeft: "4px" }}>
         You're just a few steps away from your ideal loan!
       </p>
       <div className="professional-details-input">
