@@ -23,6 +23,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [source, setSource] = useState("");
   const [utmSource, setUtmSource] = useState("");
+  const [utmTerm, setUtmTerm] = useState("");
   const [affId, setAffId] = useState("");
   const [leadId, setLeadId] = useState();
   const [expandedOfferId, setExpandedOfferId] = useState(null);
@@ -32,6 +33,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("utm_term")) setUtmTerm(params.get("utm_term"));
     if (params.get("lid")) setLeadId(params.get("lid"));
   }, [params]);
 
@@ -88,6 +90,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             aff_id: affId,
             utm_source: utmSource,
             utm_medium: sourceConvert(source),
+            utm_term: utmTerm,
           },
         },
         "core",
