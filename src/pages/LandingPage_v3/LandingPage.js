@@ -19,6 +19,7 @@ import ProfessionalDetailsForm from "./Components/LeadCaptureForm/ProfessionalDe
 import { getProfessionalFormData } from "./Components/LeadCaptureForm/ProfessionalDetailsForm";
 import OfferPage from "./Components/LeadCaptureForm/OfferSection/OffersPage";
 import { useSearchParams } from "react-router-dom";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const LandingPage = () => {
   const [isFormStarted, setIsFormStarted] = useState(false);
@@ -32,7 +33,14 @@ const LandingPage = () => {
   const source = params.get("source") || "";
   const utmMedium = params.get("utm_medium") || "";
   const utmTerm = params.get("utm_term") || "";
-  console.log("affId, utmTerm, utmMedium, utmSource, source", affId, utmTerm, utmMedium, utmSource, source);
+  console.log(
+    "affId, utmTerm, utmMedium, utmSource, source",
+    affId,
+    utmTerm,
+    utmMedium,
+    utmSource,
+    source
+  );
   useEffect(() => {
     window.onbeforeunload = () => {
       sessionStorage.removeItem("isFormStarted");
@@ -42,6 +50,11 @@ const LandingPage = () => {
     if (sessionFlag === "true") {
       setIsFormStarted(true);
     }
+    setUserClickData({
+      event_name: "pageview-website-pl-non-pan",
+      user_id: "No User ID found here",
+      affiliate_id: params.get("aff_id") || "No Aff_id found",
+    });
   }, []);
 
   console.log("isFormStarted", isFormStarted);
