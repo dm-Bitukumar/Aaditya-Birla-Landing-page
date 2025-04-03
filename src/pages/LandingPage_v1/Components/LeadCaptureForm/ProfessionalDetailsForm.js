@@ -4,6 +4,7 @@ import FormInputStyle2 from "../../../../components/Form/FormInputStyle2";
 import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { setUserClickData } from "../../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [companyName, setCompanyName] = useState(formData.companyName || "");
@@ -15,6 +16,12 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [work_pincode, setwork_pincode] = useState(formData.work_pincode || "");
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
+  const [affId, setAffId] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
 
   const validate = () => {
     const newErrors = {};
@@ -55,6 +62,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     setUserClickData({
       event_name: "professional-details-submit-for-pl-pan",
       user_id: formData.mobile || "No User ID found here",
+      affiliate_id: affId || "No Aff_id found",
     });
     setCurrentStep(5);
   };
@@ -79,7 +87,6 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
     setIsFormValid(allValid);
   }, [companyName, companyType, workEmail, monthlyIncome, work_pincode]);
-  
 
   return (
     <div className="personal-details-container">

@@ -213,7 +213,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           </p>
         )}
 
-        <p className="disclaimer-offer-text">
+        <p className="disclaimer-offer-text-v4">
           Choose from these incredible offers that best suit your needs
         </p>
         <p className="disclaimer-text">

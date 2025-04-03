@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import callApi from "../../../../utility/apiCaller";
 import { setpanDetails } from "../../../../store/app/appReducer";
 import { setUserClickData } from "../../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const PanCaptureForm = ({
   setCurrentStep,
@@ -27,6 +28,7 @@ const PanCaptureForm = ({
   const leadId = useSelector((state) => state.app.lead._id);
   const mobileNumber = useSelector((state) => state.app.user?.contact_phone);
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
+  const [params] = useSearchParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -81,6 +83,7 @@ const PanCaptureForm = ({
             lenderName || "unknown"
           }`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: params.get("aff_id") || "No Aff_id found",
         });
         toast.success("OTP sent to your registered mobile number.");
         setIsOtpGenerated(true);
@@ -113,6 +116,7 @@ const PanCaptureForm = ({
             lenderName || "unknown"
           }`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: params.get("aff_id") || "No Aff_id found",
         });
         toast.success("OTP resent successfully.");
       } else {
@@ -148,6 +152,7 @@ const PanCaptureForm = ({
             lenderName || "unknown"
           }`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: params.get("aff_id") || "No Aff_id found",
         });
         toast.success("OTP verified successfully.");
         await fetchPanData();
@@ -187,6 +192,7 @@ const PanCaptureForm = ({
             lenderName || "unknown"
           }-pan-${pan || "unknown"}`,
           user_id: mobileNumber || "unknown",
+          affiliate_id: params.get("aff_id") || "No Aff_id found",
         });
         const { first_name, last_name, gender, dob, fullname } = res.data || {};
         dispatch(
@@ -260,6 +266,7 @@ const PanCaptureForm = ({
         lenderName || "unknown"
       }`,
       user_id: mobileNumber || "unknown",
+      affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
     if (!isPanValid) {
       toast.error("Please enter a valid PAN.");
