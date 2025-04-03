@@ -60,6 +60,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             utm_source: params.get("utm_source"),
             source: params.get("source"),
             utm_medium: params.get("utm_medium"),
+            utm_term: params.get("utm_term"),
           },
         },
         "core",

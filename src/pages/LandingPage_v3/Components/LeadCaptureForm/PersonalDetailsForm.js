@@ -31,6 +31,7 @@ const PersonalDetailsForm = ({
   const [isMobileValid, setIsMobileValid] = useState(true);
   const [source, setSource] = useState("");
   const [utmSource, setUtmSource] = useState("");
+  const [utmTerm, setUtmTerm] = useState("");
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
   const [errors, setErrors] = useState({});
@@ -51,6 +52,7 @@ const PersonalDetailsForm = ({
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("utm_term")) setUtmTerm(params.get("utm_term"));
   }, [params]);
 
   useEffect(() => {
