@@ -32,7 +32,7 @@ const LandingPage = () => {
   const source = params.get("source") || "";
   const utmMedium = params.get("utm_medium") || "";
   const utmTerm = params.get("utm_term") || "";
-
+  console.log("affId, utmTerm, utmMedium, utmSource, source", affId, utmTerm, utmMedium, utmSource, source);
   useEffect(() => {
     window.onbeforeunload = () => {
       sessionStorage.removeItem("isFormStarted");
