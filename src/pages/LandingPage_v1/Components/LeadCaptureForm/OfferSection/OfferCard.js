@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./OffersPage.css";
 import { setUserClickData } from "../../../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const OfferCard = ({ offer, isExpanded, onExpand }) => {
   const [expanded, setExpanded] = useState(false);
+  const [params] = useSearchParams();
   console.log(offer);
   const handleClick = () => {
     setUserClickData({
