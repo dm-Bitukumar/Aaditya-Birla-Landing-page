@@ -19,7 +19,7 @@ import ProfessionalDetailsForm from "./Components/LeadCaptureForm/ProfessionalDe
 import { getProfessionalFormData } from "./Components/LeadCaptureForm/ProfessionalDetailsForm";
 import OfferPage from "./Components/LeadCaptureForm/OfferSection/OffersPage";
 import { useSearchParams } from "react-router-dom";
-import { setUserClickData } from "../../../../../utility/setUserClickData";
+import { setUserClickData } from "../../utility/setUserClickData";
 
 const LandingPage = () => {
   const [isFormStarted, setIsFormStarted] = useState(false);
