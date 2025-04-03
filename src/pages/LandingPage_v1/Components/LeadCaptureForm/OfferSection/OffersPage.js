@@ -40,6 +40,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     setUserClickData({
       event_name: "personal-detail-api-v2-for-pl-pan",
       user_id: formData.mobile || "No User ID found here",
+      affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
@@ -80,10 +81,11 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           setUserClickData({
             event_name: "process-lead-for-loan-personal-loan-v2-for-pl-pan",
             user_id: contactPhone || leadId || "No User ID found here",
+            affiliate_id: params.get("aff_id") || "No Aff_id found",
           });
           // fetchOffers(newLeadId);
           let attempt = 0;
-          const maxAttempts = 3;
+          const maxAttempts = 6;
           const interval = setInterval(async () => {
             attempt++;
             const offerFound = await fetchOffers(newLeadId);

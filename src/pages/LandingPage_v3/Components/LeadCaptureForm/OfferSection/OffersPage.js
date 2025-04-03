@@ -51,6 +51,7 @@ const OfferPage = ({
     setUserClickData({
       event_name: "professional-details-submit-for-pl-non-pan",
       user_id: formData.mobile || "No User ID found here",
+      affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
@@ -96,10 +97,11 @@ const OfferPage = ({
           setUserClickData({
             event_name: "process-lead-for-pl-non-pan",
             user_id: contactPhone || newLeadId || "No User ID found here",
+            affiliate_id: params.get("aff_id") || "No Aff_id found",
           });
           // fetchOffers(newLeadId);
           let attempt = 0;
-          const maxAttempts = 3;
+          const maxAttempts = 6;
           const interval = setInterval(async () => {
             attempt++;
             const offerFound = await fetchOffers(newLeadId);
