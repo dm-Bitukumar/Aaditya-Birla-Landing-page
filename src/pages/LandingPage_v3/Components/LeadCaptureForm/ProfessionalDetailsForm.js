@@ -69,11 +69,11 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       ...formData,
       ...updated,
     });
-    setUserClickData({
-      event_name: "professional-details-submit-for-pl-non-pan",
-      user_id: formData.mobile || "No User ID found here",
-      affiliate_id: affId || "No Aff_id found",
-    });
+    // setUserClickData({
+    //   event_name: "professional-details-submit-for-pl-non-pan",
+    //   user_id: formData.mobile || "No User ID found here",
+    //   affiliate_id: affId || "No Aff_id found",
+    // });
     setCurrentStep(3);
   };
 

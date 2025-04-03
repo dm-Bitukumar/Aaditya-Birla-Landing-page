@@ -9,10 +9,12 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
     setUserClickData({
       event_name: `offer-apply-button-for-pl-pan-lender-${offer.lender_name}`,
       user_id: offer.lead_id || "No User ID found",
+      affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
     setUserClickData({
       event_name: `offer-apply-button-for-pl-pan`,
       user_id: offer.lead_id || "No User ID found",
+      affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
 
     window.location.href = `${offer.app_url}`;
