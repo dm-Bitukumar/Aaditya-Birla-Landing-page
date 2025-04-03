@@ -28,7 +28,7 @@ const BankingPartners = () => {
         {lenders.map((lender, index) => (
           <div key={index} className="partner-card">
             <img
-              src={lender.logo_image_url}
+              src={lender.banking_partners || lender.logo_image_url}
               alt="Lender Logo"
               className="partner-logo"
               loading="lazy"

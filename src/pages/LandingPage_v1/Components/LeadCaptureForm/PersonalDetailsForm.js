@@ -4,7 +4,7 @@ import FormInputStyle2 from "../../../../components/Form/FormInputStyle2";
 import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { setUserClickData } from "../../../../utility/setUserClickData";
-
+import { useSearchParams } from "react-router-dom";
 import moment from "moment";
 
 const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
@@ -16,6 +16,12 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [professionType, setprofessionType] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
+  const [affId, setAffId] = useState("");
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
 
   const validate = () => {
     const newErrors = {};
@@ -43,6 +49,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     setUserClickData({
       event_name: "personal-details-submit-for-pl-pan",
       user_id: formData.mobile || "No User ID found here",
+      affiliate_id: affId || "No Aff_id found",
     });
     setCurrentStep(4);
   };
@@ -66,7 +73,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
       /^\d{6}$/.test(pincode) &&
       professionType;
-  
+
     setIsFormValid(allValid);
   }, [gender, name, dob, email, pincode, professionType]);
 

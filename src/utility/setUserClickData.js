@@ -79,6 +79,7 @@ export async function setUserClickData(data) {
           event_name: data?.event_name,
           user_id: data?.user_id,
           segment_name: data?.segment_name,
+          affiliate_id: data?.affiliate_id,
         },
       },
       "jasoos"
