@@ -32,6 +32,7 @@ const LeadCaptureForm = ({
   const { lenderName, lenderId } = useSelector((state) => state.app.lead);
   const [source, setSource] = useState("");
   const [utmSource, setUtmSource] = useState("");
+  const [utmTerm, setUtmTerm] = useState("");
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
   const [showErrors, setShowErrors] = useState(false);
@@ -40,6 +41,7 @@ const LeadCaptureForm = ({
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
+    if (params.get("utm_term")) setUtmTerm(params.get("utm_term"));
   }, [params]);
 
   useEffect(() => {

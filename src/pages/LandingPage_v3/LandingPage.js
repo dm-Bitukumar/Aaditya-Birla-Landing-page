@@ -31,6 +31,7 @@ const LandingPage = () => {
   const utmSource = params.get("utm_source") || "";
   const source = params.get("source") || "";
   const utmMedium = params.get("utm_medium") || "";
+  const utmTerm = params.get("utm_term") || "";
 
   useEffect(() => {
     window.onbeforeunload = () => {
@@ -155,6 +156,7 @@ const LandingPage = () => {
               utmSource={utmSource}
               source={source}
               utmMedium={utmMedium}
+              utmTerm={utmTerm}
               setShowOfferHeaderLogo={setShowOfferHeaderLogo}
             />
           )}
