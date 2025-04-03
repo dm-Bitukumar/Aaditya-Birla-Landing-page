@@ -18,12 +18,14 @@ import PersonalDetailsForm from "./Components/LeadCaptureForm/PersonalDetailsFor
 import ProfessionalDetailsForm from "./Components/LeadCaptureForm/ProfessionalDetailsForm";
 import { getProfessionalFormData } from "./Components/LeadCaptureForm/ProfessionalDetailsForm";
 import OfferPage from "./Components/LeadCaptureForm/OfferSection/OffersPage";
+import { useSearchParams } from "react-router-dom";
+import { setUserClickData } from "../../../../../utility/setUserClickData";
 
 const LandingPage = () => {
   const [isFormStarted, setIsFormStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
-
+  const [params] = useSearchParams();
   useEffect(() => {
     window.onbeforeunload = () => {
       sessionStorage.removeItem("isFormStarted");
@@ -33,6 +35,11 @@ const LandingPage = () => {
     if (sessionFlag === "true") {
       setIsFormStarted(true);
     }
+    setUserClickData({
+      event_name: "pageview-website-pl-pan",
+      user_id: "No User ID found here",
+      affiliate_id: params.get("aff_id") || "No Aff_id found",
+    });
   }, []);
 
   return (
@@ -45,10 +52,7 @@ const LandingPage = () => {
           style="display:none;visibility:hidden"
         ></iframe>
       </noscript>
-      <div
-        className={"landing-page-container"}
-        style={{maxHeight: "100vh" }}
-      >
+      <div className={"landing-page-container"} style={{ maxHeight: "100vh" }}>
         <div className={"landing-page-v1"}>
           <Header />
 
