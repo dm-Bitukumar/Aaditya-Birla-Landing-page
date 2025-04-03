@@ -1,8 +1,10 @@
 import React from "react";
 import "./OffersPage.css";
 import { setUserClickData } from "../../../../../utility/setUserClickData";
+import { useSearchParams } from "react-router-dom";
 
 const OfferCard = ({ offer, isExpanded, onExpand }) => {
+  const [params] = useSearchParams();
   const handleClick = () => {
     setUserClickData({
       event_name: `offer-apply-button-for-pl-non-pan-lender-${offer.lender_name}`,
