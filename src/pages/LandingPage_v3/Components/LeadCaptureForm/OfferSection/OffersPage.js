@@ -56,10 +56,19 @@ const OfferPage = ({
     try {
       const res = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
       if (res.status === "Success") {
-        setActiveLenders(res.data.lenderList ?? []);
+        const apiLenders = res.data.lenderList ?? [];
+
+        const hardcodedLender = {
+          _id: "662752eb65fdba1a48d6e482",
+          lender_name: "L&T",
+        };
+
+        const mergedLenders = [...apiLenders, hardcodedLender];
+
+        setActiveLenders(mergedLenders);
       }
     } catch (err) {
-      console.error("Error fetching active lenders", err);
+      console.error(err);
     }
   };
 
