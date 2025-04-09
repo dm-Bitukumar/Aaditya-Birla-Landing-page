@@ -27,7 +27,12 @@ const OfferPage = ({
   const [isFinished, setIsFinished] = useState(false);
   const [leadId, setLeadId] = useState();
   const [expandedOfferId, setExpandedOfferId] = useState(null);
+  const [activeLenders, setActiveLenders] = useState([]);
   const [params] = useSearchParams();
+
+  useEffect(() => {
+    fetchActiveLenders();
+  }, []);
 
   useEffect(() => {
     if (formData.stepDone === 3 && !leadId) {
@@ -45,7 +50,18 @@ const OfferPage = ({
     if (offers.length > 0) {
       setShowOfferHeaderLogo(false);
     }
-  }, [offers]);  
+  }, [offers]);
+
+  const fetchActiveLenders = async () => {
+    try {
+      const res = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
+      if (res.status === "Success") {
+        setActiveLenders(res.data.lenderList ?? []);
+      }
+    } catch (err) {
+      console.error("Error fetching active lenders", err);
+    }
+  };
 
   const submitLead = async () => {
     setUserClickData({
@@ -153,7 +169,13 @@ const OfferPage = ({
             ["priority"],
             ["asc"]
           );
-          dispatch(setOffers(sortedOffers));
+          const filteredOffers = activeLenders.length
+            ? sortedOffers.filter((offer) =>
+                activeLenders.some((lender) => lender._id === offer.lender_id)
+              )
+            : sortedOffers;
+
+          dispatch(setOffers(filteredOffers));
 
           if (priorityRes.data.lead?.all_responses) {
             setIsFinished(
