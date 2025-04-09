@@ -27,7 +27,12 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [affId, setAffId] = useState("");
   const [leadId, setLeadId] = useState();
   const [expandedOfferId, setExpandedOfferId] = useState(null);
+  const [activeLenders, setActiveLenders] = useState([]);
   const [params] = useSearchParams();
+
+  useEffect(() => {
+    fetchActiveLenders();
+  }, []);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -36,8 +41,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (params.get("utm_term")) setUtmTerm(params.get("utm_term"));
     if (params.get("lid")) setLeadId(params.get("lid"));
   }, [params]);
-
-  console.log("leadId", leadId);
 
   useEffect(() => {
     const checkLeadIdInterval = setInterval(() => {
@@ -52,7 +55,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   }, [params]);
 
   useEffect(() => {
-    if (!leadId) return;
+    if (!leadId || activeLenders.length === 0) return;
 
     fetchOffers(leadId);
     const interval = setInterval(() => {
@@ -60,13 +63,24 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [leadId]);
+  }, [leadId, activeLenders]);
 
   useEffect(() => {
     if (offers.length > 0 && !expandedOfferId) {
       setExpandedOfferId(offers[0]._id);
     }
   }, [offers]);
+
+  const fetchActiveLenders = async () => {
+    try {
+      const res = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
+      if (res.status === "Success") {
+        setActiveLenders(res.data.lenderList ?? []);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const submitLead = async () => {
     setUserClickData({
@@ -132,18 +146,15 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         `v1/loan_offer/lead_id/${leadId}`,
         "get",
         {},
-        "core",
-        // user.token
+        "core"
       );
 
       if (res.status === "Success" && res.data?.offers?.length > 0) {
-        console.log(res);
         const priorityRes = await callApi(
           `v1/finbud_data/finbud_update_priority/${leadId}`,
           "post",
           res,
-          "loan",
-          // user.token
+          "loan"
         );
 
         if (
@@ -155,7 +166,13 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             ["priority"],
             ["asc"]
           );
-          dispatch(setOffers(sortedOffers));
+          const filteredOffers = activeLenders.length
+            ? sortedOffers.filter((offer) =>
+                activeLenders.some((lender) => lender._id === offer.lender_id)
+              )
+            : sortedOffers;
+
+          dispatch(setOffers(filteredOffers));
 
           if (priorityRes.data.lead?.all_responses) {
             setIsFinished(
