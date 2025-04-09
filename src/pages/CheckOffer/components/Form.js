@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import _ from "lodash";
+import _, { filter } from "lodash";
 import CheckboxTnC from "../../../components/Buttons/CheckboxTnC";
 import FormButton from "../../../components/Buttons/FormButton";
 import FormInput from "../../../components/Form/FormInput";
@@ -171,54 +171,100 @@ const Form = ({ formData, setFormData, ...props }) => {
           event_name: "verify-otp-check-offer-loan-page",
           user_id: leadId || "unknown",
         });
-        const leadResponse = await callApi(
-          "v1/lead/lead-from-phone",
-          "post",
-          {
-            phone: mobile,
-            website_kyc_consent: isTncChecked,
-          },
-          "core",
-          res.data.token
-        )
-          .then(async (response) => {
-            if (response["status"] === "Success" && response.data.lead) {
-              const leadData = response.data.lead;
 
-              try {
+        try {
+          const leadResponse = await callApi(
+            "v1/lead/lead-from-phone",
+            "post",
+            {
+              phone: mobile,
+              website_kyc_consent: isTncChecked,
+            },
+            "core",
+            res.data.token
+          );
+
+          if (leadResponse["status"] === "Success" && leadResponse.data.lead) {
+            const leadData = leadResponse.data.lead;
+
+            const ltResponse = await callApi(
+              "v1/lender_api_call/list",
+              "post",
+              {
+                filters: {
+                  lead_id: leadData._id,
+                  lender_name: "L&T",
+                },
+                pageSize: 10,
+                pageNum: 1,
+              },
+              "loan_service"
+            );
+
+            if (
+              !ltResponse?.data ||
+              ltResponse.data.lender_api_callCount === 0
+            ) {
+              const coreLeadCheck = await callApi(
+                "v1/lead/list",
+                "post",
+                {
+                  filters: {
+                    _id: leadData._id,
+                  },
+                },
+                "core"
+              );
+
+              const foundLead = coreLeadCheck?.data?.[0];
+
+              if (foundLead?.is_landt_finbud_success === true) {
                 await callApi(
-                  "v1/ican_api/data-send-with-offers-to-ican_for_update",
+                  "v1/lead/bulk-lead-push-by-leadId",
                   "post",
                   {
-                    priority: "P1",
-                    lead_id: leadData._id,
+                    leads: [{ lead_id: leadData._id }],
+                    lender_name: "L&T",
+                    lender_id: "662752eb65fdba1a48d6e482",
                   },
                   "core"
                 );
-
-                await callApi(
-                  "v1/ican_api/ican_journey_tag_update",
-                  "post",
-                  {
-                    priority: "P1",
-                    lead_id: leadData._id,
-                  },
-                  "core"
-                );
-
-                navigate(
-                  `/offers?lid=${response.data.lead._id}&source=${source}`
-                );
-              } catch (offersError) {
-                console.log("Error fetching offers:", offersError);
-                navigate(`/personal-loan?source=${source}`);
+              } else {
+                console.log("is_landt_finbud_success is false");
               }
             }
-          })
-          .catch((e) => navigate(`/personal-loan?source=${source}`));
+
+            await callApi(
+              "v1/ican_api/data-send-with-offers-to-ican_for_update",
+              "post",
+              {
+                priority: "P1",
+                lead_id: leadData._id,
+              },
+              "core"
+            );
+
+            await callApi(
+              "v1/ican_api/ican_journey_tag_update",
+              "post",
+              {
+                priority: "P1",
+                lead_id: leadData._id,
+              },
+              "core"
+            );
+
+            navigate(`/offers?lid=${leadData._id}&source=${source}`);
+          } else {
+            navigate(`/personal-loan?source=${source}`);
+          }
+        } catch (error) {
+          console.log("Error fetching lead or calling APIs:", error);
+          navigate(`/personal-loan?source=${source}`);
+        }
       }
     } catch (err) {
-      if (err.response.data.data.message === "Invalid OTP") {
+      if (err?.response?.data?.data?.message === "Invalid OTP") {
         toast("Wrong OTP", { hideProgressBar: true, type: "error" });
       }
       console.log(err);
