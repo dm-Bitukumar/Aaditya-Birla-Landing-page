@@ -27,6 +27,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [affId, setAffId] = useState("");
   const [leadId, setLeadId] = useState();
   const [expandedOfferId, setExpandedOfferId] = useState(null);
+  const [activeLenders, setActiveLenders] = useState([]);
   const [params] = useSearchParams();
 
   useEffect(() => {
@@ -37,7 +38,9 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (params.get("lid")) setLeadId(params.get("lid"));
   }, [params]);
 
-  console.log("leadId", leadId);
+  useEffect(() => {
+    fetchActiveLenders();
+  }, []);
 
   useEffect(() => {
     const checkLeadIdInterval = setInterval(() => {
@@ -52,7 +55,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   }, [params]);
 
   useEffect(() => {
-    if (!leadId) return;
+    if (!leadId || activeLenders.length === 0) return;
 
     fetchOffers(leadId);
     const interval = setInterval(() => {
@@ -67,6 +70,17 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
       setExpandedOfferId(offers[0]._id);
     }
   }, [offers]);
+
+  const fetchActiveLenders = async () => {
+    try {
+      const res = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
+      if (res.status === "Success") {
+        setActiveLenders(res.data.lenderList ?? []);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const submitLead = async () => {
     console.log("Submit Lead called");
@@ -131,7 +145,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         "get",
         {},
         "core"
-        // user.token
       );
 
       if (
@@ -144,7 +157,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           "post",
           loanOfferRes,
           "loan"
-          //   user.token
         );
 
         if (
@@ -156,7 +168,13 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             ["priority"],
             ["asc"]
           );
-          dispatch(setOffers(sortedOffers));
+          const filteredOffers = activeLenders.length
+            ? sortedOffers.filter((offer) =>
+                activeLenders.some((lender) => lender._id === offer.lender_id)
+              )
+            : sortedOffers;
+
+          dispatch(setOffers(filteredOffers));
 
           if (priorityRes.data.lead?.all_responses) {
             setIsFinished(
@@ -202,7 +220,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               : "Please wait while we are searching best offers for you"}
           </p>
         )}
-        <p className="disclaimer-offer-text">
+        <p className="disclaimer-offer-text-v3">
           Choose from these incredible offers that best suit your needs
         </p>
         <p className="disclaimer-text">
