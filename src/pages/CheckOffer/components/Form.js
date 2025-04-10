@@ -226,7 +226,8 @@ const Form = ({ formData, setFormData, ...props }) => {
                     lender_name: "L&T",
                     lender_id: "662752eb65fdba1a48d6e482",
                   },
-                  "core"
+                  "core",
+                  res.data.token
                 );
               } else {
                 console.log("is_landt_finbud_success is false");
