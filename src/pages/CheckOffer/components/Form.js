@@ -235,10 +235,10 @@ const Form = ({ formData, setFormData, ...props }) => {
             }
 
             await callApi(
-              "v1/ican_api/data-send-with-offers-to-ican_for_update",
+              "v1/ican_api/data-send-with-offers-to-ican_for_lt_finbud_sucess",
               "post",
               {
-                priority: "P1",
+                // priority: "P1",
                 lead_id: leadData._id,
               },
               "core"
