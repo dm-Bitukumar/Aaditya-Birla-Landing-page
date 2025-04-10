@@ -216,8 +216,7 @@ const Form = ({ formData, setFormData, ...props }) => {
                 "core"
               );
 
-              const foundLead = coreLeadCheck?.data?.[0];
-
+              const foundLead = coreLeadCheck?.data?.leadList?.[0];
               if (foundLead?.is_landt_finbud_success === true) {
                 await callApi(
                   "v1/lead/bulk-lead-push-by-leadId",
