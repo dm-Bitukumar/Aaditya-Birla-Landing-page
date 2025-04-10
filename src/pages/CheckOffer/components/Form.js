@@ -201,23 +201,47 @@ const Form = ({ formData, setFormData, ...props }) => {
               "loan_service"
             );
 
-            if (
-              !ltResponse?.data ||
-              ltResponse.data.lender_api_callCount === 0
-            ) {
-              const coreLeadCheck = await callApi(
-                "v1/lead/list",
-                "post",
-                {
-                  filters: {
-                    _id: leadData._id,
-                  },
+            const coreLeadCheck = await callApi(
+              "v1/lead/list",
+              "post",
+              {
+                filters: {
+                  _id: leadData._id,
                 },
-                "core"
-              );
+              },
+              "core"
+            );
 
-              const foundLead = coreLeadCheck?.data?.leadList?.[0];
+            const foundLead = coreLeadCheck?.data?.leadList?.[0];
+            console.log(
+              "foundLead",
+              foundLead?._id,
+              foundLead?.is_landt_finbud_success
+            );
+            if (ltResponse?.data?.lender_api_callCount > 0) {
               if (foundLead?.is_landt_finbud_success === true) {
+                console.log(
+                  "Calling data-send-with-offers-to-ican_for_lt_finbud_sucess",
+                  {
+                    lead_id: leadData._id,
+                  }
+                );
+                await callApi(
+                  "v1/ican_api/data-send-with-offers-to-ican_for_lt_finbud_sucess",
+                  "post",
+                  {
+                    lead_id: leadData._id,
+                  },
+                  "core"
+                );
+              }
+            } else {
+              if (foundLead?.is_landt_finbud_success === true) {
+                console.log("Calling bulk-lead-push-by-leadId", {
+                  leads: [{ lead_id: leadData._id }],
+                  lender_name: "L&T",
+                  lender_id: "662752eb65fdba1a48d6e482",
+                });
                 await callApi(
                   "v1/lead/bulk-lead-push-by-leadId",
                   "post",
@@ -229,20 +253,22 @@ const Form = ({ formData, setFormData, ...props }) => {
                   "core",
                   res.data.token
                 );
-              } else {
-                console.log("is_landt_finbud_success is false");
+                console.log(
+                  "Calling data-send-with-offers-to-ican_for_lt_finbud_sucess",
+                  {
+                    lead_id: leadData._id,
+                  }
+                );
+                await callApi(
+                  "v1/ican_api/data-send-with-offers-to-ican_for_lt_finbud_sucess",
+                  "post",
+                  {
+                    lead_id: leadData._id,
+                  },
+                  "core"
+                );
               }
             }
-
-            await callApi(
-              "v1/ican_api/data-send-with-offers-to-ican_for_lt_finbud_sucess",
-              "post",
-              {
-                // priority: "P1",
-                lead_id: leadData._id,
-              },
-              "core"
-            );
 
             await callApi(
               "v1/ican_api/ican_journey_tag_update",
