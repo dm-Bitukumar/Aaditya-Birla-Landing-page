@@ -6,16 +6,44 @@ const BankingPartners = () => {
   const [lenders, setLenders] = useState([]);
 
   useEffect(() => {
+    const preferredOrder = [
+      "Aditya Birla Finance Limited",
+      "L&T",
+      "Poonawalla",
+      "UnityBank",
+      "Hero Fincorp",
+      "Kissht",
+      "KreditBee",
+      "Branch",
+    ];
+
     const fetchLenders = async () => {
-      const localData = await callApi(
-        "v1/lender/active-lenders",
-        "get",
-        {},
-        "loan"
-      );
-      if (localData?.data?.lenderList) {
-        setLenders(localData.data.lenderList);
-      }
+      const [bucket1, bucket2] = await Promise.all([
+        callApi("v1/lender/active-bucket1-lenders", "post", {}, "loan"),
+        callApi("v1/lender/active-bucket2-lenders", "post", {}, "loan"),
+      ]);
+
+      const combined =
+        bucket1?.status === "Success" && bucket2?.status === "Success"
+          ? [...bucket1.data.lenderList, ...bucket2.data.lenderList]
+          : [];
+
+      // Add hardcoded lender manually
+      const hardcodedLender = {
+        name: "Aditya Birla Finance Limited",
+        logo_image_url: "https://digitmoney.in/image/partners/abc.png",
+      };
+
+      const merged = [hardcodedLender, ...combined];
+
+      const ordered = [
+        ...preferredOrder
+          .map((name) => merged.find((l) => l.name === name))
+          .filter(Boolean),
+        ...merged.filter((l) => !preferredOrder.includes(l.name)),
+      ];
+
+      setLenders(ordered);
     };
 
     fetchLenders();
