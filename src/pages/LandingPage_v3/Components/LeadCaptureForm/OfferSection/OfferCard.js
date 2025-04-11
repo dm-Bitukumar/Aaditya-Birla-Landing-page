@@ -20,6 +20,15 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
     window.location.href = `${offer.app_url}`;
   };
 
+  const isLNT = offer.lender_id === "662752eb65fdba1a48d6e482";
+  const horizontalLogo = isLNT
+    ? "https://digitmoney.in/image/partners/lnt.png"
+    : offer.banking_partners_hl || offer.logo_image_url;
+
+  const verticalLogo = isLNT
+    ? "https://digitmoney.in/image/partners/lnt.png"
+    : offer.banking_partners_vl || offer.logo_image_url;
+
   return (
     <div className="offer-card-section">
       <div
@@ -28,11 +37,7 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
       >
         {isExpanded && (
           <>
-            <img
-              src={offer.banking_partners_hl || offer.logo_image_url}
-              className="lender-logo"
-              alt="Lender"
-            />
+            <img src={horizontalLogo} className="lender-logo" alt="Lender" />
           </>
         )}
 
@@ -50,11 +55,7 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
             </>
           ) : (
             <div className="amount-row">
-              <img
-                src={offer.banking_partners_vl || offer.logo_image_url}
-                className="lender-logo"
-                alt="Lender"
-              />
+              <img src={verticalLogo} className="lender-logo" alt="Lender" />
               <div>
                 <span className="amount-label">Pre-Approved Amount:</span>
                 <br />
