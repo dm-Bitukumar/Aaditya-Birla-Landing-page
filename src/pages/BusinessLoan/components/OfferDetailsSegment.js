@@ -253,6 +253,27 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
     setUserClickData({ event_name: "view-more" });
   };
 
+  useEffect(() => {
+    if (isFinished && offers?.length === 0) {
+      (async () => {
+        try {
+          console.log("📨 Triggering ican API due to no offers condition");
+          await callApi(
+            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+            "post",
+            {
+              lead_id: leadId,
+              is_document_upload: "Yes",
+            },
+            "core"
+          );
+        } catch (err) {
+          console.error("ican API (No Offers) Call Failed:", err);
+        }
+      })();
+    }
+  }, [isFinished, offers]);
+
   return (
     <div className={"form-signin-apply form-signin"}>
       <HeadBar />
@@ -268,17 +289,15 @@ const OfferDetailsSegment = ({ formData: initialFormData }) => {
           <span className="ml-2 dot-pulse"></span>
         </div>
       )} */}
-      {
-        ((formData.is_stage4_completed === false && callCountRef.current < 3) ||
-          ((formData.is_stage4_completed === true ||
-            formData.is_stage4_completed === undefined) &&
-            offers?.length === 0)) && (
-          <div className="mb-4 mt-4 font-normal text-center">
-            Please wait while we are searching offers for you
-            <span className="ml-2 dot-pulse"></span>
-          </div>
-        )
-      }
+      {((formData.is_stage4_completed === false && callCountRef.current < 3) ||
+        ((formData.is_stage4_completed === true ||
+          formData.is_stage4_completed === undefined) &&
+          offers?.length === 0)) && (
+        <div className="mb-4 mt-4 font-normal text-center">
+          Please wait while we are searching offers for you
+          <span className="ml-2 dot-pulse"></span>
+        </div>
+      )}
 
       {isFinished && offers?.length === 0 && (
         <div className="mb-4 mt-4 font-normal text-center">
