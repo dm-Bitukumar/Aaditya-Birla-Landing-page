@@ -113,7 +113,7 @@ const OfferPage = ({
         setLeadId(newLeadId);
 
         const processLeadRes = await callApi(
-          "v1/lead/process-lead-for-loan-v3",
+          "v1/lead/process-lead-for-loan-v5",
           "post",
           { contact_phone: contactPhone },
           "core",
@@ -189,7 +189,7 @@ const OfferPage = ({
       {
         offers.length > 0 ? (
           <>
-            <div className="final-offers-container-v3">
+            <div className="final-offers-container-v5">
               <>
                 <video
                   className="background-video1"
@@ -204,7 +204,7 @@ const OfferPage = ({
                   className="background-overlay-img-offer"
                 />
               </>
-              <div className="offer-bg-layer-v3">
+              <div className="offer-bg-layer-v5">
                 <h2 className="congrats-text">Congratulations!</h2>
                 <h3 className="sub-text">You’re Pre-Approved for</h3>
                 <h3 className="sub-text">a Personal Loan!</h3>
