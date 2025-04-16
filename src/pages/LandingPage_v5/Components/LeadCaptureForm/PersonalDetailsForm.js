@@ -34,6 +34,7 @@ const PersonalDetailsForm = ({
   const [source, setSource] = useState("");
   const [utmSource, setUtmSource] = useState("");
   const [utmTerm, setUtmTerm] = useState("");
+  const [adsName, setadsName] = useState("");
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
   const [errors, setErrors] = useState({});
@@ -55,6 +56,7 @@ const PersonalDetailsForm = ({
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
     if (params.get("utm_term")) setUtmTerm(params.get("utm_term"));
+    if (params.get("ads_name")) setadsName(params.get("ads_name"));
   }, [params]);
 
   useEffect(() => {
