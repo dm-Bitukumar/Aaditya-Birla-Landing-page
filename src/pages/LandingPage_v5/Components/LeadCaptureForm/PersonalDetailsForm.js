@@ -341,6 +341,7 @@ const PersonalDetailsForm = ({
         <input type="hidden" name="utm_campaign" value="" />
         <input type="hidden" name="utm_source" value={utmSource || ""} />
         <input type="hidden" name="utm_medium" value="" />
+        <input type="hidden" name="ads_name" value="" />
         <input type="hidden" name="utm_content" value="" />
         <input type="hidden" name="click_id" value="" />
         <input type="hidden" name="aff_id" value={affId || ""} />
