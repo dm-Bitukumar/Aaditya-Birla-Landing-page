@@ -7,12 +7,12 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
   const [params] = useSearchParams();
   const handleClick = () => {
     setUserClickData({
-      event_name: `offer-apply-button-for-pl-non-pan-lender-${offer.lender_name}`,
+      event_name: `offer-apply-button-for-website-pl-nonfinbud-lender-${offer.lender_name}`,
       user_id: offer.lead_id || "No User ID found",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
     setUserClickData({
-      event_name: `offer-apply-button-for-pl-non-pan`,
+      event_name: `offer-apply-button-for-website-pl-nonfinbud`,
       user_id: offer.lead_id || "No User ID found",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
@@ -79,12 +79,12 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
               </div>
 
               <button
-                className="get-offer-btn tracking-get-offer-btn-v4"
+                className="get-offer-btn tracking-get-offer-btn-v5"
                 // id={`btn-get-offer-${
                 //   offer.lender_name?.toLowerCase().replace(/\s+/g, "-") ||
                 //   "unknown"
-                // }-v4`}
-                id={`btn-get-offer-v4`}
+                // }-v5`}
+                id={`btn-get-offer-v5`}
                 onClick={handleClick}
               >
                 {" "}

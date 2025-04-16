@@ -184,7 +184,7 @@ const OfferPage = ({
   };
 
   return (
-    <div id="offer-page-v4">
+    <div id="offer-page-v5">
       {
         offers.length > 0 ? (
           <>
@@ -219,7 +219,7 @@ const OfferPage = ({
                   onExpand={() => setExpandedOfferId(offer._id)}
                 />
               ))}
-              <p className="disclaimer-offer-text-v4">
+              <p className="disclaimer-offer-text-v5">
                 Choose from these incredible offers that best suit your needs
               </p>
               <p className="disclaimer-text">
