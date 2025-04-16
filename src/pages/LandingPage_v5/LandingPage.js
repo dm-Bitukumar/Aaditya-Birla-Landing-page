@@ -32,13 +32,15 @@ const LandingPage = () => {
   const source = params.get("source") || "";
   const utmMedium = params.get("utm_medium") || "";
   const utmTerm = params.get("utm_term") || "";
+  const adsName = params.get("ads_name") || "";
   console.log(
-    "affId, utmTerm, utmMedium, utmSource, source",
+    "affId, utmTerm, utmMedium, utmSource, source,adsName",
     affId,
     utmTerm,
     utmMedium,
     utmSource,
-    source
+    source,
+    adsName
   );
   useEffect(() => {
     window.onbeforeunload = () => {
