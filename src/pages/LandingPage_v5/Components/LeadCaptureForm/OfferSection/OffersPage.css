@@ -1,4 +1,4 @@
-.final-offers-container-v3 {
+.final-offers-container-v5 {
   position: relative;
   /* padding: 40px 16px; */
   text-align: center;
@@ -8,7 +8,7 @@
   margin-top: -70px;
 }
 
-.offer-bg-layer-v3 {
+.offer-bg-layer-v5 {
   margin-top: 230px;
   z-index: 4;
 }
@@ -199,7 +199,7 @@
   padding-bottom: 30px;
 }
 
-.disclaimer-offer-text-v4 {
+.disclaimer-offer-text-v5 {
   font-family: myFirstFont;
   font-weight: 600;
   font-size: 18px;
