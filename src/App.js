@@ -45,8 +45,10 @@ import BusinessOfferDetailsSegment from "./pages/BusinessLoan/components/OfferDe
 import ConfirmationPage from "./pages/BusinessLoan/components/ConfirmationPage";
 import LandingPage_v1 from "./pages/LandingPage_v1/LandingPage";
 import LandingPage_v3 from "./pages/LandingPage_v3/LandingPage";
+import LandingPage_v5 from "./pages/LandingPage_v5/LandingPage";
 import OfferPage_v1 from "./pages/LandingPage_v1/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 import OfferPage_v3 from "./pages/LandingPage_v3/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
+import OfferPage_v5 from "./pages/LandingPage_v5/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 
 function App() {
   const location = useLocation();
@@ -122,6 +124,7 @@ function App() {
         {/* New Landing Pages */}
         <Route path={"/personal-loan-v3"} element={<LandingPage_v1 />} />
         <Route path={"/personal-loan-v4"} element={<LandingPage_v3 />} />
+        <Route path={"/personal-loan-v5"} element={<LandingPage_v5 />} />
         <Route path={"/offer-page-v1"} element={<OfferPage_v1 />} />
         <Route path={"/offer-page-v3"} element={<OfferPage_v3 />} />
 
