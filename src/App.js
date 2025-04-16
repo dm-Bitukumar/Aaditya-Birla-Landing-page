@@ -127,6 +127,7 @@ function App() {
         <Route path={"/personal-loan-v5"} element={<LandingPage_v5 />} />
         <Route path={"/offer-page-v1"} element={<OfferPage_v1 />} />
         <Route path={"/offer-page-v3"} element={<OfferPage_v3 />} />
+        <Route path={"/offer-page-v5"} element={<OfferPage_v5 />} />
 
         {/* Business Loan */}
         <Route path={"/business-loan"} element={<BusinessLoan />} />
