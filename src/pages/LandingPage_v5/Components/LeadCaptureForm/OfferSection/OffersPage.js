@@ -100,6 +100,7 @@ const OfferPage = ({
             source: params.get("source"),
             utm_medium: params.get("utm_medium"),
             utm_term: params.get("utm_term"),
+            ads_name: params.get("ads_name"),
           },
         },
         "core",
