@@ -91,62 +91,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     }
   };
 
-  const submitLead = async () => {
-    setUserClickData({
-      event_name: "professional-details-submit-for-pl-non-pan",
-      user_id: formData.mobile || "No User ID found here",
-    });
-    try {
-      const trackId = localStorage.getItem(TRACK_ID);
-      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        ...formData,
-        ...user,
-      });
-
-      const res = await callApi(
-        "v1/lead/finbud-lp-lead",
-        "post",
-        {
-          lead: {
-            ...processedLead,
-            tracking_id: trackId,
-            aff_id: affId,
-            utm_source: utmSource,
-            utm_medium: sourceConvert(source),
-            utm_term: utmTerm,
-          },
-        },
-        "core",
-        user.token
-      );
-
-      if (res.status === "Success" && res.data.lead) {
-        const newLeadId = res.data.lead._id;
-        const contactPhone = res.data.lead.contact_phone;
-        setLeadId(newLeadId);
-
-        const processLeadRes = await callApi(
-          "v1/lead/process-lead-for-loan-v2",
-          "post",
-          { contact_phone: contactPhone },
-          "core",
-          user.token
-        );
-
-        if (processLeadRes.status === "Success") {
-          setUserClickData({
-            event_name: "process-lead-for-pl-non-pan",
-            user_id: contactPhone || newLeadId || "No User ID found here",
-          });
-          fetchOffers(newLeadId);
-        }
-      }
-    } catch (err) {
-      toast("Some error occurred", { hideProgressBar: true, type: "error" });
-      console.log(err);
-    }
-  };
-
   const fetchOffers = async (leadId) => {
     if (!leadId || isFinished) return;
 
@@ -159,38 +103,19 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
       );
 
       if (res.status === "Success" && res.data?.offers?.length > 0) {
-        const priorityRes = await callApi(
-          `v1/finbud_data/finbud_update_priority/${leadId}`,
-          "post",
-          res,
-          "loan"
-        );
+        const sortedOffers = _.orderBy(res.data.offers, ["priority"], ["asc"]);
+        const filteredOffers = activeLenders.length
+          ? sortedOffers.filter((offer) =>
+              activeLenders.some((lender) => lender._id === offer.lender_id)
+            )
+          : sortedOffers;
 
-        if (
-          priorityRes.status === "Success" &&
-          Array.isArray(priorityRes.data?.offers)
-        ) {
-          const sortedOffers = _.orderBy(
-            priorityRes.data.offers,
-            ["priority"],
-            ["asc"]
+        dispatch(setOffers(filteredOffers));
+
+        if (res.data.lead?.all_responses) {
+          setIsFinished(
+            res.data.lead.all_responses === res.data.lead.total_response
           );
-          const filteredOffers = activeLenders.length
-            ? sortedOffers.filter((offer) =>
-                activeLenders.some((lender) => lender._id === offer.lender_id)
-              )
-            : sortedOffers;
-
-          dispatch(setOffers(filteredOffers));
-
-          if (priorityRes.data.lead?.all_responses) {
-            setIsFinished(
-              priorityRes.data.lead.all_responses ===
-                priorityRes.data.lead.total_response
-            );
-          }
-        } else {
-          toast.error("Failed to fetch prioritized offers.");
         }
       }
     } catch (err) {
@@ -242,7 +167,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
           </p>
         )}
 
-        <p className="disclaimer-offer-text-v4">
+        <p className="disclaimer-offer-text-v5">
           Choose from these incredible offers that best suit your needs
         </p>
         <p className="disclaimer-text">
