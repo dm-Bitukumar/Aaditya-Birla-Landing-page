@@ -74,16 +74,19 @@ const OfferPage = ({
 
   const submitLead = async () => {
     setUserClickData({
-      event_name: "personal-details-submit-for-website-pl",
+      event_name: "personal-details-submit-for-website-pl-nonfinbud",
       user_id: formData.mobile || "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
     try {
       const trackId = localStorage.getItem(TRACK_ID);
-      const processedLead = getAllianceLeadFromMoneyTapInput("website-pl", {
-        ...formData,
-        ...user,
-      });
+      const processedLead = getAllianceLeadFromMoneyTapInput(
+        "website-pl-nonfinbud",
+        {
+          ...formData,
+          ...user,
+        }
+      );
       console.log("Processed Lead: ", processedLead);
       const res = await callApi(
         "v1/lead/lp-lead-namefromPanapi",
@@ -118,7 +121,7 @@ const OfferPage = ({
 
         if (processLeadRes.status === "Success") {
           setUserClickData({
-            event_name: "process-lead-for-website-pl",
+            event_name: "process-lead-for-website-pl-nonfinbud",
             user_id: contactPhone || newLeadId || "No User ID found here",
             affiliate_id: params.get("aff_id") || "No Aff_id found",
           });

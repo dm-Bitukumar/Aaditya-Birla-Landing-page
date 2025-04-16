@@ -50,7 +50,7 @@ const LandingPage = () => {
       setIsFormStarted(true);
     }
     setUserClickData({
-      event_name: "pageview-website-pl",
+      event_name: "pageview-website-pl-nonfinbud",
       user_id: "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });

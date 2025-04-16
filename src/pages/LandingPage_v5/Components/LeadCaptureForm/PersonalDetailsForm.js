@@ -221,7 +221,7 @@ const PersonalDetailsForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `otp-send-for-website-pl`,
+          event_name: `otp-send-for-website-pl-nonfinbud`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -269,7 +269,7 @@ const PersonalDetailsForm = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `resend-otp-for-website-pl`,
+          event_name: `resend-otp-for-website-pl-nonfinbud`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -305,7 +305,7 @@ const PersonalDetailsForm = ({
 
       if (otpResponse.status === "Success") {
         setUserClickData({
-          event_name: `otp-submit-for-website-pl`,
+          event_name: `otp-submit-for-website-pl-nonfinbud`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
