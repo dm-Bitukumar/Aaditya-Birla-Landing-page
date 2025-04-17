@@ -85,6 +85,7 @@ const OfferPage = ({
         {
           ...formData,
           ...user,
+          gender: "male",
         }
       );
       console.log("Processed Lead: ", processedLead);
@@ -106,7 +107,7 @@ const OfferPage = ({
         "core",
         user.token
       );
-
+      console.log(res);
       if (res.status === "Success" && res.data.lead) {
         const newLeadId = res.data.lead._id;
         const contactPhone = res.data.lead.contact_phone;
