@@ -1,0 +1,54 @@
+.hiw-container {
+  background-color: #12f280;
+  padding: 48px 48px 68px 48px;
+  color: #1b1b1b;
+  border-radius: 32px 32px 0 0;
+}
+
+.hiw-heading {
+  font-family: myFirstFont;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 45px;
+  margin-bottom: 30px;
+}
+
+.hiw-content-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.hiw-image {
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.hiw-text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.hiw-step {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  margin-bottom: 48px;
+}
+
+.step-one {
+  margin-top: 6px;
+}
+
+.step-two {
+  margin-top: 50px;
+}
+
+.step-three {
+  margin-top: 35px;
+}
+
+.step-four {
+  margin-top: 28px;
+}
