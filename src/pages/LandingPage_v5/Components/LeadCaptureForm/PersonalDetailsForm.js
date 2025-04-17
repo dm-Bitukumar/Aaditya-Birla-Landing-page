@@ -21,7 +21,7 @@ const PersonalDetailsForm = ({
   formData,
   setFormData,
 }) => {
-  const [gender, setGender] = useState("");
+  // const [gender, setGender] = useState("");
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [annual_income, setAnnualIncome] = useState("");
   const [name, setName] = useState("");
@@ -105,7 +105,7 @@ const PersonalDetailsForm = ({
   const validate = () => {
     const newErrors = {};
 
-    if (!gender) newErrors.gender = true;
+    // if (!gender) newErrors.gender = true;
     if (!name.trim()) newErrors.name = true;
     // if (!dob.trim()) newErrors.dob = true;
     if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) newErrors.email = true;
@@ -134,7 +134,7 @@ const PersonalDetailsForm = ({
         annual_income.replace(/,/g, "").match(/^\d+$/));
 
     const allValid =
-      gender &&
+      // gender &&
       name.trim() &&
       email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
       pincode.match(/^\d{6}$/) &&
@@ -142,22 +142,9 @@ const PersonalDetailsForm = ({
       pancard &&
       incomeValid;
 
-    console.log("Validation Check:", {
-      gender,
-      name,
-      email,
-      pincode,
-      professionType,
-      pancard,
-      monthlyIncome,
-      annual_income,
-      incomeValid,
-      allValid,
-    });
-
     setIsFormValid(allValid);
   }, [
-    gender,
+    // gender,
     name,
     email,
     pincode,
@@ -170,7 +157,7 @@ const PersonalDetailsForm = ({
 
   useEffect(() => {
     if (formData) {
-      setGender(formData.gender || "");
+      // setGender(formData.gender || "");
       setName(formData.name || "");
       setMobile(formData.mobile || "");
       setPan(formData.pancard || "");
@@ -229,7 +216,7 @@ const PersonalDetailsForm = ({
         });
         setFormData((prev) => ({
           ...prev,
-          gender,
+          // gender,
           pancard,
           name,
           annual_income,
@@ -348,7 +335,7 @@ const PersonalDetailsForm = ({
         <input type="hidden" name="src" value={source || ""} />
 
         <div className="personal-details-input">
-          <div className="gender-toggle-v3">
+          {/* <div className="gender-toggle-v3">
             <button
               className={`gender-btn-v3 ${gender === "Male" ? "active" : ""}`}
               onClick={() => setGender("Male")}
@@ -381,7 +368,7 @@ const PersonalDetailsForm = ({
                 <span>Female</span>
               </div>
             </button>
-          </div>
+          </div> */}
 
           <FormInputStyle2
             label="Full Name as per Pan Card"
