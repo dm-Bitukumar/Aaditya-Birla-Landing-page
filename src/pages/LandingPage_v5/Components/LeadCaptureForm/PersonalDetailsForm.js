@@ -21,7 +21,7 @@ const PersonalDetailsForm = ({
   formData,
   setFormData,
 }) => {
-  // const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("");
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [annual_income, setAnnualIncome] = useState("");
   const [name, setName] = useState("");
@@ -144,7 +144,7 @@ const PersonalDetailsForm = ({
 
     setIsFormValid(allValid);
   }, [
-    // gender,
+    gender,
     name,
     email,
     pincode,
