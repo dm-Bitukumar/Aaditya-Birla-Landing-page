@@ -47,7 +47,20 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
           {isExpanded ? (
             <>
               <div className="amount-row">
-                <span className="amount-label">Pre-Approved Amount:</span>
+                <span className="amount-label">
+                  {[
+                    "662752eb65fdba1a48d6e466",
+                    "666ec1953a9a969d8f9980f1",
+                    "67762d497ae263a3ec86347e",
+                    "6799b8fada60414f0f195bf9",
+                    "67bd3abe694463207380f33d",
+                    "67be8fc6049b9a4e3af8191a",
+                    "67e23d6fe162ba8f717ec5bf",
+                    "67ef646df80610d286084e60",
+                  ].includes(offer.lender_id)
+                    ? "Max Loan Amount:"
+                    : "Pre-Approved Amount:"}
+                </span>
                 <span className="amount-value">
                   ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
                 </span>
@@ -57,7 +70,20 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
             <div className="amount-row">
               <img src={verticalLogo} className="lender-logo" alt="Lender" />
               <div>
-                <span className="amount-label">Pre-Approved Amount:</span>
+                <span className="amount-label">
+                  {[
+                    "662752eb65fdba1a48d6e466",
+                    "666ec1953a9a969d8f9980f1",
+                    "67762d497ae263a3ec86347e",
+                    "6799b8fada60414f0f195bf9",
+                    "67bd3abe694463207380f33d",
+                    "67be8fc6049b9a4e3af8191a",
+                    "67e23d6fe162ba8f717ec5bf",
+                    "67ef646df80610d286084e60",
+                  ].includes(offer.lender_id)
+                    ? "Max Loan Amount:"
+                    : "Pre-Approved Amount:"}
+                </span>
                 <br />
                 <span className="amount-value">
                   ₹{Number(offer.credit_limit).toLocaleString("en-IN")}
