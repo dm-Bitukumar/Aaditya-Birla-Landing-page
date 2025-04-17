@@ -562,7 +562,7 @@ const PersonalDetailsForm = ({
             from credit bureaus. By submitting my details I override my NDNC
             registration & authorize DigitMoney and its Lending Partners /
             representatives to contact me through Call, SMS, Email, Whatsapp or
-            any other mode. You also authorize us to send you promotional offers
+            any other mode. I also authorize you to send me promotional offers
             of financial & non-financial products or services from time to time.
           </label>
         </div>
