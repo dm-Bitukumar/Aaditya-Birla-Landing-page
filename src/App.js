@@ -49,6 +49,7 @@ import LandingPage_v5 from "./pages/LandingPage_v5/LandingPage";
 import OfferPage_v1 from "./pages/LandingPage_v1/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 import OfferPage_v3 from "./pages/LandingPage_v3/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 import OfferPage_v5 from "./pages/LandingPage_v5/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
+import CheckOffers_v3 from "./pages/CheckOffer_v3/LandingPage";
 
 function App() {
   const location = useLocation();
@@ -164,6 +165,7 @@ function App() {
           element={<New pages={pages} setPages={setPages} />}
         />
         <Route path={"/check-offers"} element={<CheckOffers />} />
+        <Route path={"/check-offers-v3"} element={<CheckOffers_v3 />} />
         <Route path="/preapproved-offers" element={<PreapprovedOffer />} />
         <Route path="/fb-offer" element={<OfferDetailsSegmentNiro2 />} />
         <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
