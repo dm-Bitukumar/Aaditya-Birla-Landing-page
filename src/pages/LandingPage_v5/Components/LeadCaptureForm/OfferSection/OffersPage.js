@@ -113,7 +113,7 @@ const OfferPage = ({
         setLeadId(newLeadId);
 
         const processLeadRes = await callApi(
-          "v1/lead/process-lead-for-loan-v5",
+          "v1/lead/process-lead-for-loan-v3",
           "post",
           { contact_phone: contactPhone },
           "core",
