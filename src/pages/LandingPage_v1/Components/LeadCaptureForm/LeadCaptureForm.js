@@ -209,13 +209,13 @@ const LeadCaptureForm = ({
     <div className="lead-capture-container">
       {!isOtpGenerated ? (
         <>
-          <h2 className="form-title" style={{paddingLeft: "4px",}}>
+          <h2 className="form-title" style={{ paddingLeft: "4px" }}>
             Get Your Loan Approved in
             <br />
             Quick & Simple Steps!
           </h2>
 
-          <p className="form-subtitle" style={{paddingLeft: "4px",}}>
+          <p className="form-subtitle" style={{ paddingLeft: "4px" }}>
             We will use your contact details to proceed further.
           </p>
 
@@ -256,8 +256,8 @@ const LeadCaptureForm = ({
               information from credit bureaus. By submitting my details I
               override my NDNC registration & authorize DigitMoney and its
               Lending Partners / representatives to contact me through Call,
-              SMS, Email, Whatsapp or any other mode. You also authorize us to
-              send you promotional offers of financial & non-financial products
+              SMS, Email, Whatsapp or any other mode. I also authorize you to
+              send me promotional offers of financial & non-financial products
               or services from time to time.
             </label>
           </div>
