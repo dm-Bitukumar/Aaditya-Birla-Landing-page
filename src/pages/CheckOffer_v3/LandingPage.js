@@ -108,19 +108,18 @@ const LandingPage = () => {
       {!isFormStarted && <TaglineScroller />}
 
       <div>
-        {isFormStarted && currentStep !== 3 && (
+        {isFormStarted && currentStep === 1 && (
           <ProgressHeader
             step={currentStep}
             onBack={() => {
-              if (currentStep === 1) {
-                setIsFormStarted(false);
-                setCurrentStep(1);
-                sessionStorage.removeItem("isFormStarted");
-                const form = document.getElementById("personal-loan-form");
-                if (form?.resetOtpState) form.resetOtpState();
-              } else {
-                setCurrentStep((prev) => prev - 1);
-              }
+              setIsFormStarted(false);
+              setCurrentStep(1);
+              sessionStorage.removeItem("isFormStarted");
+              const form = document.getElementById("personal-loan-form");
+              if (form?.resetOtpState) form.resetOtpState();
+              setFormData((prev) => ({
+                mobile: prev.mobile || "",
+              }));
             }}
           />
         )}
@@ -140,7 +139,7 @@ const LandingPage = () => {
             />
           )}
 
-          {currentStep === 3 && (
+          {currentStep === 2 && (
             <OfferPage
               formData={formData}
               setFormData={setFormData}
