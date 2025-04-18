@@ -86,7 +86,6 @@ const MobileOtpPage = ({
   };
 
   const handleSendOtp = async () => {
-    console.log("enteres");
     if (!handleValidation()) {
       return;
     }
@@ -195,8 +194,7 @@ const MobileOtpPage = ({
           })
         );
         localStorage.setItem("mobile", mobile);
-
-        setCurrentStep(3);
+        setCurrentStep(2);
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
@@ -207,7 +205,7 @@ const MobileOtpPage = ({
   };
 
   return !isOtpGenerated ? (
-    <div className="lead-capture-container">
+    <div className="lead-capture-container-v3">
       {!isOtpGenerated ? (
         <>
           <h2 className="form-title">

@@ -25,10 +25,10 @@ const ProgressHeader = ({ step = 1, onBack }) => {
       }
 
       <h2 className="progress-title1">
-        Get Your Loan Approved <br /> In 3 Simple Steps
+        Get Your Loan Approved <br /> In Simple Steps
       </h2>
 
-      <div className="progress-indicator-wrapper">
+      {/* <div className="progress-indicator-wrapper">
         <div className="progress-indicator">
           <div className="step-item">
             <div className={`step-circle ${step >= 1 ? "active" : ""}`} />
@@ -45,7 +45,7 @@ const ProgressHeader = ({ step = 1, onBack }) => {
             <span className="step-label">Step 3</span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
