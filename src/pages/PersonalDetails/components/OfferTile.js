@@ -62,6 +62,11 @@ const OfferTile = ({ offer, small, source, eventName, userId }) => {
       user_id: userId || "No User ID found",
     });
 
+    setUserClickData({
+      event_name: `offer-apply-button-${offer.lender_name}`,
+      user_id: offer.lead_id || "No Lead ID found",
+      // affiliate_id: params.get("aff_id") || "No Aff_id found",
+    });
     window.location.href = `${offer.app_url}${source}`;
     // var win = window.open(`${offer.app_url}${source}`);
     // win.focus();
