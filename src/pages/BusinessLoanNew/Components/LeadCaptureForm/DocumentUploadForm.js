@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
+import { FileText, Trash2 } from "lucide-react";
 
 const DocumentUploadForm = ({ formData, nextStep }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -300,7 +301,11 @@ const DocumentUploadForm = ({ formData, nextStep }) => {
       </p>
       <div className="mt-6 w-full max-w-md">
         {[
-          { label: "Bank Statement", key: "bank_statement", multiple: true },
+          {
+            label: "Bank Statement (6 Months)",
+            key: "bank_statement",
+            multiple: true,
+          },
           { label: "Owned Property Electricity Bill", key: "electricity_bill" },
           { label: "GST/MSME Certificate", key: "gst_certificate" },
           { label: "Pan Card", key: "pan_card" },
@@ -308,74 +313,75 @@ const DocumentUploadForm = ({ formData, nextStep }) => {
         ].map(({ label, key, multiple }) => (
           <div key={key} className="mb-3">
             <div
-              className={`flex items-center justify-between w-full bg-white border border-gray-300 px-4 py-3 rounded-lg shadow-sm ${
+              className={`bg-white border border-gray-300 px-4 py-3 rounded-lg shadow-sm w-full ${
                 key === "electricity_bill" ? "items-start" : "items-center"
               }`}
             >
-              <span
-                className={`text-sm font-medium text-gray-600 ${
-                  key === "electricity_bill" ? "w-1/2 leading-tight" : ""
-                }`}
-              >
-                {label}
-              </span>
-              <input
-                type="file"
-                id={key}
-                className="hidden"
-                ref={fileInputRefs[key]}
-                onChange={(e) => handleFileChange(e, key)}
-                multiple={multiple && key === "bank_statement"}
-              />
-              <label
-                htmlFor={key}
-                className="px-4 py-2 bg-cyan-500 text-white text-sm font-semibold rounded cursor-pointer hover:bg-blue-600 transition"
-              >
-                {key === "bank_statement" || !files[key]
-                  ? "Browse file"
-                  : "Browse file"}
-              </label>
-            </div>
-
-            {key === "bank_statement" && files[key].length > 0 && (
-              <div className="text-xs text-gray-500 mt-2 px-2">
-                <p className="mb-1">Max 3 files allowed for bank statement</p>
-                {files[key].map((file, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center border p-2 rounded mt-1"
-                  >
-                    <span className="truncate">{file.name}</span>
-                    <button
-                      className="ml-2 text-red-500 hover:text-red-700"
-                      onClick={() => removeFile(key, index)}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {key !== "bank_statement" && files[key] && (
-              <div className="text-xs text-gray-500 mt-2 px-2 flex justify-between items-center">
-                <span className="truncate">
-                  Uploaded File: {files[key].name}
-                </span>
-                <button
-                  className="ml-2 text-red-500 hover:text-red-700"
-                  onClick={() => removeFile(key)}
+              <div className="flex items-center justify-between">
+                <span
+                  className={`text-sm font-medium text-gray-600 ${
+                    key === "electricity_bill" ? "w-1/2 leading-tight" : ""
+                  }`}
                 >
-                  ✕
-                </button>
+                  {label}
+                </span>
+                <input
+                  type="file"
+                  id={key}
+                  className="hidden"
+                  ref={fileInputRefs[key]}
+                  onChange={(e) => handleFileChange(e, key)}
+                  multiple={multiple && key === "bank_statement"}
+                />
+                <label
+                  htmlFor={key}
+                  className="px-3 py-2 bg-white text-gray-900 text-xs font-normal rounded cursor-pointer border border-gray-800"
+                >
+                  Browse file
+                </label>
               </div>
-            )}
+
+              {files[key] && (
+                <div className="m-1 space-y-2">
+                  {(key === "bank_statement" ? files[key] : [files[key]]).map(
+                    (file, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm"
+                      >
+                        <div className="flex items-center gap-2">
+                          {/* <img
+                            src="/pdf-icon.svg"
+                            alt="PDF"
+                            className="w-5 h-5"
+                          /> */}
+                          <FileText size={16} />
+                          <p className="text-sm font-medium text-gray-700 truncate max-w-[200px]">
+                            {file.name}
+                          </p>
+                        </div>
+                        <button
+                          className="text-gray-500 hover:text-red-600"
+                          onClick={() =>
+                            key === "bank_statement"
+                              ? removeFile(key, index)
+                              : removeFile(key)
+                          }
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         ))}
+
         <FormButtonStyle2
           text="Get My Offers"
           onClick={handleSubmit}
-          //   disabled={!isSubmitting}
           id="btn-document-upload"
           className="tracking-btn-document-upload"
         />
