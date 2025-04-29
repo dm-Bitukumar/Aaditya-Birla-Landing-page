@@ -15,7 +15,7 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: #1b1b1b;
-  padding-bottom: 10px;
+  /* padding-bottom: 5px; */
 }
 
 .form-subtitle {
@@ -26,7 +26,7 @@
   line-height: 24px;
   vertical-align: middle;
   color: #b3b3b3;
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
 }
 
 .gst-title {

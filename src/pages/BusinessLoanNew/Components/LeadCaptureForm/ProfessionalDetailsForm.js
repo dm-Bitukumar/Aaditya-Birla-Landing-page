@@ -83,7 +83,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     { key: "annual_turnover", value: data.annual_turnover },
     { key: "industry", value: data.industry },
     { key: "confirm_business_address", value: data.confirm_business_address },
-    { key: "address_type", value: data.address_type },
+    { key: "address_type", value: formData.address_type },
     { key: "ownership", value: data.ownership },
   ];
 
@@ -407,13 +407,16 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             isValid={!errors.industry}
             errorMessage={errors.industry}
           />
+
           <BusinessAddressBox
             data={{
               ...formData,
               confirm_business_address: formData.confirm_business_address || "",
+              address_type: formData.address_type || "",
             }}
             handleDataChange={handleDataChange}
           />
+
           <FormSelectStyleBLv1
             label="Company Type"
             name="ownership"
@@ -425,8 +428,9 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             errorMessage={errors.ownership}
           />
         </div>
+
         <FormButtonStyle2
-          text="Get My Offers"
+          text="Continue"
           onClick={handleContinue}
           disabled={!isFormValid}
           id="btn-professional-details-landing-v1"
