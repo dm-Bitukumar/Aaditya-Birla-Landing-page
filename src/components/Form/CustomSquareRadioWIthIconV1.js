@@ -15,12 +15,12 @@ const CustomSquareRadioWithIconV1 = ({ onChange }) => {
   };
 
   return (
-    <div className="d-flex justify-content-between">
+    <div className="d-flex justify-content-between pl-4">
       <div
-        className={`radio-shadow d-flex align-items-center px-4 ${
+        className={`radio-shadow d-flex align-items-center ${
           selectedOption === "yes" ? "active" : ""
         }`}
-        style={{ width: "48%", cursor: "pointer", boxShadow: "none" }}
+        style={{ width: "0%", cursor: "pointer", boxShadow: "none" }}
         onClick={() => handleOptionChange("yes")}
       >
         <input
@@ -31,29 +31,24 @@ const CustomSquareRadioWithIconV1 = ({ onChange }) => {
           required=""
           checked={selectedOption === "yes"}
           onChange={() => {}}
+          style={{
+            accentColor: selectedOption === "yes" ? "blue" : "gray",
+            transform: "scale(1.1)",
+          }}
         />
         <p
-          // className="text-center"
           style={{
             textAlign: "left",
             width: "90%",
-            fontSize: "14px",
-            marginLeft: "5px !important",
+            fontSize: "16px",
+            paddingLeft: "5px",
           }}
         >
           Yes
         </p>
-        {/* {selectedOption === "yes" && (
-          <img
-            src="/assets/icons/tick.png"
-            id="yes_img"
-            alt="Tick"
-            style={{ height: "16px", position: "relative", right: "0px" }}
-          />
-        )} */}
       </div>
       <div
-        className={`radio-shadow d-flex align-items-center px-4 ${
+        className={`radio-shadow d-flex align-items-center ${
           selectedOption === "no" ? "active" : ""
         }`}
         style={{ width: "48%", cursor: "pointer", boxShadow: "none" }}
@@ -67,26 +62,21 @@ const CustomSquareRadioWithIconV1 = ({ onChange }) => {
           required=""
           checked={selectedOption === "no"}
           onChange={() => {}}
+          style={{
+            accentColor: selectedOption === "no" ? "red" : "gray",
+            transform: "scale(1.1)",
+          }}
         />
         <p
-          // className="text-center"
           style={{
             textAlign: "left",
             width: "90%",
-            fontSize: "14px",
-            marginLeft: "5px !important",
+            fontSize: "16px",
+            paddingLeft: "5px",
           }}
         >
           No
         </p>
-        {/* {selectedOption === "no" && (
-          <img
-            src="/assets/icons/tick.png"
-            id="no_img"
-            alt="Tick"
-            style={{ height: "16px", position: "relative", right: "0px" }}
-          />
-        )} */}
       </div>
     </div>
   );

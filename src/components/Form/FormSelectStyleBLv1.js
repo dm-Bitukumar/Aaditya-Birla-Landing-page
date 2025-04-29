@@ -67,7 +67,17 @@ const FormSelectStyleBLv1 = ({
         >
           {label}
         </span>
-        <span>{selectedLabel}</span>
+        <span
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "block",
+            paddingRight: "24px",
+          }}
+        >
+          {selectedLabel}
+        </span>
         <img
           src="/assets/img/arrow_drop_down.svg"
           alt="Dropdown Arrow"
@@ -107,7 +117,11 @@ const FormSelectStyleBLv1 = ({
                 cursor: "pointer",
                 fontFamily: "Atkinson Hyperlegible",
                 backgroundColor: value === opt.value ? "#F0F0F0" : "white",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
+              title={opt.label}
             >
               {opt.label}
             </li>

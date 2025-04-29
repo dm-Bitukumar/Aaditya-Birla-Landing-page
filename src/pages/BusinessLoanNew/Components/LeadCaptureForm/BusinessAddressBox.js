@@ -1,4 +1,6 @@
+import { Pencil } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import CustomSquareRadioWithIconV1 from "../../../../components/Form/CustomSquareRadioWIthIconV1";
 
 const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   const defaultMessage = "Please enter address, unable to fetch right now.";
@@ -24,7 +26,9 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   }, [data.confirm_business_address]);
 
   useEffect(() => {
-    setSelectedAddressType(data.address_type || "");
+    if (data.address_type) {
+      setSelectedAddressType(data.address_type);
+    }
   }, [data.address_type]);
 
   const handleEditClick = () => {
@@ -43,94 +47,100 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
 
   return (
     <>
-      <div className="mb-3 border p-3 rounded-lg bg-white shadow-md">
+      <div>
         {/* Business Address Section */}
-        <div className="mt-3">
-          <div className="flex justify-between items-center">
-            <p className="text-xs font-semibold text-gray-700">
-              Business Address
+        <div
+          className="mb-3 border p-3 rounded-md bg-white"
+          style={{
+            borderColor: "#000000",
+            width: "340px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <p className="text-xs font-normal text-gray-500 mb-1">
+            Business Address
+          </p>
+          {isEditing ? (
+            <input
+              type="text"
+              value={editedAddress}
+              onChange={(e) => setEditedAddress(e.target.value)}
+              className="border rounded-md p-2 w-full text-sm"
+              placeholder="Enter your business address"
+            />
+          ) : (
+            <p className="text-gray-600 text-xs font-semibold">
+              {lastSavedAddress}
             </p>
-            {!isEditing && (
-              <button
-                className="text-blue-500 text-xs font-medium"
-                onClick={handleEditClick}
-              >
-                Edit Address
-              </button>
-            )}
-          </div>
-
-          {/* Address Display / Edit Mode */}
-          <div className="mt-1">
-            {isEditing ? (
-              <input
-                type="text"
-                value={editedAddress}
-                onChange={(e) => setEditedAddress(e.target.value)}
-                className="border rounded-md p-2 w-full text-sm"
-                placeholder="Enter your business address"
-              />
-            ) : (
-              <p className="text-gray-600 text-xs font-semibold">
-                {lastSavedAddress}
-              </p>
-            )}
-          </div>
-
-          {/* Save & Cancel Buttons (Only in Edit Mode) */}
-          {isEditing && (
-            <div className="flex justify-end mt-2">
-              <button
-                className="text-blue-500 text-xs font-medium mr-2"
-                onClick={handleSave}
-              >
-                Save
-              </button>
-              <button
-                className="text-gray-500 text-xs font-medium"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancel
-              </button>
-            </div>
           )}
         </div>
+
+        {/* Edit Button Outside */}
+        {!isEditing && (
+          <div className="flex justify-start mt-2 ml-4">
+            <button
+              className="flex items-center gap-1 px-4 py-1 border rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100 transition"
+              onClick={handleEditClick}
+            >
+              <Pencil size={14} /> Edit Address
+            </button>
+          </div>
+        )}
+
+        {/* Save & Cancel Buttons (Only in Edit Mode) */}
+        {isEditing && (
+          <div className="flex justify-end mt-2">
+            <button
+              className="text-blue-500 text-xs font-medium mr-2"
+              onClick={handleSave}
+            >
+              Save
+            </button>
+            <button
+              className="text-gray-500 text-xs font-medium"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
-      <hr />
+
+      <hr className="mt-3" />
+
       {/* Address Type (Using Simple Radio Buttons) */}
       <div className="mt-3">
-        <p className="text-xs font-semibold mb-1">
+        <p className="pl-4 text-sm font-semibold mb-1">
           Business Address Type <span className="text-red-500">*</span>
         </p>
-        <div className="flex items-center space-x-2">
-          <label className="flex items-center space-x-1">
-            <input
-              type="radio"
-              name="address_type"
-              value="Owned"
-              checked={selectedAddressType === "Owned"}
-              onChange={(e) => {
-                setSelectedAddressType(e.target.value);
-                handleDataChange("address_type", e.target.value);
+        <div
+          className="flex justify-start gap-3"
+          style={{ width: "340px", margin: "0 auto" }}
+        >
+          {["Owned", "Rented"].map((option) => (
+            <label
+              key={option}
+              className={`flex items-center rounded-md py-2 px-3 cursor-pointer transition`}
+              onClick={() => {
+                setSelectedAddressType(option);
+                handleDataChange("address_type", option);
               }}
-              className="form-radio text-blue-600"
-            />
-            <span className="text-xs">Owned</span>
-          </label>
-          <label className="flex items-center space-x-1">
-            <input
-              type="radio"
-              name="address_type"
-              value="Rented"
-              checked={selectedAddressType === "Rented"}
-              onChange={(e) => {
-                setSelectedAddressType(e.target.value);
-                handleDataChange("address_type", e.target.value);
-              }}
-              className="form-radio text-blue-600"
-            />
-            <span className="text-xs">Rented</span>
-          </label>
+            >
+              <input
+                type="radio"
+                name="address_type"
+                value={option}
+                checked={selectedAddressType === option}
+                onChange={() => {}}
+                style={{
+                  accentColor: selectedAddressType === option ? "blue" : "gray",
+                  transform: "scale(1.3)",
+                }}
+              />
+              <span className="ml-2 text-sm">{option}</span>
+            </label>
+          ))}
         </div>
       </div>
     </>
