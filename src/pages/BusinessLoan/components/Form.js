@@ -39,12 +39,12 @@ const Form = ({ formData, setFormData, ...props }) => {
     const affIdParam = params.get("aff_id");
     const utmSourceParam = params.get("utm_source");
     const utmMediumParam = params.get("utm_medium");
-  
+
     if (sourceParam) setSource(sourceParam);
     if (affIdParam) setAffId(affIdParam);
     if (utmSourceParam) setUtmSource(utmSourceParam);
     if (utmMediumParam) setUtmMedium(utmMediumParam);
-  
+
     setFormData((prev) => ({
       ...prev,
       source: sourceParam || "",

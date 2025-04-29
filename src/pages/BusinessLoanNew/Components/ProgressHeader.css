@@ -1,0 +1,91 @@
+.progress-header-container {
+  padding: 16px 20px 50px 20px;
+  background-image: url("../../../../public/assets/img/2nd design main BG.svg");
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f7fefb 42.23%,
+    #ccf8e1 92.81%
+  );
+}
+
+.back-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.progress-title {
+  font-family: myFirstFont;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 30px;
+  color: #1b1b1b;
+  text-align: center;
+}
+
+.back-text {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  color: #ffffff;
+}
+
+.progress-indicator-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.progress-indicator-1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #1b1b1b;
+}
+
+.step-circle.active {
+  background-color: #12f280;
+}
+
+.step-line-1 {
+  width: 90px;
+  height: 2px;
+  background-color: #ffffff;
+  margin-bottom: 18px;
+}
+
+.step-line-1.active {
+  background-color: #12f280;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 30px;
+}
+
+.step-label {
+  font-size: 10px;
+  color: #1b1b1b;
+  font-weight: 400;
+}

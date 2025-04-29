@@ -1,0 +1,56 @@
+.personal-details-container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.landing-page-container .personal-loan-form{
+margin-top: -2rem;
+}
+.form-title {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #1b1b1b;
+  padding-bottom: 10px;
+  padding-left: 16px;
+}
+
+.form-subtitle {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 15px;
+  vertical-align: middle;
+  color: #b3b3b3;
+  padding-bottom: 1rem;
+  padding-left: 16px;
+}
+
+/* Reuse this for consistent field layout */
+input,
+select {
+  font-family: inherit;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
+.professional-details-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.professional-details-input label,
+.professional-details-input input::placeholder,
+.professional-details-input select,
+.professional-details-input input {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
