@@ -15,7 +15,15 @@ const FormInputStyle2 = ({
   const showFloatingLabel = isFocused || value;
 
   return (
-    <div style={{ position: "relative", marginBottom: "1rem", width: "340px",marginLeft: "auto",marginRight: "auto", }}>
+    <div
+      style={{
+        position: "relative",
+        marginBottom: "1rem",
+        width: "340px",
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <input
         {...props}
         value={value}

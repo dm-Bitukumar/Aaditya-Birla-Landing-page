@@ -5,7 +5,7 @@ import Form from "./components/Form";
 
 const BusinessLoan = () => {
   const location = useLocation();
-  
+
   const getQueryParams = () => {
     const params = new URLSearchParams(location.search);
     return {

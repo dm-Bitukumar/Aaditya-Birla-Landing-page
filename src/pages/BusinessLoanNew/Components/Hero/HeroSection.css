@@ -1,0 +1,21 @@
+.hero {
+  text-align: center;
+  padding: 24px 16px 16px;
+}
+
+.hero-icon {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 18px;
+}
+
+.hero-heading {
+  font-family: myFirstFont;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 35px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #000;
+  margin-bottom: 0;
+}

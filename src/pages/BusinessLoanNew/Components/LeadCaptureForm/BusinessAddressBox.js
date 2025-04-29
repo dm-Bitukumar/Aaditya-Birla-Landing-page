@@ -42,69 +42,65 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   };
 
   return (
-    <div className="mb-3 border p-3 rounded-lg bg-white shadow-md">
-      <p className="font-semibold text-xs">Confirm Business Address</p>
-      <p className="text-gray-500 text-[10px]">
-        We have fetched the below address from your GST certificate, please
-        confirm or edit.
-      </p>
-
-      {/* Business Address Section */}
-      <div className="mt-3">
-        <div className="flex justify-between items-center">
-          <p className="text-xs font-semibold text-gray-700">
-            Current Business Address
-          </p>
-          {!isEditing && (
-            <button
-              className="text-blue-500 text-xs font-medium"
-              onClick={handleEditClick}
-            >
-              Edit Address
-            </button>
-          )}
-        </div>
-
-        {/* Address Display / Edit Mode */}
-        <div className="mt-1">
-          {isEditing ? (
-            <input
-              type="text"
-              value={editedAddress}
-              onChange={(e) => setEditedAddress(e.target.value)}
-              className="border rounded-md p-2 w-full text-sm"
-              placeholder="Enter your business address"
-            />
-          ) : (
-            <p className="text-gray-600 text-xs font-semibold">
-              {lastSavedAddress}
+    <>
+      <div className="mb-3 border p-3 rounded-lg bg-white shadow-md">
+        {/* Business Address Section */}
+        <div className="mt-3">
+          <div className="flex justify-between items-center">
+            <p className="text-xs font-semibold text-gray-700">
+              Business Address
             </p>
+            {!isEditing && (
+              <button
+                className="text-blue-500 text-xs font-medium"
+                onClick={handleEditClick}
+              >
+                Edit Address
+              </button>
+            )}
+          </div>
+
+          {/* Address Display / Edit Mode */}
+          <div className="mt-1">
+            {isEditing ? (
+              <input
+                type="text"
+                value={editedAddress}
+                onChange={(e) => setEditedAddress(e.target.value)}
+                className="border rounded-md p-2 w-full text-sm"
+                placeholder="Enter your business address"
+              />
+            ) : (
+              <p className="text-gray-600 text-xs font-semibold">
+                {lastSavedAddress}
+              </p>
+            )}
+          </div>
+
+          {/* Save & Cancel Buttons (Only in Edit Mode) */}
+          {isEditing && (
+            <div className="flex justify-end mt-2">
+              <button
+                className="text-blue-500 text-xs font-medium mr-2"
+                onClick={handleSave}
+              >
+                Save
+              </button>
+              <button
+                className="text-gray-500 text-xs font-medium"
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </button>
+            </div>
           )}
         </div>
-
-        {/* Save & Cancel Buttons (Only in Edit Mode) */}
-        {isEditing && (
-          <div className="flex justify-end mt-2">
-            <button
-              className="text-blue-500 text-xs font-medium mr-2"
-              onClick={handleSave}
-            >
-              Save
-            </button>
-            <button
-              className="text-gray-500 text-xs font-medium"
-              onClick={() => setIsEditing(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        )}
       </div>
-
+      <hr />
       {/* Address Type (Using Simple Radio Buttons) */}
       <div className="mt-3">
         <p className="text-xs font-semibold mb-1">
-          Address Type <span className="text-red-500">*</span>
+          Business Address Type <span className="text-red-500">*</span>
         </p>
         <div className="flex items-center space-x-2">
           <label className="flex items-center space-x-1">
@@ -137,7 +133,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
           </label>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
