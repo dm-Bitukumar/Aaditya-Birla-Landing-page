@@ -12,6 +12,7 @@ import PersonalDetails from "./pages/PersonalDetails/PersonalDetails";
 import PersonalDetailsV2 from "./pages/PersonalDetailsV2/PersonalDetailsV2";
 import PreApprovedLoan from "./pages/PAO/PreApprovedLoan";
 import BusinessLoan from "./pages/BusinessLoan/BusinessLoan";
+import BusinessLoanNew from "./pages/BusinessLoanNew/LandingPage";
 import BusinessLoanApply from "./pages/BusinessLoan/BusinessLoanApply";
 import Term from "./pages/Term";
 import Contact from "./pages/Contact";
@@ -132,6 +133,7 @@ function App() {
 
         {/* Business Loan */}
         <Route path={"/business-loan"} element={<BusinessLoan />} />
+        <Route path={"/business-loan-v1"} element={<BusinessLoanNew />} />
         <Route path={"/business-loan/apply"} element={<BusinessLoanApply />} />
         <Route
           path={"/business-loan/offer"}
