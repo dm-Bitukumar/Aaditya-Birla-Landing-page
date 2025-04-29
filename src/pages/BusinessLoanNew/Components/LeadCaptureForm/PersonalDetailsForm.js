@@ -115,7 +115,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               is_gst: isGst,
               is_udyam: isUdyam,
               udyamno: isUdyam ? data.udyam_number : "",
-              date_of_incorporation: data.date_of_incorporation,
+              date_of_incorporation: data.doi_udyam,
               gst_no: isGst ? data.gst : "",
               is_stage1_completed: "true",
               work_address1: fetchedAddress,
@@ -156,7 +156,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             is_udyam: isUdyam,
             gst: data.gst,
             udyam_number: data.udyam_number,
-            date_of_incorporation: data.date_of_incorporation,
+            date_of_incorporation: data.doi_udyam,
             confirm_business_address: fetchedAddress,
           }));
           console.log(formData);
@@ -190,14 +190,14 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         updatedData.udyam_number = formattedValue;
       }
 
-      if (keyName === "date_of_incorporation") {
-        let formattedValue = keyValue.trim(); // Remove extra spaces if any
-        const [day, month, year] = formattedValue.split("-"); // Split by "-"
+      if (keyName === "doi_udyam") {
+        let formattedValue = keyValue.trim();
+        const [day, month, year] = formattedValue.split("-");
 
         if (day && month && year) {
-          updatedData.date_of_incorporation = `${year}-${month}-${day}`; // Re-arrange
+          updatedData.date_of_incorporation = `${year}-${month}-${day}`;
         } else {
-          updatedData.date_of_incorporation = formattedValue; // If not proper format, keep original
+          updatedData.date_of_incorporation = formattedValue;
         }
       }
 
@@ -328,8 +328,8 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const isBothNo = data.gst_available === "no" && data.udyam_available === "no";
   useEffect(() => {
     const isValid =
-      // !!data.pan &&
-      // setIsPanValid &&
+      !!data.pan &&
+      setIsPanValid &&
       !!data.residence_pincode &&
       data.residence_pincode.length === 6 &&
       !!data.residential_type &&
@@ -341,7 +341,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{3}$/.test(data.gst)) ||
         (data.udyam_available === "yes" &&
           !!data.udyam_number &&
-          !!data.date_of_incorporation &&
+          !!data.doi_udyam &&
           udyamRegex.test(data.udyam_number)));
 
     setIsFormValid(isValid);
