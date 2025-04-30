@@ -43,6 +43,8 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
     "image/jpeg",
     "application/pdf",
   ];
+  const MAX_FILE_SIZE_MB = 2;
+  const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024;
 
   useEffect(() => {
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
@@ -57,15 +59,19 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
         return;
       }
 
-      const validFiles = selectedFiles.filter((file) =>
-        allowedFileTypes.includes(file.type)
-      );
-      if (validFiles.length !== selectedFiles.length) {
-        toast.error(
-          "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
-        );
-        return;
-      }
+      const validFiles = selectedFiles.filter((file) => {
+        if (!allowedFileTypes.includes(file.type)) {
+          toast.error(`${file.name} is not a supported file type.`);
+          return false;
+        }
+        if (file.size > MAX_FILE_SIZE) {
+          toast.error(`${file.name} exceeds 2MB limit.`);
+          return false;
+        }
+        return true;
+      });
+
+      if (validFiles.length !== selectedFiles.length) return;
 
       setFiles((prevFiles) => ({
         ...prevFiles,
@@ -77,6 +83,10 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
         toast.error(
           "Invalid file type. Only JPG, JPEG, PNG, and PDF are allowed."
         );
+        return;
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        toast.error(`${file.name} exceeds 2MB limit.`);
         return;
       }
       setFiles((prevFiles) => ({ ...prevFiles, [key]: file }));
@@ -245,7 +255,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
       //   } catch (err) {
       //     console.warn("ICAN API call failed:", err);
       //   }
-      setCurrentStep(6);
+      setCurrentStep(5);
       // } else {
       //   toast.error("Error submitting lead data. Please try again.");
       // }
@@ -264,7 +274,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
       <p className="form-subtitle">
         You're just a few steps away from your ideal loan!
       </p>
-      <div className="mt-6 w-full max-w-md">
+      <div className="mt-2 w-full max-w-md">
         {[
           {
             label: "Bank Statement (6 Months)",

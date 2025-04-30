@@ -227,10 +227,21 @@ const LeadCaptureForm = ({
 
           if (leadRes.status === "Success") {
             leadId = leadRes.data.businessloanlead?.lead?._id;
-            dispatch(setLead(leadRes.data.lead));
+            const lead = leadRes.data.businessloanlead?.lead;
+            if (lead) {
+              dispatch(setLead(lead));
+              if (lead.is_stage1_completed !== "true") {
+                setCurrentStep(2);
+              } else if (lead.is_stage2_completed !== "true") {
+                setCurrentStep(3);
+              } else if (lead.is_stage3_completed !== "true") {
+                setCurrentStep(4);
+              } else {
+                setCurrentStep(5);
+              }
+            }
           }
-
-          setCurrentStep(3);
+          // setCurrentStep(2);
         } catch (err) {
           console.warn("Lead update failed, continuing flow.");
         }
