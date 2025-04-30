@@ -23,6 +23,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
   const offers = useSelector((state) => state.app.offers);
+  const [offers1, setOffers] = useState([]);
   const [leadSubmitSuccess, setLeadSubmitSuccess] = useState(false);
   const callCountRef = useRef(0);
   const callCenterApiCalledRef = useRef(false);
@@ -36,6 +37,10 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     address_type: "",
     ownership: "",
   });
+
+  useEffect(() => {
+    console.log("Offers from Redux (in render):", offers);
+  }, [offers]);
 
   useEffect(() => {
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
@@ -98,61 +103,89 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   }
 
   useEffect(() => {
-    if (!leadSubmitSuccess || !leadId) return;
+    if (!leadSubmitSuccess || !leadId) {
+      console.log(
+        "Exiting useEffect early: leadSubmitSuccess or leadId missing"
+      );
+      return;
+    }
 
-    const intervalId = setInterval(async () => {
-      console.log(`Call count before fetchOffers: ${callCountRef.current}`);
+    let callCount = 0;
 
-      if (callCountRef.current < 3) {
+    const fetchWithRetry = async () => {
+      if (callCount < 3) {
+        console.log(`Retry #${callCount + 1} - Fetching offers`);
         await fetchOffers();
-        callCountRef.current += 1;
+        callCount += 1;
+        setTimeout(fetchWithRetry, 5000);
       } else {
-        clearInterval(intervalId);
+        console.log("Max retries done. Proceeding to ICAN/Call Center APIs...");
 
+        // Call ICAN API if needed
         if (
           !icanApiCalledRef.current &&
-          formData.is_stage4_completed === false
+          (formData.is_stage4_completed === false ||
+            formData.is_stage4_completed === undefined)
         ) {
-          console.log("Triggering ican API");
+          console.log("Triggering ICAN API...");
           icanApiCalledRef.current = true;
-
           try {
             await callApi(
               "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
               "post",
-              {
-                lead_id: leadId,
-                is_document_upload: "",
-              },
+              { lead_id: leadId, is_document_upload: "" },
               "core"
             );
+            console.log("ICAN API call succeeded.");
           } catch (err) {
-            console.error("ican API Call Failed:", err.message || err);
+            console.error("ICAN API call failed:", err.message || err);
           }
         }
 
+        // Call Center API
         if (
           !hasTriggeredCallCenterApi &&
-          offers.length > 0 &&
-          formData.is_stage4_completed === false
+          offers1.length > 0 &&
+          (formData.is_stage4_completed === false ||
+            formData.is_stage4_completed === undefined)
         ) {
+          console.log("Triggering Call Center API...");
           setHasTriggeredCallCenterApi(true);
           triggerCallCenterApi();
+        } else {
+          if (
+            !hasTriggeredCallCenterApi &&
+            offers1.length > 0 &&
+            (formData.is_stage4_completed === false ||
+              formData.is_stage4_completed === undefined)
+          ) {
+            console.log("Triggering Call Center API...");
+            setHasTriggeredCallCenterApi(true);
+            triggerCallCenterApi();
+          } else {
+            console.log("Call Center API not triggered. Conditions not met:");
+            console.log(
+              "hasTriggeredCallCenterApi:",
+              hasTriggeredCallCenterApi
+            );
+            console.log("offers.length:", offers.length);
+            console.log(
+              "formData.is_stage4_completed:",
+              formData.is_stage4_completed
+            );
+          }
         }
       }
-    }, 5000);
+    };
 
-    return () => clearInterval(intervalId);
-  }, [leadSubmitSuccess, offers]);
+    console.log("Starting offer retry loop...");
+    fetchWithRetry();
+  }, [leadSubmitSuccess]); // 🔥 only run when leadSubmitSuccess becomes true
 
   const fetchOffers = async () => {
-    console.log("fetchOffers() triggered");
-    if (!leadId) {
-      return;
-    }
+    if (!leadId) return;
 
     try {
-      console.log(`Fetching offers for leadId: ${leadId}`);
       const res = await callApi(
         `v1/loan_offer/lead_id/${leadId}`,
         "get",
@@ -161,20 +194,11 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       );
 
       if (res.status === "Success") {
-        dispatch(setOffers(res.data.offers ?? []));
-        if (res.data.lead?.all_responses) {
-          setIsFinished(
-            res.data.lead?.all_responses === res.data.lead?.total_response
-          );
-        }
-
-        setLeadName(res.data.lead?.contact_name ?? "Customer");
-        console.log("Fetched lead name:", res.data.lead?.contact_name);
-      } else {
-        console.warn("Offer API did not return success:", res);
+        setOffers(res.data.offers ?? []);
+        console.log("Offers set in local state:", res.data.offers);
       }
     } catch (err) {
-      console.error("fetchOffers API Call Failed:", err);
+      console.error("fetchOffers failed", err);
     }
   };
 
