@@ -270,9 +270,14 @@ const LeadCaptureForm = ({
           <FormInputStyle2
             label="Full Name as per Pan Card"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              const input = e.target.value;
+              if (/^[a-zA-Z\s]*$/.test(input)) {
+                setName(input);
+              }
+            }}
             isValid={!errors.name}
-            errorMessage="Name is required"
+            errorMessage="Name is required and must contain only letters"
           />
 
           <FormInputStyle2
