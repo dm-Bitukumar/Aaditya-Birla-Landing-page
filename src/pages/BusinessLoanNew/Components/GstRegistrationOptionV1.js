@@ -38,10 +38,9 @@ const GstRegistrationOptionv1 = ({
         </div>
       )}
 
-      <hr style={{ border: "1px solid #000000" }} />
-
       {data.gst_available === "no" && (
-        <div className={"my-3"}>
+        <div className={"mb-3 mt-0"}>
+          <hr style={{ border: "1px solid #000000", marginBottom: "1rem" }} />
           <div className={`input-group pl-3`}>
             <p>Are you registered with Udyam/MSME?</p>
           </div>
@@ -67,9 +66,7 @@ const GstRegistrationOptionv1 = ({
                 required
                 id="doi_udyam"
                 value={data.doi_udyam}
-                onChange={(e) =>
-                  handleDataChange("doi_udyam", e.target.value)
-                }
+                onChange={(e) => handleDataChange("doi_udyam", e.target.value)}
                 errorMessage={errorMessage}
                 isValid={errors !== "doi_udyam"}
                 label={"Date of Incorporation"}

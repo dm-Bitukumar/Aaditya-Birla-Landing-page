@@ -13,26 +13,169 @@ import OfferCard from "./OfferCard";
 import { TRACK_ID } from "../../../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
+import FormInputStyle2 from "../../../../../components/Form/FormInputStyle2";
+import FormButtonStyle2 from "../../../../../components/Form/FormButtonStyle2";
+import { useNavigate } from "react-router";
 
 const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
   const dispatch = useDispatch();
-  const [isFinished, setIsFinished] = useState(false);
+  const [isFinished, setIsFinished] = useState(true);
+  const [isOffer, setisOffer] = useState([]);
   const [leadId, setLeadId] = useState();
   const [expandedOfferId, setExpandedOfferId] = useState(null);
   const [activeLenders, setActiveLenders] = useState([]);
   const [params] = useSearchParams();
+  const [affId, setAffId] = useState("");
+  const navigate = useNavigate();
+  const [monthlyIncome, setMonthlyIncome] = useState(
+    formData.monthlyIncome || ""
+  );
+  const dummyOffers = [
+    // {
+    //   _id: "offer1",
+    //   lender_name: "Bank A",
+    //   interest_rate: "10%",
+    //   loan_amount: "500,000",
+    // },
+    // {
+    //   _id: "offer2",
+    //   lender_name: "Bank B",
+    //   interest_rate: "12%",
+    //   loan_amount: "300,000",
+    // },
+  ];
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!monthlyIncome.match(/^[\d,]+$/)) newErrors.monthlyIncome = true;
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  useEffect(() => {
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
+
+  const handleContinue = async () => {
+    if (!validate()) return;
+    const plainMonthlyIncome = monthlyIncome.replace(/,/g, "");
+    const updated = {
+      monthlyIncome: plainMonthlyIncome,
+    };
+
+    setFormData((prev) => ({
+      ...prev,
+      ...updated,
+    }));
+
+    const payload = {
+      businessloanlead: {
+        contact_phone: formData.mobile,
+        monthlyIncome: plainMonthlyIncome,
+        is_stage5_completed: "true",
+      },
+    };
+
+    try {
+      const leadCreateResponse = await callApi(
+        "v1/businessloanlead/new-v1",
+        "post",
+        payload,
+        "core"
+      );
+
+      if (leadCreateResponse.status === "Success") {
+        toast.success("Data saved successfully.");
+        setUserClickData({
+          event_name: "step5-business-loan-page-v1-completed",
+          user_id: formData.mobile || "unknown",
+          affiliate_id: affId || "No Aff_id found",
+        });
+
+        const _leadId = leadCreateResponse.data.businessloanlead?.lead?._id;
+        setLeadId(_leadId); // update state
+
+        try {
+          console.log(`Submitting Lead API for leadId: ${_leadId}`);
+          const leadSubmitResponse = await callApi(
+            "v1/lead/process-lead-for-loan-pl-fail-from-bl",
+            "post",
+            { lead_id: _leadId },
+            "core",
+            user.token
+          );
+          console.log("Lead API Response:", leadSubmitResponse);
+
+          if (
+            leadSubmitResponse.status === "Success" &&
+            leadSubmitResponse.data
+          ) {
+            await callApi(
+              "v1/businessloanlead/new-v1",
+              "post",
+              {
+                businessloanlead: {
+                  contact_phone: formData.mobile,
+                  bl_pl_offer_found: true,
+                },
+              },
+              "core"
+            );
+            navigate(`/offer-page-v1?lid=${_leadId}`, {
+              state: {
+                ...formData,
+                _id: _leadId,
+              },
+            });
+          } else {
+            console.warn(
+              "Lead API did not return success:",
+              leadSubmitResponse
+            );
+          }
+        } catch (err) {
+          console.error("Second API Call Failed:", err.message || err);
+        }
+      } else {
+        console.warn(
+          "Failed to update business loan lead:",
+          leadCreateResponse
+        );
+        toast.error("Failed to update data.");
+      }
+    } catch (err) {
+      console.error("API Error:", err.message || err);
+      toast.error("An error occurred while updating the data.");
+    }
+  };
+
+  useEffect(() => {
+    dispatch(setOffers(dummyOffers));
+  }, [dispatch]);
 
   useEffect(() => {
     fetchActiveLenders();
+    console.log(formData);
   }, []);
 
   useEffect(() => {
-    if (formData.stepDone === 3 && !leadId) {
+    const allValid = /^\d+$/.test(monthlyIncome.replace(/,/g, ""));
+
+    setIsFormValid(allValid);
+  }, [monthlyIncome]);
+
+  useEffect(() => {
+    if (formData.stepDone === 4) {
       console.log("offer page");
-      //submitLead();
+      console.log(offers);
+      submitLead();
     }
   }, [formData]);
 
@@ -63,67 +206,12 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   const submitLead = async () => {
-    setUserClickData({
-      event_name: "personal-detail-api-v2-for-pl-pan",
-      user_id: formData.mobile || "No User ID found here",
-      affiliate_id: params.get("aff_id") || "No Aff_id found",
-    });
     try {
-      const trackId = localStorage.getItem(TRACK_ID);
-      const processedLead = getAllianceLeadFromMoneyTapInput("website-pl-pan", {
-        ...formData,
-        ...user,
-      });
-      console.log("Processed Lead: ", processedLead);
-      const res = await callApi(
-        "v1/lead/finbud-lp-lead",
-        "post",
-        {
-          lead: {
-            ...processedLead,
-            tracking_id: trackId,
-            aff_id: params.get("aff_id"),
-            utm_source: params.get("utm_source"),
-            source: params.get("source"),
-            utm_medium: params.get("utm_medium"),
-            utm_term: params.get("utm_term"),
-          },
-        },
-        "core",
-        user.token
-      );
-      if (res.status === "Success" && res.data.lead) {
-        const newLeadId = res.data.lead._id;
-        const contactPhone = res.data.lead.contact_phone;
-        setLeadId(newLeadId);
-
-        const processLeadRes = await callApi(
-          "v1/lead/process-lead-for-loan-v2",
-          "post",
-          { contact_phone: contactPhone },
-          "core",
-          user.token
-        );
-        if (processLeadRes.status === "Success") {
-          setUserClickData({
-            event_name: "process-lead-for-loan-personal-loan-v2-for-pl-pan",
-            user_id: contactPhone || leadId || "No User ID found here",
-            affiliate_id: params.get("aff_id") || "No Aff_id found",
-          });
-          // fetchOffers(newLeadId);
-          let attempt = 0;
-          const maxAttempts = 6;
-          const interval = setInterval(async () => {
-            attempt++;
-            const offerFound = await fetchOffers(newLeadId);
-            if (offerFound || attempt === maxAttempts) {
-              clearInterval(interval);
-              if (!offerFound) setIsFinished(true);
-            }
-          }, 5000);
-
-          const firstResult = await fetchOffers(newLeadId);
-          if (firstResult) clearInterval(interval);
+      const firstResult = await fetchOffers(formData.leadId);
+      console.log(firstResult);
+      if (firstResult && firstResult.status === "Success") {
+        if (firstResult.data.offers.length > 0) {
+          setisOffer(firstResult.data.offers);
         }
       }
     } catch (err) {
@@ -133,7 +221,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   const fetchOffers = async (leadId) => {
-    if (!leadId || isFinished) return false;
+    if (!leadId) return false;
 
     try {
       const loanOfferRes = await callApi(
@@ -144,48 +232,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         user.token
       );
 
-      if (
-        loanOfferRes.status === "Success" &&
-        loanOfferRes.data?.offers?.length > 0
-      ) {
-        console.log(loanOfferRes);
-        const priorityRes = await callApi(
-          `v1/finbud_data/finbud_update_priority/${leadId}`,
-          "post",
-          loanOfferRes,
-          "loan",
-          user.token
-        );
-
-        if (
-          priorityRes.status === "Success" &&
-          Array.isArray(priorityRes.data?.offers)
-        ) {
-          const sortedOffers = _.orderBy(
-            priorityRes.data.offers,
-            ["priority"],
-            ["asc"]
-          );
-          const filteredOffers = activeLenders.length
-            ? sortedOffers.filter((offer) =>
-                activeLenders.some((lender) => lender._id === offer.lender_id)
-              )
-            : sortedOffers;
-
-          dispatch(setOffers(filteredOffers));
-
-          if (priorityRes.data.lead?.all_responses) {
-            setIsFinished(
-              priorityRes.data.lead.all_responses ===
-                priorityRes.data.lead.total_response
-            );
-          } else {
-            setIsFinished(true);
-          }
-          return true;
-        }
-      }
-      return false;
+      return loanOfferRes;
     } catch (err) {
       console.error("Error in offer fetching", err);
       toast.error("Something went wrong while fetching offers.");
@@ -193,18 +240,25 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
       return false;
     }
   };
+  const logoSrc = "/assets/img/newLogo.png";
+
+  const hamburgerSrc = "/assets/img/lp1hamberger.png";
 
   return (
-    <div id="offer-page-v3">
-      {offers.length > 0 ? (
+    <div id="offer-page-v3" className="offer-page-v3">
+      {isOffer.length > 0 ? (
         <>
-          <div className="final-offers-container">
-            <div className="offer-bg-layer" />
-            <h2 className="congrats-text">Congratulations!</h2>
-            <h3 className="sub-text-v1">You’re Pre-Approved for</h3>
-            <h3 className="sub-text-v1">a Personal Loan!</h3>
-          </div>
+          <header className="header">
+            <img src={logoSrc} alt="Digit Money Logo" className="logo-img" />
+            <button className="menu-btn" aria-label="Menu">
+              <img src={hamburgerSrc} alt="Menu" className="hamburger-icon" />
+            </button>
+          </header>
+          {/* <div className="final-offers-container"></div> */}
           <div className="offer-cards-container">
+            {/* <div className="offer-bg-layer" /> */}
+            <h2 className="congrats-text">Thank You for</h2>
+            <h2 className="congrats-text">Applying!</h2>
             {offers.map((offer) => (
               <OfferCard
                 key={offer._id}
@@ -214,8 +268,20 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               />
             ))}
             <p className="disclaimer-offer-text-v3">
-              Choose from these incredible offers that best suit your needs
+              We're thrilled you chose us for your business loan! Your details
+              have been sent to our trusted lending partners for processing,
+              which takes about 2-3 days. You'll be contacted soon with the next
+              steps!
             </p>
+            <hr
+              style={{
+                width: "158px",
+                top: "515px",
+                left: "116px",
+                borderWidth: "1px",
+              }}
+            />
+
             <p className="disclaimer-text">
               *These pre-approved offers are subject to change at discretion of
               Bank / NBFC after receiving all you documents and details. Final
@@ -224,18 +290,61 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             </p>
           </div>
         </>
-      ) : isFinished ? (
-        <div className="no-offers-found">
-          <h2 className="congrats-text">
-            There is no offer for you currently.
-          </h2>
-        </div>
       ) : (
-        <div className="no-offers-found">
-          <h2 className="congrats-text">
-            Please wait while we are searching best offers for you
-          </h2>
-        </div>
+        <>
+          <header className="header">
+            <img src={logoSrc} alt="Digit Money Logo" className="logo-img" />
+            <button className="menu-btn" aria-label="Menu">
+              <img src={hamburgerSrc} alt="Menu" className="hamburger-icon" />
+            </button>
+          </header>
+          {/* <div className="final-offers-container"></div> */}
+          <div className="offer-cards-container1">
+            {/* <div className="offer-bg-layer" /> */}
+            <img
+              src="../../../../../assets/img/Group.png"
+              alt="Digit Money Logo"
+              className="logo-img1"
+            />
+            <h2 className="sry-text">
+              Sorry you are not eligible for Business Loan at the moment.
+            </h2>
+            <h2 className="sry-text2">
+              But don’t worry, lets quickly check your eligibility for Personal
+              Loan
+            </h2>
+            <FormInputStyle2
+              label="Monthly Income"
+              value={monthlyIncome}
+              id="monthlyIncome"
+              onChange={(e) => {
+                let raw = e.target.value.replace(/,/g, "");
+                if (/^\d*$/.test(raw)) {
+                  const formatted = Number(raw).toLocaleString("en-IN");
+                  setMonthlyIncome(formatted);
+                  if (errors.monthlyIncome) {
+                    setErrors((prev) => ({ ...prev, monthlyIncome: false }));
+                  }
+                }
+              }}
+              onBlur={() => {
+                const raw = monthlyIncome.replace(/,/g, "");
+                if (!raw.match(/^\d+$/)) {
+                  setErrors((prev) => ({ ...prev, monthlyIncome: true }));
+                }
+              }}
+              isValid={!errors.monthlyIncome}
+              errorMessage="Enter valid income"
+            />
+            <FormButtonStyle2
+              text="Check My Offers"
+              onClick={handleContinue}
+              disabled={!isFormValid}
+              id="btn-personal-details-landing-v1"
+              className="tracking-btn-personal-details-landing-v1"
+            />
+          </div>
+        </>
       )}
     </div>
   );
