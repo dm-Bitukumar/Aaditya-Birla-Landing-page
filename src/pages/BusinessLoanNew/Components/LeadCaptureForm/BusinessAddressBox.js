@@ -7,6 +7,7 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedAddress, setEditedAddress] = useState("");
   const [lastSavedAddress, setLastSavedAddress] = useState(defaultMessage);
+  const [addressError, setAddressError] = useState("");
   const [selectedAddressType, setSelectedAddressType] = useState(
     data.address_type || ""
   );
@@ -37,11 +38,16 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   };
 
   const handleSave = () => {
-    const newAddress = editedAddress.trim() || defaultMessage;
-    // const newAddress = editedAddress.trim() && editedAddress.trim() !== defaultMessage ? editedAddress.trim() : "";
+    const trimmed = editedAddress.trim();
 
-    handleDataChange("confirm_business_address", newAddress);
-    setLastSavedAddress(newAddress);
+    if (!trimmed || trimmed === defaultMessage) {
+      setAddressError("Please enter a valid business address.");
+      return;
+    }
+
+    setAddressError("");
+    handleDataChange("confirm_business_address", trimmed);
+    setLastSavedAddress(trimmed);
     setIsEditing(false);
   };
 
@@ -62,13 +68,29 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
             Business Address
           </p>
           {isEditing ? (
-            <input
-              type="text"
-              value={editedAddress}
-              onChange={(e) => setEditedAddress(e.target.value)}
-              className="border rounded-md p-2 w-full text-sm"
-              placeholder="Enter your business address"
-            />
+            <>
+              <input
+                type="text"
+                value={editedAddress}
+                onChange={(e) => {
+                  setEditedAddress(e.target.value);
+                  if (
+                    addressError &&
+                    e.target.value.trim() !== defaultMessage &&
+                    e.target.value.trim() !== ""
+                  ) {
+                    setAddressError("");
+                  }
+                }}
+                className={`border rounded-md p-2 w-full text-sm ${
+                  addressError ? "border-red-500" : ""
+                }`}
+                placeholder="Enter your business address"
+              />
+              {addressError && (
+                <p className="text-red-500 text-xs mt-1">{addressError}</p>
+              )}
+            </>
           ) : (
             <p className="text-gray-600 text-xs font-semibold">
               {lastSavedAddress}

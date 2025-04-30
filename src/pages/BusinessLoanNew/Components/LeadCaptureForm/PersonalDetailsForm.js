@@ -6,8 +6,6 @@ import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
-import moment from "moment";
-import GstRegistrationOption from "../../../BusinessLoan/components/GstRegistrationOption";
 import GstRegistrationOptionv1 from "../GstRegistrationOptionV1";
 import { toast } from "react-toastify";
 import callApi from "../../../../utility/apiCaller";
@@ -25,11 +23,12 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [affId, setAffId] = useState("");
   const udyamRegex = /^UDYAM-[A-Z]{2}-\d{2}-\d{7}$/;
   const gstRegex = /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[0-9a-zA-Z]{3}$/;
+  const [isFetchingAddress, setIsFetchingAddress] = useState(false);
   const [data, setData] = useState({
     gst_available: "",
     gst: "",
     residential_type: "",
-    pincode: "",
+    residence_pincode: "",
     pan: "",
   });
 
@@ -49,7 +48,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
   const [touched, setTouched] = useState({
     full_name: false,
-    pincode: false,
+    residence_pincode: false,
     residential_type: false,
     gst: false,
     pan: false,
@@ -186,8 +185,20 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       let updatedData = { ...prevData, [keyName]: keyValue };
 
       if (keyName === "udyam_number") {
-        let formattedValue = keyValue.toUpperCase().replace(/[^A-Z0-9-]/g, "");
-        updatedData.udyam_number = formattedValue;
+        let formatted = keyValue
+          .toUpperCase()
+          .replace(/[^A-Z0-9]/g, "")
+          .slice(0, 16);
+
+        if (formatted.length > 5)
+          formatted = formatted.slice(0, 5) + "-" + formatted.slice(5);
+        if (formatted.length > 8)
+          formatted = formatted.slice(0, 8) + "-" + formatted.slice(8);
+        if (formatted.length > 11)
+          formatted = formatted.slice(0, 11) + "-" + formatted.slice(11);
+        if (formatted.length > 19) formatted = formatted.slice(0, 19);
+
+        updatedData.udyam_number = formatted;
       }
 
       if (keyName === "doi_udyam") {
@@ -235,18 +246,21 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     let isValid = true;
 
     if (touched.pan) {
-      if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.pan.trim())) {
-        console.log("Invalid PAN: ", data.pan);
+      const trimmedPan = data.pan.trim();
+      if (trimmedPan === "") {
+        validationErrors.pan = "";
+      } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(trimmedPan)) {
         validationErrors.pan = "Please enter a valid PAN.";
         isValid = false;
-      } else {
-        setIsPanValid(true);
-        console.log("Valid PAN: ", data.pan);
       }
     }
 
-    if (touched.pincode && data.pincode && !/^\d{6}$/.test(data.pincode)) {
-      validationErrors.pincode = "Please enter a valid Pincode.";
+    if (
+      touched.residence_pincode &&
+      data.residence_pincode &&
+      !/^\d{6}$/.test(data.residence_pincode)
+    ) {
+      validationErrors.residence_pincode = "Please enter a valid Pincode.";
       isValid = false;
     }
 
@@ -275,6 +289,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   };
 
   const fetchGSTAddress = async (gstNumber) => {
+    setIsFetchingAddress(true);
     try {
       const response = await callApi(
         "v1/lender/gst",
@@ -295,10 +310,13 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     } catch (error) {
       console.error("Error fetching GST Address:", error);
       return "Unable to fetch address";
+    } finally {
+      setIsFetchingAddress(false);
     }
   };
 
   const fetchUdyamAddress = async (udyamNumber) => {
+    setIsFetchingAddress(true);
     try {
       const response = await callApi(
         "v1/lender/udyam",
@@ -322,6 +340,8 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     } catch (error) {
       console.error("Error fetching Udyam Address:", error);
       return "Unable to fetch address";
+    } finally {
+      setIsFetchingAddress(false);
     }
   };
 
@@ -349,7 +369,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
   return (
     <div className="personal-details-container">
-      <h2 className="form-title">Personal information</h2>
+      <h2 className="form-title">Personal Information</h2>
       <p className="form-subtitle">
         You're just a few steps away from your ideal loan!
       </p>
@@ -358,7 +378,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           <FormInputStyle2
             type="text"
             name="pan"
-            isValid={isPanValid}
+            isValid={!errors.pan}
             id="pan"
             minLength="10"
             maxLength="10"
@@ -370,15 +390,15 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               }
             }}
             required
+            onBlur={() => handleBlur("pan")}
             label={"Pan Number"}
             inputMode="text"
-            errorMessage={"Please enter a valid PAN Number"}
+            errorMessage={errors.pan}
           />
 
           <FormInputStyle2
             type="text"
             name="residence_pincode"
-            // placeholder="Residence Pincode"
             label="Residence Pincode"
             value={data.residence_pincode}
             onChange={(e) => {
@@ -401,6 +421,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             isValid={!errors.residential_type}
             errorMessage={errors.residential_type}
           />
+
           {/* GST Section */}
           <GstRegistrationOptionv1
             errorMessage={errors.gst_available}
@@ -410,10 +431,11 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             handleBlur={handleBlur}
           />
         </div>
+
         <FormButtonStyle2
           text="Continue"
           onClick={handleContinue}
-          disabled={!isFormValid}
+          disabled={!isFormValid || isPanLoading || isFetchingAddress}
           id="btn-personal-details-landing-v1"
           className="tracking-btn-personal-details-landing-v1"
         />

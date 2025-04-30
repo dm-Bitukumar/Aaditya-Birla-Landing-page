@@ -29,7 +29,10 @@ const FormInputStyle2 = ({
         value={value}
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onBlur={(e) => {
+          setIsFocused(false);
+          if (props.onBlur) props.onBlur(e);
+        }}
         disabled={disabled}
         style={{
           width: "340px",
