@@ -19,13 +19,18 @@
   margin: 20px auto 10px;
 }
 
-.congrats-text {
-  color: #12f280;
-  font-size: 35px;
+.congrats-text10 {
+  font-family: 'Bomstad Display', sans-serif;
   font-weight: 600;
-  line-height: 11px;
-  font-family: myFirstFont;
+  font-size: 35px;
+  line-height: 16px; /* Usually line-height > font-size for readability */
+  letter-spacing: normal; /* Use a unit if you want spacing, or set to normal */
+  text-align: center;
+  margin: 0 auto; /* Optional: to center block element if needed */
+  color: #12F280;
+  ; /* Add color for better visibility (optional) */
 }
+
 
 .sub-text-v1 {
   font-size: 25px;
@@ -38,17 +43,18 @@
   text-align: center;
 }
 
-.offer-cards-container {
+.offer-cards-container10 {
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
-  /* background-image: url("../../../../../../public/assets/img/Key advantages BG.png");
+  /* background-size: contain; /* Change size of the background image */
+  /* background-image: url("../../../../../../public/assets/img/Thank you page bg svg.svg");
   background-size: cover;
-  background-position: center; */
-  margin-top: -25px;
+  background-position: center;  */ 
+  margin-top: -5px;
   padding-top: 5rem;
-  position: relative;
+  /* position: relative; */
   border-radius: 0;
 }
 
@@ -71,7 +77,7 @@
 }
 
 .offer-page-v3{
-  background-image: url("../../../../../../public/assets/img/Key advantages BG.png");
+  background-image: url("../../../../../../public/assets/img/Thankyoupagebg.png");
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -183,7 +189,7 @@
   margin-top: 40px;
 }
 
-.disclaimer-offer-text-v3 {
+.disclaimer-offer-text-v30 {
   padding: 40px 20px 0px 20px;
   font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 400;
@@ -193,6 +199,7 @@
   letter-spacing: 0%;
   text-align: center;
   color: #fff;
+  padding-top: 74px;
 }
 
 .disclaimer-text {
@@ -200,6 +207,7 @@
   color: #5DB989;
   margin-top: 30px;
   padding: 15px 16px;
+  padding-top: 0px;
 }
 
 .amount-row,

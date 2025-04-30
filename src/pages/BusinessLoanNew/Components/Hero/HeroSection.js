@@ -12,7 +12,7 @@ const HeroSection = () => {
       />
 
       <h1 className="hero-heading">
-        Get Instant <br /> Personal Loan
+        Unlock Business <br /> Potential with us.
       </h1>
 
       {/* <TaglineScroller /> */}
