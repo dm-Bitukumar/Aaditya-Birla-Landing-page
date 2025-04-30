@@ -9,12 +9,14 @@ import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { FileText, Trash2 } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
 
 const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [params] = useSearchParams();
   const [leadId, setLeadId] = useState("");
   const [affId, setAffId] = useState("");
+  const user = useSelector((state) => state.app.user);
   const [uploadedFilePaths, setUploadedFilePaths] = useState({
     bank_statement_file: [],
     gst_certificate_file: "",
@@ -156,8 +158,8 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     console.log("isSubmitting:", true);
-
-    if (!formData || !formData.mobile || !formData.pancard) {
+    console.log(formData);
+    if (!formData || !formData.mobile) {
       toast.error("Missing required user details.");
       setIsSubmitting(false);
       console.log("isSubmitting:", false);
@@ -187,78 +189,124 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
       "https://user-loan-documents.s3.ap-south-1.amazonaws.com/";
 
     try {
-      // for (const [docType, file] of fileEntries) {
-      //   console.log("Uploading document:", docType);
-      //   const fileUploadResponse = await uploadFile(
-      //     Array.isArray(file) ? file : [file] // Ensure file is always an array
-      //   );
+      console.log("Starting file upload process...");
 
-      //   if (!fileUploadResponse || fileUploadResponse.length === 0) {
-      //     toast.error(`Upload failed for ${docType}`);
-      //     setIsSubmitting(false);
-      //     console.log("isSubmitting:", false);
-      //     return;
-      //   }
+      for (const [docType, file] of fileEntries) {
+        console.log(`\nUploading document type: ${docType}`);
+        console.log("File(s) to upload:", file);
 
-      //   const formattedFilePath = Array.isArray(fileUploadResponse)
-      //     ? fileUploadResponse.map((path) => `${S3_BASE_URL}${path}`)
-      //     : `${S3_BASE_URL}${fileUploadResponse}`;
-      //   if (docType === "bank_statement") {
-      //     uploadedFiles[`${docType}_file`] = formattedFilePath;
-      //   } else {
-      //     uploadedFiles[`${docType}_file`] = formattedFilePath[0];
-      //   }
-      // }
-      // setUploadedFilePaths(uploadedFiles);
-      // toast.success("All files uploaded successfully!");
-      // console.log("isSubmitting:", true);
+        try {
+          const fileUploadResponse = await uploadFile(
+            Array.isArray(file) ? file : [file]
+          );
 
-      // const payload = {
-      //   businessloanlead: {
-      //     is_stage4_completed: "true",
-      //     contact_phone: formData?.mobile,
-      //     pan_no: formData?.pancard,
-      //     ...uploadedFiles,
-      //   },
-      // };
+          console.log(`Upload response for ${docType}:`, fileUploadResponse);
 
-      // const leadResponse = await callApi(
-      //   "v1/businessloanlead/new-v1",
-      //   "post",
-      //   payload,
-      //   "core"
-      // );
+          if (!fileUploadResponse || fileUploadResponse.length === 0) {
+            toast.error(`❌ Upload failed for ${docType}`);
+            setIsSubmitting(false);
+            console.log("isSubmitting set to:", false);
+            return; // Optional: could use continue if you want to skip failed files instead of stopping
+          }
 
-      // if (leadResponse?.status === "Success") {
-      //   setUserClickData({
-      //     event_name: "step4-file-upload-completed-for-business-loan-v1",
-      //     user_id: formData.mobile || "unknown",
-      //     affiliate_id: affId || "No Aff_id found",
-      //   });
-      //   const leadId = leadResponse.data.businessloanlead?.lead?._id;
-      //   console.log("Lead ID:", leadId);
-      //   localStorage.setItem("lead_id", leadId);
-      //   toast.success("Lead successfully created!");
+          const formattedFilePath = Array.isArray(fileUploadResponse)
+            ? fileUploadResponse.map((path) => `${S3_BASE_URL}${path}`)
+            : [`${S3_BASE_URL}${fileUploadResponse}`];
 
-      //   try {
-      //     await callApi(
-      //       "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
-      //       "post",
-      //       {
-      //         lead_id: leadId,
-      //         is_document_upload: "Yes",
-      //       },
-      //       "core"
-      //     );
+          console.log(`Formatted file path for ${docType}:`, formattedFilePath);
 
-      //     console.log("ICAN API call successful!");
-      //   } catch (err) {
-      //     console.warn("ICAN API call failed:", err);
-      //   }
-      setCurrentStep(5);
-      // } else {
-      //   toast.error("Error submitting lead data. Please try again.");
-      // }
+          if (docType === "bank_statement") {
+            uploadedFiles[`${docType}_file`] = formattedFilePath;
+          } else {
+            uploadedFiles[`${docType}_file`] = formattedFilePath[0];
+          }
+
+          console.log(`Uploaded file stored under key: ${docType}_file`);
+        } catch (error) {
+          console.error(`❌ Error uploading file for ${docType}:`, error);
+          toast.error(`Upload error for ${docType}`);
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
+      console.log(
+        "\nAll files uploaded. Final uploadedFiles object:",
+        uploadedFiles
+      );
+      setUploadedFilePaths(uploadedFiles);
+      toast.success("✅ All files uploaded successfully!");
+
+      console.log("isSubmitting:", true);
+
+      const payload = {
+        businessloanlead: {
+          is_stage4_completed: "true",
+          contact_phone: formData?.mobile,
+          pan_no: formData?.pancard,
+          ...uploadedFiles,
+        },
+      };
+
+      const leadResponse = await callApi(
+        "v1/businessloanlead/new-v1",
+        "post",
+        payload,
+        "core"
+      );
+
+      if (leadResponse?.status === "Success") {
+        setUserClickData({
+          event_name: "step4-file-upload-completed-for-business-loan-v1",
+          user_id: formData.mobile || "unknown",
+          affiliate_id: affId || "No Aff_id found",
+        });
+        const leadId = leadResponse.data.businessloanlead?.lead?._id;
+        console.log("Lead ID:", leadId);
+        localStorage.setItem("lead_id", leadId);
+        toast.success("Lead successfully created!");
+
+        try {
+          await callApi(
+            "v1/lead/process-lead-for-bl-to-docUpload",
+            "post",
+            {
+              lead_id: leadId,
+            },
+            "core",
+            user.token
+          );
+
+          console.log("DocUpload API call successful!");
+        } catch (err) {
+          console.warn("DocUpload API call failed:", err);
+        }
+
+        setUserClickData({
+          event_name: "doc-file-upload-api-completed-for-business-loan-v1",
+          user_id: formData.mobile || "unknown",
+          affiliate_id: affId || "No Aff_id found",
+        });
+
+        try {
+          await callApi(
+            "v1/ican_api/bl-data-send-with-offers-to-ican_for_update",
+            "post",
+            {
+              lead_id: leadId,
+              is_document_upload: "Yes",
+            },
+            "core"
+          );
+
+          console.log("ICAN API call successful!");
+        } catch (err) {
+          console.warn("ICAN API call failed:", err);
+        }
+        setCurrentStep(5);
+      } else {
+        toast.error("Error submitting lead data. Please try again.");
+      }
     } catch (err) {
       toast.error("Error uploading files. Please try again.");
       console.error(err);

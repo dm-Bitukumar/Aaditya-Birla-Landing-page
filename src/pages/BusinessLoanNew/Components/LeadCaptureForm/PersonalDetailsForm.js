@@ -6,6 +6,8 @@ import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
+import moment from "moment";
+import GstRegistrationOption from "../../../BusinessLoan/components/GstRegistrationOption";
 import GstRegistrationOptionv1 from "../GstRegistrationOptionV1";
 import { toast } from "react-toastify";
 import callApi from "../../../../utility/apiCaller";
@@ -77,9 +79,9 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
         if (res.status === "Success") {
           setUserClickData({
-            event_name: `details-fetched-for-pl-pan-${pan || "unknown"}`,
+            event_name: `details-fetched-for-pl-pan-${data.pan || "unknown"}`,
             user_id: formData.mobile || "unknown",
-            affiliate_id: formData.affId || "No Aff_id found",
+            affiliate_id: affId || "No Aff_id found",
           });
           const { first_name, last_name, gender, dob, fullname } =
             res.data || {};
@@ -114,7 +116,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               is_gst: isGst,
               is_udyam: isUdyam,
               udyamno: isUdyam ? data.udyam_number : "",
-              date_of_incorporation: data.doi_udyam,
+              doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
               gst_no: isGst ? data.gst : "",
               is_stage1_completed: "true",
               work_address1: fetchedAddress,
@@ -134,6 +136,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               setUserClickData({
                 event_name: "step1-business-loan-page-completed",
                 user_id: formData.mobile || "unknown",
+                affiliate_id: affId || "No Aff_id found",
               });
             } else {
               toast.error("Failed to update data.");
@@ -155,7 +158,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             is_udyam: isUdyam,
             gst: data.gst,
             udyam_number: data.udyam_number,
-            date_of_incorporation: data.doi_udyam,
+            doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
             confirm_business_address: fetchedAddress,
           }));
           console.log(formData);
@@ -203,12 +206,37 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
       if (keyName === "doi_udyam") {
         let formattedValue = keyValue.trim();
-        const [day, month, year] = formattedValue.split("-");
 
-        if (day && month && year) {
-          updatedData.date_of_incorporation = `${year}-${month}-${day}`;
-        } else {
-          updatedData.date_of_incorporation = formattedValue;
+        // Allow clearing the field
+        if (!formattedValue) {
+          updatedData.doi_udyam = "";
+        }
+        // Only validate when the user has typed exactly 10 characters (dd-mm-yyyy)
+        else if (formattedValue.length === 10) {
+          const dateRegex = /^(\d{2})-(\d{2})-(\d{4})$/;
+          const match = formattedValue.match(dateRegex);
+
+          if (match) {
+            const [, day, month, year] = match;
+            const momentDate = moment(
+              `${day}-${month}-${year}`,
+              "DD-MM-YYYY",
+              true
+            );
+            if (momentDate.isValid()) {
+              updatedData.doi_udyam = momentDate.format("YYYY-MM-DD");
+            } else {
+              console.warn("Invalid date provided:", formattedValue);
+              updatedData.doi_udyam = "";
+            }
+          } else {
+            console.warn("Invalid date format. Expected dd-mm-yyyy");
+            updatedData.doi_udyam = "";
+          }
+        }
+        // Don't process or log anything until 10 characters are typed
+        else {
+          updatedData.doi_udyam = formattedValue;
         }
       }
 
@@ -234,7 +262,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       if (keyName === "gst_available") {
         updatedData.udyam_available = "";
         updatedData.udyam_number = "";
-        updatedData.date_of_incorporation = "";
+        updatedData.doi_udyam = "";
       }
 
       return updatedData;
