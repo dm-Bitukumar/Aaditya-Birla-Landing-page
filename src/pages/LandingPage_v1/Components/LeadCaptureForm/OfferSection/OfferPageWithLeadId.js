@@ -63,7 +63,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [leadId]);
+  }, [leadId, activeLenders.length]);
 
   useEffect(() => {
     if (offers.length > 0 && !expandedOfferId) {
