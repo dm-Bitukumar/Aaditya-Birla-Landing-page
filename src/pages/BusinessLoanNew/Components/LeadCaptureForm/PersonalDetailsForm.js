@@ -106,6 +106,11 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           const isGst = data.gst_available === "yes";
           const isUdyam = data.udyam_available === "yes";
 
+          const doiUdyam =
+            data.doi_udyam && moment(data.doi_udyam).isValid()
+              ? moment(data.doi_udyam).format("YYYY-MM-DD")
+              : undefined;
+
           const payload = {
             businessloanlead: {
               contact_phone: formData.mobile,
@@ -116,8 +121,8 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               is_gst: isGst,
               is_udyam: isUdyam,
               udyamno: isUdyam ? data.udyam_number : "",
-              doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
-              gst_no: isGst ? data.gst : "",
+              ...(doiUdyam && { doi_udyam: doiUdyam }), // Adds only if doiUdyam is truthy
+              gst: isGst ? data.gst : "",
               is_stage1_completed: "true",
               work_address1: fetchedAddress,
             },
