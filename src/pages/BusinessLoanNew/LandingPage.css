@@ -1,6 +1,17 @@
 .landing-page-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 425px;
+  margin: auto;
+  background-image: url("../../../public/assets/img/2nd design main BG.svg");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  font-family: "Montserrat", sans-serif;
+}
+
+.landing-page-container-bl {
+  width: 100%;
+  max-width: 425px;
   margin: auto;
   background-image: url("../../../public/assets/img/2nd design main BG.svg");
   background-size: cover;
@@ -12,3 +23,8 @@
 .landing-page-v1 {
   padding: 15px 20px;
 }
+
+.landing-page-bl-v1 {
+  padding-top: 0px;
+}
+
