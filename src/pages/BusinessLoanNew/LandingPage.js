@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Components/Header/Header";
+import Header1 from "../LandingPage_v3/Components/Header/Header";
 import GoogleRatingCard from "./Components/GoogleRatingCard/GoogleRatingCard";
 import HeroSection from "./Components/Hero/HeroSection";
 import TaglineScroller from "./Components/Hero/TaglineScroller";
@@ -53,9 +54,9 @@ const LandingPage = () => {
           style="display:none;visibility:hidden"
         ></iframe>
       </noscript>
-      <div className={"landing-page-container"} style={{ maxHeight: "100vh" }}>
-        <div className={"landing-page-v1"}>
-          <Header />
+      <div className={"landing-page-container"} style={{ height: "100vh" }}>
+        <div className={currentStep === 6 ? "landing-page-v1" : ""}>
+          {currentStep !== 6 && <Header />}
 
           {!isFormStarted && <GoogleRatingCard />}
           {!isFormStarted && (

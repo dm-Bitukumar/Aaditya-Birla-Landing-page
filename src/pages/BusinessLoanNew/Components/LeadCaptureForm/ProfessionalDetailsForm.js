@@ -259,23 +259,6 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const isFormValid = invalidFields.length === 0;
 
   const handleContinue = async () => {
-    if (data.confirm_business_address) {
-      const updatedFormData = {
-        work_address1: data.confirm_business_address,
-        annual_turnover: data.annual_turnover,
-        industry: data.industry,
-        business_type: data.address_type,
-        ownership: data.ownership,
-      };
-
-      setFormData((prev) => ({
-        ...prev,
-        ...updatedFormData,
-      }));
-
-      console.log("Setting form data:", updatedFormData);
-    }
-
     if (isFormValid) {
       const payload = {
         businessloanlead: {
@@ -287,7 +270,6 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           annual_turnover: data.annual_turnover,
           industry: data.industry,
           is_stage2_completed: "true",
-          leadId: leadId,
         },
       };
 
@@ -317,7 +299,24 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
           const _leadId = leadCreateResponse.data.businessloanlead?.lead?._id;
           setLeadId(_leadId); // update state
+          if (data.confirm_business_address) {
+            const updatedFormData = {
+              work_address1: data.confirm_business_address,
+              annual_turnover: data.annual_turnover,
+              industry: data.industry,
+              business_type: data.address_type,
+              ownership: data.ownership,
+              leadId: _leadId,
+              stepDone: 4,
+            };
 
+            setFormData((prev) => ({
+              ...prev,
+              ...updatedFormData,
+            }));
+
+            console.log("Setting form data:", updatedFormData);
+          }
           try {
             console.log(`Submitting Lead API for leadId: ${_leadId}`);
             const leadSubmitResponse = await callApi(
@@ -407,7 +406,6 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             isValid={!errors.industry}
             errorMessage={errors.industry}
           />
-
           <BusinessAddressBox
             data={{
               ...formData,
