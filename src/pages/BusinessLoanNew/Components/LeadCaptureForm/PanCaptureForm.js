@@ -214,7 +214,7 @@ const PanCaptureForm = ({
         }));
 
         toast.success("PAN verified and data fetched successfully.");
-        setCurrentStep(3);
+        // setCurrentStep(3);
       } else {
         console.error("PAN API returned an error:", res.message);
         toast.error("Failed to fetch data from PAN. Please try again.");

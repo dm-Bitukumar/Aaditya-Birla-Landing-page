@@ -22,12 +22,14 @@ import OfferPage from "./Components/LeadCaptureForm/OfferSection/OffersPage";
 import { useSearchParams } from "react-router-dom";
 import { setUserClickData } from "../../utility/setUserClickData";
 import DocumentUploadForm from "./Components/LeadCaptureForm/DocumentUploadForm";
+import { useSelector } from "react-redux";
 
 const LandingPage = () => {
   const [isFormStarted, setIsFormStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [params] = useSearchParams();
+  const lead = useSelector((state) => state.app.lead);
   useEffect(() => {
     window.onbeforeunload = () => {
       sessionStorage.removeItem("isFormStarted");
@@ -38,7 +40,7 @@ const LandingPage = () => {
       setIsFormStarted(true);
     }
     setUserClickData({
-      event_name: "pageview-website-pl-pan",
+      event_name: "pageview-website-bl-new",
       user_id: "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
@@ -56,10 +58,10 @@ const LandingPage = () => {
       </noscript>
       <div className={"landing-page-container-bl"} style={{ height: "100vh" }}>
         <div
-          className={currentStep === 6 ? "landing-page-bl-v1" : ""}
-          style={currentStep === 6 ? { paddingTop: 0 } : {}}
+          className={currentStep === 5 ? "landing-page-bl-v1" : ""}
+          style={currentStep === 5 ? { paddingTop: 0 } : {}}
         >
-          {currentStep !== 6 && <Header />}
+          {currentStep !== 5 && <Header />}
 
           {!isFormStarted && <GoogleRatingCard />}
           {!isFormStarted && (
@@ -72,7 +74,7 @@ const LandingPage = () => {
         {!isFormStarted && <TaglineScroller />}
 
         <div>
-          {isFormStarted && currentStep !== 6 && (
+          {isFormStarted && currentStep !== 5 && (
             <ProgressHeader
               step={currentStep}
               onBack={() => {
@@ -83,7 +85,7 @@ const LandingPage = () => {
                   const form = document.getElementById("personal-loan-form");
                   if (form?.resetOtpState) form.resetOtpState();
                 } else {
-                  if (currentStep === 4) {
+                  if (currentStep === 3) {
                     const latestData = getProfessionalFormData();
                     console.log("📦 Saving this to formData:", latestData);
                     setFormData((prev) => ({ ...prev, ...latestData }));
@@ -110,19 +112,6 @@ const LandingPage = () => {
             )}
 
             {currentStep === 2 && (
-              <PanCaptureForm
-                setCurrentStep={setCurrentStep}
-                currentStep={currentStep}
-                setIsFormStarted={() => {
-                  sessionStorage.setItem("isFormStarted", "true");
-                  setIsFormStarted(true);
-                }}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-
-            {currentStep === 3 && (
               <PersonalDetailsForm
                 setCurrentStep={setCurrentStep}
                 currentStep={currentStep}
@@ -135,7 +124,7 @@ const LandingPage = () => {
               />
             )}
 
-            {currentStep === 4 && (
+            {currentStep === 3 && (
               <ProfessionalDetailsForm
                 setCurrentStep={setCurrentStep}
                 currentStep={currentStep}
@@ -148,7 +137,7 @@ const LandingPage = () => {
               />
             )}
 
-            {currentStep === 5 && (
+            {currentStep === 4 && (
               <DocumentUploadForm
                 setCurrentStep={setCurrentStep}
                 currentStep={currentStep}
@@ -161,7 +150,7 @@ const LandingPage = () => {
               />
             )}
 
-            {currentStep === 6 && (
+            {currentStep === 5 && (
               <OfferPage
                 formData={formData}
                 setFormData={setFormData}

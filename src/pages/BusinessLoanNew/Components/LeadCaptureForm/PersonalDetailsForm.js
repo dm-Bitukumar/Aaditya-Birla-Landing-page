@@ -160,7 +160,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           }));
           console.log(formData);
           toast.success("PAN verified and data fetched successfully.");
-          setCurrentStep(4);
+          setCurrentStep(3);
         } else {
           console.error("PAN API returned an error:", res.message);
           toast.error("Failed to fetch data from PAN. Please try again.");
@@ -175,7 +175,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         user_id: formData.mobile || "No User ID found here",
         affiliate_id: affId || "No Aff_id found",
       });
-      setCurrentStep(4);
+      setCurrentStep(3);
     }
     console.log(isValid);
   };

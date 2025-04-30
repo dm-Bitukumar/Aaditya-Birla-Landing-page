@@ -28,9 +28,9 @@ const ProgressHeader = ({ step = 1, onBack }) => {
             <div className={`step-circle ${step >= 2 ? "active" : ""}`} />
             <span className="step-label">Step 2</span>
           </div>
-          <div className={`step-line-1 ${step === 5 ? "active" : ""}`} />
+          <div className={`step-line-1 ${step === 3 ? "active" : ""}`} />
           <div className="step-item">
-            <div className={`step-circle ${step === 5 ? "active" : ""}`} />
+            <div className={`step-circle ${step === 3 ? "active" : ""}`} />
             <span className="step-label">Step 3</span>
           </div>
         </div>

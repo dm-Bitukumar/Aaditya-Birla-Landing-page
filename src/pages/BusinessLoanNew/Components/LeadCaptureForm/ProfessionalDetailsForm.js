@@ -344,7 +344,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
                 },
                 "core"
               );
-              setCurrentStep(5);
+              setCurrentStep(4);
             } else {
               console.warn(
                 "Lead API did not return success:",
