@@ -54,8 +54,11 @@ const LandingPage = () => {
           style="display:none;visibility:hidden"
         ></iframe>
       </noscript>
-      <div className={"landing-page-container"} style={{ height: "100vh" }}>
-        <div className={currentStep === 6 ? "landing-page-v1" : ""}>
+      <div className={"landing-page-container-bl"} style={{ height: "100vh" }}>
+        <div
+          className={currentStep === 6 ? "landing-page-bl-v1" : ""}
+          style={currentStep === 6 ? { paddingTop: 0 } : {}}
+        >
           {currentStep !== 6 && <Header />}
 
           {!isFormStarted && <GoogleRatingCard />}

@@ -255,10 +255,11 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             </button>
           </header>
           {/* <div className="final-offers-container"></div> */}
-          <div className="offer-cards-container">
+          <div className="offer-cards-container10">
+            {/* <img src="../../../../../assets/img/Thank you page bg svg.svg" /> */}
             {/* <div className="offer-bg-layer" /> */}
-            <h2 className="congrats-text">Thank You for</h2>
-            <h2 className="congrats-text">Applying!</h2>
+            <h2 className="congrats-text10">Thank You for</h2>
+            <h2 className="congrats-text10">Applying!</h2>
             {offers.map((offer) => (
               <OfferCard
                 key={offer._id}
@@ -267,18 +268,21 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
                 onExpand={() => setExpandedOfferId(offer._id)}
               />
             ))}
-            <p className="disclaimer-offer-text-v3">
-              We're thrilled you chose us for your business loan! Your details
+            <p className="disclaimer-offer-text-v30">
+              We're thrilled you choose us for your business loan! Your details
               have been sent to our trusted lending partners for processing,
               which takes about 2-3 days. You'll be contacted soon with the next
               steps!
             </p>
+
             <hr
               style={{
+                height: "2px",
                 width: "158px",
                 top: "515px",
                 left: "116px",
-                borderWidth: "1px",
+                borderWidth: "2px",
+                color: "#5DB989",
               }}
             />
 
