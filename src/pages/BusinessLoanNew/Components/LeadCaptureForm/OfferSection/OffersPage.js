@@ -101,7 +101,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     const payload = {
       businessloanlead: {
         contact_phone: formData.mobile,
-        monthlyIncome: plainMonthlyIncome,
+        monthly_income: parseInt(plainMonthlyIncome),
         is_stage5_completed: "true",
       },
     };
