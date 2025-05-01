@@ -56,7 +56,26 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
                   offer.lender_name.includes(lender)
                 )
             );
-            if (filteredOffers.length > 0) {
+            const includedLenders = firstResult.data.offers.filter((offer) =>
+              excludedLenders.some((lender) =>
+                offer.lender_name.includes(lender)
+              )
+            );
+            if (includedLenders.length > 0) {
+              setisOffer(firstResult.data.offers);
+            }
+            // } else if (
+            //   formData.is_stage4_completed === true &&
+            //   includedLenders.length > 0
+            // ) {
+            //   navigate(`/offer-page-bl?lid=${formData._id}`, {
+            //     state: {
+            //       ...formData,
+            //       _id: formData._id,
+            //     },
+            //   });
+            // }
+            else if (filteredOffers.length > 0) {
               navigate(`/offer-page-v1?lid=${formData._id}`, {
                 state: {
                   ...formData,
