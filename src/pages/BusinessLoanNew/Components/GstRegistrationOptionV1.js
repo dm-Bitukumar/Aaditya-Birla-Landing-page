@@ -16,7 +16,9 @@ const GstRegistrationOptionv1 = ({
       </div>
 
       <CustomSquareRadioWithIconV1
+        value={data.gst_available}
         onChange={(value) => handleDataChange("gst_available", value)}
+        name="gst_available"
       />
 
       {data.gst_available === "yes" && (
@@ -47,7 +49,9 @@ const GstRegistrationOptionv1 = ({
           </div>
 
           <CustomSquareRadioWithIconV1
+            value={data.udyam_available}
             onChange={(value) => handleDataChange("udyam_available", value)}
+            name="udyam_available"
           />
 
           {data.udyam_available === "yes" && (
