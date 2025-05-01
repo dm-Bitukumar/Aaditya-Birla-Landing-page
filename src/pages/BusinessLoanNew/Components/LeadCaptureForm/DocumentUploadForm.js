@@ -17,6 +17,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
   const [leadId, setLeadId] = useState("");
   const [affId, setAffId] = useState("");
   const user = useSelector((state) => state.app.user);
+  const lead = useSelector((state) => state.app.lead);
   const [uploadedFilePaths, setUploadedFilePaths] = useState({
     bank_statement_file: [],
     gst_certificate_file: "",
@@ -48,7 +49,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
   const MAX_FILE_SIZE_MB = 2;
   const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024;
 
-  console.log("ID in document upload: ",formData._id);
+  console.log("ID in document upload: ", formData._id);
 
   useEffect(() => {
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
@@ -126,7 +127,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
       selectedFiles = [selectedFiles];
     }
     console.log(formData);
-    if (!formData.leadId) {
+    if (!formData._id) {
       console.error("leadId is required for file uploads.");
       return [];
     }
@@ -245,11 +246,11 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
         businessloanlead: {
           is_stage4_completed: "true",
           contact_phone: formData?.mobile,
-          pan_no: formData?.pancard,
           ...uploadedFiles,
         },
       };
-
+      console.log("Payload for API call:", payload);
+      console.log("Form data:", formData);
       const leadResponse = await callApi(
         "v1/businessloanlead/new-v1",
         "post",

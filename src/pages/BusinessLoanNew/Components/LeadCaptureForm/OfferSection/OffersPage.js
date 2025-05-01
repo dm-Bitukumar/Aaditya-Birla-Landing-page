@@ -35,7 +35,29 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [monthlyIncome, setMonthlyIncome] = useState(
     formData.monthlyIncome || ""
   );
-  console.log("ID in offer upload: ",formData._id);
+  console.log("ID in offer upload: ", formData._id);
+
+  useEffect(() => {
+    try {
+      const fetchAndSetOffers = async () => {
+        const firstResult = await fetchOffers(formData._id);
+        if (firstResult && firstResult.status === "Success") {
+          if (firstResult.data.offers.length > 0) {
+            setisOffer(firstResult.data.offers);
+          }
+        }
+      };
+
+      fetchAndSetOffers();
+    } catch (err) {
+      toast("Some error occurred", { hideProgressBar: true, type: "error" });
+      console.log(err);
+    }
+  }, [formData._id]);
+
+  useEffect(() => {
+    if (params.get("aff_id")) setAffId(params.get("aff_id"));
+  }, [params]);
   const dummyOffers = [
     // {
     //   _id: "offer1",
