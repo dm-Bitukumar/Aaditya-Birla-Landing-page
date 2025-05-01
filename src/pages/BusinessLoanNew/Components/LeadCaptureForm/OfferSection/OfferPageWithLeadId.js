@@ -73,17 +73,16 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
 
   const fetchActiveLenders = async () => {
     try {
-      const res = await callApi(`v1/lender/active-lenders`, "get", {}, "loan");
+      const res = await callApi(
+        `v1/lender/active-business-lenders`,
+        "get",
+        {},
+        "loan"
+      );
       if (res.status === "Success") {
         const apiLenders = res.data.lenderList ?? [];
 
-        const hardcodedLender = {
-          _id: "662752eb65fdba1a48d6e482",
-          lender_name: "L&T",
-        };
-
-        const mergedLenders = [...apiLenders, hardcodedLender];
-
+        const mergedLenders = [...apiLenders];
         setActiveLenders(mergedLenders);
       }
     } catch (err) {
@@ -94,7 +93,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const submitLead = async () => {
     console.log("Submit Lead called");
     setUserClickData({
-      event_name: "personal-detail-api-v2-for-pl-pan",
+      event_name: "personal-detail-api-business-loan",
       user_id: formData.mobile || "No User ID found here",
     });
     try {
@@ -134,7 +133,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         );
         if (processLeadRes.status === "Success") {
           setUserClickData({
-            event_name: "process-lead-for-loan-personal-loan-v2-for-pl-pan",
+            event_name: "process-lead-for-business-loan",
             user_id: contactPhone || leadId || "No User ID found here",
           });
           fetchOffers(newLeadId);
@@ -177,21 +176,11 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             ["priority"],
             ["asc"]
           );
-          // let filteredOffers = activeLenders.length
-          //   ? sortedOffers.filter((offer) =>
-          //       activeLenders.some((lender) => lender._id === offer.lender_id)
-          //     )
-          //   : sortedOffers;
           const filteredOffers = activeLenders.length
-            ? sortedOffers.filter(
-                (offer) =>
-                  activeLenders.some(
-                    (lender) => lender._id === offer.lender_id
-                  ) && offer.alliance_id === "business_loan"
+            ? sortedOffers.filter((offer) =>
+                activeLenders.some((lender) => lender._id === offer.lender_id)
               )
-            : sortedOffers.filter(
-                (offer) => offer.alliance_id === "business_loan"
-              );
+            : sortedOffers;
           dispatch(setOffers(filteredOffers));
 
           if (priorityRes.data.lead?.all_responses) {
