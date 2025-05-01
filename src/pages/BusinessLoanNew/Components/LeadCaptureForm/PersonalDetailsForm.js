@@ -466,7 +466,11 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         </div>
 
         <FormButtonStyle2
-          text="Continue"
+          text={
+            isPanLoading || isFetchingAddress
+              ? "Fetching"
+              : "Continue"
+          }
           onClick={handleContinue}
           disabled={!isFormValid || isPanLoading || isFetchingAddress}
           id="btn-personal-details-landing-v1"

@@ -13,18 +13,15 @@ const BusinessAddressBox = ({ data = {}, handleDataChange }) => {
   );
 
   useEffect(() => {
-    if (
-      data.confirm_business_address &&
-      data.confirm_business_address !== defaultMessage
-    ) {
-      setLastSavedAddress(data.confirm_business_address);
-      setEditedAddress(data.confirm_business_address);
-      handleDataChange(
-        "confirm_business_address",
-        data.confirm_business_address
-      );
+    const fallbackAddress =
+      data.confirm_business_address || data.work_address1 || defaultMessage;
+
+    if (fallbackAddress && fallbackAddress !== defaultMessage) {
+      setLastSavedAddress(fallbackAddress);
+      setEditedAddress(fallbackAddress);
+      handleDataChange("confirm_business_address", fallbackAddress);
     }
-  }, [data.confirm_business_address]);
+  }, [data.confirm_business_address, data.work_address1]);
 
   useEffect(() => {
     if (data.address_type) {
