@@ -38,6 +38,8 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     ownership: "",
   });
 
+  console.log("formData ID in ProfessionalDetailsForm", formData._id);
+  console.log("formData ID in ProfessionalDetailsForm", formData.work_address1);
   useEffect(() => {
     console.log("Offers from Redux (in render):", offers);
   }, [offers]);
@@ -180,7 +182,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
 
     console.log("Starting offer retry loop...");
     fetchWithRetry();
-  }, [leadSubmitSuccess]); // 🔥 only run when leadSubmitSuccess becomes true
+  }, [leadSubmitSuccess]);
 
   const fetchOffers = async () => {
     if (!leadId) return;

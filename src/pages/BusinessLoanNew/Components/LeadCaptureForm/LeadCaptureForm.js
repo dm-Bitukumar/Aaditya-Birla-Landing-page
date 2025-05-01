@@ -232,9 +232,9 @@ const LeadCaptureForm = ({
               dispatch(setLead(lead));
               if (lead.is_stage1_completed !== "true") {
                 setCurrentStep(2);
-              } else if (lead.is_stage2_completed !== "true") {
-                setCurrentStep(3);
               } else if (lead.is_stage3_completed !== "true") {
+                setCurrentStep(3);
+              } else if (lead.is_stage4_completed !== "true") {
                 setCurrentStep(4);
               } else {
                 setCurrentStep(5);
@@ -374,7 +374,17 @@ const LeadCaptureForm = ({
                 justifyContent: "center",
               }}
               placeholder={"----"}
-              renderInput={(props) => <input {...props} />}
+              renderInput={(props) => (
+                <input
+                  {...props}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (/^\d?$/.test(val)) {
+                      props.onChange(e);
+                    }
+                  }}
+                />
+              )}
             />
           </div>
 
