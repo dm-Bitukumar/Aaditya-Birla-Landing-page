@@ -494,11 +494,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
                         className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm"
                       >
                         <div className="flex items-center gap-2">
-                          {/* <img
-                            src="/pdf-icon.svg"
-                            alt="PDF"
-                            className="w-5 h-5"
-                          /> */}
+                          <img src="/pdf.png" alt="PDF" className="w-5 h-5" />
                           <FileText size={16} />
                           <p className="text-sm font-medium text-gray-700 truncate max-w-[200px]">
                             {file.name}
