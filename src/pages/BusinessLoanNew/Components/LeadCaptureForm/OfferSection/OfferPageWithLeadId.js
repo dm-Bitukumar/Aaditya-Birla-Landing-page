@@ -37,7 +37,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     if (params.get("utm_term")) setUtmTerm(params.get("utm_term"));
     if (params.get("lid")) setLeadId(params.get("lid"));
   }, [params]);
-
+  console.log("Page opened");
   useEffect(() => {
     fetchActiveLenders();
   }, []);
