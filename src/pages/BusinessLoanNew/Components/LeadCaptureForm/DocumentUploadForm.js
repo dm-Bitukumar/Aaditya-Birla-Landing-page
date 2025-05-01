@@ -48,6 +48,8 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
   const MAX_FILE_SIZE_MB = 2;
   const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024;
 
+  console.log("ID in document upload: ",formData._id);
+
   useEffect(() => {
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
   }, [params]);

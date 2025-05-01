@@ -35,6 +35,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [monthlyIncome, setMonthlyIncome] = useState(
     formData.monthlyIncome || ""
   );
+  console.log("ID in offer upload: ",formData._id);
   const dummyOffers = [
     // {
     //   _id: "offer1",
@@ -314,7 +315,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
               Sorry you are not eligible for Business Loan at the moment.
             </h2>
             <h2 className="sry-text2">
-              But don’t worry, lets quickly check your eligibility for Personal
+              But don’t worry, lets quickly check your eligibility for Personal
               Loan
             </h2>
             <FormInputStyle2
