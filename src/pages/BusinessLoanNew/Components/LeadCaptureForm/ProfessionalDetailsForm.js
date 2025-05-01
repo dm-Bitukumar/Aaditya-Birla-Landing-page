@@ -153,7 +153,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         ) {
           console.log("Triggering Call Center API...");
           setHasTriggeredCallCenterApi(true);
-          triggerCallCenterApi();
+          // triggerCallCenterApi();
         } else {
           if (
             !hasTriggeredCallCenterApi &&
@@ -163,7 +163,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           ) {
             console.log("Triggering Call Center API...");
             setHasTriggeredCallCenterApi(true);
-            triggerCallCenterApi();
+            // triggerCallCenterApi();
           } else {
             console.log("Call Center API not triggered. Conditions not met:");
             console.log(
