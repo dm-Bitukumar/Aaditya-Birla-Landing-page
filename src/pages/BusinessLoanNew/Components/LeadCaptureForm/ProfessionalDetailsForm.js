@@ -243,6 +243,7 @@ const ProfessionalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           residence_type: leadDetails.residence_type || "",
           gst_number: leadDetails.gst || "",
           udyam_number: leadDetails.udyamno || "",
+          date_of_incorporation: leadDetails.doi_udyam?.split("T")[0] || "",
           annual_turnover: leadDetails.annual_turnover || "",
           industry: leadDetails.industry || "",
           business_address: leadDetails.work_address1 || "",

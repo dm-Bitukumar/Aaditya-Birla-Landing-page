@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOffer, setisOffer] = useState([]);
   const [params] = useSearchParams();
   const [leadId, setLeadId] = useState("");
   const [affId, setAffId] = useState("");
@@ -158,6 +159,26 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
     return uploadedPaths;
   };
 
+  const fetchOffers = async (leadId) => {
+    if (!leadId) return false;
+
+    try {
+      const loanOfferRes = await callApi(
+        `v1/loan_offer/lead_id/${leadId}`,
+        "get",
+        {},
+        "core",
+        user.token
+      );
+
+      return loanOfferRes;
+    } catch (err) {
+      console.error("Error in offer fetching", err);
+      toast.error("Something went wrong while fetching offers.");
+      return false;
+    }
+  };
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     console.log("isSubmitting:", true);
@@ -280,7 +301,31 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
             user.token
           );
 
-          console.log("DocUpload API call successful!");
+          try {
+            console.log("DocUpload API call successful!");
+
+            const fetchAndSetOffers = async () => {
+              const firstResult = await fetchOffers(formData._id);
+              if (firstResult && firstResult.status === "Success") {
+                if (firstResult.data.offers.length > 0) {
+                  await callApi(
+                    "v1/sms/send-bl-lead-sms",
+                    "post",
+                    {
+                      lead: formData,
+                      offers: firstResult.data.offers,
+                    },
+                    "messaging",
+                    user.token
+                  );
+                }
+              }
+            };
+
+            await fetchAndSetOffers(); // <-- This was missing
+          } catch (err) {
+            console.warn("DocUpload API call failed:", err);
+          }
         } catch (err) {
           console.warn("DocUpload API call failed:", err);
         }
@@ -323,7 +368,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
   const triggerCallCenterApi = async (leadId) => {
     try {
       console.log("triggerCallCenterApi");
-  
+
       const leadDetailsResponse = await callApi(
         "v1/lead/list",
         "post",
@@ -332,19 +377,19 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
         },
         "core"
       );
-  
+
       if (
         leadDetailsResponse.status === "Success" &&
         Array.isArray(leadDetailsResponse.data?.leadList) &&
         leadDetailsResponse.data.leadList.length > 0
       ) {
         const leadDetails = leadDetailsResponse.data.leadList[0];
-  
+
         const bankStatements = leadDetails.bank_statement_file || [];
         const bank_statementOne = bankStatements[0] || "";
         const bank_statementTwo = bankStatements[1] || "";
         const bank_statementThree = bankStatements[2] || "";
-  
+
         const payload = {
           leadid: leadDetails._id || "",
           name: leadDetails.contact_name || "",
@@ -369,16 +414,16 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
           pan_card: leadDetails.pan_card_file || "",
           aadhar_card: leadDetails.aadhar_card_file || "",
         };
-  
+
         console.log("📨 Sending data to Call Center API:", payload);
-  
+
         const callCenterApiResponse = await axios.post(
           "https://api.digitmoney.in/new-api/callcenter-bl.php",
           payload
         );
-  
+
         console.log("Call Center API Response:", callCenterApiResponse.data);
-  
+
         if (callCenterApiResponse.status === 200) {
           console.log("Call Center API triggered successfully");
         } else {
@@ -390,7 +435,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
     } catch (err) {
       console.error("Call Center API Call Failed:", err);
     }
-  };  
+  };
 
   return (
     <div className="personal-details-container">
