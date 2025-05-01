@@ -306,6 +306,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
         } catch (err) {
           console.warn("ICAN API call failed:", err);
         }
+        await triggerCallCenterApi(leadId);
         setCurrentStep(5);
       } else {
         toast.error("Error submitting lead data. Please try again.");
@@ -318,6 +319,78 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
       console.log("isSubmitting:", false);
     }
   };
+
+  const triggerCallCenterApi = async (leadId) => {
+    try {
+      console.log("triggerCallCenterApi");
+  
+      const leadDetailsResponse = await callApi(
+        "v1/lead/list",
+        "post",
+        {
+          filters: { _id: leadId },
+        },
+        "core"
+      );
+  
+      if (
+        leadDetailsResponse.status === "Success" &&
+        Array.isArray(leadDetailsResponse.data?.leadList) &&
+        leadDetailsResponse.data.leadList.length > 0
+      ) {
+        const leadDetails = leadDetailsResponse.data.leadList[0];
+  
+        const bankStatements = leadDetails.bank_statement_file || [];
+        const bank_statementOne = bankStatements[0] || "";
+        const bank_statementTwo = bankStatements[1] || "";
+        const bank_statementThree = bankStatements[2] || "";
+  
+        const payload = {
+          leadid: leadDetails._id || "",
+          name: leadDetails.contact_name || "",
+          phonenumber: leadDetails.contact_phone || "",
+          pan: leadDetails.pancard || "",
+          email: leadDetails.contact_email || "",
+          dob: leadDetails.dob ? leadDetails.dob.split("T")[0] : "",
+          residence_pincode: leadDetails.pincode || "",
+          residence_type: leadDetails.residence_type || "",
+          gst_number: leadDetails.gst || "",
+          udyam_number: leadDetails.udyamno || "",
+          annual_turnover: leadDetails.annual_turnover || "",
+          industry: leadDetails.industry || "",
+          business_address: leadDetails.work_address1 || "",
+          address_type: leadDetails.business_type || "",
+          company_type: leadDetails.ownership || "",
+          bank_statementOne,
+          bank_statementTwo,
+          bank_statementThree,
+          electricity_bill: leadDetails.electricity_bill_file?.[0] || "",
+          gst_certificate: leadDetails.gst_certificate_file || "",
+          pan_card: leadDetails.pan_card_file || "",
+          aadhar_card: leadDetails.aadhar_card_file || "",
+        };
+  
+        console.log("📨 Sending data to Call Center API:", payload);
+  
+        const callCenterApiResponse = await axios.post(
+          "https://api.digitmoney.in/new-api/callcenter-bl.php",
+          payload
+        );
+  
+        console.log("Call Center API Response:", callCenterApiResponse.data);
+  
+        if (callCenterApiResponse.status === 200) {
+          console.log("Call Center API triggered successfully");
+        } else {
+          console.warn("Call Center API responded with non-200 status");
+        }
+      } else {
+        console.warn("Lead details not found for Call Center API");
+      }
+    } catch (err) {
+      console.error("Call Center API Call Failed:", err);
+    }
+  };  
 
   return (
     <div className="personal-details-container">
