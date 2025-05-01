@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
-import { FileText, Trash2 } from "lucide-react";
+import { Info, Trash2 } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 
 const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
@@ -437,6 +437,15 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
     }
   };
 
+  const tooltipTexts = {
+    bank_statement:
+      "Please upload bank statement for current account of last 1 year",
+    gst_certificate: "GST Certificate OR Udyam Certificate with Annexure",
+    pan_card: "Original Pan card",
+    aadhar_card: "Front and Back OR E-Aadhar",
+    electricity_bill: "Latest Bill only",
+  };
+
   return (
     <div className="personal-details-container">
       <h2 className="form-title">Upload Document's</h2>
@@ -446,29 +455,36 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
       <div className="mt-2 w-full max-w-md">
         {[
           {
-            label: "Bank Statement (6 Months)",
+            label: "Bank Statement (12 Months)",
             key: "bank_statement",
             multiple: true,
           },
-          { label: "Owned Property Electricity Bill", key: "electricity_bill" },
           { label: "GST/MSME Certificate", key: "gst_certificate" },
           { label: "Pan Card", key: "pan_card" },
           { label: "Aadhar Card", key: "aadhar_card" },
+          { label: "Electricity Bill", key: "electricity_bill" },
         ].map(({ label, key, multiple }) => (
           <div key={key} className="mb-3">
             <div
-              className={`bg-white border border-gray-300 px-4 py-3 rounded-lg shadow-sm w-full ${
+              className={`bg-white border border-gray-300 px-3 py-2 rounded-lg shadow-sm w-full ${
                 key === "electricity_bill" ? "items-start" : "items-center"
               }`}
             >
               <div className="flex items-center justify-between">
                 <span
-                  className={`text-sm font-medium text-gray-600 ${
+                  className={`text-sm font-medium text-gray-600 flex items-center gap-1 ${
                     key === "electricity_bill" ? "w-1/2 leading-tight" : ""
                   }`}
                 >
                   {label}
+                  <div className="relative group">
+                    <Info size={14} className="text-gray-400 cursor-pointer" />
+                    <div className="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-1 w-max max-w-xs px-2 py-1 bg-gray-100 text-black text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                      {tooltipTexts[key]}
+                    </div>
+                  </div>
                 </span>
+
                 <input
                   type="file"
                   id={key}
@@ -494,8 +510,11 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
                         className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm"
                       >
                         <div className="flex items-center gap-2">
-                          <img src="/pdf.png" alt="PDF" className="w-5 h-5" />
-                          <FileText size={16} />
+                          <img
+                            src="assets/img/pdf.png"
+                            alt="PDF"
+                            className="w-5 h-5"
+                          />
                           <p className="text-sm font-medium text-gray-700 truncate max-w-[200px]">
                             {file.name}
                           </p>
