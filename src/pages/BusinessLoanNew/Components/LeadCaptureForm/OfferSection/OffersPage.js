@@ -43,7 +43,29 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         const firstResult = await fetchOffers(formData._id);
         if (firstResult && firstResult.status === "Success") {
           if (firstResult.data.offers.length > 0) {
-            setisOffer(firstResult.data.offers);
+            const excludedLenders = [
+              "Protium BL",
+              "Poonawalla BL",
+              "Niyogin",
+              "Godrej",
+            ];
+
+            const filteredOffers = firstResult.data.offers.filter(
+              (offer) =>
+                !excludedLenders.some((lender) =>
+                  offer.lender_name.includes(lender)
+                )
+            );
+            if (filteredOffers.length > 0) {
+              navigate(`/offer-page-v1?lid=${formData._id}`, {
+                state: {
+                  ...formData,
+                  _id: formData._id,
+                },
+              });
+            } else {
+              setisOffer(firstResult.data.offers);
+            }
           }
         }
       };

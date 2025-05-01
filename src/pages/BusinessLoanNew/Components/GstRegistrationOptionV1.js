@@ -27,13 +27,14 @@ const GstRegistrationOptionv1 = ({
             id="gst"
             value={data.gst}
             onChange={(e) => handleDataChange("gst", e.target.value)}
-            errorMessage={errorMessage}
+            // errorMessage={errorMessage}
             onBlur={() => handleBlur("gst")}
             isValid={errors !== "gst"}
             icon={
               <img src="/assets/icons/gst.png" style={{ height: "25px" }} />
             }
             label={"GST Number"}
+            errorMessage="Enter a valid Gst Number"
           />
         </div>
       )}
@@ -58,7 +59,8 @@ const GstRegistrationOptionv1 = ({
                 onChange={(e) =>
                   handleDataChange("udyam_number", e.target.value)
                 }
-                errorMessage={errorMessage}
+                errorMessage="Enter a valid Udyam Number"
+                onBlur={() => handleBlur("udyam_number")}
                 isValid={errors !== "udyam_number"}
                 label={"Udyam Number"}
               />

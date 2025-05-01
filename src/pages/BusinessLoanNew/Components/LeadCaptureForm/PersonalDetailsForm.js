@@ -62,134 +62,140 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const handleContinue = async () => {
     const isValid = handleValidation();
     if (isValid) {
-      console.log("Personal formData:", formData);
-      if (!isPanValid) {
-        toast.error("Please enter a valid PAN.");
-        return;
-      }
-      try {
-        setIsPanLoading(true);
+      const isBothNo =
+        data.gst_available === "no" && data.udyam_available === "no";
+      if (isBothNo) {
+        setCurrentStep(5);
+      } else {
+        console.log("Personal formData:", formData);
+        if (!isPanValid) {
+          toast.error("Please enter a valid PAN.");
+          return;
+        }
+        try {
+          setIsPanLoading(true);
 
-        const res = await callApi(
-          "v1/M2P_data/get-data-from-pan",
-          "post",
-          {
-            pancard: data.pan,
-          },
-          "core",
-          user.token
-        );
-
-        if (res.status === "Success") {
-          setUserClickData({
-            event_name: `details-fetched-for-pl-pan-${data.pan || "unknown"}`,
-            user_id: formData.mobile || "unknown",
-            affiliate_id: affId || "No Aff_id found",
-          });
-          const { first_name, last_name, gender, dob, fullname } =
-            res.data || {};
-          // dispatch(
-          //   setpanDetails({
-          //     fullName: fullname,
-          //     firstName: first_name,
-          //     lastName: last_name,
-          //     gender,
-          //     dob,
-          //     pancard: pan,
-          //   })
-          // );
-          let fetchedAddress = "";
-          if (data.gst) {
-            fetchedAddress = await fetchGSTAddress(data.gst);
-            // console.log("Fetched GST Address:", fetchedAddress);
-          } else if (data.udyam_number) {
-            fetchedAddress = await fetchUdyamAddress(data.udyam_number);
-            // console.log("Fetched Udyam Address:", fetchedAddress);
-          }
-          const isGst = data.gst_available === "yes";
-          const isUdyam = data.udyam_available === "yes";
-
-          const doiUdyam =
-            data.doi_udyam && moment(data.doi_udyam).isValid()
-              ? moment(data.doi_udyam).format("YYYY-MM-DD")
-              : undefined;
-
-          const payload = {
-            businessloanlead: {
-              contact_phone: formData.mobile,
-              contact_email: data.email,
+          const res = await callApi(
+            "v1/M2P_data/get-data-from-pan",
+            "post",
+            {
               pancard: data.pan,
-              contact_name: fullname,
-              pincode: data.residence_pincode,
-              residence_type: data.residential_type,
+            },
+            "core",
+            user.token
+          );
+
+          if (res.status === "Success") {
+            setUserClickData({
+              event_name: `details-fetched-for-pl-pan-${data.pan || "unknown"}`,
+              user_id: formData.mobile || "unknown",
+              affiliate_id: affId || "No Aff_id found",
+            });
+            const { first_name, last_name, gender, dob, fullname } =
+              res.data || {};
+            // dispatch(
+            //   setpanDetails({
+            //     fullName: fullname,
+            //     firstName: first_name,
+            //     lastName: last_name,
+            //     gender,
+            //     dob,
+            //     pancard: pan,
+            //   })
+            // );
+            let fetchedAddress = "";
+            if (data.gst) {
+              fetchedAddress = await fetchGSTAddress(data.gst);
+              // console.log("Fetched GST Address:", fetchedAddress);
+            } else if (data.udyam_number) {
+              fetchedAddress = await fetchUdyamAddress(data.udyam_number);
+              // console.log("Fetched Udyam Address:", fetchedAddress);
+            }
+            const isGst = data.gst_available === "yes";
+            const isUdyam = data.udyam_available === "yes";
+
+            const doiUdyam =
+              data.doi_udyam && moment(data.doi_udyam).isValid()
+                ? moment(data.doi_udyam).format("YYYY-MM-DD")
+                : undefined;
+
+            const payload = {
+              businessloanlead: {
+                contact_phone: formData.mobile,
+                contact_email: data.email,
+                pancard: data.pan,
+                contact_name: fullname,
+                pincode: data.residence_pincode,
+                residence_type: data.residential_type,
+                is_gst: isGst,
+                is_udyam: isUdyam,
+                udyamno: isUdyam ? data.udyam_number : "",
+                ...(doiUdyam && { doi_udyam: doiUdyam }), // Adds only if doiUdyam is truthy
+                gst: isGst ? data.gst : "",
+                is_stage1_completed: "true",
+                work_address1: fetchedAddress,
+              },
+            };
+
+            try {
+              const leadResponse = await callApi(
+                "v1/businessloanlead/new-v1",
+                "post",
+                payload,
+                "core"
+              );
+
+              if (leadResponse.status === "Success") {
+                toast.success("Data uploaded successfully.");
+                setUserClickData({
+                  event_name: "step1-business-loan-page-completed",
+                  user_id: formData.mobile || "unknown",
+                  affiliate_id: affId || "No Aff_id found",
+                });
+              } else {
+                toast.error("Failed to update data.");
+              }
+            } catch (err) {
+              console.error("API Error:", err);
+              toast.error("An error occurred while submitting the data.");
+            }
+
+            setFormData((prev) => ({
+              ...prev,
+              pancard: data.pan,
+              fullname: fullname,
+              firstName: first_name,
+              lastName: last_name,
+              gender,
+              dob,
               is_gst: isGst,
               is_udyam: isUdyam,
-              udyamno: isUdyam ? data.udyam_number : "",
-              ...(doiUdyam && { doi_udyam: doiUdyam }), // Adds only if doiUdyam is truthy
-              gst: isGst ? data.gst : "",
-              is_stage1_completed: "true",
-              work_address1: fetchedAddress,
-            },
-          };
-
-          try {
-            const leadResponse = await callApi(
-              "v1/businessloanlead/new-v1",
-              "post",
-              payload,
-              "core"
-            );
-
-            if (leadResponse.status === "Success") {
-              toast.success("Data uploaded successfully.");
-              setUserClickData({
-                event_name: "step1-business-loan-page-completed",
-                user_id: formData.mobile || "unknown",
-                affiliate_id: affId || "No Aff_id found",
-              });
-            } else {
-              toast.error("Failed to update data.");
-            }
-          } catch (err) {
-            console.error("API Error:", err);
-            toast.error("An error occurred while submitting the data.");
+              gst: data.gst,
+              udyam_number: data.udyam_number,
+              doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
+              confirm_business_address: fetchedAddress,
+            }));
+            console.log(formData);
+            toast.success("PAN verified and data fetched successfully.");
+            setCurrentStep(3);
+          } else {
+            console.error("PAN API returned an error:", res.message);
+            toast.error("Failed to fetch data from PAN. Please try again.");
           }
-
-          setFormData((prev) => ({
-            ...prev,
-            pancard: data.pan,
-            fullname: fullname,
-            firstName: first_name,
-            lastName: last_name,
-            gender,
-            dob,
-            is_gst: isGst,
-            is_udyam: isUdyam,
-            gst: data.gst,
-            udyam_number: data.udyam_number,
-            doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
-            confirm_business_address: fetchedAddress,
-          }));
-          console.log(formData);
-          toast.success("PAN verified and data fetched successfully.");
-          setCurrentStep(3);
-        } else {
-          console.error("PAN API returned an error:", res.message);
-          toast.error("Failed to fetch data from PAN. Please try again.");
+        } catch (err) {
+          console.error("Error during PAN API call:", err);
+          toast.error("An error occurred while fetching data from PAN.");
         }
-      } catch (err) {
-        console.error("Error during PAN API call:", err);
-        toast.error("An error occurred while fetching data from PAN.");
-      }
 
-      setUserClickData({
-        event_name: "personal-details-submit-for-business-loan-page-v1",
-        user_id: formData.mobile || "No User ID found here",
-        affiliate_id: affId || "No Aff_id found",
-      });
-      setCurrentStep(3);
+        setUserClickData({
+          event_name: "personal-details-submit-for-business-loan-page-v1",
+          user_id: formData.mobile || "No User ID found here",
+          affiliate_id: affId || "No Aff_id found",
+        });
+        setCurrentStep(3);
+      }
+      console.log(isValid);
     }
-    console.log(isValid);
   };
 
   const handleDataChange = (keyName, keyValue) => {
@@ -392,21 +398,22 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const isBothNo = data.gst_available === "no" && data.udyam_available === "no";
   useEffect(() => {
     const isValid =
-      !!data.pan &&
-      setIsPanValid &&
-      !!data.residence_pincode &&
-      data.residence_pincode.length === 6 &&
-      !!data.residential_type &&
-      data.gst_available !== "" &&
-      !isBothNo &&
       ((data.gst_available === "yes" &&
         !!data.gst &&
         data.gst.length === 15 &&
         /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9A-Z]{3}$/.test(data.gst)) ||
-        (data.udyam_available === "yes" &&
-          !!data.udyam_number &&
+        data.gst_available !== "yes") &&
+      (data.udyam_available === "yes"
+        ? !!data.udyam_number &&
+          udyamRegex.test(data.udyam_number) &&
           !!data.doi_udyam &&
-          udyamRegex.test(data.udyam_number)));
+          moment(data.doi_udyam, "YYYY-MM-DD", true).isValid()
+        : true) &&
+      !!data.pan &&
+      !!data.email &&
+      !!data.residence_pincode &&
+      data.residence_pincode.length === 6 &&
+      !!data.residential_type;
 
     setIsFormValid(isValid);
   }, [data]);
