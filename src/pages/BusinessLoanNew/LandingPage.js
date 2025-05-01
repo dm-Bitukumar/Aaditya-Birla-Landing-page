@@ -30,6 +30,14 @@ const LandingPage = () => {
   const [formData, setFormData] = useState({});
   const [params] = useSearchParams();
   const lead = useSelector((state) => state.app.lead);
+  console.log("lead", lead);
+
+  useEffect(() => {
+    if (lead && lead._id) {
+      setFormData((prev) => ({ ...prev, ...lead }));
+    }
+  }, [lead]);
+
   useEffect(() => {
     window.onbeforeunload = () => {
       sessionStorage.removeItem("isFormStarted");
