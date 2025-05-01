@@ -63,7 +63,7 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [leadId]);
+  }, [leadId, activeLenders.length]);
 
   useEffect(() => {
     if (offers.length > 0 && !expandedOfferId) {
@@ -177,12 +177,21 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
             ["priority"],
             ["asc"]
           );
+          // let filteredOffers = activeLenders.length
+          //   ? sortedOffers.filter((offer) =>
+          //       activeLenders.some((lender) => lender._id === offer.lender_id)
+          //     )
+          //   : sortedOffers;
           const filteredOffers = activeLenders.length
-            ? sortedOffers.filter((offer) =>
-                activeLenders.some((lender) => lender._id === offer.lender_id)
+            ? sortedOffers.filter(
+                (offer) =>
+                  activeLenders.some(
+                    (lender) => lender._id === offer.lender_id
+                  ) && offer.alliance_id === "business_loan"
               )
-            : sortedOffers;
-
+            : sortedOffers.filter(
+                (offer) => offer.alliance_id === "business_loan"
+              );
           dispatch(setOffers(filteredOffers));
 
           if (priorityRes.data.lead?.all_responses) {

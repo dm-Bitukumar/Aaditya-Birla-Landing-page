@@ -19,6 +19,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [errors, setErrors] = useState({});
   const [isPanLoading, setIsPanLoading] = useState(false);
   const [params] = useSearchParams();
+  const [email, setEmail] = useState("");
   const [isPanValid, setIsPanValid] = useState(true);
   const [pan, setPan] = useState("");
   const user = useSelector((state) => state.app.user);
@@ -32,6 +33,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     residential_type: "",
     residence_pincode: "",
     pan: "",
+    email: "",
   });
 
   useEffect(() => {
@@ -54,6 +56,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
     residential_type: false,
     gst: false,
     pan: false,
+    email: false,
   });
 
   const handleContinue = async () => {
@@ -114,7 +117,8 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           const payload = {
             businessloanlead: {
               contact_phone: formData.mobile,
-              pan_no: data.pan,
+              contact_email: data.email,
+              pancard: data.pan,
               contact_name: fullname,
               pincode: data.residence_pincode,
               residence_type: data.residential_type,
@@ -287,6 +291,13 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         isValid = false;
       }
     }
+    if (touched.email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(data.email)) {
+        validationErrors.email = "Please enter a valid email address.";
+        isValid = false;
+      }
+    }
 
     if (
       touched.residence_pincode &&
@@ -430,6 +441,19 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           />
 
           <FormInputStyle2
+            label="Email Address"
+            value={data.email}
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              handleDataChange("email", inputValue);
+            }}
+            required
+            onBlur={() => handleBlur("email")}
+            isValid={!errors.email}
+            errorMessage="Enter a valid email"
+          />
+
+          <FormInputStyle2
             type="text"
             name="residence_pincode"
             label="Residence Pincode"
@@ -466,11 +490,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         </div>
 
         <FormButtonStyle2
-          text={
-            isPanLoading || isFetchingAddress
-              ? "Fetching"
-              : "Continue"
-          }
+          text={isPanLoading || isFetchingAddress ? "Fetching" : "Continue"}
           onClick={handleContinue}
           disabled={!isFormValid || isPanLoading || isFetchingAddress}
           id="btn-personal-details-landing-v1"
