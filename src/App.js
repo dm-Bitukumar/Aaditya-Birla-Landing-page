@@ -50,6 +50,7 @@ import LandingPage_v5 from "./pages/LandingPage_v5/LandingPage";
 import OfferPage_v1 from "./pages/LandingPage_v1/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 import OfferPage_v3 from "./pages/LandingPage_v3/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 import OfferPage_v5 from "./pages/LandingPage_v5/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
+import OfferPage_bl from "./pages/BusinessLoanNew/Components/LeadCaptureForm/OfferSection/OfferPageWithLeadId";
 import CheckOffers_v3 from "./pages/CheckOffer_v3/LandingPage";
 
 function App() {
@@ -130,6 +131,7 @@ function App() {
         <Route path={"/offer-page-v1"} element={<OfferPage_v1 />} />
         <Route path={"/offer-page-v3"} element={<OfferPage_v3 />} />
         <Route path={"/offer-page-v5"} element={<OfferPage_v5 />} />
+        <Route path={"/offer-page-bl"} element={<OfferPage_bl />} />
 
         {/* Business Loan */}
         <Route path={"/business-loan"} element={<BusinessLoan />} />
