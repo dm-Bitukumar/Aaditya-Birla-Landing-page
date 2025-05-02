@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./OffersPage.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setOffers } from "../../../../../store/app/appReducer";
 import callApi from "../../../../../utility/apiCaller";
-import { toast } from "react-toastify";
-import {
-  getAllianceLeadFromMoneyTapInput,
-  sourceConvert,
-} from "../../../../../utility/commonUtils";
-import { setUserClickData } from "../../../../../utility/setUserClickData";
 import OfferCard from "./OfferCard";
-import { TRACK_ID } from "../../../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
 import Header from "../../../../LandingPage_v1/Components/Header/Header";
 
-const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
-  const lead = useSelector((state) => state.app.lead);
-  const user = useSelector((state) => state.app.user);
+const OfferPage = () => {
   const offers = useSelector((state) => state.app.offers);
   const dispatch = useDispatch();
   const [isFinished, setIsFinished] = useState(false);
@@ -29,6 +20,8 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   const [expandedOfferId, setExpandedOfferId] = useState(null);
   const [activeLenders, setActiveLenders] = useState([]);
   const [params] = useSearchParams();
+  const callCountRef = useRef(0);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -57,12 +50,24 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
   useEffect(() => {
     if (!leadId || activeLenders.length === 0) return;
 
-    fetchOffers(leadId);
-    const interval = setInterval(() => {
-      fetchOffers(leadId);
-    }, 5000);
+    const fetchAndTrack = async () => {
+      if (callCountRef.current >= 4) return;
+      await fetchOffers(leadId);
+      callCountRef.current += 1;
+      if (callCountRef.current === 3 && offers.length === 0) {
+        setIsFinished(true);
+      }
+      if (callCountRef.current >= 4 && intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
 
-    return () => clearInterval(interval);
+    fetchAndTrack();
+    intervalRef.current = setInterval(fetchAndTrack, 5000);
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
   }, [leadId, activeLenders.length]);
 
   useEffect(() => {
@@ -90,60 +95,6 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
     }
   };
 
-  const submitLead = async () => {
-    console.log("Submit Lead called");
-    setUserClickData({
-      event_name: "personal-detail-api-business-loan",
-      user_id: formData.mobile || "No User ID found here",
-    });
-    try {
-      const trackId = localStorage.getItem(TRACK_ID);
-      const processedLead = getAllianceLeadFromMoneyTapInput("website", {
-        ...formData,
-        ...user,
-      });
-      const res = await callApi(
-        "v1/lead/finbud-lp-lead",
-        "post",
-        {
-          lead: {
-            ...processedLead,
-            tracking_id: trackId,
-            aff_id: affId,
-            utm_source: utmSource,
-            utm_medium: sourceConvert(source),
-            utm_term: utmTerm,
-            source: source,
-          },
-        },
-        "core",
-        user.token
-      );
-      if (res.status === "Success" && res.data.lead) {
-        const newLeadId = res.data.lead._id;
-        const contactPhone = res.data.lead.contact_phone;
-        setLeadId(newLeadId);
-
-        const processLeadRes = await callApi(
-          "v1/lead/process-lead-for-loan-v2",
-          "post",
-          { contact_phone: contactPhone },
-          "core",
-          user.token
-        );
-        if (processLeadRes.status === "Success") {
-          setUserClickData({
-            event_name: "process-lead-for-business-loan",
-            user_id: contactPhone || leadId || "No User ID found here",
-          });
-          fetchOffers(newLeadId);
-        }
-      }
-    } catch (err) {
-      toast("Some error occurred", { hideProgressBar: true, type: "error" });
-    }
-  };
-
   const fetchOffers = async (leadId) => {
     if (!leadId || isFinished) return;
 
@@ -159,43 +110,24 @@ const OfferPage = ({ formData, setFormData, setCurrentStep }) => {
         loanOfferRes.status === "Success" &&
         loanOfferRes.data?.offers?.length > 0
       ) {
-        console.log(loanOfferRes);
-        const priorityRes = await callApi(
-          `v1/finbud_data/finbud_update_priority/${leadId}`,
-          "post",
-          loanOfferRes,
-          "loan"
-        );
+        const fetchedOffers = loanOfferRes.data.offers;
 
-        if (
-          priorityRes.status === "Success" &&
-          Array.isArray(priorityRes.data?.offers)
-        ) {
-          const sortedOffers = _.orderBy(
-            priorityRes.data.offers,
-            ["priority"],
-            ["asc"]
+        const filteredOffers = activeLenders.length
+          ? fetchedOffers.filter((offer) =>
+              activeLenders.some((lender) => lender._id === offer.lender_id)
+            )
+          : fetchedOffers;
+        dispatch(setOffers(filteredOffers));
+
+        if (loanOfferRes.data.lead?.all_responses) {
+          setIsFinished(
+            loanOfferRes.data.lead.all_responses ===
+              loanOfferRes.data.lead.total_response
           );
-          const filteredOffers = activeLenders.length
-            ? sortedOffers.filter((offer) =>
-                activeLenders.some((lender) => lender._id === offer.lender_id)
-              )
-            : sortedOffers;
-          dispatch(setOffers(filteredOffers));
-
-          if (priorityRes.data.lead?.all_responses) {
-            setIsFinished(
-              priorityRes.data.lead.all_responses ===
-                priorityRes.data.lead.total_response
-            );
-          }
-        } else {
-          toast.error("Failed to fetch prioritized offers.");
         }
       }
     } catch (err) {
-      console.error("Error in offer fetching and prioritizing:", err);
-      toast.error("Something went wrong while fetching offers.");
+      console.error("Error in offer fetching:", err);
     }
   };
 
