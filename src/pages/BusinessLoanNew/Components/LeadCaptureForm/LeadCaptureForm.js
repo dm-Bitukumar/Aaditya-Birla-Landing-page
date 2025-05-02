@@ -216,6 +216,8 @@ const LeadCaptureForm = ({
                 contact_name: name,
                 contact_phone: mobile,
                 is_mobile_verify_completed: "true",
+                kyc_consent: isConsentChecked,
+                kyc_consent_datetime: new Date().toISOString(),
                 aff_id: affId || "",
                 source: source || "",
                 utm_source: utmSource || "",
