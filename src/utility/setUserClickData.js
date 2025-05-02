@@ -67,7 +67,9 @@ export async function saveMetaData() {
 export async function setUserClickData(data) {
   const trackId = localStorage.getItem(TRACK_ID);
   const sessionId = sessionStorage.getItem(SESSION_ID);
-
+  if (data?.event_name?.includes("L&T")) {
+    data.event_name = "Lnt";
+  }
   try {
     await callApi(
       "v1/clicks/add-custom-event",
