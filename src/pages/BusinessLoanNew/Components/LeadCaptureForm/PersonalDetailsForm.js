@@ -128,7 +128,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
                 contact_phone: formData.mobile,
                 contact_email: data.email,
                 pancard: data.pan,
-                contact_name: fullname,
+                contact_name: fullname.trim(),
                 pincode: data.residence_pincode,
                 residence_type: data.residential_type,
                 is_gst: isGst,
