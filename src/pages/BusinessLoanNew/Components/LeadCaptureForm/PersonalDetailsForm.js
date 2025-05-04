@@ -6,6 +6,7 @@ import FormSelectStyle2 from "../../../../components/Form/FormSelectStyle2";
 import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import moment from "moment";
 import GstRegistrationOption from "../../../BusinessLoan/components/GstRegistrationOption";
 import GstRegistrationOptionv1 from "../GstRegistrationOptionV1";
@@ -18,10 +19,12 @@ import { setpanDetails } from "../../../../store/app/appReducer";
 const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
   const [isPanLoading, setIsPanLoading] = useState(false);
   const [params] = useSearchParams();
   const [email, setEmail] = useState("");
   const [isPanValid, setIsPanValid] = useState(true);
+  const lead = useSelector((state) => state.app.lead);
   const [pan, setPan] = useState("");
   const user = useSelector((state) => state.app.user);
   const [affId, setAffId] = useState("");
@@ -135,6 +138,8 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
                 gst: isGst ? data.gst : "",
                 is_stage1_completed: "true",
                 work_address1: fetchedAddress,
+                dob: dob,
+                gender: gender,
               },
             };
 
