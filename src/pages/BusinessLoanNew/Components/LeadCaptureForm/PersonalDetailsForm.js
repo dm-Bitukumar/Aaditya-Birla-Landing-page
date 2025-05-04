@@ -12,6 +12,7 @@ import GstRegistrationOptionv1 from "../GstRegistrationOptionV1";
 import { toast } from "react-toastify";
 import callApi from "../../../../utility/apiCaller";
 import { useSelector } from "react-redux";
+import { setpanDetails } from "../../../../store/app/appReducer";
 // const dispatch = useDispatch();
 
 const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
@@ -93,16 +94,16 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             });
             const { first_name, last_name, gender, dob, fullname } =
               res.data || {};
-            // dispatch(
-            //   setpanDetails({
-            //     fullName: fullname,
-            //     firstName: first_name,
-            //     lastName: last_name,
-            //     gender,
-            //     dob,
-            //     pancard: pan,
-            //   })
-            // );
+            dispatch(
+              setpanDetails({
+                fullName: fullname,
+                firstName: first_name,
+                lastName: last_name,
+                gender,
+                dob,
+                pancard: pan,
+              })
+            );
             let fetchedAddress = "";
             if (data.gst) {
               fetchedAddress = await fetchGSTAddress(data.gst);
