@@ -96,8 +96,13 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.profession_type = getProfessionTypeFromEntry(
     lead.profession || lead.professionType || ""
   );
-  alliance_lead.monthly_income =
-    lead.monthly_income || lead.monthlyIncome || "";
+  alliance_lead.monthly_income = (
+    lead.monthly_income ||
+    lead.monthlyIncome ||
+    ""
+  )
+    .toString()
+    .replace(/,/g, "");
   alliance_lead.annual_income = lead.annual_income || lead.annual_income || 0;
   alliance_lead.pancard = lead.pancard?.toUpperCase() ?? "";
   alliance_lead.salary_mode =
