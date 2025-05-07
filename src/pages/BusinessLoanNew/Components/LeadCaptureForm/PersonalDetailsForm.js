@@ -79,6 +79,82 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         try {
           setIsPanLoading(true);
 
+          let fetchedAddress = "";
+          if (data.gst) {
+            fetchedAddress = await fetchGSTAddress(data.gst);
+            // console.log("Fetched GST Address:", fetchedAddress);
+          } else if (data.udyam_number) {
+            fetchedAddress = await fetchUdyamAddress(data.udyam_number);
+            // console.log("Fetched Udyam Address:", fetchedAddress);
+          }
+          const isGst = data.gst_available === "yes";
+          const isUdyam = data.udyam_available === "yes";
+
+          const doiUdyam =
+            data.doi_udyam && moment(data.doi_udyam).isValid()
+              ? moment(data.doi_udyam).format("YYYY-MM-DD")
+              : undefined;
+
+          const payload = {
+            businessloanlead: {
+              contact_phone: formData.mobile,
+              contact_email: data.email,
+              pancard: data.pan,
+              //contact_name: fullname.trim(),
+              pincode: data.residence_pincode,
+              residence_type: data.residential_type,
+              is_gst: isGst,
+              is_udyam: isUdyam,
+              udyamno: isUdyam ? data.udyam_number : "",
+              ...(doiUdyam && { doi_udyam: doiUdyam }), // Adds only if doiUdyam is truthy
+              gst: isGst ? data.gst : "",
+              is_stage1_completed: "true",
+              work_address1: fetchedAddress,
+              // dob: dob,
+              // gender: gender,
+            },
+          };
+
+          try {
+            const leadResponse = await callApi(
+              "v1/businessloanlead/new-v1",
+              "post",
+              payload,
+              "core"
+            );
+
+            if (leadResponse.status === "Success") {
+              toast.success("Data uploaded successfully.");
+              setUserClickData({
+                event_name: "step1-business-loan-page-completed",
+                user_id: formData.mobile || "unknown",
+                affiliate_id: affId || "No Aff_id found",
+              });
+            } else {
+              toast.error("Failed to update data.");
+            }
+          } catch (err) {
+            console.error("API Error:", err);
+            toast.error("An error occurred while submitting the data.");
+          }
+
+          setFormData((prev) => ({
+            ...prev,
+            pancard: data.pan,
+            // fullname: fullname,
+            // firstName: first_name,
+            // lastName: last_name,
+            // gender,
+            // dob,
+            is_gst: isGst,
+            is_udyam: isUdyam,
+            gst: data.gst,
+            udyam_number: data.udyam_number,
+            doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
+            confirm_business_address: fetchedAddress,
+          }));
+          console.log(formData);
+
           const res = await callApi(
             "v1/M2P_data/get-data-from-pan",
             "post",
@@ -107,57 +183,44 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
                 pancard: pan,
               })
             );
-            let fetchedAddress = "";
-            if (data.gst) {
-              fetchedAddress = await fetchGSTAddress(data.gst);
-              // console.log("Fetched GST Address:", fetchedAddress);
-            } else if (data.udyam_number) {
-              fetchedAddress = await fetchUdyamAddress(data.udyam_number);
-              // console.log("Fetched Udyam Address:", fetchedAddress);
-            }
-            const isGst = data.gst_available === "yes";
-            const isUdyam = data.udyam_available === "yes";
-
-            const doiUdyam =
-              data.doi_udyam && moment(data.doi_udyam).isValid()
-                ? moment(data.doi_udyam).format("YYYY-MM-DD")
+            const dobFormatted =
+              dob && moment(dob).isValid()
+                ? moment(dob).format("YYYY-MM-DD")
                 : undefined;
-
             const payload = {
               businessloanlead: {
                 contact_phone: formData.mobile,
-                contact_email: data.email,
                 pancard: data.pan,
                 contact_name: fullname.trim(),
-                pincode: data.residence_pincode,
-                residence_type: data.residential_type,
-                is_gst: isGst,
-                is_udyam: isUdyam,
-                udyamno: isUdyam ? data.udyam_number : "",
-                ...(doiUdyam && { doi_udyam: doiUdyam }), // Adds only if doiUdyam is truthy
-                gst: isGst ? data.gst : "",
-                is_stage1_completed: "true",
-                work_address1: fetchedAddress,
-                dob: dob,
+                dob: dobFormatted,
                 gender: gender,
               },
             };
 
             try {
-              const leadResponse = await callApi(
+              const leadResponse1 = await callApi(
                 "v1/businessloanlead/new-v1",
                 "post",
                 payload,
                 "core"
               );
 
-              if (leadResponse.status === "Success") {
+              if (leadResponse1.status === "Success") {
                 toast.success("Data uploaded successfully.");
                 setUserClickData({
                   event_name: "step1-business-loan-page-completed",
                   user_id: formData.mobile || "unknown",
                   affiliate_id: affId || "No Aff_id found",
                 });
+                setFormData((prev) => ({
+                  ...prev,
+                  fullname: fullname,
+                  firstName: first_name,
+                  lastName: last_name,
+                  gender,
+                  dob,
+                }));
+                console.log(formData);
               } else {
                 toast.error("Failed to update data.");
               }
@@ -165,23 +228,6 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               console.error("API Error:", err);
               toast.error("An error occurred while submitting the data.");
             }
-
-            setFormData((prev) => ({
-              ...prev,
-              pancard: data.pan,
-              fullname: fullname,
-              firstName: first_name,
-              lastName: last_name,
-              gender,
-              dob,
-              is_gst: isGst,
-              is_udyam: isUdyam,
-              gst: data.gst,
-              udyam_number: data.udyam_number,
-              doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
-              confirm_business_address: fetchedAddress,
-            }));
-            console.log(formData);
             toast.success("PAN verified and data fetched successfully.");
             setCurrentStep(3);
           } else {
