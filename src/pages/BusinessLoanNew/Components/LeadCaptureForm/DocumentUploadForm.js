@@ -265,7 +265,7 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
 
       const payload = {
         businessloanlead: {
-          is_stage4_completed: "true",
+          is_stage4_completed: true,
           contact_phone: formData?.mobile,
           ...uploadedFiles,
         },
@@ -280,54 +280,50 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
       );
 
       if (leadResponse?.status === "Success") {
+        const lead = leadResponse.data.businessloanlead?.lead;
+        const leadId = lead?._id;
+
         setUserClickData({
           event_name: "step4-file-upload-completed-for-business-loan-v1",
           user_id: formData.mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
-        const leadId = leadResponse.data.businessloanlead?.lead?._id;
-        console.log("Lead ID:", leadId);
+
         localStorage.setItem("lead_id", leadId);
         toast.success("Lead successfully created!");
 
-        try {
-          await callApi(
-            "v1/lead/process-lead-for-bl-to-docUpload",
-            "post",
-            {
-              lead_id: leadId,
-            },
-            "core",
-            user.token
-          );
-
+        // ✅ Only one call, after verifying is_stage4_completed
+        if (lead?.is_stage4_completed === true) {
           try {
+            await callApi(
+              "v1/lead/process-lead-for-bl-to-docUpload",
+              "post",
+              { lead_id: leadId },
+              "core",
+              user.token
+            );
             console.log("DocUpload API call successful!");
 
-            const fetchAndSetOffers = async () => {
-              const firstResult = await fetchOffers(formData._id);
-              if (firstResult && firstResult.status === "Success") {
-                if (firstResult.data.offers.length > 0) {
-                  await callApi(
-                    "v1/sms/send-bl-lead-sms",
-                    "post",
-                    {
-                      lead: formData,
-                      offers: firstResult.data.offers,
-                    },
-                    "messaging",
-                    user.token
-                  );
-                }
-              }
-            };
-
-            await fetchAndSetOffers(); // <-- This was missing
+            // Fetch and send offers (inside success path)
+            const firstResult = await fetchOffers(formData._id);
+            if (
+              firstResult?.status === "Success" &&
+              firstResult.data.offers?.length
+            ) {
+              await callApi(
+                "v1/sms/send-bl-lead-sms",
+                "post",
+                {
+                  lead: formData,
+                  offers: firstResult.data.offers,
+                },
+                "messaging",
+                user.token
+              );
+            }
           } catch (err) {
-            console.warn("DocUpload API call failed:", err);
+            console.warn("DocUpload or Offers API failed:", err);
           }
-        } catch (err) {
-          console.warn("DocUpload API call failed:", err);
         }
 
         setUserClickData({
@@ -346,11 +342,11 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
             },
             "core"
           );
-
           console.log("ICAN API call successful!");
         } catch (err) {
           console.warn("ICAN API call failed:", err);
         }
+
         await triggerCallCenterApi(leadId);
         setCurrentStep(5);
       } else {
