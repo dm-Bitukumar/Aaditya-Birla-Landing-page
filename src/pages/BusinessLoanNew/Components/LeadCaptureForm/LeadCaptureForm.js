@@ -290,6 +290,7 @@ const LeadCaptureForm = ({
               }
             }}
             isValid={!errors.name}
+            required
             errorMessage="Name is required and must contain only letters"
           />
 
