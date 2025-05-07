@@ -153,7 +153,6 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
             doi_udyam: moment(data.doi_udyam).format("YYYY-MM-DD"),
             confirm_business_address: fetchedAddress,
           }));
-          console.log(formData);
 
           const res = await callApi(
             "v1/M2P_data/get-data-from-pan",
@@ -180,7 +179,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
                 lastName: last_name,
                 gender,
                 dob,
-                pancard: pan,
+                pancard: data.pan,
               })
             );
             const dobFormatted =
@@ -220,7 +219,6 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
                   gender,
                   dob,
                 }));
-                console.log(formData);
               } else {
                 toast.error("Failed to update data.");
               }
