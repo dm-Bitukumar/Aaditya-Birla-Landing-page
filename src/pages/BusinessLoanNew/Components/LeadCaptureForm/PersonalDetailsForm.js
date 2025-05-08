@@ -182,10 +182,9 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
                 pancard: data.pan,
               })
             );
-            const dobFormatted =
-              dob && moment(dob).isValid()
-                ? moment(dob).format("YYYY-MM-DD")
-                : undefined;
+            const dobFormatted = moment(dob, "DD/MM/YYYY", true).isValid()
+              ? moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD")
+              : undefined;
             const payload = {
               businessloanlead: {
                 contact_phone: formData.mobile,
