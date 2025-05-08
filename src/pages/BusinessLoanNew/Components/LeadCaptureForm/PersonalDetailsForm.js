@@ -69,7 +69,107 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       const isBothNo =
         data.gst_available === "no" && data.udyam_available === "no";
       if (isBothNo) {
-        setCurrentStep(5);
+        if (!isPanValid) {
+          toast.error("Please enter a valid PAN.");
+          return;
+        }
+
+        try {
+          const payload = {
+            businessloanlead: {
+              contact_phone: formData.mobile,
+              contact_email: data.email,
+              pancard: data.pan,
+              pincode: data.residence_pincode,
+              residence_type: data.residential_type,
+              is_gst: false,
+              is_udyam: false,
+              is_stage1_completed: "true",
+            },
+          };
+
+          const leadResponse = await callApi(
+            "v1/businessloanlead/new-v1",
+            "post",
+            payload,
+            "core"
+          );
+
+          if (leadResponse.status !== "Success") {
+            toast.error("Failed to update basic data.");
+            return;
+          }
+
+          const res = await callApi(
+            "v1/M2P_data/get-data-from-pan",
+            "post",
+            { pancard: data.pan },
+            "core",
+            user.token
+          );
+
+          if (res.status === "Success") {
+            const { first_name, last_name, gender, dob, fullname } =
+              res.data || {};
+            const dobFormatted = moment(dob, "DD/MM/YYYY", true).isValid()
+              ? moment(dob, "DD/MM/YYYY").format("YYYY-MM-DD")
+              : undefined;
+
+            const enrichedPayload = {
+              businessloanlead: {
+                contact_phone: formData.mobile,
+                pancard: data.pan,
+                contact_name: fullname?.trim(),
+                dob: dobFormatted,
+                gender,
+              },
+            };
+
+            await callApi(
+              "v1/businessloanlead/new-v1",
+              "post",
+              enrichedPayload,
+              "core"
+            );
+
+            dispatch(
+              setpanDetails({
+                fullName: fullname,
+                firstName: first_name,
+                lastName: last_name,
+                gender,
+                dob,
+                pancard: data.pan,
+              })
+            );
+
+            setFormData((prev) => ({
+              ...prev,
+              fullname,
+              firstName: first_name,
+              lastName: last_name,
+              gender,
+              dob,
+            }));
+
+            toast.success("PAN verified and data saved.");
+          } else {
+            toast.error("Failed to fetch PAN details.");
+          }
+
+          setUserClickData({
+            event_name: "step1-business-loan-page-completed",
+            user_id: formData.mobile || "unknown",
+            affiliate_id: affId || "No Aff_id found",
+          });
+
+          setCurrentStep(5);
+        } catch (err) {
+          console.error("PAN flow error:", err);
+          toast.error("Something went wrong.");
+        }
+
+        return; 
       } else {
         console.log("Personal formData:", formData);
         if (!isPanValid) {
@@ -106,7 +206,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
               is_gst: isGst,
               is_udyam: isUdyam,
               udyamno: isUdyam ? data.udyam_number : "",
-              ...(doiUdyam && { doi_udyam: doiUdyam }), // Adds only if doiUdyam is truthy
+              ...(doiUdyam && { doi_udyam: doiUdyam }),
               gst: isGst ? data.gst : "",
               is_stage1_completed: "true",
               work_address1: fetchedAddress,
