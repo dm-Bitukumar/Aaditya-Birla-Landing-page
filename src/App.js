@@ -168,8 +168,8 @@ function App() {
           path="/new-loan"
           element={<New pages={pages} setPages={setPages} />}
         />
-        <Route path={"/check-offers"} element={<CheckOffers />} />
-        <Route path={"/check-offers-v3"} element={<CheckOffers_v3 />} />
+        <Route path={"/check-offers-v3"} element={<CheckOffers />} />
+        <Route path={"/check-offers"} element={<CheckOffers_v3 />} />
         <Route path="/preapproved-offers" element={<PreapprovedOffer />} />
         <Route path="/fb-offer" element={<OfferDetailsSegmentNiro2 />} />
         <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
