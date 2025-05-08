@@ -169,7 +169,7 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
           toast.error("Something went wrong.");
         }
 
-        return; 
+        return;
       } else {
         console.log("Personal formData:", formData);
         if (!isPanValid) {
@@ -468,6 +468,11 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
       isValid = false;
     }
 
+    if (!["yes", "no"].includes(data.gst_available)) {
+      toast.error("Please select GST Yes/No.");
+      isValid = false;
+    }
+
     if (touched.gst && data.gst_available === "yes") {
       if (_.isEmpty(data.gst)) {
         validationErrors.gst = "Please enter GST Number.";
@@ -476,6 +481,14 @@ const PersonalDetailsForm = ({ formData, setFormData, setCurrentStep }) => {
         validationErrors.gst = "Please enter a valid GST Number.";
         isValid = false;
       }
+    }
+
+    if (
+      data.gst_available === "no" &&
+      !["yes", "no"].includes(data.udyam_available)
+    ) {
+      toast.error("Please select Udyam Yes/No.");
+      isValid = false;
     }
 
     setErrors(validationErrors);
