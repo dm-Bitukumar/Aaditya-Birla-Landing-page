@@ -238,8 +238,13 @@ const LeadCaptureForm = ({
                 setCurrentStep(3);
               } else if (lead.is_stage4_completed !== true) {
                 setCurrentStep(4);
-              } else {
+              } else if (
+                lead.is_stage3_completed === "true" &&
+                lead.is_stage4_completed === true
+              ) {
                 setCurrentStep(5);
+              } else {
+                setCurrentStep(2);
               }
             }
           }
