@@ -11,12 +11,7 @@ import { TRACK_ID } from "../../../../../utility/enum";
 import { useSearchParams } from "react-router-dom";
 import _ from "lodash";
 
-const OfferPage = ({
-  formData,
-  setFormData,
-  setCurrentStep,
-  setShowOfferHeaderLogo,
-}) => {
+const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
   const lead = useSelector((state) => state.app.lead);
   const user = useSelector((state) => state.app.user);
   const offers = useSelector((state) => state.app.offers);
@@ -76,7 +71,7 @@ const OfferPage = ({
 
   const submitLead = async () => {
     setUserClickData({
-      event_name: "verify-otp-check-offer-loan-page",
+      event_name: "submit-lead-check-offer-loan-page",
       user_id: leadId || "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
