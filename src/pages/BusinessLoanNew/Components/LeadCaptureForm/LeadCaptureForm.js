@@ -234,6 +234,11 @@ const LeadCaptureForm = ({
               dispatch(setLead(lead));
               if (lead.is_stage1_completed !== "true") {
                 setCurrentStep(2);
+              } else if (
+                lead.is_stage1_completed === "true" &&
+                lead.is_stage5_completed === "true"
+              ) {
+                setCurrentStep(5);
               } else if (lead.is_stage3_completed !== "true") {
                 setCurrentStep(3);
               } else if (lead.is_stage4_completed !== true) {
