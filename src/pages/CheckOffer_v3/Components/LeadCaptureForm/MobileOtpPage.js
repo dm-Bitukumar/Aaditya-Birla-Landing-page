@@ -29,6 +29,7 @@ const MobileOtpPage = ({
   const [params] = useSearchParams();
   const [isConsentChecked, setIsConsentChecked] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isTncChecked, setIsTncChecked] = useState(true);
   const [isOtpGenerated, setIsOtpGenerated] = useState(false);
   const [otp, setOtp] = useState("");
   const dispatch = useDispatch();
@@ -107,7 +108,7 @@ const MobileOtpPage = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `otp-send-for-website-pl-nonfinbud`,
+          event_name: `otp-send-for-check-offer`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -146,7 +147,7 @@ const MobileOtpPage = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `resend-otp-for-website-pl-nonfinbud`,
+          event_name: `resend-otp-form-for-check-offer`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -181,7 +182,7 @@ const MobileOtpPage = ({
 
       if (otpResponse.status === "Success") {
         setUserClickData({
-          event_name: `otp-submit-for-website-pl-nonfinbud`,
+          event_name: `verify-otp-check-offer-loan-page`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -194,6 +195,39 @@ const MobileOtpPage = ({
           })
         );
         localStorage.setItem("mobile", mobile);
+        const leadResponse = await callApi(
+          "v1/lead/lead-from-phone",
+          "post",
+          {
+            phone: mobile,
+            website_kyc_consent: isTncChecked,
+          },
+          "core",
+          otpResponse.data.token
+        );
+
+        const leadId = leadResponse?.data?.lead?._id;
+        if (leadId) {
+          try {
+            await fetch(
+              "https://digitmoney.in/api/offercheck/requestjson.php?case=insert_digit_money_data",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  api_key: "fca6416db1074658d6b6823380d18f04",
+                  mobile: mobile,
+                  lead_id: leadId,
+                }),
+              }
+            );
+          } catch (e) {
+            console.error("Error in external lead insert:", e);
+          }
+        }
+
         setCurrentStep(2);
       } else {
         toast.error("Invalid OTP. Please try again.");
