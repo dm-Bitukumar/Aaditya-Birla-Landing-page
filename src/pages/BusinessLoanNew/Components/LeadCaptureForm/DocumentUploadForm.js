@@ -535,8 +535,9 @@ const DocumentUploadForm = ({ formData, setFormData, setCurrentStep }) => {
           </div>
         ))}
         <FormButtonStyle2
-          text="Get My Offers"
+          text={isSubmitting ? "Fetching Offers" : "Get My Offers"}
           onClick={handleSubmit}
+          disabled={isSubmitting}
           id="btn-document-upload"
           className="tracking-btn-document-upload"
         />
