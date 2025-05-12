@@ -153,7 +153,8 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
                 lender_name: "L&T",
                 lender_id: "662752eb65fdba1a48d6e482",
               },
-              "core"
+              "core",
+              token
             );
             console.log(
               "Calling data-send-with-offers-to-ican_for_lt_finbud_sucess",
