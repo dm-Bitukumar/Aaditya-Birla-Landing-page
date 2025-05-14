@@ -1,7 +1,7 @@
 [
   {
-    "label": "assets/bank_img/kreditbee_new.png",
-    "value": "assets/bank_img/kreditbee_new.png"
+    "label": "assets/bank_img/kreditbee.png",
+    "value": "assets/bank_img/kreditbee.png"
   },
   {
     "label": "assets/bank_img/zype_new.png",
@@ -41,5 +41,4 @@
     "label": "assets/bank_img/lendingplate_new.png",
     "value": "assets/bank_img/lendingplate_new.png"
   }
-  
 ]
