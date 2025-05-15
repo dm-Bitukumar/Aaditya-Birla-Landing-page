@@ -17,10 +17,10 @@ const stateSlice = createSlice({
       state.panDetails = action.payload;
     },
     setPersonalDetails: (state, action) => {
-      state.personalDetails = { ...state.personalDetails, ...action.payload }; 
+      state.personalDetails = { ...state.personalDetails, ...action.payload };
     },
     setWorkDetails: (state, action) => {
-      state.workDetails = { ...state.workDetails, ...action.payload }; 
+      state.workDetails = { ...state.workDetails, ...action.payload };
     },
     login(state, action) {
       state.user = action.payload;
@@ -34,5 +34,12 @@ const stateSlice = createSlice({
   },
 });
 
-export const { login, setLead, setOffers, setpanDetails, setWorkDetails, setPersonalDetails } = stateSlice.actions;
+export const {
+  login,
+  setLead,
+  setOffers,
+  setpanDetails,
+  setWorkDetails,
+  setPersonalDetails,
+} = stateSlice.actions;
 export default stateSlice.reducer;
