@@ -170,6 +170,7 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
         return true;
       } else {
         setIsFinished(true);
+        dispatch(setOffers([]));
         return false;
       }
     } catch (err) {
