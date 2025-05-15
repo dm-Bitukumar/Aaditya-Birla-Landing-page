@@ -157,20 +157,26 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
           _id: "662752eb65fdba1a48d6e482",
           lender_name: "L&T",
         };
-        const mergedLenders = [hardcodedLender];
+        const mergedLenders = [...apiLenders, hardcodedLender];
 
         const sortedOffers = _.orderBy(offers, ["priority"], ["asc"]);
         const filteredOffers = sortedOffers.filter((offer) =>
           mergedLenders.some((lender) => lender._id === offer.lender_id)
         );
+        const prioritizedOffers = filteredOffers.sort((a, b) => {
+          if (a.lender_id === hardcodedLender._id) return -1;
+          if (b.lender_id === hardcodedLender._id) return 1;
+          return 0;
+        });
 
-        dispatch(setOffers(filteredOffers));
+        dispatch(setOffers(prioritizedOffers));
 
         setIsFinished(true);
         return true;
       } else {
         setIsFinished(true);
-        dispatch(setOffers([]));
+        //navigate(`/offer-page-v3?lid=${leadId}`);
+        //dispatch(setOffers([]));
         return false;
       }
     } catch (err) {
