@@ -7,6 +7,7 @@ import { setUserClickData } from "../../utility/setUserClickData";
 import { useSelector, useDispatch } from "react-redux";
 import { setLead, setOffers } from "../../store/app/appReducer";
 import callApi from "../../utility/apiCaller";
+import Header from "./Components/Header/Header";
 
 const LandingPage = () => {
   const [isFormStarted, setIsFormStarted] = useState(false);
@@ -75,6 +76,11 @@ const LandingPage = () => {
 
   return (
     <div className={"landing-page-container2"} style={{}}>
+
+      <div className={"landing-page-v3"}>
+        <Header isOfferPage={showOfferHeaderLogo} />
+      </div>
+
       <div>
         <div id="personal-loan-form">
           {currentStep === 1 && (
