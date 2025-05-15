@@ -66,7 +66,7 @@ const LandingPage = () => {
           lead_id: leadId,
           lender_name: "L&T",
           isdefault: true,
-          logo_image_url: "https://digitmoney.in/image/lt.png",
+          logo_image_url: "https://digitmoney.in/image/partners/lnt.png",
         },
       ];
       dispatch(setLead(leadDetailsResponse.data.leadList[0]));
