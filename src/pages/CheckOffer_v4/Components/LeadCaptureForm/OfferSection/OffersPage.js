@@ -37,6 +37,9 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
     if (offers.length > 0) {
       setShowOfferHeaderLogo(false);
     }
+    if (offers.length === 0) {
+      setIsFinished(true);
+    }
   }, [offers]);
 
   return (
