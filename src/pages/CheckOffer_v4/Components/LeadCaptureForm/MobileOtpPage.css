@@ -1,0 +1,231 @@
+.personal-details-container-v3 {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px 24px;
+  border-radius: 24px 24px 0 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-title-v3 {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #1b1b1b;
+  padding-bottom: 10px;
+  padding-left: 4px;
+}
+
+.form-subtitle-v3 {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 24px;
+  vertical-align: middle;
+  color: #b3b3b3;
+  padding-bottom: 1rem;
+  padding-left: 4px;
+}
+
+.gender-toggle-v3 {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.gender-btn-v3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 165px;
+  height: 55px;
+  border: 1px solid #b3b3b3;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.gender-btn-v3.active {
+  background-color: #1b1b1b;
+  color: #12f280;
+}
+
+.gender-content-v3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gender-content-v3 img {
+  height: 20px;
+}
+
+.consent {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 9px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+}
+
+.checkbox-wrapper-v3 {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 8px;
+  color: #6e6e6e;
+  margin-bottom: 20px;
+}
+
+.checkbox-wrapper-v3 input[type="checkbox"] {
+  margin-top: 2px;
+  size: 5px;
+}
+
+.checkbox-wrapper-v3 label {
+  font-size: 8px;
+  line-height: 9px;
+  font-weight: 400;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.otp-button {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  color: white;
+  background: linear-gradient(90deg, #12f280 7.42%, #1b1b1b 105.02%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-arrow {
+  width: 18px;
+  height: 18px;
+  margin-left: 8px;
+  object-fit: contain;
+  /* filter: brightness(0) invert(1); */
+}
+
+.otp-verification-container-v3 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 10px;
+  position: relative;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  padding: 0;
+  background-color: #FFFFFF;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.landing-page-container2 .otp-verification-container-v3 {
+  padding: 30px;
+}
+
+.otp-verification-container-v3 h3 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #1b1b1b;
+  padding-bottom: 10px;
+}
+
+.otp-verification-container-v3 p {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #b3b3b3;
+  padding-bottom: 20px;
+}
+
+.otp-verification-container-v3 strong {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #1b1b1b;
+}
+
+.otp-verification-container-v3 span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0%;
+  color: #4285f4;
+  cursor: pointer;
+}
+
+.otp-input-field {
+  padding-bottom: 20px;
+}
+
+.otp-input-field input {
+  font-weight: 400;
+}
+
+.resend-otp {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #b3b3b3;
+  padding-top: 30px;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  text-align: center;
+}
+
+.resend-otp span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0%;
+  color: #438AFF;
+  cursor: pointer;
+}
+
+.dob-label {
+  padding: 0px 25px 0px 0px !important;
+}
+
+.lead-capture-container-v3 {
+  background-color: white;
+  padding: 30px 24px;
+  border-radius: 24px 24px 0 0;
+  margin-bottom: 20px;
+}
