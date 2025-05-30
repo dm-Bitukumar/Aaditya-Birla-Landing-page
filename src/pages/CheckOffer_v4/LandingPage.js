@@ -76,6 +76,7 @@ const LandingPage = () => {
 
   return (
     <div className={"landing-page-container2"} style={{}}>
+
       <div className={"landing-page-v3"}>
         <Header isOfferPage={showOfferHeaderLogo} />
       </div>
