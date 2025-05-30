@@ -1,0 +1,54 @@
+.google-rating-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+  }
+  
+  .google-rating-card {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0px 0px 25px 0px #00000033;
+    padding: 10px 25px;
+    max-width: 400px;
+    z-index: 1;
+  }
+  
+  .google-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+  
+  .google-rating-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .review-text {
+    font-size: 12px;
+    line-height: 12px;
+    color: #333;
+    margin: 0 0 4px 0;
+    padding-bottom: 5px;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+  }
+  
+  .rating-row {
+    display: flex;
+    align-items: center;
+  }
+  
+  .rating-score {
+    color: #F9C316;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  
+  .stars-img {
+    height: 18px;
+    width: auto;
+  }
+  

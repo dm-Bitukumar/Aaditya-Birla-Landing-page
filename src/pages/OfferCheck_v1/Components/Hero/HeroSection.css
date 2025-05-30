@@ -1,0 +1,97 @@
+.hero {
+  text-align: center;
+  padding: 24px 16px 5px;
+}
+
+.background-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 98px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bg-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  flex-shrink: 0; /* Prevent images from shrinking */
+}
+
+
+.bg-one {
+  background-image: url('/public/assets/img/square-one.png');
+  width: 191px; 
+  height: 363px;
+}
+
+.bg-two {
+  background-image: url('/public/assets/img/square-one.png');
+  width: 155px; 
+  height: 155px;
+}
+
+.hero-icon {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 18px;
+}
+
+
+
+.disclaimer {
+  font-size: 12px;
+  /* background: rgba(255, 255, 255, 0.1); */
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
+  color: #FFFFFF;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.main-heading2 {
+  font-family: myFirstFont5;
+  font-size: 39px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #000000;
+  letter-spacing: 0%;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  /* text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); */
+}
+
+.main-heading3 {
+  font-family: myFirstFont5;
+  font-size: 39px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #000000;
+  margin-bottom: 10px;
+  letter-spacing: 0%;
+  /* text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); */
+}
+
+.main-heading4 {
+  font-family: Atkinson Hyperlegible, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height:100%;
+  color: #558075;
+  letter-spacing: 0%;
+  padding-top: 10px;
+  /* text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); */
+}
+
+.small-line{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: #12F280 solid 1px;
+  width: 75px;
+  align-items: center;
+}
+
