@@ -27,7 +27,7 @@ const GoogleRatingCard = () => {
         </div>
       </div> */}
       <img
-        src="/assets/img/Review_white.png"
+        src="/assets/img/Reviewwhite.png"
         alt="Rating Stars"
         // className="stars-img"
       />
