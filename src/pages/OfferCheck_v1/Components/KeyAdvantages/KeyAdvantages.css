@@ -122,7 +122,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Two cards per row */
   gap: 24px;
-  padding: 0 16px;
 }
 
 @media (max-width: 768px) {
