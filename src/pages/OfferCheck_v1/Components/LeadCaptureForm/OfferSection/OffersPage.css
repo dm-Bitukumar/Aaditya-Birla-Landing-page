@@ -1,0 +1,288 @@
+.final-offers-container-v5 {
+  position: relative;
+  /* padding: 40px 16px; */
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  height: 385px;
+  margin-top: -70px;
+}
+
+.offer-bg-layer-v5 {
+  margin-top: 230px;
+  z-index: 4;
+}
+
+.background-video1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 385px;
+  object-fit: cover;
+  object-position: left center;
+  z-index: 0;
+}
+
+.background-overlay-img-offer {
+  position: absolute;
+  /* top: -70px; */
+  left: 0;
+  width: 100%;
+  height: 470px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.congrats-text1 {
+  color: #000000;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 30px;
+  position: relative;
+  font-family: myFirstFont;
+  z-index: 4;
+  background-color: #12f280;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sub-text1 {
+  font-size: 18px;
+  color: #000;
+  /* margin-bottom: 20px; */
+  position: relative;
+  font-family: myFirstFont;
+  z-index: 4;
+}
+
+.offer-cards-container1 {
+  /* padding-top: 2rem; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  border-radius: 24px 24px 0 0;
+  /* background: linear-gradient(90deg, #12f280 7.42%, #1b1b1b 105.02%); */
+  z-index: 4;
+}
+
+.offer-cards-container-new1 {
+  /* padding-top: 2rem; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  border-radius: 24px 24px 0 0;
+  /* background: linear-gradient(90deg, #12f280 7.42%, #1b1b1b 105.02%); */
+  z-index: 4;
+}
+
+.offer-card1 {
+  width: 350px;
+  border-radius: 30px;
+  border: 1.5px solid #ffffff33;
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  padding: 16px 30px;
+  position: relative;
+  text-align: left;
+  box-shadow: 0px 0px 15px 2px #0000001A;
+}
+
+.offer-card-section1 {
+  /* background-image: url("../../../../../../public/assets/img/Key advantages BG.png"); */
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+}
+
+.collapsed1 {
+  border: 1.5px solid #12F280;
+  height: 110px;
+}
+
+.expanded1 {
+  background: #fff;
+  height: 240px;
+}
+
+.lender-logo {
+  height: auto;
+  width: 95px;
+  height: 26;
+  margin-bottom: 8px;
+}
+
+.offer-details {
+  font-size: 14px;
+}
+
+.amount-label1 {
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #000;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.amount-value1 {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #000;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.offer-card.expanded .amount-value1,
+.offer-card.expanded .amount-label1 {
+  color: #1b1b1b;
+}
+
+.offer-card.expanded .amount-value1 {
+  padding-left: 1rem;
+}
+
+.tenure,
+.emi {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #818181;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.vertical-divide {
+  color: #818181;
+  padding: 0 1rem;
+}
+
+.get-offer-btn {
+  margin-top: 12px;
+  background: black;
+  color: #12f280;
+  width: 145px;
+  height: 36px;
+  border-radius: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  font-weight: 500;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.cta-icon {
+  width: 14px;
+  height: auto;
+  margin-bottom: 2px;
+  margin-left: 5px;
+}
+
+.collapse-arrow {
+  position: absolute;
+  right: 16px;
+  top: 40px;
+  width: 28px;
+  height: 28px;
+}
+
+.collapse-arrow1 {
+  position: absolute;
+  right: 16px;
+  top: 40px;
+  width: 28px;
+  height: 28px;
+}
+
+.loading-text {
+  font-size: 14px;
+  margin-top: 40px;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+.disclaimer-text1 {
+  font-size: 12px;
+  color: #b3b3b3;
+  margin-top: 30px;
+  padding: 0 16px;
+  position: relative;
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.disclaimer-offer-text-v5 {
+  font-family: myFirstFont;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #006f59;
+}
+
+.disclaimer-offer-new-text-v5 {
+  font-family: myFirstFont;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #006f59;
+}
+
+
+.amount-row,
+.emi-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.offer-divider {
+  border: 1px solid #9acbb2;
+  margin-bottom: 10px;
+}
+
+/* .background-video2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 374px;
+  object-fit: cover;
+  z-index: -1; 
+} */
+
+.no-offers-found {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  height: 90vh;
+  background: linear-gradient(180deg, #ffffff 0%, #ccf8e1 100%);
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Bomstad Display", sans-serif;
+}
+
+.no-offers-found h2 {
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  color: #323232;
+  text-align: center;
+}
