@@ -11,16 +11,18 @@
   font-size: 35px;
   line-height: 45px;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .hiw-content-wrapper {
   display: flex;
   gap: 12px;
   align-items: flex-start;
+  padding-left: 16px;
 }
 
 .hiw-image {
-  width: 140px;
+  width: 50px;
   flex-shrink: 0;
 }
 
@@ -38,17 +40,27 @@
 }
 
 .step-one {
-  margin-top: 6px;
+  margin-top: 15px;
 }
 
 .step-two {
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 .step-three {
-  margin-top: 35px;
+  margin-top: 25px;
 }
 
 .step-four {
-  margin-top: 28px;
+  margin-top: 18px;
+}
+
+@media (max-width: 376px) {
+  .step-three {
+  margin-top: 18px;
+}
+
+.step-four {
+  margin-top: 9px;
+}
 }
