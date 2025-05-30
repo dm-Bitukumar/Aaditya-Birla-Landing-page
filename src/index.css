@@ -18,6 +18,10 @@
   font-family: myFirstFont4;
   src: url('../public/assets/fonts/PP_Mori/PPMori-Regular.otf');
 }
+@font-face {
+  font-family: myFirstFont5;
+  src: url('../public/assets/fonts/PolySans/polysanstrial-neutral.otf');
+}
 
 body {
   margin: 0;
