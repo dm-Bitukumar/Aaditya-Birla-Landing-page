@@ -26,6 +26,7 @@ const MobileOtpPage = ({
   const [isMobileValid, setIsMobileValid] = useState(true);
   const [source, setSource] = useState("");
   const [utmSource, setUtmSource] = useState("");
+  const [utmMedium, setUtmMedium] = useState("");
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
   const [isConsentChecked, setIsConsentChecked] = useState(true);
@@ -39,6 +40,7 @@ const MobileOtpPage = ({
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
+    if (params.get("utm_medium")) setUtmMedium(params.get("utm_medium"));
     if (params.get("aff_id")) setAffId(params.get("aff_id"));
     if (params.get("lid")) setLeadId(params.get("lid"));
   }, [params]);
@@ -202,6 +204,9 @@ const MobileOtpPage = ({
           {
             phone: mobile,
             website_kyc_consent: isTncChecked,
+            website_kyc_consent_datetime: new Date().toISOString(),
+            utmMedium: utmMedium,
+            otp_page: "offer-check-v1",
           },
           "core",
           otpResponse.data.token
