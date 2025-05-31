@@ -205,7 +205,7 @@ const MobileOtpPage = ({
             phone: mobile,
             website_kyc_consent: isTncChecked,
             website_kyc_consent_datetime: new Date().toISOString(),
-            utmSource: utmSource,
+            utm_source: utmSource,
             otp_page: "offer-check-v1",
           },
           "core",
