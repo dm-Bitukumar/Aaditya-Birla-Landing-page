@@ -64,3 +64,34 @@
   margin-top: 9px;
 }
 }
+
+@media (max-width: 396px) {
+  .step-three{
+      margin-top: 22px;
+  }
+  .step-four {
+      margin-top: 6px;
+  }
+  }
+  
+  @media (max-width: 384px) {
+   .step-two {
+      margin-top: 18px;
+  }
+  .step-three {
+      margin-top: 9px;
+  }
+  }
+  
+  
+  @media (max-width: 376px) {
+       .step-three {
+          margin-top: 6px;
+      }
+  }
+  
+  @media (max-width: 371px) {
+       .step-three {
+          margin-top: 0px;
+      }
+  }
