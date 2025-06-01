@@ -95,3 +95,9 @@
   align-items: center;
 }
 
+@media (max-width: 397px) {
+  .main-heading2, .main-heading3 {
+      font-size: 32px !important;
+  }
+  }
+
