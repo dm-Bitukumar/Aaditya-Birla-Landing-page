@@ -31,6 +31,7 @@ const LandingPage = () => {
   const utmMedium = params.get("utm_medium") || "";
   const utmTerm = params.get("utm_term") || "";
   const adsName = params.get("ads_name") || "";
+  const leadId = params.get("lead_id") || "";
   console.log(
     "affId, utmTerm, utmMedium, utmSource, source,adsName",
     affId,
@@ -51,7 +52,7 @@ const LandingPage = () => {
     }
     setUserClickData({
       event_name: "pageview-check-offers-v3",
-      user_id: "No User ID found here",
+      user_id: leadId || "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
   }, []);
