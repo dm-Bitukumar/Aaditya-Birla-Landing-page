@@ -7,12 +7,12 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
   const [params] = useSearchParams();
   const handleClick = () => {
     setUserClickData({
-      event_name: `offer-apply-button-${offer.lender_name}`,
+      event_name: `offer-apply-button-offer-check-v2-${offer.lender_name}`,
       user_id: offer.lead_id || "No User ID found",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
     setUserClickData({
-      event_name: `offer-apply-button`,
+      event_name: `offer-apply-button-offer-check-v2`,
       user_id: offer.lead_id || "No User ID found",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });

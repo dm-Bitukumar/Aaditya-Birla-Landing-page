@@ -53,23 +53,51 @@
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
-.main-heading {
-  font-family: myFirstFont;
-  font-size: 50px;
+.main-heading2 {
+  font-family: myFirstFont5;
+  font-size: 39px;
   font-weight: 600;
-  line-height: 35px;
-  color: #FFFFFF;
+  line-height: 30px;
+  color: #000000;
   letter-spacing: 0%;
   margin-top: 30px;
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+  margin-bottom: 10px;
+  /* text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); */
 }
 
-.main-heading1 {
-  font-family: myFirstFont;
-  font-size: 40px;
+.main-heading3 {
+  font-family: myFirstFont5;
+  font-size: 39px;
   font-weight: 600;
-  line-height: 35px;
-  color: #FFFFFF;
+  line-height: 30px;
+  color: #000000;
+  margin-bottom: 10px;
   letter-spacing: 0%;
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+  /* text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); */
 }
+
+.main-heading4 {
+  font-family: Atkinson Hyperlegible, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height:100%;
+  color: #558075;
+  letter-spacing: 0%;
+  padding-top: 10px;
+  /* text-shadow: 0 0 10px rgba(0, 255, 136, 0.8); */
+}
+
+.small-line{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: #12F280 solid 1px;
+  width: 75px;
+  align-items: center;
+}
+
+@media (max-width: 397px) {
+  .main-heading2, .main-heading3 {
+      font-size: 32px !important;
+  }
+  }
+

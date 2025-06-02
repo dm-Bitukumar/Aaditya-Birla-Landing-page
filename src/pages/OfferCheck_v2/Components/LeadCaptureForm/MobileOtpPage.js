@@ -108,7 +108,7 @@ const MobileOtpPage = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `otp-send-for-check-offer`,
+          event_name: `otp-send-for-offer-check-v2`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -147,7 +147,7 @@ const MobileOtpPage = ({
       );
       if (response.status === "Success") {
         setUserClickData({
-          event_name: `resend-otp-form-for-check-offer`,
+          event_name: `resend-otp-form-for-offer-check-v2`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -182,7 +182,7 @@ const MobileOtpPage = ({
 
       if (otpResponse.status === "Success") {
         setUserClickData({
-          event_name: `verify-otp-check-offer-loan-page`,
+          event_name: `verify-otp-offer-check-v2`,
           user_id: mobile || "unknown",
           affiliate_id: affId || "No Aff_id found",
         });
@@ -242,15 +242,7 @@ const MobileOtpPage = ({
     <div className="lead-capture-container-v3">
       {!isOtpGenerated ? (
         <>
-          <h2 className="form-title">
-            Get Your Loan Approved in
-            <br />
-            Quick & Simple Steps!
-          </h2>
-
-          <p className="form-subtitle">
-            We will use your contact details to proceed further.
-          </p>
+          <h2 className="form-title1">Check your loan eligibility instantly</h2>
 
           <input type="hidden" name="utm_campaign" value="" />
           <input type="hidden" name="utm_source" value={utmSource || ""} />
