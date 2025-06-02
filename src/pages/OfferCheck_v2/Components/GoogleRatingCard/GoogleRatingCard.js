@@ -4,7 +4,7 @@ import "./GoogleRatingCard.css";
 const GoogleRatingCard = () => {
   return (
     <div className="google-rating-wrapper">
-      <div className="google-rating-card">
+      <div className="google-rating-card-ns">
         <img
           src="/assets/img/google.png"
           alt="Google Logo"

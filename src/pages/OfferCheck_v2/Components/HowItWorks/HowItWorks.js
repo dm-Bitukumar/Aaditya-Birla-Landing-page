@@ -30,7 +30,7 @@ const HowItWorks = () => {
       <h2 className="hiw-heading">How it Works</h2>
       <div className="hiw-content-wrapper">
         <img
-          src="/assets/img/HIW Full.svg"
+          src="/assets/img/How it works Green.png"
           alt="How it Works"
           className="hiw-image"
         />

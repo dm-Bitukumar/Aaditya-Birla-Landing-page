@@ -31,6 +31,7 @@ const LandingPage = () => {
   const utmMedium = params.get("utm_medium") || "";
   const utmTerm = params.get("utm_term") || "";
   const adsName = params.get("ads_name") || "";
+  const leadId = params.get("lid") || "";
   console.log(
     "affId, utmTerm, utmMedium, utmSource, source,adsName",
     affId,
@@ -50,8 +51,8 @@ const LandingPage = () => {
       setIsFormStarted(true);
     }
     setUserClickData({
-      event_name: "pageview-check-offers-v3",
-      user_id: "No User ID found here",
+      event_name: "pageview-for-offer-check-v2",
+      user_id: leadId || "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
   }, []);
@@ -75,7 +76,7 @@ const LandingPage = () => {
     <div className={"landing-page-container2"} style={{}}>
       {!isFormStarted && (
         <>
-          <video
+          {/* <video
             className="background-video1-v3"
             src="/assets/img/BG video.mp4"
             autoPlay
@@ -85,30 +86,31 @@ const LandingPage = () => {
             preload="auto"
             disablePictureInPicture
             controls={false}
-          />
-          <img
+          /> */}
+          
+          {/*<img
             src="/assets/img/square check bg.svg"
             alt="Square Check Background"
             className="background-overlay-img"
-          />
+          />*/}
         </>
       )}
 
       <div className={"landing-page-v3"}>
         <Header isOfferPage={showOfferHeaderLogo} />
 
-        {!isFormStarted && <GoogleRatingCard />}
-        {!isFormStarted && (
+        {(!isFormStarted || currentStep === 1) && <GoogleRatingCard />}
+        {(!isFormStarted || currentStep === 1) && (
           <div id="hero">
             <HeroSection />
           </div>
         )}
       </div>
 
-      {!isFormStarted && <TaglineScroller />}
+      {/* {!isFormStarted && <TaglineScroller />} */}
 
       <div>
-        {isFormStarted && currentStep === 1 && (
+        {/*{isFormStarted && currentStep === 1 && (
           <ProgressHeader
             step={currentStep}
             onBack={() => {
@@ -122,7 +124,7 @@ const LandingPage = () => {
               }));
             }}
           />
-        )}
+        )}*/}
 
         <div id="personal-loan-form">
           {currentStep === 1 && (
@@ -162,11 +164,11 @@ const LandingPage = () => {
               <BankingPartners />
             </div>
             <HowItWorks />
-            <EligibilityDocuments />
+            {/* <EligibilityDocuments /> */}
             {/* <Testimonials /> */}
-            <div id="faqs">
+            {/* <div id="faqs">
               <FAQSection />
-            </div>
+            </div> */}
             <Footer />
           </>
         )}

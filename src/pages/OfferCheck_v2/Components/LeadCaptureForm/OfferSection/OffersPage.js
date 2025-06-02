@@ -71,7 +71,7 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
 
   const submitLead = async () => {
     setUserClickData({
-      event_name: "submit-lead-check-offer-loan-page",
+      event_name: "submit-lead-offer-check-v2",
       user_id: leadId || "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });

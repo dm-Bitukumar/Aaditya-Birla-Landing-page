@@ -2,7 +2,7 @@ import React from "react";
 
 const KeyAdvantageCard = ({ icon, title, subtitle }) => {
   return (
-    <div className="advantage-card">
+    <div className="advantage-card1">
       <div className="card-icon-wrapper">
         <img src={icon} alt={title} className="card-icon" />
       </div>
@@ -15,4 +15,4 @@ const KeyAdvantageCard = ({ icon, title, subtitle }) => {
   );
 };
 
-export default KeyAdvantageCard;
+export default KeyAdvantageCard

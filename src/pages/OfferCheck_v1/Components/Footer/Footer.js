@@ -35,7 +35,7 @@ const Footer = () => {
         <p className="footer-contact">
           <span className="contact1">Contact us at</span>{" "}
           <span className="footer-email">
-            <a href="mailto: hello@wowinsure.in" class="text-decoration-none">
+            <a href="mailto: hello@digitmoney.in" class="text-decoration-none">
               hello@digitmoney.in
             </a>
           </span>
@@ -51,9 +51,11 @@ const Footer = () => {
           <a href="https://www.linkedin.com/company/digitmoney">
             <img src="/assets/img/linked_in.png" alt="linkedin" />
           </a>
-          <a href="https://web.digitmoney.in/">
-            <img src="/assets/img/linked_in.png" alt="youtube" />
+
+          <a href="https://www.youtube.com/@DigitMoneyIndia">
+            <img src="/assets/img/utube_new.png" alt="linkedin" />
           </a>
+         
           <a href="https://twitter.com/DigitMoneyIndia">
             <img src="/assets/img/x_new.png" alt="x" />
           </a>
