@@ -52,6 +52,7 @@ const LandingPage = () => {
     }
     setUserClickData({
       event_name: "pageview-for-offer-check-v1",
+
       user_id: leadId || "No User ID found here",
       affiliate_id: params.get("aff_id") || "No Aff_id found",
     });
