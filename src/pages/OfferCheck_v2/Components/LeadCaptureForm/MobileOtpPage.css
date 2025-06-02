@@ -145,14 +145,12 @@
 }
 
 .otp-verification-container-v3 h3 {
-  font-family: 'Atkinson Hyperlegible', sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #1b1b1b;
   padding-bottom: 10px;
-  padding-left: 32px;
 }
 
 .otp-verification-container-v3 p {
@@ -164,7 +162,6 @@
   vertical-align: middle;
   color: #b3b3b3;
   padding-bottom: 20px;
-  padding-left: 32px;
 }
 
 .otp-verification-container-v3 strong {
@@ -209,31 +206,6 @@
   text-align: center;
 }
 
-.resend-otp1 {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0px;
-  vertical-align: middle;
-  color: #b3b3b3;
-  padding-top: 30px;
-  font-family: 'Atkinson Hyperlegible', sans-serif;
-  /* text-align: center; */
-}
-
-.resend-otp1 span {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0px;
-  vertical-align: middle;
-  text-decoration: underline;
-  text-decoration-style: solid;
-  text-decoration-thickness: 0%;
-  color: #438AFF;
-  cursor: pointer;
-}
-
 .resend-otp span {
   font-weight: 400;
   font-size: 12px;
@@ -251,13 +223,12 @@
   padding: 0px 25px 0px 0px !important;
 }
 
-.lead-capture-container1 {
+.lead-capture-container-v3 {
   background-color: white;
-  padding: 0px 24px;
+  padding: 30px 24px;
   border-radius: 24px 24px 0 0;
-  /* margin-bottom: 20px; */
+  margin-bottom: 20px;
 }
-
 .form-title1 {
   font-family: myFirstFont5;
   font-weight: 400;
