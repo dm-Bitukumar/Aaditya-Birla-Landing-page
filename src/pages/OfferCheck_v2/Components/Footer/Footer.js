@@ -51,11 +51,10 @@ const Footer = () => {
           <a href="https://www.linkedin.com/company/digitmoney">
             <img src="/assets/img/linked_in.png" alt="linkedin" />
           </a>
-
           <a href="https://www.youtube.com/@DigitMoneyIndia">
             <img src="/assets/img/utube_new.png" alt="linkedin" />
           </a>
-         
+          
           <a href="https://twitter.com/DigitMoneyIndia">
             <img src="/assets/img/x_new.png" alt="x" />
           </a>

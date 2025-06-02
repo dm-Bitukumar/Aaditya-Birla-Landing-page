@@ -1,0 +1,100 @@
+.hiw-container {
+  background-color: #FFFFFF;
+  padding: 48px 48px 0px 48px;
+  color: #1b1b1b;
+  border-radius: 32px 32px 0 0;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  margin-top: -35px;
+}
+
+.hiw-heading {
+  font-family: myFirstFont;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 45px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.hiw-content-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding-left: 16px;
+}
+
+.hiw-image {
+  width: 50px;
+  flex-shrink: 0;
+}
+
+.hiw-text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.hiw-step {
+  font-family: "Atkinson Hyperlegible", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  margin-bottom: 48px;
+}
+
+.step-one {
+  margin-top: 15px;
+}
+
+.step-two {
+  margin-top: 25px;
+}
+
+.step-three {
+  margin-top: 25px;
+}
+
+.step-four {
+  margin-top: 18px;
+}
+
+@media (max-width: 376px) {
+  .step-three {
+  margin-top: 18px;
+}
+
+.step-four {
+  margin-top: 9px;
+}
+}
+
+@media (max-width: 396px) {
+  .step-three{
+      margin-top: 22px;
+  }
+  .step-four {
+      margin-top: 6px;
+  }
+  }
+  
+  @media (max-width: 384px) {
+   .step-two {
+      margin-top: 18px;
+  }
+  .step-three {
+      margin-top: 9px;
+  }
+  }
+  
+  
+  @media (max-width: 376px) {
+       .step-three {
+          margin-top: 6px;
+      }
+  }
+  
+  @media (max-width: 371px) {
+       .step-three {
+          margin-top: 0px;
+      }
+  }
