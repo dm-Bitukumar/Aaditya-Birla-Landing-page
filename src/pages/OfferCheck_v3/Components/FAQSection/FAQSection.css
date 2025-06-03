@@ -1,0 +1,84 @@
+.faq-section {
+  background: linear-gradient(180deg, #f5f5f5 9.87%, #ffffff 82.24%);
+  border-radius: 32px 32px 0 0;
+  padding: 48px 24px 36px 24px;
+}
+
+.faq-heading {
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 40px;
+  margin-bottom: 8px;
+  font-family: myFirstFont;
+}
+
+.faq-subheading {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-size: 20px;
+  color: #777;
+  margin-bottom: 20px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-bottom: 30px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-card {
+  border: 1px solid #b3b3b3;
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  background: white;
+}
+
+.faq-card.active {
+  border: 1px solid #1b1b1b;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.faq-question strong {
+  padding-right: 15px;
+}
+
+.faq-question img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.faq-answer {
+  padding-top: 18px;
+  font-size: 16px;
+  color: #444;
+  font-weight: 400;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.faq-load-more {
+  margin: 20px auto 0;
+  padding: 10px 24px;
+  border-radius: 24px;
+  border: none;
+  font-size: 16px;
+  color: white;
+  font-weight: 400;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  background: linear-gradient(90deg, #12f280 7.42%, #1b1b1b 105.02%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  display: block;
+}
+
