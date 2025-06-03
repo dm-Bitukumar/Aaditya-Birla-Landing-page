@@ -54,6 +54,7 @@ import OfferPage_bl from "./pages/BusinessLoanNew/Components/LeadCaptureForm/Off
 import CheckOffers_v3 from "./pages/CheckOffer_v3/LandingPage";
 import OfferCheck_v1 from "./pages/OfferCheck_v1/LandingPage";
 import OfferCheck_v2 from "./pages/OfferCheck_v2/LandingPage";
+import OfferCheck_v3 from "./pages/OfferCheck_v3/LandingPage";
 import CheckOffers_v4 from "./pages/CheckOffer_v4/LandingPage";
 
 function App() {
@@ -179,6 +180,7 @@ function App() {
         <Route path="/pa-ab/offer" element={<OfferDetailsSegment />} />
         <Route path={"/offer_check_v1"} element={<OfferCheck_v1 />} />
         <Route path={"/offer_check_v2"} element={<OfferCheck_v2 />} />
+        <Route path={"/offer_check_v3"} element={<OfferCheck_v3 />} />
         {/* <Route path="/newform" element={<NewForm />} /> */}
 
         <Route path="/bajaj-finserv" element={<BajajFinserv />} />
