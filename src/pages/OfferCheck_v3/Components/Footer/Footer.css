@@ -1,12 +1,14 @@
-.footer-section1 {
+.footer-section1-v3 {
   position: relative;
   /* background-image: url("../../../../../public/assets/img/Footer BG.png"); */
   background-color: #fafafa;
   color: white;
-  border-radius: 32px 32px 0 0;
+  border-radius: 25px;
   padding: 64px 32px 64px 32px;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:10px;
+  margin-bottom:10px
 }
 
 .footer-logo {
