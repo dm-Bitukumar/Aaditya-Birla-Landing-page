@@ -226,8 +226,10 @@
 .lead-capture-container-v3 {
   background-color: white;
   padding: 30px 24px;
-  border-radius: 24px 24px 0 0;
-  margin-bottom: 20px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  margin-left:10px;
+  margin-right:10px;
 }
 .form-title1 {
   font-family: myFirstFont5;

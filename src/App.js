@@ -56,6 +56,7 @@ import OfferCheck_v1 from "./pages/OfferCheck_v1/LandingPage";
 import OfferCheck_v2 from "./pages/OfferCheck_v2/LandingPage";
 import OfferCheck_v3 from "./pages/OfferCheck_v3/LandingPage";
 import CheckOffers_v4 from "./pages/CheckOffer_v4/LandingPage";
+import IncredGrievance from "./pages/IncredGrievance";
 
 function App() {
   const location = useLocation();
@@ -162,6 +163,7 @@ function App() {
         <Route path="/terms" element={<Term />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/incred-grievance" element={<IncredGrievance />} />
         <Route path="/preapprove" element={<PreApprove />} />
         <Route path="/loan-offers" element={<PreApprovedNew />} />
         <Route path="/fb/lp01" element={<NiroPersonalLoan />} />

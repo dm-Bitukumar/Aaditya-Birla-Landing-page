@@ -28,7 +28,7 @@ const cardData = [
 
 const KeyAdvantages = () => {
   return (
-    <div className="key-advantage-section1">
+    <div className="key-advantage-section1-v3">
       <div className="advantage-header">
         <h3 className="advantage-title">Key Advantages</h3>
         <p className="advantage-subtext">
