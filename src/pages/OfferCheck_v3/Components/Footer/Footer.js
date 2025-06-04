@@ -3,7 +3,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer-section1">
+    <div className="footer-section1-v3">
       <div className="footer-wrapper">
         <img
           src="/assets/img/New_LOGO.svg"

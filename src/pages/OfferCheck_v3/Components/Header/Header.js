@@ -4,7 +4,7 @@ import "./Header.css";
 const Header = ({ isOfferPage }) => {
   isOfferPage = true;
   const logoSrc = isOfferPage
-    ? "/assets/img/New_LOGO.svg"
+    ? "/assets/img/newLogo.png"
     : "/assets/img/newLogo.png";
 
   return (

@@ -50,7 +50,7 @@ const BankingPartners = () => {
   }, []);
 
   return (
-    <div className="banking-partners-section">
+    <div className="banking-partners-section-v3">
       <h3 className="partners-title">Banking Partners</h3>
       <div className="partners-grid">
         {lenders.map((lender, index) => (
