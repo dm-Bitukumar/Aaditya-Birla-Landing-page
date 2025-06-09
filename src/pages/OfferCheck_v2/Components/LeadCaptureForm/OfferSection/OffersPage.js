@@ -27,6 +27,23 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
   const [source, setSource] = useState("");
   const token = user?.token;
 
+  const [ipAddress, setIpAddress] = useState("");
+
+  async function fetchIp() {
+    await fetch("https://api.ipify.org?format=json")
+      .then((response) => response.json())
+      .then((data) => {
+        // ipAddress = data?.ip;
+        setIpAddress(data?.ip);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }
+  useEffect(() => {
+    fetchIp();
+  }, []);
+
   useEffect(() => {
     fetchActiveLenders();
   }, []);
@@ -55,12 +72,12 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
       if (res.status === "Success") {
         const apiLenders = res.data.lenderList ?? [];
 
-        const hardcodedLender = {
-          _id: "662752eb65fdba1a48d6e482",
-          lender_name: "L&T",
-        };
+        // const hardcodedLender = {
+        //   _id: "662752eb65fdba1a48d6e482",
+        //   lender_name: "L&T",
+        // };
 
-        const mergedLenders = [...apiLenders, hardcodedLender];
+        const mergedLenders = [...apiLenders];
 
         setActiveLenders(mergedLenders);
       }
@@ -96,7 +113,7 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
           {
             filters: {
               lead_id: leadData._id,
-              lender_name: "L&T",
+              lender_name: "UnityBank",
             },
             pageSize: 10,
             pageNum: 1,
@@ -142,33 +159,19 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
           if (foundLead?.is_landt_finbud_success === true) {
             console.log("Calling bulk-lead-push-by-leadId", {
               leads: [{ lead_id: leadData._id }],
-              lender_name: "L&T",
-              lender_id: "662752eb65fdba1a48d6e482",
+              lender_name: "UnityBank",
+              lender_id: "67762d497ae263a3ec86347e",
             });
             await callApi(
               "v1/lead/bulk-lead-push-by-leadId",
               "post",
               {
                 leads: [{ lead_id: leadData._id }],
-                lender_name: "L&T",
-                lender_id: "662752eb65fdba1a48d6e482",
+                lender_name: "UnityBank",
+                lender_id: "67762d497ae263a3ec86347e",
               },
               "core",
               token
-            );
-            console.log(
-              "Calling data-send-with-offers-to-ican_for_lt_finbud_sucess",
-              {
-                lead_id: leadData._id,
-              }
-            );
-            await callApi(
-              "v1/ican_api/data-send-with-offers-to-ican_for_lt_finbud_sucess",
-              "post",
-              {
-                lead_id: leadData._id,
-              },
-              "core"
             );
           }
         }

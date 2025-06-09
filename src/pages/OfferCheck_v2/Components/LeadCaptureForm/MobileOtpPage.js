@@ -35,6 +35,23 @@ const MobileOtpPage = ({
   const dispatch = useDispatch();
   const [leadId, setLeadId] = useState("");
 
+  const [ipAddress, setIpAddress] = useState("");
+
+  async function fetchIp() {
+    await fetch("https://api.ipify.org?format=json")
+      .then((response) => response.json())
+      .then((data) => {
+        // ipAddress = data?.ip;
+        setIpAddress(data?.ip);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }
+  useEffect(() => {
+    fetchIp();
+  }, []);
+
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
     if (params.get("utm_source")) setUtmSource(params.get("utm_source"));
@@ -204,6 +221,7 @@ const MobileOtpPage = ({
             website_kyc_consent_datetime: new Date().toISOString(),
             utm_source: utmSource,
             otp_page: "offer-check-v2",
+            ip_address: ipAddress,
           },
           "core",
           otpResponse.data.token
