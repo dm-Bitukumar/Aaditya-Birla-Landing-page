@@ -203,8 +203,8 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
         const apiLenders = lenderRes.data.lenderList ?? [];
 
         const hardcodedLender = {
-          _id: "662752eb65fdba1a48d6e482",
-          lender_name: "L&T",
+          _id: "67762d497ae263a3ec86347e",
+          lender_name: "UnityBank",
         };
         const mergedLenders = [...apiLenders, hardcodedLender];
 
