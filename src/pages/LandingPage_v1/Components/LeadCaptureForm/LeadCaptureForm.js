@@ -272,17 +272,17 @@ const LeadCaptureForm = ({
             />
             <label htmlFor="consent">
               I have read and agreed to the{" "}
-              <a className="consent" href="https://web.digitmoney.in/terms">
+              <a className="anc-font" href="https://web.digitmoney.in/terms">
                 Terms of Use
               </a>{" "}
               and hereby appoint DigitMoney and its{" "}
-              <a className="consent" href="https://web.digitmoney.in/lenders">
+              <a className="anc-font" href="https://web.digitmoney.in/lenders">
                 Lending Partners
               </a>{" "}
               to receive my credit information from credit bureaus. By
               submitting my details I override my NDNC registration & authorize
               DigitMoney and its{" "}
-              <a className="consent" href="https://web.digitmoney.in/lenders">
+              <a className="anc-font" href="https://web.digitmoney.in/lenders">
                 Lending Partners
               </a>{" "}
               / representatives to contact me through Call, SMS, Email, Whatsapp
