@@ -8,8 +8,8 @@ const KeyAdvantageCard = ({ icon, title, subtitle }) => {
       </div>
 
       <div className="card-content-wrapper">
-        <h4 className="card-title">{title}</h4>
-        <p className="card-subtitle">{subtitle}</p>
+        <h4 className="card-title_v1">{title}</h4>
+        <p className="card-subtitle_v1">{subtitle}</p>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@
   padding: 25px;
 }
 
-.advantage-title {
+.advantage-title_v2 {
   font-family: myFirstFont;
   font-weight: 500;
   font-size: 35px;
@@ -25,7 +25,7 @@
   text-align: center;
 }
 
-.advantage-subtext {
+.advantage-subtext_v2 {
   font-family: "Atkinson Hyperlegible", sans-serif;
   font-weight: 400;
   font-size: 18px;
@@ -92,7 +92,7 @@
   object-fit: contain;
 }
 
-.card-title {
+.card-title_v2 {
   font-family: "Atkinson Hyperlegible", sans-serif;
   font-weight: 700;
   font-size: 18px;
@@ -102,7 +102,7 @@
   color: #004739; /* Pure white */
 }
 
-.card-subtitle {
+.card-subtitle_v2 {
   font-family: "Atkinson Hyperlegible", sans-serif;
   font-weight: 400;
   font-size: 13px;

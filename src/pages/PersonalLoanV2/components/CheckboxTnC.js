@@ -60,7 +60,7 @@ const CheckboxTnC = ({ checked, handleChange }) => {
           <b>Lending Partners</b>
         </Link>{" "}
         receive my credit information from credit bureaus. By submitting my
-        details | override my NDNO registration & give consent to DigitMoney and
+        details | override my NDNC registration & give consent to DigitMoney and
         its{" "}
         <Link
           to="/lenders"

@@ -12,7 +12,7 @@ const Footer = () => {
         />
 
         <p className="footer-disclaimer">
-          <div className="disclaimer-heading">
+          <div className="disclaimer-heading_v3">
             <strong>Disclaimer</strong>
           </div>
           <br />
