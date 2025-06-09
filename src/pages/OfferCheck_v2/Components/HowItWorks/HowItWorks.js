@@ -26,7 +26,7 @@ const stepData = [
 
 const HowItWorks = () => {
   return (
-    <div className="hiw-container">
+    <div className="hiw-container_v2">
       <h2 className="hiw-heading">How it Works</h2>
       <div className="hiw-content-wrapper">
         <img
