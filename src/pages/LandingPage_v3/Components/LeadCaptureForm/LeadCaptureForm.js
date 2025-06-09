@@ -7,7 +7,7 @@ import FormButtonStyle2 from "../../../../components/Form/FormButtonStyle2";
 import { setUserClickData } from "../../../../utility/setUserClickData";
 import callApi from "../../../../utility/apiCaller";
 import { toast } from "react-toastify";
-import { login } from "../../../../store/app/appReducer";
+import { login, setpanDetails } from "../../../../store/app/appReducer";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import OTPInput from "react-otp-input";
@@ -35,6 +35,22 @@ const LeadCaptureForm = ({
   const [utmTerm, setUtmTerm] = useState("");
   const [affId, setAffId] = useState("");
   const [params] = useSearchParams();
+  const [ipAddress, setIpAddress] = useState("");
+
+  async function fetchIp() {
+    await fetch("https://api.ipify.org?format=json")
+      .then((response) => response.json())
+      .then((data) => {
+        // ipAddress = data?.ip;
+        setIpAddress(data?.ip);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }
+  useEffect(() => {
+    fetchIp();
+  }, []);
 
   useEffect(() => {
     if (params.get("source")) setSource(params.get("source"));
@@ -190,7 +206,11 @@ const LeadCaptureForm = ({
           affiliate_id: affId || "No Aff_id found",
         });
         toast.success("OTP Verified Successfully");
-
+        dispatch(
+          setpanDetails({
+            ip_address: ipAddress,
+          })
+        );
         dispatch(
           login({
             ...otpResponse.data.customer,
