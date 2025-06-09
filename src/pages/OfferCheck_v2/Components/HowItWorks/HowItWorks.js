@@ -32,7 +32,7 @@ const HowItWorks = () => {
         <img
           src="/assets/img/How it works Green.png"
           alt="How it Works"
-          className="hiw-image"
+          className="hiw-image_v2"
         />
         <div className="hiw-text-wrapper">
           {stepData.map((step) => (
