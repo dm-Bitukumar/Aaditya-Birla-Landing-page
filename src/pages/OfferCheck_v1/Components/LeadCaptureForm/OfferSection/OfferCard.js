@@ -57,6 +57,7 @@ const OfferCard = ({ offer, isExpanded, onExpand }) => {
                     "67be8fc6049b9a4e3af8191a",
                     "67e23d6fe162ba8f717ec5bf",
                     "67ef646df80610d286084e60",
+                    "68401febe871a7a9504dc2e3",
                   ].includes(offer.lender_id)
                     ? "Max Loan Amount:"
                     : "Pre-Approved Amount:"}
