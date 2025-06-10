@@ -157,6 +157,17 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
             "core",
             token
           );
+          await callApi(
+            "v1/lead/bulk-lead-push-by-leadId",
+            "post",
+            {
+              leads: [{ lead_id: leadData._id }],
+              lender_name: "Incred",
+              lender_id: "68401febe871a7a9504dc2e3",
+            },
+            "core",
+            token
+          );
         }
 
         await callApi(
@@ -202,10 +213,20 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
         const offers = offerRes.data.offers;
         const apiLenders = lenderRes.data.lenderList ?? [];
 
-        const hardcodedLender = {
-          _id: "67762d497ae263a3ec86347e",
-          lender_name: "UnityBank",
-        };
+        // const hardcodedLender = {
+        //   _id: "67762d497ae263a3ec86347e",
+        //   lender_name: "UnityBank",
+        // };
+        const hardcodedLender = [
+          {
+            _id: "67762d497ae263a3ec86347e",
+            lender_name: "UnityBank",
+          },
+          {
+            _id: "68401febe871a7a9504dc2e3",
+            lender_name: "Incred",
+          },
+        ];
         const mergedLenders = [...apiLenders, hardcodedLender];
 
         const sortedOffers = _.orderBy(offers, ["priority"], ["asc"]);
