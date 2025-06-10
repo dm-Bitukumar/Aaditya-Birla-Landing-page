@@ -115,7 +115,7 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
           {
             filters: {
               lead_id: leadData._id,
-              lender_name: "UnityBank",
+              lender_name: { $in: ["UnityBank", "Incred"] },
             },
             pageSize: 10,
             pageNum: 1,
@@ -140,34 +140,61 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
           foundLead?._id,
           foundLead?.is_landt_finbud_success
         );
-        if (lenderResponse_new?.data?.lender_api_callCount < 1) {
+        if (lenderResponse_new?.data?.lender_api_callCount < 2) {
           console.log("Calling bulk-lead-push-by-leadId", {
             leads: [{ lead_id: leadData._id }],
             lender_name: "UnityBank",
             lender_id: "67762d497ae263a3ec86347e",
           });
-          await callApi(
-            "v1/lead/bulk-lead-push-by-leadId",
-            "post",
-            {
-              leads: [{ lead_id: leadData._id }],
-              lender_name: "UnityBank",
-              lender_id: "67762d497ae263a3ec86347e",
-            },
-            "core",
-            token
-          );
-          await callApi(
-            "v1/lead/bulk-lead-push-by-leadId",
-            "post",
-            {
-              leads: [{ lead_id: leadData._id }],
-              lender_name: "Incred",
-              lender_id: "68401febe871a7a9504dc2e3",
-            },
-            "core",
-            token
-          );
+          if (lenderResponse_new.data.lender_api_callList) {
+            const isUnityPresent =
+              lenderResponse_new.data.lender_api_callList.some(
+                (entry) => entry.lender_name === "UnityBank"
+              );
+
+            if (!isUnityPresent) {
+              console.log("Calling bulk-lead-push-by-leadId for UnityBank", {
+                leads: [{ lead_id: leadData._id }],
+                lender_name: "UnityBank",
+                lender_id: "67762d497ae263a3ec86347e",
+              });
+              await callApi(
+                "v1/lead/bulk-lead-push-by-leadId",
+                "post",
+                {
+                  leads: [{ lead_id: leadData._id }],
+                  lender_name: "UnityBank",
+                  lender_id: "67762d497ae263a3ec86347e",
+                },
+                "core",
+                token
+              );
+            }
+
+            const isIncredPresent =
+              lenderResponse_new.data.lender_api_callList.some(
+                (entry) => entry.lender_name === "Incred"
+              );
+
+            if (!isIncredPresent) {
+              console.log("Calling bulk-lead-push-by-leadId for Incred", {
+                leads: [{ lead_id: leadData._id }],
+                lender_name: "Incred",
+                lender_id: "68401febe871a7a9504dc2e3",
+              });
+              await callApi(
+                "v1/lead/bulk-lead-push-by-leadId",
+                "post",
+                {
+                  leads: [{ lead_id: leadData._id }],
+                  lender_name: "Incred",
+                  lender_id: "68401febe871a7a9504dc2e3",
+                },
+                "core",
+                token
+              );
+            }
+          }
         }
 
         await callApi(
