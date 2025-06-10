@@ -113,7 +113,7 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
           {
             filters: {
               lead_id: leadData._id,
-              lender_name: "UnityBank",
+              lender_name: { $in: ["UnityBank", "Incred"] },
             },
             pageSize: 10,
             pageNum: 1,
@@ -138,26 +138,38 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
           foundLead?._id,
           foundLead?.is_landt_finbud_success
         );
-        if (ltResponse?.data?.lender_api_callCount > 0) {
-          if (foundLead?.is_landt_finbud_success === true) {
-            console.log(
-              "Calling data-send-with-offers-to-ican_for_lt_finbud_sucess",
-              {
-                lead_id: leadData._id,
-              }
-            );
-            await callApi(
-              "v1/ican_api/data-send-with-offers-to-ican_for_lt_finbud_sucess",
-              "post",
-              {
-                lead_id: leadData._id,
-              },
-              "core"
-            );
-          }
-        } else {
-          if (foundLead?.is_landt_finbud_success === true) {
-            console.log("Calling bulk-lead-push-by-leadId", {
+        // if (ltResponse?.data?.lender_api_callCount > 0) {
+        //   if (foundLead?.is_landt_finbud_success === true) {
+        //     console.log(
+        //       "Calling data-send-with-offers-to-ican_for_lt_finbud_sucess",
+        //       {
+        //         lead_id: leadData._id,
+        //       }
+        //     );
+        //     await callApi(
+        //       "v1/ican_api/data-send-with-offers-to-ican_for_lt_finbud_sucess",
+        //       "post",
+        //       {
+        //         lead_id: leadData._id,
+        //       },
+        //       "core"
+        //     );
+        //   }
+        // } else {
+        // if (foundLead?.data?.lender_api_callCount < 2) {
+        //   console.log("Calling bulk-lead-push-by-leadId", {
+        //     leads: [{ lead_id: leadData._id }],
+        //     lender_name: "UnityBank",
+        //     lender_id: "67762d497ae263a3ec86347e",
+        //   });
+
+        if (ltResponse.data?.lender_api_callCount < 2) {
+          const isUnityPresent = ltResponse.data.lender_api_callList.some(
+            (entry) => entry.lender_name.toLowerCase() === "unitybank"
+          );
+
+          if (!isUnityPresent) {
+            console.log("Calling bulk-lead-push-by-leadId for UnityBank", {
               leads: [{ lead_id: leadData._id }],
               lender_name: "UnityBank",
               lender_id: "67762d497ae263a3ec86347e",
@@ -173,6 +185,18 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
               "core",
               token
             );
+          }
+
+          const isIncredPresent = ltResponse.data.lender_api_callList.some(
+            (entry) => entry.lender_name.toLowerCase() === "incred"
+          );
+
+          if (!isIncredPresent) {
+            console.log("Calling bulk-lead-push-by-leadId for Incred", {
+              leads: [{ lead_id: leadData._id }],
+              lender_name: "Incred",
+              lender_id: "68401febe871a7a9504dc2e3",
+            });
             await callApi(
               "v1/lead/bulk-lead-push-by-leadId",
               "post",
@@ -186,6 +210,30 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
             );
           }
         }
+        // await callApi(
+        //   "v1/lead/bulk-lead-push-by-leadId",
+        //   "post",
+        //   {
+        //     leads: [{ lead_id: leadData._id }],
+        //     lender_name: "UnityBank",
+        //     lender_id: "67762d497ae263a3ec86347e",
+        //   },
+        //   "core",
+        //   token
+        // );
+        // await callApi(
+        //   "v1/lead/bulk-lead-push-by-leadId",
+        //   "post",
+        //   {
+        //     leads: [{ lead_id: leadData._id }],
+        //     lender_name: "Incred",
+        //     lender_id: "68401febe871a7a9504dc2e3",
+        //   },
+        //   "core",
+        //   token
+        // );
+
+        // }
 
         await callApi(
           "v1/ican_api/ican_journey_tag_update",
