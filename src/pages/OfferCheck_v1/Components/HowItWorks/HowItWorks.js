@@ -26,13 +26,13 @@ const stepData = [
 
 const HowItWorks = () => {
   return (
-    <div className="hiw-container">
+    <div className="hiw-container_v1">
       <h2 className="hiw-heading">How it Works</h2>
       <div className="hiw-content-wrapper">
         <img
           src="/assets/img/How it works Green.png"
           alt="How it Works"
-          className="hiw-image"
+          className="hiw-image_v1"
         />
         <div className="hiw-text-wrapper">
           {stepData.map((step) => (

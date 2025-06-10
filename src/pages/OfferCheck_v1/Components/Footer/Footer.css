@@ -42,13 +42,13 @@
 .footer-disclaimer {
   font-size: 8px;
   margin-bottom: 20px;
-  line-height: 11px;
-  color: #b0b0b0;
+  line-height: 10px;
+  color: #818181;
   font-weight: 400;
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
-.disclaimer-heading {
+.disclaimer-heading_v1 {
   font-size: 12px;
   font-weight: 700;
   line-height: 11px;
@@ -154,7 +154,7 @@ cursor: pointer;
   font-size: 12px;
   line-height: 16px;
   font-weight: 400;
-  color: #bdbdbd;
+  color: #818181;
   margin-top: 12px;
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }

@@ -1,4 +1,4 @@
-.hiw-container {
+.hiw-container_v1 {
   background-color: #FFFFFF;
   padding: 48px 48px 0px 48px;
   color: #1b1b1b;
@@ -21,7 +21,7 @@
   padding-left: 16px;
 }
 
-.hiw-image {
+.hiw-image_v1 {
   width: 50px;
   flex-shrink: 0;
 }

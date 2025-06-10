@@ -40,7 +40,7 @@ const Footer = () => {
 
         <p className="footer-contact">
           Contact us at{" "}
-          <span className="footer-email"><a href="mailto: hello@wowinsure.in" class="text-decoration-none">hello@digitmoney.in</a></span>
+          <span className="footer-email"><a href="mailto: hello@digitmoney.in" class="text-decoration-none">hello@digitmoney.in</a></span>
         </p>
 
         <div className="footer-links">
