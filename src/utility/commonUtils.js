@@ -113,6 +113,7 @@ export function getAllianceLeadFromMoneyTapInput(alliance_id, lead) {
   alliance_lead.utm_source = lead.utm_source;
   alliance_lead.kyc_consent = lead.mobiletncchecked;
   alliance_lead.kyc_consent_datetime = lead.mobiletnctime;
+  alliance_lead.ip_address = lead.ip_address;
   return alliance_lead;
 }
 
