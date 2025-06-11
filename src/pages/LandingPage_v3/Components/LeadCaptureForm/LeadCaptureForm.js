@@ -93,6 +93,7 @@ const LeadCaptureForm = ({
       setFormData((prev) => ({
         ...prev,
         mobile: value,
+        ip_address: ipAddress,
       }));
     }
 
