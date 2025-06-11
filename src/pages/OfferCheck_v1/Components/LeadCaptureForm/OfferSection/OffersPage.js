@@ -171,29 +171,29 @@ const OfferPage = ({ formData, setShowOfferHeaderLogo }) => {
               );
             }
 
-            const isIncredPresent =
-              lenderResponse_new.data.lender_api_callList.some(
-                (entry) => entry.lender_name === "Incred"
-              );
+            // const isIncredPresent =
+            //   lenderResponse_new.data.lender_api_callList.some(
+            //     (entry) => entry.lender_name === "Incred"
+            //   );
 
-            if (!isIncredPresent) {
-              console.log("Calling bulk-lead-push-by-leadId for Incred", {
-                leads: [{ lead_id: leadData._id }],
-                lender_name: "Incred",
-                lender_id: "68401febe871a7a9504dc2e3",
-              });
-              await callApi(
-                "v1/lead/bulk-lead-push-by-leadId",
-                "post",
-                {
-                  leads: [{ lead_id: leadData._id }],
-                  lender_name: "Incred",
-                  lender_id: "68401febe871a7a9504dc2e3",
-                },
-                "core",
-                token
-              );
-            }
+            // if (!isIncredPresent) {
+            //   console.log("Calling bulk-lead-push-by-leadId for Incred", {
+            //     leads: [{ lead_id: leadData._id }],
+            //     lender_name: "Incred",
+            //     lender_id: "68401febe871a7a9504dc2e3",
+            //   });
+            //   await callApi(
+            //     "v1/lead/bulk-lead-push-by-leadId",
+            //     "post",
+            //     {
+            //       leads: [{ lead_id: leadData._id }],
+            //       lender_name: "Incred",
+            //       lender_id: "68401febe871a7a9504dc2e3",
+            //     },
+            //     "core",
+            //     token
+            //   );
+            // }
           }
         }
 
