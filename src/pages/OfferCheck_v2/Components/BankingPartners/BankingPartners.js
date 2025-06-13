@@ -15,6 +15,7 @@ const BankingPartners = () => {
       "Kissht",
       "KreditBee",
       "Branch",
+      "Incred",
     ];
 
     const fetchLenders = async () => {
@@ -29,12 +30,18 @@ const BankingPartners = () => {
           : [];
 
       // Add hardcoded lender manually
-      const hardcodedLender = {
-        name: "Aditya Birla Finance Limited",
-        logo_image_url: "https://digitmoney.in/image/partners/abc.png",
-      };
+      const hardcodedLender = [
+        {
+          name: "Aditya Birla Finance Limited",
+          logo_image_url: "https://digitmoney.in/image/partners/abc.png",
+        },
+        {
+          name: "Incred",
+          logo_image_url: "https://digitmoney.in/image/partners/incred.png",
+        },
+      ];
 
-      const merged = [hardcodedLender, ...combined];
+      const merged = [...hardcodedLender, ...combined];
 
       const ordered = [
         ...preferredOrder
