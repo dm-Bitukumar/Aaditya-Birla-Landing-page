@@ -1,0 +1,100 @@
+.main{
+  width: 400px;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.loan-container {
+  padding:0 25px 25px 25px;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.loan-heading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0px;
+}
+
+.title h3{
+  font-family: myFirstFont5;
+  font-size: 15px;
+  font-weight: 400;
+  color: #818181;
+}
+.line{
+  border-top: 1px solid #B3B3B3;
+  width: 45px;
+}
+.mob-input-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5px 12px;
+  border: 1px solid #B3B3B3;
+  border-radius: 6px;
+  outline: none;
+  margin-bottom: 15px;
+}
+.mob-input-box label {
+  font-size: 13px;
+  color:#B3B3B3;
+  margin-bottom: 0;
+  text-align: left;
+}
+.mob-input-box input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding:  0;
+  color: #1B1B1B;
+}
+.checkbox-section {
+  display: flex;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #B3B3B3;
+}
+
+.checkbox-section input {
+  margin-right: 8px;
+  position: relative;
+  top: -20px;
+}
+
+.checkbox-section a {
+  color: #4285F4;
+  text-decoration: none;
+}
+
+.checkbox-section a:hover {
+  text-decoration: underline;
+}
+
+.note {
+  font-size: 12px;
+  color: #B3B3B3;
+  padding-bottom: 15px;
+  text-align: left;
+  position: relative;
+  left: 30px;
+}
+
+.otp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 50px;
+  background-color: #12F280;
+  border: none;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.otp-btn:hover {
+  background-color: #00e067;
+}

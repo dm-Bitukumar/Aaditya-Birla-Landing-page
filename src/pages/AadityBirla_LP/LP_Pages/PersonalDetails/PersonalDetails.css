@@ -1,0 +1,54 @@
+.personal-container {
+ 
+  padding: 25px;
+}
+.personal-info-heading{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.gender-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.gender-btn {
+  flex: 1;
+  padding: 12px;
+  margin: 0 5px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.gender-btn.active {
+  background: #000;
+  color: #00ff75;
+}
+
+.form-group2{
+  padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+

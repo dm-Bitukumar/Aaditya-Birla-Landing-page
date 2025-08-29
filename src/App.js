@@ -58,6 +58,14 @@ import OfferCheck_v3 from "./pages/OfferCheck_v3/LandingPage";
 import CheckOffers_v4 from "./pages/CheckOffer_v4/LandingPage";
 import IncredGrievance from "./pages/IncredGrievance";
 
+import Mob_opt2 from "./pages/AadityBirla_LP/LP_Pages/Mob_opt2/Mob_opt2";
+import OTP_Verification from "./pages/AadityBirla_LP/LP_Pages/OTP_Verification/OTP_Verification";
+import EmploymentForm from "./pages/AadityBirla_LP/LP_Pages/EmploymentForm/EmploymentForm";
+import OfferPage from "./pages/AadityBirla_LP/LP_Pages/OfferPage/OfferPage";
+import PersonalDetails_bitu from "./pages/AadityBirla_LP/LP_Pages/PersonalDetails/PersonalDetails";
+import LoadingScreen from "./pages/AadityBirla_LP/LP_Pages/LoadingScreen/LoadingScreen";
+
+
 function App() {
   const location = useLocation();
   const [path, setPath] = useState("");
@@ -188,6 +196,14 @@ function App() {
         <Route path="/bajaj-finserv" element={<BajajFinserv />} />
         <Route path="/check-offers-v2" element={<CheckOffers_v2 />} />
         <Route path={"/preapp-offers"} element={<NewPreapproveOffersPage />} />
+
+        <Route path={"/mob-opt2"} element={<Mob_opt2 />} />
+        <Route path={"/otp-verification"} element={<OTP_Verification />} />
+        <Route path={"/employment-form"} element={<EmploymentForm />} />
+        <Route path={"/offer-page"} element={<OfferPage />} />
+        <Route path="/personal-details-bitu" element={<PersonalDetails_bitu />}/>
+        <Route path={"/loading-screen"} element={<LoadingScreen />} />
+
       </Routes>
     </>
   );
